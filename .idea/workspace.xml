@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f4e264de-c83f-4694-becd-0b77acd5bebb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/configuration/configuration.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/configuration/configuration.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/configuration/configuration.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/configuration/configuration.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/leave-type/leave-type.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/leave-type/leave-type.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/leave-type/leave-type.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/leave-type/leave-type.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/localisation/localisation.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/localisation/localisation.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/localisation/localisation.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/localisation/localisation.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/notifications/notifications.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/notifications/notifications.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/notifications/notifications.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/notifications/notifications.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/role-permissions/role-permissions.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/role-permissions/role-permissions.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/role-permissions/role-permissions.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/role-permissions/role-permissions.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/salary-settings/salary-settings.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/salary-settings/salary-settings.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/salary-settings/salary-settings.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/salary-settings/salary-settings.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/skeleton-setting/skeleton-setting.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/skeleton-setting/skeleton-setting.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/skeleton-setting/skeleton-setting.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/skeleton-setting/skeleton-setting.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/admin-routing.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/admin-skeleto/admin-skeleto.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/admin-skeleto/admin-skeleto.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/admin-skeleto/admin-skeleto.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/admin-skeleto/admin-skeleto.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/appointments/appointments.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/appointments/appointments.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/appointments/appointments.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/appointments/appointments.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/dashboard-general/dashboard/dashboard.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/dashboard-general/dashboard/dashboard.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/dashboard-general/dashboard/dashboard.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/dashboard-general/dashboard/dashboard.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/departments/departments.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/departments/departments.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/departments/departments.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/departments/departments.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/doctor-schedule/doctor-schedule.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/doctor-schedule/doctor-schedule.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/doctor-schedule/doctor-schedule.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/doctor-schedule/doctor-schedule.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/employees/employees.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/employees/employees.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/employees/employees.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/employees/employees.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/medecines/medecines.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/medecines/medecines.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/medecines/medecines.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/medecines/medecines.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/patients/patients.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/patients/patients.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/patients/patients.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/administration/patients/patients.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/account.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/activation-code/activation-code.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/activation-code/activation-code.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/activation-code/activation-code.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/activation-code/activation-code.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/forgot-password/forgot-password.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/forgot-password/forgot-password.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/forgot-password/forgot-password.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/forgot-password/forgot-password.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/login/login.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/login/login.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/login/login.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/login/login.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/profil/profil.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/profil/profil.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/profil/profil.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/profil/profil.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/register/register.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/register/register.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/register/register.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/register/register.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/reset-password/reset-password.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/reset-password/reset-password.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/reset-password/reset-password.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/reset-password/reset-password.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/skeletor/skeletor.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/skeletor/skeletor.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/skeletor/skeletor.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/account/skeletor/skeletor.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/helpers/AuthGuard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/helpers/error.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/helpers/http.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/helpers/jwt.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/authentication-request.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/authentication-response.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/page-response-user-response.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/registration-request.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/role.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/user.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/models/userResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/pages/home/home.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/pages/home/home.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/pages/home/home.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/pages/home/home.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/pages/pages.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/account.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/account.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/auth.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/core.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/core.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/storage.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/service/storage.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-left-sidebar/admin-left-sidebar.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-left-sidebar/admin-left-sidebar.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-left-sidebar/admin-left-sidebar.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-left-sidebar/admin-left-sidebar.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-setting-navbar/admin-setting-navbar.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-setting-navbar/admin-setting-navbar.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-setting-navbar/admin-setting-navbar.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/admin-setting-navbar/admin-setting-navbar.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/setting-left-sidebar/setting-left-sidebar.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/setting-left-sidebar/setting-left-sidebar.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/setting-left-sidebar/setting-left-sidebar.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/admin-seting/setting-left-sidebar/setting-left-sidebar.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/footer/footer.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/footer/footer.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/footer/footer.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/footer/footer.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/navbar/navbar.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/navbar/navbar.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/navbar/navbar.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/navbar/navbar.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/page-not-found/page-not-found.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/page-not-found/page-not-found.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/page-not-found/page-not-found.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/page-not-found/page-not-found.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/token/token.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/token/token.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/utils/token.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/shared/utils/validation-password.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/css/bootstrap-datetimepicker.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/css/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-05.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-06.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-07.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-08.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-09.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-12.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-05.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-06.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-07.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-08.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-09.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/doctors/doctor-thumb-10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/favicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-05.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature-06.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/features/feature.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/footer-logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/icon-01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/icon-02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/icon-03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/img-01.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/img-02.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/img-03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/img-04.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/login-banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/patients/patient9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/search-bg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/specialities/specialities-01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/specialities/specialities-02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/specialities/specialities-03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/specialities/specialities-04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/specialities/specialities-05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/img/video-call.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/bootstrap-datetimepicker.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/circle-progress.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/moment.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/popper.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/profile-settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/js/slick.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/dropzone/dropzone.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/dropzone/dropzone.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fancybox/jquery.fancybox.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fancybox/jquery.fancybox.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/css/all.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/css/fontawesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-brands-400d41d.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-regular-400d41d.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fontawesome/webfonts/fa-solid-900d41d.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fullcalendar/fullcalendar.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fullcalendar/fullcalendar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/fullcalendar/jquery.fullcalendar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/jquery-ui/jquery-ui.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/select2/css/select2.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/select2/js/select2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/theia-sticky-sidebar/ResizeSensor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/environments/environment.prod.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/tasks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/main.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend/Medecine" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2jnAZMd0CrmzXUaH3P3AL9smuBR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.ConfigurationApplication.executor": "Run",
+    "Spring Boot.EmployeesApplication.executor": "Run",
+    "Spring Boot.PatientsApplication.executor": "Run",
+    "Spring Boot.ServiceRegistryApplication.executor": "Run",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.medecineWebApp.Configuration.controller" />
+      <recent name="com.medecineWebApp.Configuration.service.impl" />
+      <recent name="com.medecineWebApp.Configuration.service" />
+      <recent name="com.medecineWebApp.Configuration.repository.account" />
+      <recent name="com.medecineWebApp.Configuration.enums" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AccountsApplication">
+    <configuration name="AccountsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Accounts" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWebApp.Accounts.AccountsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWepApp.api_gateway.ApiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.MedecineWepApp.Config_server.ConfigServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConfigurationApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Configuration" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWebApp.Configuration.ConfigurationApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DoctorsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Doctors" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWebApp.doctors.DoctorsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Employees" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWebApp.Employees.EmployeesApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PatientsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Patients" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWebApp.patients.PatientsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceRegistryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="service-registry" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.medecineWepApp.service_registry.ServiceRegistryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f4e264de-c83f-4694-becd-0b77acd5bebb" name="Changes" comment="" />
+      <created>1722012522812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722012522812</updated>
+      <workItem from="1722012524660" duration="5851000" />
+      <workItem from="1722326515070" duration="193000" />
+      <workItem from="1722354740799" duration="923000" />
+      <workItem from="1722356549490" duration="634000" />
+      <workItem from="1722415240403" duration="28000" />
+      <workItem from="1724510944628" duration="871000" />
+      <workItem from="1724518603533" duration="1278000" />
+      <workItem from="1724658603646" duration="8654000" />
+      <workItem from="1728299114327" duration="22211000" />
+      <workItem from="1728373561844" duration="2608000" />
+      <workItem from="1728580289959" duration="7410000" />
+      <workItem from="1728927720302" duration="10408000" />
+      <workItem from="1729011739365" duration="10056000" />
+      <workItem from="1729091413272" duration="10777000" />
+      <workItem from="1729185939966" duration="4604000" />
+      <workItem from="1729532600302" duration="7349000" />
+      <workItem from="1729699497975" duration="11996000" />
+      <workItem from="1730274802298" duration="2465000" />
+      <workItem from="1730284067942" duration="25434000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
