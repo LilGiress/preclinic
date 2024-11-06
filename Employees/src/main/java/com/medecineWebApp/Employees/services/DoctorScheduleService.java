@@ -2,8 +2,10 @@ package com.medecineWebApp.Employees.services;
 
 
 
+import com.medecineWebApp.Employees.dto.DoctorScheduleDTO;
 import com.medecineWebApp.Employees.enums.ScheduleStatus;
 import com.medecineWebApp.Employees.models.doctors.DoctorSchedule;
+import org.springframework.data.domain.Page;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -12,13 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DoctorScheduleService {
-    List<DoctorSchedule> getAllDoctorSchedule();
-    Optional<DoctorSchedule> getDoctorScheduleById(Long id);
-    DoctorSchedule saveDoctorSchedule(DoctorSchedule doctorSchedule);
+    Page<DoctorScheduleDTO> getAllDoctorSchedule(int page, int size);
+    Optional<DoctorScheduleDTO> getDoctorScheduleById(Long id);
+    DoctorScheduleDTO saveDoctorSchedule(DoctorSchedule doctorSchedule);
     void deleteDoctorScheduleById(Long id);
-    DoctorSchedule updateDoctorSchedule(Long id,DoctorSchedule doctorSchedule);
-    List<DoctorSchedule> findSchedulesByDoctorAndDate(Long doctorId, LocalDate date);
-    DoctorSchedule setAvailableDays(Long scheduleId, EnumSet<DayOfWeek> availableDays);
+    DoctorScheduleDTO updateDoctorSchedule(Long id,DoctorSchedule doctorSchedule);
+    Page<DoctorScheduleDTO> findSchedulesByDoctorAndDate(Long doctorId, LocalDate date,int page, int size);
+    DoctorScheduleDTO setAvailableDays(Long scheduleId, EnumSet<DayOfWeek> availableDays);
     EnumSet<DayOfWeek> getAvailableDays(Long scheduleId);
-    DoctorSchedule updateScheduleStatus(Long id, ScheduleStatus status);
+    DoctorScheduleDTO updateScheduleStatus(Long id, ScheduleStatus status);
 }

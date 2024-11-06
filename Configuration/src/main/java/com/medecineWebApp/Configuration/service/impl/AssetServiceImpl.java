@@ -1,7 +1,9 @@
 package com.medecineWebApp.Configuration.service.impl;
 
-import com.medecineWebApp.Configuration.exception.enums.AssetCategory;
-import com.medecineWebApp.Configuration.exception.enums.AssetStatus;
+import com.medecineWebApp.Configuration.dto.AssetDTO;
+import com.medecineWebApp.Configuration.enums.AssetCategory;
+import com.medecineWebApp.Configuration.enums.AssetStatus;
+import com.medecineWebApp.Configuration.mapper.AssetMapper;
 import com.medecineWebApp.Configuration.models.setting.Asset;
 import com.medecineWebApp.Configuration.repository.AssetRepository;
 import com.medecineWebApp.Configuration.service.AssetService;
@@ -13,9 +15,11 @@ import java.util.Optional;
 @Service
 public class AssetServiceImpl implements AssetService {
     private final AssetRepository assetRepository;
+    private final AssetMapper assetMapper;
 
-    public AssetServiceImpl(AssetRepository assetRepository) {
+    public AssetServiceImpl(AssetRepository assetRepository, AssetMapper assetMapper) {
         this.assetRepository = assetRepository;
+        this.assetMapper = assetMapper;
     }
 
     @Override
@@ -29,12 +33,13 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Asset saveAsset(Asset asset) {
-        return assetRepository.save(asset);
+    public Asset saveAsset(AssetDTO assetDTO) {
+
+        return assetRepository.save(assetMapper.assetDTOToAsset(assetDTO));
     }
 
     @Override
-    public Asset updateAsset(Long id, Asset asset) {
+    public Asset updateAsset(Long id, AssetDTO asset) {
         Optional<Asset> assetOptional = assetRepository.findById(id);
         if (assetOptional.isPresent()) {
             Asset assetToUpdate = assetOptional.get();

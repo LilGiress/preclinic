@@ -1,7 +1,7 @@
 package com.medecineWebApp.Configuration.models.setting;
 
-import com.medecineWebApp.Configuration.exception.enums.AssetCategory;
-import com.medecineWebApp.Configuration.exception.enums.AssetStatus;
+import com.medecineWebApp.Configuration.enums.AssetCategory;
+import com.medecineWebApp.Configuration.enums.AssetStatus;
 import com.medecineWebApp.Configuration.models.Auditable;
 import com.medecineWebApp.Configuration.models.user.User;
 import jakarta.persistence.*;

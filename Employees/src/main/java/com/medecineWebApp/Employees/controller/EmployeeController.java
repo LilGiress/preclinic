@@ -1,7 +1,7 @@
 package com.medecineWebApp.Employees.controller;
 
 import com.medecineWebApp.Employees.config.EmployeeClient;
-import com.medecineWebApp.Employees.models.Employee;
+import com.medecineWebApp.Employees.dto.EmployeeDTO;
 import com.medecineWebApp.Employees.models.Patient;
 import com.medecineWebApp.Employees.services.EmployeService;
 import org.springframework.data.domain.Page;
@@ -21,16 +21,16 @@ public class EmployeeController {
         this.employeeClient = employeeClient;
     }
     @PostMapping("/save")
-    public ResponseEntity<Employee> createEmployee(Employee employee) {
+    public ResponseEntity<EmployeeDTO> createEmployee(EmployeeDTO employee) {
         return ResponseEntity.ok(employeService.createEmployee(employee));
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Employee>> getEmployeeById( @PathVariable Long id) {
+    public ResponseEntity<Optional<EmployeeDTO>> getEmployeeById( @PathVariable Long id) {
         return ResponseEntity.ok(employeService.getEmployee(id));
     }
     @GetMapping("/search")
-    public ResponseEntity<Page<Employee>> searchEmployees(
+    public ResponseEntity<Page<EmployeeDTO>> searchEmployees(
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam int employeId,
@@ -42,16 +42,17 @@ public class EmployeeController {
 
     }
     @PutMapping("/update")
-    public ResponseEntity<Employee> updateEmploye(
+    public ResponseEntity<EmployeeDTO> updateEmploye(
             @RequestParam Long employeId,
-            @RequestBody Employee employee
+            @RequestBody EmployeeDTO employee,
+            @RequestParam Long userId
     ){
-return ResponseEntity.ok(employeService.updateEmployee(employeId,employee));
+return ResponseEntity.ok(employeService.updateEmployee(employeId,employee,userId));
     }
 
     @DeleteMapping("/delete")
-    public void deleteEmployee(@RequestParam Long employeId) {
-        employeService.deleteEmployee(employeId);
+    public void deleteEmployee(@RequestParam Long employeId, @RequestParam Long userId) {
+        employeService.deleteEmployee(employeId,userId);
     }
 
     @GetMapping("/patient/{id}")

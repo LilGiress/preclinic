@@ -2,11 +2,11 @@ package com.medecineWebApp.Configuration.service;
 
 
 
+import com.medecineWebApp.Configuration.dto.UserDTO;
 import com.medecineWebApp.Configuration.models.user.User;
 import com.medecineWebApp.Configuration.payload.request.ChangePasswordRequest;
-import com.medecineWebApp.Configuration.payload.response.PageResponse;
 import com.medecineWebApp.Configuration.payload.response.ResponseMessage;
-import com.medecineWebApp.Configuration.payload.response.UserResponse;
+import org.springframework.data.domain.Page;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -37,7 +37,7 @@ public interface UserService {
      * @param userId
      * @return
      */
-    ResponseMessage<User> getUserById(Long userId);
+    ResponseMessage<UserDTO> getUserById(Long userId);
 
     /**
      *
@@ -45,7 +45,7 @@ public interface UserService {
      * @param size
      * @return
      */
-    PageResponse<UserResponse> getAllUsers(int page, int size);
+    Page<UserDTO> getAllUsers(int page, int size);
 
     /**
      *
@@ -59,7 +59,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    ResponseMessage<User> updateUser(Long userId, User user );
+    ResponseMessage<UserDTO> updateUser(Long userId, User user );
     /**
      * permet de recuperer l'utilisateur authentifier
      *

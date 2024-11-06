@@ -1,6 +1,6 @@
 package com.medecineWebApp.Configuration.models.setting;
 
-import com.medecineWebApp.Configuration.exception.enums.EventCategory;
+import com.medecineWebApp.Configuration.enums.EventCategory;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

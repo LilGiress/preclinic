@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.models;
 
+import com.medecineWebApp.Configuration.enums.EntityStatus;
 import com.medecineWebApp.Configuration.models.role.Roles;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,7 +25,8 @@ public class Departement extends Auditable implements Serializable {
     @Column(unique = true, nullable = false)
     private String name;
     private String description;
-    private boolean active;
+    @Enumerated(EnumType.STRING)
+    private EntityStatus status;
 
    /* @JsonIgnore
     @ManyToMany(mappedBy = "departments",cascade = CascadeType.DETACH,targetEntity = User.class)

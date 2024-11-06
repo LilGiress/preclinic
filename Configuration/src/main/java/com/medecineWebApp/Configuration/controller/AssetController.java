@@ -1,7 +1,8 @@
 package com.medecineWebApp.Configuration.controller;
 
-import com.medecineWebApp.Configuration.exception.enums.AssetCategory;
-import com.medecineWebApp.Configuration.exception.enums.AssetStatus;
+import com.medecineWebApp.Configuration.dto.AssetDTO;
+import com.medecineWebApp.Configuration.enums.AssetCategory;
+import com.medecineWebApp.Configuration.enums.AssetStatus;
 import com.medecineWebApp.Configuration.models.setting.Asset;
 import com.medecineWebApp.Configuration.service.AssetService;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,12 @@ public class AssetController {
     }
 
     @PostMapping
-    public ResponseEntity<Asset> createAsset(@RequestBody Asset asset) {
+    public ResponseEntity<Asset> createAsset(@RequestBody AssetDTO asset) {
         return ResponseEntity.ok( assetService.saveAsset(asset)) ;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Asset> updateAsset(@PathVariable Long id, @RequestBody Asset asset) {
+    public ResponseEntity<Asset> updateAsset(@PathVariable Long id, @RequestBody AssetDTO asset) {
         try {
             Asset updatedAsset = assetService.updateAsset(id, asset);
             return ResponseEntity.ok(updatedAsset);

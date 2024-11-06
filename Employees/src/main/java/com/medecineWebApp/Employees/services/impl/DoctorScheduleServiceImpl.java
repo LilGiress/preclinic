@@ -1,10 +1,15 @@
 package com.medecineWebApp.Employees.services.impl;
 
 
+import com.medecineWebApp.Employees.dto.DoctorScheduleDTO;
 import com.medecineWebApp.Employees.enums.ScheduleStatus;
+import com.medecineWebApp.Employees.mapper.DoctorScheduleMapper;
 import com.medecineWebApp.Employees.models.doctors.DoctorSchedule;
 import com.medecineWebApp.Employees.repository.DoctorScheduleRepository;
 import com.medecineWebApp.Employees.services.DoctorScheduleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -16,24 +21,30 @@ import java.util.Optional;
 @Service
 public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     private final DoctorScheduleRepository doctorScheduleRepository;
+    private final DoctorScheduleMapper doctorScheduleMapper;
 
-    public DoctorScheduleServiceImpl(DoctorScheduleRepository doctorScheduleRepository) {
+    public DoctorScheduleServiceImpl(DoctorScheduleRepository doctorScheduleRepository, DoctorScheduleMapper doctorScheduleMapper) {
         this.doctorScheduleRepository = doctorScheduleRepository;
+        this.doctorScheduleMapper = doctorScheduleMapper;
     }
 
     @Override
-    public List<DoctorSchedule> getAllDoctorSchedule() {
-        return doctorScheduleRepository.findAll();
+    public Page<DoctorScheduleDTO> getAllDoctorSchedule(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<DoctorSchedule> doctorSchedule = doctorScheduleRepository.findAll(pageable);
+        return doctorScheduleMapper.DoctorScheduleDTO_PAGE(doctorSchedule);
     }
 
     @Override
-    public Optional<DoctorSchedule> getDoctorScheduleById(Long id) {
-        return doctorScheduleRepository.findById(id);
+    public Optional<DoctorScheduleDTO> getDoctorScheduleById(Long id) {
+        Optional<DoctorSchedule> doctorSchedule = doctorScheduleRepository.findById(id);
+        return doctorScheduleMapper.DOCTOR_SCHEDULE_DTO_OPTIONAL(doctorSchedule);
     }
 
     @Override
-    public DoctorSchedule saveDoctorSchedule(DoctorSchedule doctorSchedule) {
-        return doctorScheduleRepository.save(doctorSchedule);
+    public DoctorScheduleDTO saveDoctorSchedule(DoctorSchedule doctorSchedule) {
+
+        return doctorScheduleMapper.DoctorScheduleToDoctorScheduleDTO(doctorScheduleRepository.save(doctorSchedule));
     }
 
     @Override
@@ -42,32 +53,38 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
-    public DoctorSchedule updateDoctorSchedule(Long id, DoctorSchedule doctorSchedule) {
-        return doctorScheduleRepository.findById(id)
-                .map(schedule -> {
-                    schedule.setDate(doctorSchedule.getDate());
-                    schedule.setStartTime(doctorSchedule.getStartTime());
-                    schedule.setEndTime(doctorSchedule.getEndTime());
-                    schedule.setStatus(doctorSchedule.getStatus());
-                    schedule.setAvailableDays(doctorSchedule.getAvailableDays());
-                    schedule.setDoctorId(doctorSchedule.getDoctorId());
-                    schedule.setMessage(doctorSchedule.getMessage());
-                    return doctorScheduleRepository.save(schedule);
-                })
-                .orElseThrow(() -> new RuntimeException("Schedule not found with id " + id));
+    public DoctorScheduleDTO updateDoctorSchedule(Long id, DoctorSchedule doctorSchedule) {
+        Optional<DoctorSchedule> optionalDoctorSchedule = doctorScheduleRepository.findById(id);
+        if (optionalDoctorSchedule.isPresent()) {
+            DoctorSchedule doctorScheduleToUpdate = optionalDoctorSchedule.get();
+            doctorScheduleToUpdate.setDoctorId(doctorSchedule.getDoctorId());
+            doctorScheduleToUpdate.setMessage(doctorSchedule.getMessage());
+            doctorScheduleToUpdate.setStatus(doctorSchedule.getStatus());
+            doctorScheduleToUpdate.setAvailableDays(doctorSchedule.getAvailableDays());
+            doctorScheduleToUpdate.setStartTime(doctorSchedule.getStartTime());
+            doctorScheduleToUpdate.setEndTime(doctorSchedule.getEndTime());
+            doctorScheduleToUpdate.setDate(doctorSchedule.getDate());
+            DoctorSchedule updatedDoctorSchedule = doctorScheduleRepository.save(doctorScheduleToUpdate);
+            return doctorScheduleMapper.DoctorScheduleToDoctorScheduleDTO(updatedDoctorSchedule);
+        }
+        throw  new RuntimeException("Schedule not found with id " + id);
     }
 
     @Override
-    public List<DoctorSchedule> findSchedulesByDoctorAndDate(Long doctorId, LocalDate date) {
-        return doctorScheduleRepository.findByDoctorIdAndDate(doctorId, date);
+    public Page<DoctorScheduleDTO> findSchedulesByDoctorAndDate(Long doctorId, LocalDate date,int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<DoctorSchedule> doctorSchedule= doctorScheduleRepository.findByDoctorIdAndDate(doctorId, date,pageable);
+        return doctorScheduleMapper.DoctorScheduleDTO_PAGE(doctorSchedule);
     }
 
     @Override
-    public DoctorSchedule setAvailableDays(Long scheduleId, EnumSet<DayOfWeek> availableDays) {
+    public DoctorScheduleDTO setAvailableDays(Long scheduleId, EnumSet<DayOfWeek> availableDays) {
         DoctorSchedule schedule = doctorScheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new RuntimeException("Schedule not found with id " + scheduleId));
         schedule.setAvailableDays(availableDays);
-        return doctorScheduleRepository.save(schedule);
+
+        return doctorScheduleMapper.DoctorScheduleToDoctorScheduleDTO(doctorScheduleRepository.save(schedule));
     }
 
     @Override
@@ -78,11 +95,11 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     }
 
     @Override
-    public DoctorSchedule updateScheduleStatus(Long id, ScheduleStatus status) {
+    public DoctorScheduleDTO updateScheduleStatus(Long id, ScheduleStatus status) {
         DoctorSchedule schedule = doctorScheduleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Schedule not found with id " + id));
         schedule.setStatus(status);
-        return doctorScheduleRepository.save(schedule);
+        return doctorScheduleMapper.DoctorScheduleToDoctorScheduleDTO(doctorScheduleRepository.save(schedule));
     }
 
 

@@ -1,9 +1,11 @@
 package com.medecineWebApp.Employees.controller;
 
 
+import com.medecineWebApp.Employees.dto.DoctorScheduleDTO;
 import com.medecineWebApp.Employees.enums.ScheduleStatus;
 import com.medecineWebApp.Employees.models.doctors.DoctorSchedule;
 import com.medecineWebApp.Employees.services.DoctorScheduleService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +25,29 @@ public class DoctorScheduleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DoctorSchedule>> getAllSchedules() {
-        return ResponseEntity.ok(doctorScheduleService.getAllDoctorSchedule());
+    public ResponseEntity<Page<DoctorScheduleDTO>> getAllSchedules(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(doctorScheduleService.getAllDoctorSchedule(page, size));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DoctorSchedule> getScheduleById(@PathVariable Long id) {
+    public ResponseEntity<DoctorScheduleDTO> getScheduleById(@PathVariable Long id) {
         return doctorScheduleService.getDoctorScheduleById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<DoctorSchedule> createSchedule(@RequestBody DoctorSchedule schedule) {
+    public ResponseEntity<DoctorScheduleDTO> createSchedule(@RequestBody DoctorSchedule schedule) {
         return ResponseEntity.ok(doctorScheduleService.saveDoctorSchedule(schedule));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DoctorSchedule> updateSchedule(@PathVariable Long id, @RequestBody DoctorSchedule scheduleDetails) {
+    public ResponseEntity<DoctorScheduleDTO> updateSchedule(@PathVariable Long id, @RequestBody DoctorSchedule scheduleDetails) {
         try {
-            DoctorSchedule updatedSchedule = doctorScheduleService.updateDoctorSchedule(id, scheduleDetails);
+            DoctorScheduleDTO updatedSchedule = doctorScheduleService.updateDoctorSchedule(id, scheduleDetails);
             return ResponseEntity.ok(updatedSchedule);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -56,14 +61,19 @@ public class DoctorScheduleController {
     }
 
     @GetMapping("/search")
-    public List<DoctorSchedule> findSchedulesByDoctorAndDate(@RequestParam Long doctorId, @RequestParam LocalDate date) {
-        return doctorScheduleService.findSchedulesByDoctorAndDate(doctorId, date);
+    public Page<DoctorScheduleDTO> findSchedulesByDoctorAndDate(
+            @RequestParam Long doctorId,
+            @RequestParam LocalDate date,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+            ) {
+        return doctorScheduleService.findSchedulesByDoctorAndDate(doctorId, date,page, size);
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<DoctorSchedule> updateScheduleStatus(@PathVariable Long id, @RequestParam ScheduleStatus status) {
+    public ResponseEntity<DoctorScheduleDTO> updateScheduleStatus(@PathVariable Long id, @RequestParam ScheduleStatus status) {
         try {
-            DoctorSchedule updatedSchedule = doctorScheduleService.updateScheduleStatus(id, status);
+            DoctorScheduleDTO updatedSchedule = doctorScheduleService.updateScheduleStatus(id, status);
             return ResponseEntity.ok(updatedSchedule);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -81,9 +91,9 @@ public class DoctorScheduleController {
     }
 
     @PutMapping("/{id}/available-days")
-    public ResponseEntity<DoctorSchedule> setAvailableDays(@PathVariable Long id, @RequestBody Set<DayOfWeek> days) {
+    public ResponseEntity<DoctorScheduleDTO> setAvailableDays(@PathVariable Long id, @RequestBody Set<DayOfWeek> days) {
         try {
-            DoctorSchedule updatedSchedule = doctorScheduleService.setAvailableDays(id, EnumSet.copyOf(days));
+            DoctorScheduleDTO updatedSchedule = doctorScheduleService.setAvailableDays(id, EnumSet.copyOf(days));
             return ResponseEntity.ok(updatedSchedule);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

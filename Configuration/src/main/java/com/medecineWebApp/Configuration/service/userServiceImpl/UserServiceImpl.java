@@ -2,48 +2,47 @@ package com.medecineWebApp.Configuration.service.userServiceImpl;
 
 
 import com.medecineWebApp.Configuration.config.jwt.JwtService;
+import com.medecineWebApp.Configuration.dto.UserDTO;
 import com.medecineWebApp.Configuration.mapper.UserMapper;
-import com.medecineWebApp.Configuration.models.role.Roles;
 import com.medecineWebApp.Configuration.models.user.User;
 import com.medecineWebApp.Configuration.notification.EmailService;
 import com.medecineWebApp.Configuration.payload.request.ChangePasswordRequest;
-import com.medecineWebApp.Configuration.payload.request.RegistrationOtherRequest;
-import com.medecineWebApp.Configuration.payload.request.RegistrationRequest;
-import com.medecineWebApp.Configuration.payload.response.PageResponse;
 import com.medecineWebApp.Configuration.payload.response.ResponseMessage;
-import com.medecineWebApp.Configuration.payload.response.UserResponse;
 import com.medecineWebApp.Configuration.repository.role.RoleRepository;
 import com.medecineWebApp.Configuration.repository.user.UserRepository;
 import com.medecineWebApp.Configuration.service.UserService;
-import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 
-public class UserServiceImpl  implements UserService {
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  JwtService jwtService;
-    @Autowired
-    private EmailService emailService;
-    @Autowired
-    private RoleRepository roleRepository;
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+
+    private final JwtService jwtService;
+
+    private final EmailService emailService;
+
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private  final UserMapper userMapper;
+
+    public UserServiceImpl(UserRepository userRepository, JwtService jwtService, EmailService emailService, RoleRepository roleRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.jwtService = jwtService;
+        this.emailService = emailService;
+        this.roleRepository = roleRepository;
+        this.userMapper = userMapper;
+    }
 
     @Override
     public void changePassword(ChangePasswordRequest request, Principal userConnected) {
@@ -98,33 +97,23 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public ResponseMessage<User> getUserById(Long userId) {
+    public ResponseMessage<UserDTO> getUserById(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            return new ResponseMessage<>(200, "successfull", user);
+            return new ResponseMessage<>(200, "successfull", userMapper.UserToUserDTO(user));
         } else {
             return new ResponseMessage<>(404, "User not found", null);
         }
     }
 
     @Override
-    public PageResponse<UserResponse> getAllUsers(int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size,Sort.by("createdDate").descending());
-        Page<User> userPage = userRepository.findAll(pageRequest);
-        List<UserResponse> userresponse = userPage.stream()
-                .map(UserMapper::mapToUserResponse)
-                .toList();
-        return  new PageResponse<>(
-                userresponse,
-                userPage.getNumber(),
-                userPage.getSize(),
-                userPage.getTotalElements(),
-                userPage.getTotalPages(),
-                userPage.isFirst(),
-                userPage.isLast()
+    public Page<UserDTO> getAllUsers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+       // PageRequest pageRequest = PageRequest.of(page, size,Sort.by("createdDate").descending());
+        Page<User> userPage = userRepository.findAll(pageable);
 
-        );
+        return (Page<UserDTO>) userMapper.UserDTOToUser((UserDTO) userPage);
 
     }
 
@@ -142,7 +131,7 @@ public class UserServiceImpl  implements UserService {
     }
 
     @Override
-    public ResponseMessage<User> updateUser(Long userId, User user ) {
+    public ResponseMessage<UserDTO> updateUser(Long userId, User user ) {
         User olduser = userRepository.findById(userId).orElseThrow(
                 ()-> new EntityNotFoundException("User not found with id: " + userId)
         );
@@ -154,7 +143,7 @@ public class UserServiceImpl  implements UserService {
         olduser.setRoles(user.getRoles());
         olduser.setAccountLocked(user.isAccountLocked());
         olduser = userRepository.save(olduser);
-        return new ResponseMessage<>(200, "successfull", olduser);
+        return new ResponseMessage<>(200, "successfull", userMapper.UserToUserDTO(olduser));
     }
 
     @Override

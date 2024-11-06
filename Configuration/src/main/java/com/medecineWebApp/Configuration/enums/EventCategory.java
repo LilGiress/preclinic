@@ -1,4 +1,4 @@
-package com.medecineWebApp.Configuration.exception.enums;
+package com.medecineWebApp.Configuration.enums;
 
 public enum EventCategory {
     WORK("#ff0000"),

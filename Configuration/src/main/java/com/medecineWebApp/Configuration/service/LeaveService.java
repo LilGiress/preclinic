@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.service;
 
+import com.medecineWebApp.Configuration.dto.LeavesDTO;
 import com.medecineWebApp.Configuration.models.Leaves;
 import com.medecineWebApp.Configuration.payload.request.LeaveRequest;
 
@@ -11,7 +12,7 @@ public interface LeaveService {
     List <Leaves> findAllLeaves();
     Optional<Leaves> findLeaveById(Long id);
     Leaves save(LeaveRequest leave);
-    Leaves update(Long id,Leaves leave);
+    Leaves update(Long id, LeavesDTO leaveDTO);
     void deleteById(Long id);
 
 }

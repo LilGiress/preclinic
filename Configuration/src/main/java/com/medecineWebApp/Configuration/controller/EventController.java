@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.controller;
 
+import com.medecineWebApp.Configuration.dto.EventDTO;
 import com.medecineWebApp.Configuration.models.setting.Event;
 import com.medecineWebApp.Configuration.service.EventService;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class EventController {
 
     // Create a new event
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
+    public ResponseEntity<Event> createEvent(@RequestBody EventDTO event) {
         Event newEvent = eventService.createEvent(event);
         return ResponseEntity.ok(newEvent);
     }
@@ -39,7 +40,7 @@ public class EventController {
 
     // Update an event
     @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
+    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody EventDTO updatedEvent) {
         Event event = eventService.updateEvent(id, updatedEvent);
         return ResponseEntity.ok(event);
     }

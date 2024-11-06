@@ -1,4 +1,4 @@
-package com.medecineWebApp.Configuration.exception.enums;
+package com.medecineWebApp.Configuration.enums;
 
 public enum AssetStatus {
     ACTIVE,

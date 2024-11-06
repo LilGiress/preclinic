@@ -2,13 +2,14 @@ package com.medecineWebApp.Configuration.controller;
 
 
 import com.medecineWebApp.Configuration.config.jwt.JwtService;
+import com.medecineWebApp.Configuration.dto.UserDTO;
+import com.medecineWebApp.Configuration.mapper.UserMapper;
 import com.medecineWebApp.Configuration.models.user.User;
 import com.medecineWebApp.Configuration.payload.request.ChangePasswordRequest;
-import com.medecineWebApp.Configuration.payload.response.PageResponse;
 import com.medecineWebApp.Configuration.payload.response.ResponseMessage;
-import com.medecineWebApp.Configuration.payload.response.UserResponse;
 import com.medecineWebApp.Configuration.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,9 @@ import java.util.Optional;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
+    private final UserMapper userMapper;
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseMessage<User>> getUserById(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseMessage<UserDTO>> getUserById(@PathVariable("id") Long id) {
         return ResponseEntity.ok( userService.getUserById(id));
     }
     @GetMapping("/forgot-password")
@@ -34,14 +36,14 @@ public class UserController {
         userService.updatepassword(request);
     }
     @GetMapping("/allUsers")
-    public ResponseEntity<PageResponse<UserResponse>> getAllUser(
+    public ResponseEntity<Page<UserDTO>> getAllUser(
             @RequestParam(name = "pagenum", defaultValue = "0") int pagenum,
             @RequestParam(name = "pagesize",defaultValue = "10") int pageSize,
             @RequestHeader("Authorization")String token){
         return ResponseEntity.ok(userService.getAllUsers(pagenum,pageSize));
     }
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<ResponseMessage<User>> updateUserById(@PathVariable("id") Long id, @RequestBody User user,@RequestHeader("Authorization")String token){
+    public ResponseEntity<ResponseMessage<UserDTO>> updateUserById(@PathVariable("id") Long id, @RequestBody User user,@RequestHeader("Authorization")String token){
         return ResponseEntity.ok(userService.updateUser(id, user));
 
     }

@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.controller;
 
 
+import com.medecineWebApp.Configuration.dto.InvoicesDTO;
 import com.medecineWebApp.Configuration.models.accounts.Invoices;
 import com.medecineWebApp.Configuration.service.InvoiceService;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,11 @@ public class InvoicesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Invoices> createInvoice(@RequestBody Invoices invoice) {
+    public ResponseEntity<InvoicesDTO> createInvoice(@RequestBody Invoices invoice) {
         return ResponseEntity.ok(invoiceService.createInvoice(invoice));
     }
     @PutMapping("/update")
-    public ResponseEntity<Invoices> updateInvoice(@RequestParam Long id, @RequestBody Invoices invoice) {
+    public ResponseEntity<InvoicesDTO> updateInvoice(@RequestParam Long id, @RequestBody Invoices invoice) {
         return ResponseEntity.ok(invoiceService.updateInvoice(id, invoice));
 
     }

@@ -5,6 +5,66 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4e264de-c83f-4694-becd-0b77acd5bebb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/AddressDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/AssetDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/CompanySettingDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/CountryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/DepartementDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/EventDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/ExpenseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/HolidayDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/InvoicesDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/LeaveTypeDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/LeavesDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/PaymentsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/RolesDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/SalarySettingsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/ServiceDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/SmtpConfigDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto/ThemeSettingDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums/EntityStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/events/EmployeeEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/events/UserEventListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/AddressMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/AssetMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/CompanySettingMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/CountryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/DepartementMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/EventMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/ExpenseMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/HolidayMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/InvoicesMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/LeaveTypeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/LeavesMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/PaymentsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/RolesMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/SalarySettingsMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/ServiceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/SmtpConfigMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/ThemeSettingMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/dto/AppointmentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/dto/AttendanceDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/dto/DoctorScheduleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/dto/EmployeeDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/enums/EmployeeStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/enums/EventType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/enums/PermissionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/enums/RoleType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/events/EmployeeDeletedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/events/EmployeeEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/events/EmployeeUpdatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/mapper/AppointmentMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/mapper/AttendanceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/mapper/DoctorScheduleMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/mapper/EmployeeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Appointment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Departement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/DoctorSchedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Groupe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/utilis/EmployeeEventAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/utilis/PublishEmployeeEvent.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.scss" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/System-administrator/Settings/company-setting/company-setting.component.spec.ts" afterDir="false" />
@@ -262,6 +322,50 @@
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/environments/environment.prod.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/frontend/Medecine/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/AssetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/AssetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/EventController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/InvoicesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/InvoicesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/SalarySettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/SalarySettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/exception/enums/AssetCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums/AssetCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/exception/enums/AssetStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums/AssetStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/exception/enums/EventCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums/EventCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/Departement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/Departement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/LeaveType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/LeaveType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/setting/Asset.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/setting/Asset.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/setting/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/models/setting/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/repository/AssetRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/repository/AssetRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/AssetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/AssetService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/DepartementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/DepartementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/EmailConfigService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/EmailConfigService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/LeaveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/LeaveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/LeaveTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/LeaveTypeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/SalarySettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/SalarySettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/AssetServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/AssetServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/EventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/InvoicesServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/InvoicesServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/SalarySettingsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/impl/SalarySettingsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/userServiceImpl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/service/userServiceImpl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configuration/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Configuration/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/controller/DoctorScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/controller/DoctorScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/controller/EmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/repository/DoctorScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/repository/DoctorScheduleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/DoctorScheduleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/DoctorScheduleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/EmployeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/EmployeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/impl/DoctorScheduleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/impl/DoctorScheduleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/impl/EmployeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/services/impl/EmployeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Employees/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Employees/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Medecine" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/extensions.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/launch.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/.vscode/tasks.json" beforeDir="false" />
@@ -275,6 +379,7 @@
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/app/app.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Medecine/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Medecine/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +396,10 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend/Medecine" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -304,6 +412,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.Configuration [clean].executor": "Run",
+    "Maven.Configuration [install].executor": "Run",
+    "Maven.Employees [clean].executor": "Run",
+    "Maven.Employees [install].executor": "Run",
+    "Maven.microservices [clean].executor": "Run",
+    "Maven.microservices [install].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -315,8 +429,9 @@
     "Spring Boot.PatientsApplication.executor": "Run",
     "Spring Boot.ServiceRegistryApplication.executor": "Run",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/giress/Documents/giress/Project/preclinic/Configuration/src/main/java/com/medecineWebApp/Configuration/dto",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -328,12 +443,19 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/dto" />
+      <recent name="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration/enums" />
+      <recent name="$PROJECT_DIR$/Configuration/src/main/java/com/medecineWebApp/Configuration" />
+      <recent name="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees/enums" />
+      <recent name="$PROJECT_DIR$/Employees/src/main/java/com/medecineWebApp/Employees" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.medecineWebApp.Configuration.controller" />
-      <recent name="com.medecineWebApp.Configuration.service.impl" />
       <recent name="com.medecineWebApp.Configuration.service" />
-      <recent name="com.medecineWebApp.Configuration.repository.account" />
-      <recent name="com.medecineWebApp.Configuration.enums" />
+      <recent name="com.medecineWebApp.Configuration.controller" />
+      <recent name="com.medecineWebApp.Configuration.service.userServiceImpl" />
+      <recent name="com.medecineWebApp.Configuration.mapper" />
+      <recent name="com.medecineWebApp.Employees.controller" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -438,6 +560,7 @@
       <workItem from="1729699497975" duration="11996000" />
       <workItem from="1730274802298" duration="2465000" />
       <workItem from="1730284067942" duration="25434000" />
+      <workItem from="1730922521327" duration="14500000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
+import com.medecineWebApp.Configuration.dto.EventDTO;
+import com.medecineWebApp.Configuration.mapper.EventMapper;
 import com.medecineWebApp.Configuration.models.setting.Event;
 import com.medecineWebApp.Configuration.repository.EventRepository;
 import com.medecineWebApp.Configuration.service.EventService;
@@ -11,24 +13,27 @@ import java.util.Optional;
 @Service
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
+    private final EventMapper eventMapper;
 
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper) {
         this.eventRepository = eventRepository;
+        this.eventMapper = eventMapper;
     }
 
     @Override
-    public Event createEvent(Event event) {
-        return eventRepository.save(event);
+    public Event createEvent(EventDTO eventDTO) {
+        return eventRepository.save(eventMapper.eventDTOToEvent(eventDTO));
     }
 
     @Override
-    public Event updateEvent(Long id, Event updatedEvent) {
+    public Event updateEvent(Long id, EventDTO updatedEvent) {
        Optional<Event> optionalEvent = eventRepository.findById(id);
        if (optionalEvent.isPresent()) {
            Event event = optionalEvent.get();
            event.setEventDate(updatedEvent.getEventDate());
            event.setCategory(updatedEvent.getCategory());
            event.setTitle(updatedEvent.getTitle());
+
            return eventRepository.save(event);
        }
         throw new RuntimeException("No event found with id " + id);
