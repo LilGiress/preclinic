@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.repository;
 
+import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
 import com.medecineWebApp.Configuration.models.setting.ThemeSetting;
 import org.springframework.data.jpa.repository.JpaRepository;
 

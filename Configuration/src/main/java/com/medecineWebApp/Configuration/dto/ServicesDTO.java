@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceDTO {
+public class ServicesDTO {
     private Long id;
     private String name;
     private Set<Groupe> groupes;

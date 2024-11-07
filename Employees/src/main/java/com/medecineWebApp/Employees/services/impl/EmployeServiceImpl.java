@@ -122,7 +122,7 @@ public class EmployeServiceImpl implements EmployeService {
     @Override
     @PublishEmployeeEvent(eventType=EventType.DELETED)
     public void deleteEmployee(Long id,Long UserId) {
-       // Employee employee = employeeRepository.findById(id).orElseThrow();
+        // Employee employee = employeeRepository.findById(id).orElseThrow();
 
 //        EmployeeDeletedEvent event = new EmployeeDeletedEvent();
 //        event.setId(employee.getId());

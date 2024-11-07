@@ -7,13 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name = "patients")
 @Getter
@@ -21,7 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Patient implements Serializable {
+public class Patient extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,11 +41,9 @@ public class Patient implements Serializable {
     private PatientStatus status;
     private String ImageUrl;
 
-    @CreatedDate
-    @Column(updatable = false,nullable = false)
-    private LocalDateTime dateOfCreation;
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime lastModifiedDate;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Treatment> treatments;
+
+
 
 }

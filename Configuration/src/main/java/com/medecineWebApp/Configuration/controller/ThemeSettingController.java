@@ -1,7 +1,9 @@
 package com.medecineWebApp.Configuration.controller;
 
+import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
 import com.medecineWebApp.Configuration.models.setting.ThemeSetting;
 import com.medecineWebApp.Configuration.service.ThemeSettingService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -12,24 +14,29 @@ public class ThemeSettingController {
 
     private final ThemeSettingService themeSettingService;
 
-    public ThemeSettingController(ThemeSettingService themeSettingService) {
+    public ThemeSettingController( ThemeSettingService themeSettingService) {
         this.themeSettingService = themeSettingService;
     }
 
+
     // Set the theme and other settings for a user
     @PostMapping("/set")
-    public ThemeSetting setTheme(
-            @RequestParam Long userId,
-            @RequestParam String theme,
-            @RequestParam String websiteName,
-            @RequestParam String lightLogoUrl,
-            @RequestParam String faviconUrl) {
-        return themeSettingService.saveThemeSetting(userId, theme, websiteName, lightLogoUrl, faviconUrl);
+    public ThemeSettingDTO setTheme(
+            @RequestBody ThemeSetting themeSetting
+            ) {
+        return themeSettingService.saveThemeSetting(themeSetting);
     }
 
     // Get the theme settings for a user
     @GetMapping("/get")
-    public Optional<ThemeSetting> getTheme(@RequestParam Long userId) {
+    public Optional<ThemeSettingDTO> getTheme(@RequestParam Long userId) {
         return themeSettingService.getThemeByUserId(userId);
+    }
+    @PutMapping("/update")
+    public ThemeSettingDTO updateThemeSetting(
+            @RequestParam Long id,
+            @RequestBody ThemeSetting themeSetting) {
+        return themeSettingService.udpateThemeSetting(id,themeSetting);
+
     }
 }

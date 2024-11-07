@@ -1,13 +1,18 @@
 package com.medecineWebApp.Configuration.service.impl;
 
+import com.medecineWebApp.Configuration.dto.RolesDTO;
 import com.medecineWebApp.Configuration.enums.PermissionType;
 import com.medecineWebApp.Configuration.enums.RoleType;
+import com.medecineWebApp.Configuration.mapper.RolesMapper;
 import com.medecineWebApp.Configuration.models.role.Roles;
 import com.medecineWebApp.Configuration.repository.role.RoleRepository;
 import com.medecineWebApp.Configuration.service.RolesService;
 import jakarta.transaction.Transactional;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -19,11 +24,18 @@ import java.util.Set;
 @Service
 @Transactional
 public class RolesServiceImpl implements RolesService {
-    @Autowired
-    private RoleRepository roleRepository;
+
+    private final RoleRepository roleRepository;
+    private final RolesMapper rolesMapper;
+
+    public RolesServiceImpl(RoleRepository roleRepository, RolesMapper rolesMapper) {
+        this.roleRepository = roleRepository;
+        this.rolesMapper = rolesMapper;
+    }
+
     @Override
     // Create a new role with permissions
-    public Roles createRole(RoleType roleName, Set<PermissionType> permissions) {
+    public RolesDTO createRole(RoleType roleName, Set<PermissionType> permissions) {
         // Check if the role already exists
         Optional<Roles> existingRole = roleRepository.findByName(roleName);
         if (existingRole.isPresent()) {
@@ -42,30 +54,33 @@ public class RolesServiceImpl implements RolesService {
         }
 
         // Save and return the new role
-        return roleRepository.save(role);
+        return rolesMapper.rolesToRolesDTO(roleRepository.save(role));
     }
 
     @Override
-    public Roles updateRole(Long id, RoleType role) {
+    public RolesDTO updateRole(Long id, RoleType role) {
         Optional<Roles> existingrole= roleRepository.findById(id);
         if (existingrole.isPresent()) {
             Roles updateroles = existingrole.get();
             updateroles.setName(RoleType.valueOf(role.name()));
             updateroles.setPermissions(role.getPermissions());
-            return roleRepository.save(updateroles);
+            return rolesMapper.rolesToRolesDTO(roleRepository.save(updateroles));
 
         }
         throw new ResourceNotFoundException("Role with id " + id + " not found");
     }
 
     @Override
-    public Optional<Roles> findByName(RoleType name) {
-        return roleRepository.findByName(name);
+    public Optional<RolesDTO> findByName(RoleType name) {
+        Optional<Roles> existingrole= roleRepository.findByName(name);
+        return rolesMapper.rolesDTOToRolesOptional(existingrole);
     }
 
     @Override
-    public List<Roles> findAllRoles() {
-        return roleRepository.findAll();
+    public Page<RolesDTO> findAllRoles(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Roles> roles = roleRepository.findAll(pageable);
+        return rolesMapper.rolesDTOPageToRolesDTOPage(roles);
     }
 
     @Override
@@ -74,7 +89,7 @@ public class RolesServiceImpl implements RolesService {
     }
 
     @Override
-    public Roles assignPermissionsToRole(RoleType roleName, Set<PermissionType> newPermissions) {
+    public RolesDTO assignPermissionsToRole(RoleType roleName, Set<PermissionType> newPermissions) {
         Optional<Roles> roleOpt = roleRepository.findByName(roleName);
 
         if (roleOpt.isPresent()) {
@@ -84,14 +99,14 @@ public class RolesServiceImpl implements RolesService {
             role.getPermissions().addAll(newPermissions);
 
             // Save the updated role back to the database
-            return roleRepository.save(role);
+            return rolesMapper.rolesToRolesDTO(roleRepository.save(role));
         } else {
             throw new IllegalArgumentException("Role not found: " + roleName);
         }
     }
 
     @Override
-    public Roles removePermissionsFromRole(RoleType roleName, Set<PermissionType> oldPermissions) {
+    public RolesDTO removePermissionsFromRole(RoleType roleName, Set<PermissionType> oldPermissions) {
         Optional<Roles> roleOpt = roleRepository.findByName(roleName);
 
         if (roleOpt.isPresent()) {
@@ -101,7 +116,7 @@ public class RolesServiceImpl implements RolesService {
             role.getPermissions().removeAll(oldPermissions);
 
             // Save the updated role back to the database
-            return roleRepository.save(role);
+            return rolesMapper.rolesToRolesDTO(roleRepository.save(role));
         } else {
             throw new IllegalArgumentException("Role not found: " + roleName);
         }
