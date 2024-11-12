@@ -2,6 +2,7 @@ package com.medecineWebApp.Employees.models;
 
 
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
+import com.medecineWebApp.Employees.models.doctors.Doctor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,11 +28,13 @@ public class Appointment implements Serializable {
     @Column(unique = true, nullable = false)
     private String appointmentCode;
 
-    @Column(nullable = false)
-    private Long doctorId;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 
+    @Transient
     @Column(nullable = false)
-    private Long patientId;
+    private Patient patientId;
 
     @Column(nullable = false)
     private Long departmentId;

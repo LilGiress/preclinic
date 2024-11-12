@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,9 @@ public class Departement extends Auditable implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")
     private Set<Roles> roles;
+
+    @Transient
+    private List<Doctor> doctors;
 
 
 }

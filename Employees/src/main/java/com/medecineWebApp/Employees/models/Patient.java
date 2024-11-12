@@ -29,7 +29,6 @@ public class Patient implements Serializable {
     private String status;
     private String ImageUrl;
 
-
     private LocalDateTime dateOfCreation;
     private LocalDateTime lastModifiedDate;
 

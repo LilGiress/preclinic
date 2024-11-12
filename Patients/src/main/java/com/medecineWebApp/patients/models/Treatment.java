@@ -26,10 +26,10 @@ public class Treatment extends Auditable implements Serializable {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @Transient
-    private Doctor doctorId;
     private LocalDate startDate;
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
     private TreatmentStatus status;
+    @Transient
+    private Doctor doctor;
 }

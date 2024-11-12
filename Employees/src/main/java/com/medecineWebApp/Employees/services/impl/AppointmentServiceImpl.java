@@ -4,7 +4,6 @@ package com.medecineWebApp.Employees.services.impl;
 import com.medecineWebApp.Employees.config.EmployeeClient;
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
 import com.medecineWebApp.Employees.models.Patient;
-import com.medecineWebApp.Employees.models.doctors.Appointment;
 import com.medecineWebApp.Employees.repository.AppointmentRepository;
 import com.medecineWebApp.Employees.services.AppointmentService;
 import jakarta.transaction.Transactional;

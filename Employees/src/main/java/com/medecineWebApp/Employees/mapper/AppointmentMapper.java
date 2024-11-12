@@ -1,7 +1,6 @@
 package com.medecineWebApp.Employees.mapper;
 
 import com.medecineWebApp.Employees.dto.AppointmentDTO;
-import com.medecineWebApp.Employees.models.doctors.Appointment;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

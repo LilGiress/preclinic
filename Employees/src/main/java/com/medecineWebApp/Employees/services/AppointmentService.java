@@ -3,7 +3,6 @@ package com.medecineWebApp.Employees.services;
 
 
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
-import com.medecineWebApp.Employees.models.doctors.Appointment;
 
 import java.time.LocalDate;
 import java.util.List;

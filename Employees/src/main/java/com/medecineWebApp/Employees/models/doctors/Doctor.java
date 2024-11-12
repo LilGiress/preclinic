@@ -2,18 +2,18 @@ package com.medecineWebApp.Employees.models.doctors;
 
 import com.medecineWebApp.Employees.enums.EmployeeStatus;
 import com.medecineWebApp.Employees.enums.Gender;
-import com.medecineWebApp.Employees.models.Auditable;
+import com.medecineWebApp.Employees.models.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Doctors")
@@ -26,6 +26,7 @@ public class Doctor extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long userId;
     private String firstname;
     private String lastname;
     private String email;
@@ -40,6 +41,20 @@ public class Doctor extends Auditable implements Serializable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String address;
+
+    @Transient
+    @Column(nullable = false)
+    private Departement department;
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments;
+
+    @Transient
+    private List<Treatment> treatments;
+
+    @Transient
+    private Set<Roles> roles = new HashSet<>();
+
+
 
 
 

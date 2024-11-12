@@ -2,7 +2,6 @@ package com.medecineWebApp.Employees.controller;
 
 
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
-import com.medecineWebApp.Employees.models.doctors.Appointment;
 import com.medecineWebApp.Employees.services.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
