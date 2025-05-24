@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.repository.token;
 
 
+import com.medecineWebApp.Configuration.models.user.Users;
 import com.medecineWebApp.Configuration.token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,11 +12,11 @@ import java.util.Optional;
 public interface TokenRepository extends JpaRepository<Token, Long> {
     Optional<Token> findByToken(String token);
     @Query(value = """
-      select t from Token t inner join User u\s
-      on t.user.id = u.id\s
+      select t from Token t inner join Users u\s
+      on t.users.id = u.id\s
       where u.id = :id and (t.isexpired = false or t.revoked = false)\s
       """)
     List<Token> findAllValidTokenByUser(Long id);
-
+    Token findByUsers(Users user);
 
 }

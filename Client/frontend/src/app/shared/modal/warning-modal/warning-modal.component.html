@@ -1,0 +1,31 @@
+
+  <!-- Modal -->
+  <div class="modal" id="learnMore1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+  
+        <div class="modal-body">
+          <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <br/>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6">
+               <img src="assets/img/warning.png" alt="" width=50%/>
+            </div>
+            <div class="col-sm-6 align-self-center"> 
+              <h3>  {{ title }}</h3>
+              <p>{{ message }}</p>
+            </div>          
+          </div>  
+        </div>
+        
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+  

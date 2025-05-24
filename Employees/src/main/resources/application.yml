@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: Employees
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_employees?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        # format_sql: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+            connectTimeout: 5000
+            readTimeout: 5000
+    config:
+      enabled: false # Désactive Spring Cloud Config si non utilisé
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  redis:
+    time-to-live: 600000
+
+  security:
+    jwt:
+      secret: "bc91c3ce1544c639114a9ed756ff60a21d5ea42a72dfc99d0bec35fe15670110b97742f670ac97a4958995c45a4662e58fc8003c1c0947c1265e2307530d7ebd"
+
+server:
+  port: 7005
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

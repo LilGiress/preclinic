@@ -1,8 +1,6 @@
 package com.medecineWebApp.Employees.events;
 
 import com.medecineWebApp.Employees.enums.EventType;
-import com.medecineWebApp.Employees.models.Departement;
-import com.medecineWebApp.Employees.models.Roles;
 import lombok.*;
 
 import java.util.HashSet;
@@ -22,8 +20,7 @@ public class EmployeeEvent {
     private EventType eventType;
     private String email;
     private String password;
-    private Set<Roles> roles = new HashSet<>();
-    private List<Departement> departments;
-   // private Set<Groupe> groups;
+    private Set<Long> roles = new HashSet<>();
+    private List<Long> departments;
 
 }

@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 
 @RestController
-@RequestMapping("/api/v1/attendance")
+@RequestMapping("/api/attendances")
 public class AttendanceController {
     private final AttendanceService attendanceService;
 

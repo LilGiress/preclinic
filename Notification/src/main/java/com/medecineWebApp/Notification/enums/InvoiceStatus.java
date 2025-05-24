@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.enums;
+package com.medecineWebApp.Notification.enums;
 
 public enum InvoiceStatus {
     // Invoice has been created but not yet issued to the customer

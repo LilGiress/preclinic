@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "empl_attendance")
+@Table(name = "attendance")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,4 +34,5 @@ public class Attendance extends Auditable {
     private LocalTime checkOutTime;
     @Enumerated(EnumType.STRING)
     private AttendanceStatus present;
+
 }

@@ -1,0 +1,70 @@
+spring:
+  application:
+    name: Patients
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_patients?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database: mysql
+    properties:
+      hibernate:
+        show_sql: true
+        # format_sql: true  # D�commentez si n�cessaire
+
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+            connectTimeout: 5000
+            readTimeout: 5000
+
+server:
+  port: 7004
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+security:
+  jwt:
+    secret: "bc91c3ce1544c639114a9ed756ff60a21d5ea42a72dfc99d0bec35fe15670110b97742f670ac97a4958995c45a4662e58fc8003c1c0947c1265e2307530d7ebd"
+
+cache:
+  cache-names: employees, inventory, assets
+  caffeine:
+    spec: maximumSize=1000,expireAfterWrite=10m

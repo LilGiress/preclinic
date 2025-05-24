@@ -1,0 +1,19 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'   # Remplace par ton serveur SMTP
+  smtp_from: 'ton.email@gmail.com'       # Adresse e-mail expéditrice
+  smtp_auth_username: 'ton.email@gmail.com'
+  smtp_auth_password: 'mot_de_passe'      # Mot de passe ou App Password si Gmail
+  smtp_require_tls: true
+
+route:
+  receiver: 'email-alerts'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+
+receivers:
+  - name: 'email-alerts'
+    email_configs:
+      - to: 'destinataire.email@gmail.com'  # Remplace par ton adresse de réception
+        send_resolved: true
+

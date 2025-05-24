@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HolidayDTO {
+public class HolidayDTO extends AuditableDTO {
     private Long id;
     private String name;
     private LocalDate date;

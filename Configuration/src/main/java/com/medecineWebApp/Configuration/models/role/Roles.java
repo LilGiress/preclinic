@@ -1,79 +1,35 @@
 package com.medecineWebApp.Configuration.models.role;
 
-import com.medecineWebApp.Configuration.enums.PermissionType;
-import com.medecineWebApp.Configuration.enums.RoleType;
-import com.medecineWebApp.Configuration.models.Groupe;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.medecineWebApp.Configuration.utilis.PermissionDeserializer;
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType name;
+    @Getter
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @JsonDeserialize(contentUsing = PermissionDeserializer.class)
+    private Set<Permission> permissions = new HashSet<>();
 
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<PermissionType> permissions;
-
-
-    /*@ManyToMany(mappedBy = "roles")
-    private List<Groupe> groups;*/
-
-
-    
-    public Roles( RoleType name, Set<PermissionType> permissions, List<Groupe> groups) {
-        this.name = name;
-        this.permissions = permissions;
-        //this.groups = groups;
-    }
-
-    public Roles(RoleType name, Set<PermissionType> permissions) {
+    public Roles(String name, Set<Permission> permissions) {
         this.name = name;
         this.permissions = permissions;
     }
 
-    public Roles() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public RoleType getName() {
-        return name;
-    }
-
-    public void setName(RoleType name) {
-        this.name = name;
-    }
-
-    public Set<PermissionType> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<PermissionType> permissions) {
-        this.permissions = permissions;
-    }
-
-   /* public List<Groupe> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Groupe> groups) {
-        this.groups = groups;
-    }*/
 }

@@ -1,8 +1,6 @@
 package com.medecineWebApp.Configuration.dto;
 
 import com.medecineWebApp.Configuration.enums.EventCategory;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventDTO {
+public class EventDTO extends AuditableDTO {
     private Long id;
     private String title;
     private LocalDateTime eventDate;

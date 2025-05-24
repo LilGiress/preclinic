@@ -2,7 +2,6 @@ package com.medecineWebApp.Employees.utilis;
 
 import com.medecineWebApp.Employees.enums.EventType;
 import com.medecineWebApp.Employees.events.EmployeeEvent;
-import com.medecineWebApp.Employees.models.Departement;
 import com.medecineWebApp.Employees.models.Employee;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -11,6 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Aspect
 @Component
@@ -31,8 +31,10 @@ public class EmployeeEventAspect {
         employeeEvent.setPassword(employee.getPassword());
         employeeEvent.setUsername(employee.getUsername());
         employeeEvent.setEmail(employee.getEmail());
-        employeeEvent.setDepartments((List<Departement>) employee.getDepartment());
-        employeeEvent.setRoles(employee.getRoles());
+        employeeEvent.setDepartments(
+                List.of(employee.getDepartmentId())
+                );
+        employeeEvent.setRoles(Set.of(employee.getRoleId()));
         employeeEvent.setUserId(employee.getUserId());
 
 

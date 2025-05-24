@@ -1,0 +1,22 @@
+<!-- Modal de suppression -->
+<app-delete-modal
+  *ngIf="modalData"
+  [itemName]="modalData?.itemName"
+  (confirmDelete)="modalService.closeModal()"
+  (cancelDelete)="closeDeleteModal()">
+</app-delete-modal>
+
+<!-- Modal de succès -->
+<app-success-modal
+  *ngIf="successModalData"
+  [message]="successModalData?.message"
+  (closeSuccessModal)="closeSuccessModal()">
+</app-success-modal>
+
+<!-- Modal de warning -->
+<app-warning-modal
+  *ngIf="showWarningModal"
+  [message]="message"
+  [title]="title"
+  (close)="closeWarningModal()">
+</app-warning-modal>

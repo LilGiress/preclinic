@@ -1,5 +1,6 @@
 package com.medecineWebApp.Employees.models.doctors;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.medecineWebApp.Employees.enums.EmployeeStatus;
 import com.medecineWebApp.Employees.enums.Gender;
 import com.medecineWebApp.Employees.models.*;
@@ -11,9 +12,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Doctors")
@@ -35,29 +34,46 @@ public class Doctor extends Auditable implements Serializable {
     private String imageUrl;
     private String biography;
     private String doctorPostalCode;
-    private String doctorCountry;
+    private Long countryId;
+    private Long addressId;
+    private Long employeeId;
+    private Long roleId;
+    private Long departmentId;
+   private Long treatmentId;
+   private Long patientId;
+
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String address;
 
-    @Transient
-    @Column(nullable = false)
-    private Departement department;
+    private String pricing;
+    private String phone;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<DoctorSchedule> doctorSchedule;
+
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
 
-    @Transient
-    private List<Treatment> treatments;
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
-    @Transient
-    private Set<Roles> roles = new HashSet<>();
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<MedicalRecord> medicalRecords;
 
+    @OneToMany(mappedBy = "profile",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Education> education;
 
+    @OneToMany(mappedBy = "profile",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Experience> experience;
 
+    @ElementCollection
+    private List<String> services;
 
-
+    private Long assets;
 
 
 }

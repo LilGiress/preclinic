@@ -1,4 +1,7 @@
 package com.medecineWebApp.Employees.repository;
 
-public interface ReplyRepository {
+import com.medecineWebApp.Employees.models.Reply;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReplyRepository  extends JpaRepository<Reply, Long> {
 }

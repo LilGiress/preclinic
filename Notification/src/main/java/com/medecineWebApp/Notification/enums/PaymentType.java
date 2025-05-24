@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.enums;
+package com.medecineWebApp.Notification.enums;
 
 public enum PaymentType {
     // Payment made with a credit card

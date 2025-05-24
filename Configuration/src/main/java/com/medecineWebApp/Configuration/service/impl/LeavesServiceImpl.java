@@ -26,14 +26,13 @@ public class LeavesServiceImpl implements LeaveService {
     @Override
     public Page<LeavesDTO> findAllLeaves(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Leaves> leavesPage = leavesRepository.findAll(pageable);
-        return leavesMapper.LeavesToLeavesDTOPage(leavesPage);
+        return leavesRepository.findAll(pageable).map(leavesMapper::LeavesToLeavesDTO);
+
     }
 
     @Override
     public Optional<LeavesDTO> findLeaveById(Long id) {
-        Optional<Leaves> leaves = leavesRepository.findById(id);
-        return leavesMapper.LeavesToLeavesDTOOptional(leaves);
+        return leavesRepository.findById(id).map(leavesMapper::LeavesToLeavesDTO);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class LeavesServiceImpl implements LeaveService {
         leaves.setEndDate(leave.getEndDate());
         leaves.setLeaveReason(leave.getLeaveReason());
         leaves.setLeaveType(leave.getLeaveType());
-        return leavesMapper.LeavesToLeavesDTO(leaves);
+        return leavesMapper.LeavesToLeavesDTO(leavesRepository.save(leaves));
     }
 
     @Override

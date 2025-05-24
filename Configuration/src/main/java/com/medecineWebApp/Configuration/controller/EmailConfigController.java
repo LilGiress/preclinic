@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.controller;
 
+import com.medecineWebApp.Configuration.dto.SmtpConfigDTO;
 import com.medecineWebApp.Configuration.models.setting.SmtpConfig;
 import com.medecineWebApp.Configuration.repository.EmailConfigRepository;
 import com.medecineWebApp.Configuration.service.EmailConfigService;
@@ -18,13 +19,13 @@ public class EmailConfigController {
 
     // Fetch current configuration (GET)
     @PostMapping("/save")
-    public ResponseEntity<SmtpConfig>  saveEmailConfig(SmtpConfig smtpConfig) {
+    public ResponseEntity<SmtpConfigDTO>  saveEmailConfig(SmtpConfig smtpConfig) {
         return ResponseEntity.ok(emailConfigService.createSmtpConfig(smtpConfig)) ;
     }
 
     // Update  configuration (POST)
     @PutMapping ("/update")
-    public ResponseEntity<SmtpConfig> updateEmailConfig(@RequestParam Long id,@RequestBody SmtpConfig emailConfig) {
+    public ResponseEntity<SmtpConfigDTO> updateEmailConfig(@RequestParam Long id,@RequestBody SmtpConfig emailConfig) {
         return ResponseEntity.ok(emailConfigService.updateSmtpConfig(id, emailConfig));
     }
 }

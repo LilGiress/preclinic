@@ -1,0 +1,103 @@
+
+
+  <div class="container">
+    <header class="top-bar">
+      <div class="breadcrumb">
+        <h1>Bibliothèque</h1>
+        <span>• Super User</span>
+        <div class="breadcrumb-path">Accueil &gt; Bibliothèque</div>
+      </div>
+      <!-- À placer dans .top-bar ou juste au-dessus de <table> -->
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="🔍 Rechercher un fichier..." />
+</div>
+
+      <div class="actions">
+        <button class="upload"><i class="fa fa-cloud-upload-alt"></i> Ajouter un fichier</button>
+        <button class="new-folder"><i class="fa fa-folder-plus"></i> Nouveau dossier</button>
+        <button class="sort"><i class="fa fa-filter"></i> Trier par</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="file-list">
+        <table>
+          <thead>
+            <tr>
+              <th>TYPE</th>
+              <th>NOM</th>
+              <th>TAILLE</th>
+              <th>MODIFIÉ LE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="assets/pdf-icon.png" class="icon"></td>
+              <td>Document.pdf</td>
+              <td>1.6 Go</td>
+              <td>Hier 16:28</td>
+              <td><i class="fa fa-eye"></i> <i class="fa fa-ellipsis-v"></i></td>
+            </tr>
+            <tr>
+              <td><img src="assets/folder-icon.png" class="icon"></td>
+              <td>Fiches des tests</td>
+              <td>400 Mo</td>
+              <td>06/07/2022 16:28</td>
+              <td><i class="fa fa-eye"></i> <i class="fa fa-ellipsis-v"></i></td>
+            </tr>
+            <tr>
+              <td><img src="assets/word-icon.png" class="icon"></td>
+              <td>Fichier.docx</td>
+              <td>14 Mo</td>
+              <td>Auj. 16:28</td>
+              <td><i class="fa fa-eye"></i> <i class="fa fa-ellipsis-v"></i></td>
+            </tr>
+            <!-- Tu peux ajouter d'autres lignes ici -->
+          </tbody>
+        </table>
+      </section>
+
+      <aside class="quick-access">
+        <h3>Accès rapide</h3>
+        <ul>
+          <li><span class="icon folder"></span> Dossiers <span class="count">4510 fichiers</span> <span class="size orange">0.1 To</span></li>
+          <li><span class="icon pdf"></span> Fichiers PDF <span class="count">212 fichiers</span> <span class="size red">5.0 Go</span></li>
+          <li><span class="icon word"></span> Documents Word <span class="count">120 fichiers</span> <span class="size blue">17.5 Go</span></li>
+          <li><span class="icon excel"></span> Fichiers Excel <span class="count">22 fichiers</span> <span class="size green">3.1 Go</span></li>
+          <li><span class="icon ppt"></span> Fichiers PowerPoint <span class="count">22 fichiers</span> <span class="size orange">3.1 Go</span></li>
+        </ul>
+      </aside>
+    </main>
+  </div>
+
+
+<!-- ploader plusieurs fichiers -->
+
+<h3>Uploader plusieurs fichiers</h3>
+<input type="file" (change)="onFilesSelected($event)" multiple />
+<button (click)="uploadFiles()">Envoyer</button>
+
+<!-- Liste des fichiers avec barre de progression -->
+<div *ngFor="let f of uploads">
+  <p>{{ f.file.name }}</p>
+  <div class="progress-container">
+    <div class="progress-bar" [style.width.%]="f.progress"></div>
+  </div>
+  <p *ngIf="f.status">{{ f.status }}</p>
+</div>
+
+
+
+
+<!-- Fenêtre de prévisualisation -->
+<div id="previewModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="previewArea">Chargement...</div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+
+

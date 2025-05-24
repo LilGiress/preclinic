@@ -42,7 +42,6 @@ public class SalarySettingsServiceImpl implements SalarySettingsService {
     @Override
     public Page<SalarySettingsDTO> getSalarySettings(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<SalarySettings> salarySettings = salarySettingsRepository.findAll(pageable);
-        return  salarySettingsMapper.SalarySettingsDTOToSalarySettings(salarySettings);
+        return  salarySettingsRepository.findAll(pageable).map(salarySettingsMapper::salarySettingsDTOToSalarySettingsDTO);
     }
 }

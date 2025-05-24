@@ -2,38 +2,53 @@ package com.medecineWebApp.patients.dto;
 
 import com.medecineWebApp.patients.enums.Gender;
 import com.medecineWebApp.patients.enums.PatientStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.medecineWebApp.patients.models.Treatment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatientDTO {
+public class PatientDTO extends AuditableDTO{
     private Long id;
     private String firstName;
     private String lastName;
+    @Column(name = "patient_email",nullable = false)
     private String email;
     private String password;
     private String phone;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDate birthDate;
-    private String address;
-    private String city;
+    private Long addressId;
+    private Long cityId;
     private String state;
     private String zip;
-    private String country;
+    private Long countryId;
+
+    @Enumerated(EnumType.STRING)
     private PatientStatus status;
     private String ImageUrl;
-    private LocalDateTime dateOfCreation;
-    private LocalDateTime lastModifiedDate;
+    private Long roleId;
+
+    private List<TreatmentDTO> treatments;
+    private Long appointmentId;
+    private Long doctorId;
+    private Long reviewId;
+    private Long medicalRecordId;
+
+    // Champ pour stocker les IDs des factures (optionnel)
+    /*@ElementCollection
+    @CollectionTable(name = "patient_invoices", joinColumns = @JoinColumn(name = "patient_id"))
+    @Column(name = "invoice_id")*/
+    private Long invoiceIds ;
+
 }

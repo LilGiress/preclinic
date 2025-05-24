@@ -1,0 +1,127 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: api-gateway
+
+#  main:
+#    web-application-type: reactive
+
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: true
+
+    gateway:
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowed-origin-patterns: "*"
+            allowed-headers: "*"
+            allowed-methods: "*"
+            exposed-headers: "*"
+            allow-credentials: false
+
+      routes:
+        - id: service-registry
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+          filters:
+            - RewritePath=/eureka/(?<segment>.*), /${segment}
+
+        - id: Configuration
+          uri: lb://Configuration
+          predicates:
+            - Path=/api/Configuration/**
+          filters:
+            - RewritePath=/api/Configuration/(?<segment>.*), /${segment}
+
+        - id: Employees
+          uri: lb://Employees
+          predicates:
+            - Path=/api/Employees/**
+          filters:
+            - RewritePath=/api/Employees/(?<segment>.*), /${segment}
+
+        - id: Patients
+          uri: lb://Patients
+          predicates:
+            - Path=/api/Patients/**
+          filters:
+            - RewritePath=/api/Patients/(?<segment>.*), /${segment}
+
+        - id: Notification
+          uri: lb://Notification
+          predicates:
+            - Path=/api/Notification/**
+          filters:
+            - RewritePath=/api/Notification/(?<segment>.*), /${segment}
+
+        - id: Asset-Management
+          uri: lb://Asset-Management
+          predicates:
+            - Path=/api/Asset-Management/**
+          filters:
+            - RewritePath=/api/Asset-Management/(?<segment>.*), /${segment}
+
+        - id: Finance-service
+          uri: lb://Finance-service
+          predicates:
+            - Path=/api/Finance-service/**
+          filters:
+            - RewritePath=/api/Finance-service/(?<segment>.*), /${segment}
+
+        - id: Inventory-Service
+          uri: lb://Inventory-Service
+          predicates:
+            - Path=/api/Inventory-Service/**
+          filters:
+            - RewritePath=/api/Inventory-Service/(?<segment>.*), /${segment}
+
+#        - id: websocket-alerts
+#          uri: ws://localhost:3000
+#          predicates:
+#            - Path=/api/ws/alerts/**
+#          filters:
+#            - RewritePath=/api/ws/alerts/(?<segment>.*), /${segment}
+
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+  tracing:
+    sampling:
+      probability: 1.0
+
+  cache:
+    type: caffeine
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+endpoint:
+  gateway:
+    enabled: true
+
+security:
+  jwt:
+    secret: "bc91c3ce1544c639114a9ed756ff60a21d5ea42a72dfc99d0bec35fe15670110b97742f670ac97a4958995c45a4662e58fc8003c1c0947c1265e2307530d7ebd"
+
+logging:
+  level:
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

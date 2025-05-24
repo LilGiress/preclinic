@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Notifications</h1>
+  <div class="notification-list">
+    <div *ngFor="let notification of notifications" class="notification-card">
+      <div class="notification-header">
+        <strong>{{ notification.type }}</strong> - {{ notification.createdAt | date: 'short' }}
+      </div>
+      <div class="notification-body">
+        <p>{{ notification.message }}</p>
+      </div>
+      <div class="notification-footer">
+        <button (click)="markAsRead(notification)" [disabled]="notification.read">
+          {{ notification.read ? 'Lue' : 'Marquer comme lue' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

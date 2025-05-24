@@ -27,8 +27,9 @@ public class DoctorSchedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long doctorId;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor;
 
     @Column(nullable = false)
     private LocalDate date;

@@ -1,0 +1,120 @@
+{
+  "notifications": [
+    {
+      "event": "NEW_APPOINTMENT_REQUEST",
+      "message": "Le patient {patient_name} a demandé un rendez-vous avec le Dr {doctor_name} le {appointment_date}.",
+      "description": "Notification envoyée au médecin lorsqu'un patient demande un rendez-vous.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "appointment_date": "{appointment_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_CONFIRMED",
+      "message": "Votre rendez-vous avec le Dr {doctor_name} le {appointment_date} a été confirmé.",
+      "description": "Notification envoyée au patient après confirmation d'un rendez-vous par le médecin ou le secrétariat.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "appointment_date": "{appointment_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_CANCELLED",
+      "message": "Le rendez-vous prévu le {appointment_date} avec le Dr {doctor_name} a été annulé.",
+      "description": "Notification envoyée lorsque le médecin ou le patient annule un rendez-vous.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "appointment_date": "{appointment_date}",
+      "cancellation_reason": "{cancellation_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "URGENT_CONSULTATION_REQUEST",
+      "message": "Un cas urgent nécessite l'attention du Dr {doctor_name}. Patient : {patient_name}.",
+      "description": "Notification envoyée lorsqu'un patient en urgence est assigné à un médecin.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "urgency_level": "{urgency_level}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PATIENT_CHECKED_IN",
+      "message": "Le patient {patient_name} est arrivé à la clinique pour sa consultation avec le Dr {doctor_name}.",
+      "description": "Notification envoyée au médecin lorsque son patient est arrivé à la clinique.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "appointment_time": "{appointment_time}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_MEDICAL_REPORT",
+      "message": "Un nouveau rapport médical a été ajouté au dossier du patient {patient_name}.",
+      "description": "Notification envoyée au médecin responsable lorsqu'un nouveau rapport médical est disponible.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "report_id": "{report_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "SHIFT_SCHEDULE_UPDATED",
+      "message": "Votre planning de travail a été mis à jour. Consultez votre nouvel emploi du temps.",
+      "description": "Notification envoyée aux médecins et personnel de santé lorsque leurs horaires sont modifiés.",
+      "doctor_id": "{doctor_id}",
+      "schedule_id": "{schedule_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_INTERNAL_MESSAGE",
+      "message": "Vous avez reçu un nouveau message de {sender_name}.",
+      "description": "Notification envoyée lorsqu'un médecin reçoit un message interne d'un collègue ou de l'administration.",
+      "recipient_id": "{recipient_id}",
+      "sender_id": "{sender_id}",
+      "message_preview": "{message_preview}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_LAB_RESULTS",
+      "message": "Les résultats de laboratoire du patient {patient_name} sont disponibles.",
+      "description": "Notification envoyée au médecin lorsqu'un patient a de nouveaux résultats de laboratoire.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "lab_result_id": "{lab_result_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "MEDICAL_TEAM_MEETING",
+      "message": "Une réunion d'équipe médicale est prévue le {meeting_date}.",
+      "description": "Notification envoyée aux médecins pour planifier une réunion de concertation médicale.",
+      "meeting_date": "{meeting_date}",
+      "meeting_topic": "{meeting_topic}",
+      "organizer_id": "{organizer_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ON_CALL_NOTIFICATION",
+      "message": "Le Dr {doctor_name} est de garde ce {shift_date}.",
+      "description": "Notification envoyée aux médecins pour rappeler leurs périodes de garde.",
+      "doctor_id": "{doctor_id}",
+      "shift_date": "{shift_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EQUIPMENT_MAINTENANCE_ALERT",
+      "message": "Un équipement médical nécessitant une maintenance affecte les consultations du Dr {doctor_name}.",
+      "description": "Notification envoyée lorsque du matériel médical doit être réparé ou remplacé.",
+      "doctor_id": "{{doctor_id}}",
+      "equipment_id": "{equipment_id}",
+      "maintenance_status": "{maintenance_status}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PATIENT_TRANSFERRED",
+      "message": "Le patient {patient_name} a été transféré vers un autre service.",
+      "description": "Notification envoyée au médecin lorsque son patient est transféré.",
+      "doctor_id": "{doctor_id}",
+      "patient_id": "{patient_id}",
+      "new_department": "{new_department}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

@@ -1,0 +1,382 @@
+
+ [
+    {
+      "name": "Tchad",
+
+      "regions": [
+        {
+          "name": "N'Djamena",
+          "villes": [
+            {  "city": "N'Djamena",
+              "addresses": [
+                { "street": "Avenue Charles de Gaulle", "postalCode": "23500" }
+              ]
+            },
+            {  "city": "Farcha",
+              "addresses": [
+                { "street": "Rue de la Liberté","postalCode": "23501"}
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Logone Occidental",
+          "villes": [
+            {  "city": "Moundou",
+              "addresses": [
+                {"street": "Boulevard Kélo","postalCode": "23502"}
+              ]
+            },
+            {  "city": "Doba",
+              "addresses": [
+                {
+                  "street": "Rue des Marchés","postalCode": "23503"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Kanem",
+          "villes": [
+            {  "city": "Mao",
+              "addresses": [
+                {
+                  "street": "Avenue Abéché","postalCode": "23504"
+                }
+              ]
+            },
+            {  "city": "Abéché",
+              "addresses": [
+                {
+                  "street": "Rue de la Mairie","postalCode": "23505"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gabon",
+      "regions": [
+        {
+          "name": "Estuaire",
+          "villes": [
+            { "city": "Libreville",
+              "addresses": [
+                {
+                  "street": "Boulevard Triomphal","postalCode": "24100"
+                }
+              ]
+            },
+            {  "city": "Ntoum",
+              "addresses": [
+                {
+                  "street": "Rue de la Paix", "postalCode": "24101"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Haut-Ogooué",
+          "villes": [
+            {  "city": "Franceville",
+              "addresses": [
+                {
+                  "street": "Avenue de Franceville", "postalCode": "24102"
+                }
+              ]
+            },
+            {  "city": "Moanda",
+              "addresses": [
+                {
+                  "street": "Rue des Mines", "postalCode": "24103"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ogooué-Maritime",
+          "villes": [
+            { "city": "Port-Gentil",
+              "addresses": [
+                {
+                  "street": "Port-Gentil Avenue", "postalCode": "24104"
+                }
+              ]
+            },
+            { "city": "Mandji",
+              "addresses": [
+                {
+                  "street": "Rue Mandji", "postalCode": "24105"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nigeria",
+      "regions": [
+        {
+          "name": "Lagos State",
+          "villes": [
+            {  "city": "Lagos",
+              "addresses": [
+                {
+                  "street": "Victoria Island", "postalCode": "23401"
+                }
+              ]
+            },
+            {  "city": "Ikeja",
+              "addresses": [
+                {
+                  "street": "Ikeja Road", "postalCode": "23402"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Federal Capital Territory",
+          "villes": [
+            {  "city": "Abuja",
+              "addresses": [
+                {
+                  "street": "Abuja Central Area", "postalCode": "23403"
+                }
+              ]
+            },
+            {  "city": "Gwarinpa",
+              "addresses": [
+                {
+                  "street": "Gwarinpa Estate", "postalCode": "23404"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Rivers State",
+          "villes": [
+            {  "city": "Port Harcourt",
+              "addresses": [
+                {
+                  "street": "Old GRA Road", "postalCode": "23405"
+                }
+              ]
+            },
+            {  "city": "Bonny",
+              "addresses": [
+                {
+                  "street": "Bonny Island Road", "postalCode": "23406"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cameroon",
+      "regions": [
+        {
+          "name": "Centre",
+          "villes": [
+            {  "city": "Yaoundé",
+              "addresses": [
+                {
+                  "street": "Avenue Kennedy", "postalCode": "23700"
+                }
+              ]
+            },
+            {  "city": "Obala",
+              "addresses": [
+                {
+                  "street": "Rue Elig Edzoa", "postalCode": "23701"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Littoral",
+          "villes": [
+            {  "city": "Douala",
+              "addresses": [
+                {
+                  "street": "Boulevard de la Liberté", "postalCode": "23702"
+                }
+              ]
+            },
+            {  "city": "Nkongsamba",
+              "addresses": [
+                {
+                  "street": "Rue de Bonamoussadi", "postalCode": "23703"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ouest",
+          "villes": [
+            {  "city": "Bafoussam",
+              "addresses": [
+                {
+                  "street": "Avenue des Banques", "postalCode": "23704"
+                }
+              ]
+            },
+            {  "city": "Dschang",
+              "addresses": [
+                {
+                  "street": "Rue des Marchés", "postalCode": "23705"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Nord-Ouest",
+          "villes": [
+            {  "city": "Bamenda",
+              "addresses": [
+                {
+                  "street": "Mile 4 Nkwen", "postalCode": "23706"
+                }
+              ]
+            },
+            {  "city": "Ndop",
+              "addresses": [
+                {
+                  "street": "Foncha Street", "postalCode": "23707"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Sud-Ouest",
+          "villes": [
+            {  "city": "Buea",
+              "addresses": [
+                {
+                  "street": "Buea Town Road", "postalCode": "23708"
+                }
+              ]
+            },
+            {  "city": "Limbe",
+              "addresses": [
+                {
+                  "street": "Clerks Quarters", "postalCode": "23709"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Extrême-Nord",
+          "villes": [
+            {  "city": "Maroua",
+              "addresses": [
+                {
+                  "street": "Avenue Maroua", "postalCode": "23710"
+                }
+              ]
+            },
+            {  "city": "Kousséri",
+              "addresses": [
+                {
+                  "street": "Rue Mokolo", "postalCode": "23711"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Nord",
+          "villes": [
+            {  "city": "Garoua",
+              "addresses": [
+                {
+                  "street": "Boulevard Garoua", "postalCode": "23712"
+                }
+              ]
+            },
+            {  "city": "Guider",
+              "addresses": [
+                {
+                  "street": "Rue Lagdo", "postalCode": "23713"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Adamaoua",
+          "villes": [
+            {  "city": "Ngaoundéré",
+              "addresses": [
+                {
+                  "street": "Avenue Ngaoundéré", "postalCode": "23714"
+                }
+              ]
+            },
+            { "city": "Tignère",
+              "addresses": [
+                {
+                  "street": "Rue Tignère", "postalCode": "23715"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Sud",
+          "villes": [
+            {  "city": "Ebolowa",
+              "addresses": [
+                {
+                  "street": "Boulevard Ebolowa", "postalCode": "23716"
+                }
+              ]
+            },
+            {  "city": "Kribi",
+              "addresses": [
+                {
+                  "street": "Rue Kribi Plage", "postalCode": "23717"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Est",
+          "villes": [
+            {  "city": "Bertoua",
+              "addresses": [
+                {
+                  "street": "Avenue Bertoua", "postalCode": "23718"
+                }
+              ]
+            },
+            {  "city": "Batouri",
+              "addresses": [
+                {
+                  "street": "Rue Batouri", "postalCode": "23719"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+
+

@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EventService {
-    Event createEvent(EventDTO eventDTO);
-    Event updateEvent(Long id, EventDTO eventDTO);
-    Optional<Event> getEventById(Long id);
+    EventDTO createEvent(Event event);
+    EventDTO updateEvent(Long id, Event event);
+    Optional<EventDTO> getEventById(Long id);
     void deleteEvent(Long id);
-    List<Event> getAllEvents();
+    List<EventDTO> getAllEvents(Long calendarId);
+    EventDTO addEventWithHoliday(Event event, Long holidayId);
+    List<EventDTO> getEventsByYearAndMonth(int year, int month);
+    List<EventDTO> getEventsByHoliday(Long holidayId);
 }

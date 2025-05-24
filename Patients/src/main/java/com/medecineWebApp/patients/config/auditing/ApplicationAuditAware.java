@@ -1,6 +1,7 @@
 package com.medecineWebApp.patients.config.auditing;
 
-import com.medecineWebApp.Employees.models.User;
+
+import com.medecineWebApp.patients.models.CustomUserDetails;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,7 @@ public class ApplicationAuditAware implements AuditorAware<Long> {
         if (authentication == null || !authentication.isAuthenticated() || authentication instanceof AnonymousAuthenticationToken) {
             return Optional.empty();
         }
-        User userPrincipal = (User) authentication.getPrincipal();
+        CustomUserDetails userPrincipal = (CustomUserDetails) authentication.getPrincipal();
 
         return Optional.ofNullable(userPrincipal.getId());
     }

@@ -1,7 +1,7 @@
 package com.medecineWebApp.Configuration.payload.response;
 
 
-import com.medecineWebApp.Configuration.enums.RoleType;
+import com.medecineWebApp.Configuration.models.role.Roles;
 import lombok.*;
 
 @Getter
@@ -17,5 +17,5 @@ public class UserResponse {
     private String password;
     private boolean enabled;
     private boolean accountLocked;
-    private RoleType roles;
+    private Roles roles;
 }

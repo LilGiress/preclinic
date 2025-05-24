@@ -1,6 +1,6 @@
 package com.medecineWebApp.Configuration.FakeData;
 
-import com.medecineWebApp.Configuration.models.user.User;
+import com.medecineWebApp.Configuration.models.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class FakeDataController {
     private FakeDataService fakeDataService;
 
     @GetMapping("/users")
-    public List<User> getFakeUsers(@RequestParam(defaultValue = "10") int count) {
+    public List<Users> getFakeUsers(@RequestParam(defaultValue = "10") int count) {
         return fakeDataService.generateFakeUsers(count);
     }
 }

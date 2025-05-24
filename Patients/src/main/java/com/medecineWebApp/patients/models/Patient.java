@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,20 +33,32 @@ public class Patient extends Auditable implements Serializable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private LocalDate birthDate;
-    private String address;
-    private String city;
+    private Long addressId;
+    private Long cityId;
     private String state;
     private String zip;
-    private String country;
+    private Long countryId;
+
     @Enumerated(EnumType.STRING)
     private PatientStatus status;
     private String ImageUrl;
+    private Long roleId;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Treatment> treatments;
+    private Long appointmentId;
+    private Long doctorId;
+    private Long reviewId;
+    private Long medicalRecordId;
 
-    @Transient
-    private List<Appointment> appointments;
+    // Champ pour stocker les IDs des factures (optionnel)
+//    @ElementCollection
+//    @CollectionTable(name = "patient_invoices", joinColumns = @JoinColumn(name = "patient_id"))
+//    @Column(name = "invoice_id")
+    private Long invoiceIds;
+
+
+
 
 
 

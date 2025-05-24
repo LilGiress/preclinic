@@ -4,10 +4,13 @@ import com.medecineWebApp.Configuration.dto.ServicesDTO;
 import com.medecineWebApp.Configuration.models.Services;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface ServiceService {
     ServicesDTO createService(Services service);
     ServicesDTO updateService(Long id, Services service);
     ServicesDTO getService(Long id);
     Page<ServicesDTO> getAllServices(int page, int size);
     void deleteService(Long id);
+    List<ServicesDTO> getAllServicesByDepartementId(Long departmentId);
 }

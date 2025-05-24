@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/services")
+@RequestMapping("/api/services")
 public class ServiceController {
     private final ServiceService serviceService;
 
@@ -34,6 +36,13 @@ public class ServiceController {
         return ResponseEntity.ok(serviceService.getService(id));
 
     }
+
+    @GetMapping("/service-departement/{departementId}")
+    public ResponseEntity<List<ServicesDTO>> getServiceByDepartement(@PathVariable Long departementId) {
+        return ResponseEntity.ok(serviceService.getAllServicesByDepartementId(departementId));
+
+    }
+
     @PutMapping("/update")
     public ResponseEntity<ServicesDTO> updateService(
             @RequestParam Long id,

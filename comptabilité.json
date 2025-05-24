@@ -1,0 +1,109 @@
+{
+  "notifications": [
+    {
+      "event": "INVOICE_GENERATED",
+      "message": "Une nouvelle facture (Réf: {invoice_id}) a été générée pour le patient {patient_name}. Montant : {amount_due} {currency}.",
+      "description": "Notification envoyée au service comptable et au patient lorsqu'une facture est générée.",
+      "invoice_id": "{invoice_id}",
+      "patient_id": "{patient_id}",
+      "patient_name": "{patient_name}",
+      "amount_due": "{amount_due}",
+      "currency": "{currency}",
+      "due_date": "{due_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INVOICE_PAID",
+      "message": "Le paiement de la facture (Réf: {invoice_id}) a été reçu. Montant payé : {amount_paid} {currency}.",
+      "description": "Notification envoyée après qu'un patient ou une assurance a réglé une facture.",
+      "invoice_id": "{invoice_id}",
+      "payer_id": "{payer_id}",
+      "payer_name": "{payer_name}",
+      "amount_paid": "{amount_paid}",
+      "currency": "{currency}",
+      "payment_method": "{payment_method}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INVOICE_OVERDUE",
+      "message": "La facture (Réf: {invoice_id}) est en retard de paiement depuis {days_overdue} jours. Montant dû : {amount_due} {currency}.",
+      "description": "Notification envoyée au patient et au service comptable pour signaler une facture impayée après échéance.",
+      "invoice_id": "{invoice_id}",
+      "patient_id": "{patient_id}",
+      "amount_due": "{amount_due}",
+      "currency": "{currency}",
+      "days_overdue": "{days_overdue}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PAYMENT_FAILED",
+      "message": "Échec du paiement pour la facture (Réf: {invoice_id}). Veuillez réessayer ou contacter le service de comptabilité.",
+      "description": "Notification envoyée lorsqu'un paiement ne peut pas être traité.",
+      "invoice_id": "{invoice_id}",
+      "patient_id": "{patient_id}",
+      "amount_attempted": "{amount_attempted}",
+      "currency": "{currency}",
+      "failure_reason": "{failure_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "REFUND_ISSUED",
+      "message": "Un remboursement de {refund_amount} {currency} a été effectué pour la facture (Réf: {invoice_id}).",
+      "description": "Notification envoyée lorsqu'un remboursement est émis.",
+      "invoice_id": "{invoice_id}",
+      "patient_id": "{patient_id}",
+      "refund_amount": "{refund_amount}",
+      "currency": "{currency}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INSURANCE_CLAIM_SUBMITTED",
+      "message": "Une demande de remboursement d'assurance pour le patient {patient_name} a été soumise. Réf: {claim_id}.",
+      "description": "Notification envoyée lorsqu'une demande de remboursement est soumise à l'assurance.",
+      "claim_id": "{claim_id}",
+      "patient_id": "{patient_id}",
+      "insurance_company": "{insurance_company}",
+      "amount_claimed": "{amount_claimed}",
+      "currency": "{currency}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INSURANCE_CLAIM_APPROVED",
+      "message": "La demande de remboursement d'assurance (Réf: {claim_id}) a été approuvée. Montant remboursé : {amount_reimbursed} {currency}.",
+      "description": "Notification envoyée lorsque l'assurance valide un remboursement.",
+      "claim_id": "{claim_id}",
+      "patient_id": "{patient_id}",
+      "amount_reimbursed": "{amount_reimbursed}",
+      "currency": "{currency}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INSURANCE_CLAIM_REJECTED",
+      "message": "La demande de remboursement d'assurance (Réf: {claim_id}) a été refusée pour la raison suivante : {rejection_reason}.",
+      "description": "Notification envoyée si une demande de remboursement est rejetée.",
+      "claim_id": "{claim_id}",
+      "patient_id": "{patient_id}",
+      "rejection_reason": "{rejection_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EXPENSE_ADDED",
+      "message": "Une nouvelle dépense a été enregistrée : {expense_description}. Montant : {amount_spent} {currency}.",
+      "description": "Notification envoyée au service comptable lorsqu'une dépense est ajoutée.",
+      "expense_id": "{expense_id}",
+      "expense_description": "{expense_description}",
+      "amount_spent": "{amount_spent}",
+      "currency": "{currency}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "BUDGET_THRESHOLD_EXCEEDED",
+      "message": "Alerte : Le seuil budgétaire défini ({budget_limit} {currency}) a été dépassé. Dépenses actuelles : {current_expenses} {currency}.",
+      "description": "Notification envoyée lorsque les dépenses dépassent un seuil budgétaire prédéfini.",
+      "budget_limit": "{budget_limit}",
+      "current_expenses": "{current_expenses}",
+      "currency": "{currency}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

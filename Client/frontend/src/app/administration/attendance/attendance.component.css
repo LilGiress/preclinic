@@ -1,0 +1,14 @@
+.attendance-button {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .attendance-button:focus {
+    outline: none;
+  }
+  
+  .attendance-button:hover {
+    opacity: 0.8;
+  }

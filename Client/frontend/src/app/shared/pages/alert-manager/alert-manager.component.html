@@ -1,0 +1,8 @@
+<div class="alerts-container">
+  <h2>Alertes</h2>
+  <div *ngFor="let alert of alerts" class="alert" [ngClass]="{'critical': alert.labels.severity === 'critical'}">
+    <strong>{{ alert.annotations.summary }}</strong>
+    <p>{{ alert.annotations.description }}</p>
+  </div>
+</div>
+

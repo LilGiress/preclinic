@@ -10,11 +10,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Aspect
 @Component
 public class DoctorEventAspect {
-    private static final String TOPIC_NAME = "employee-events";
+    private static final String TOPIC_NAME = "doctor-events";
     private KafkaTemplate<String, DoctorEvent> kafkaTemplate;
 @AfterReturning(value = "@annotation(publishDoctorEvent)",returning = "result")
     public  void publishDoctorEvent(JoinPoint joinPoint,
@@ -31,8 +32,9 @@ public class DoctorEventAspect {
             doctorEvent.setFirstname(doctor.getFirstname());
             doctorEvent.setLastname(doctor.getLastname());
            doctorEvent.setUserId(doctor.getUserId());
-           doctorEvent.setDepartments(List.of(doctor.getDepartment()));
-           doctorEvent.setRoles(doctor.getRoles());
+           doctorEvent.setDepartments(List.of(doctor.getDepartmentId()));
+           doctorEvent.setRoles(Set.of(doctor.getRoleId()));
+
 
 
 

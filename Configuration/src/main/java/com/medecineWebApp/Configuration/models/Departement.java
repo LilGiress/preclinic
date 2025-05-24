@@ -1,45 +1,41 @@
 package com.medecineWebApp.Configuration.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.medecineWebApp.Configuration.enums.EntityStatus;
-import com.medecineWebApp.Configuration.models.role.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "config_departments")
+@Table(name = "departments")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class,AuditLogListener.class})
 public class Departement extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
+    @JsonProperty("nom")
     private String name;
     private String description;
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
 
-   /* @JsonIgnore
-    @ManyToMany(mappedBy = "departments",cascade = CascadeType.DETACH,targetEntity = User.class)
-    private List<User> users;*/
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Services> services = new ArrayList<>();
 
-    // Un département peut contenir plusieurs rôles
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "department_id")
-    private Set<Roles> roles;
+    private Long userId;
 
-    @Transient
-    private List<Doctor> doctors;
+    private Long leaveId;
 
 
 }

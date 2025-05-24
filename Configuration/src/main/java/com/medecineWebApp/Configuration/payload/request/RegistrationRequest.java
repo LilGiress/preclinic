@@ -1,12 +1,13 @@
 package com.medecineWebApp.Configuration.payload.request;
 
-import com.medecineWebApp.Configuration.enums.RoleType;
+import com.medecineWebApp.Configuration.models.role.Roles;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -27,10 +28,12 @@ public class RegistrationRequest {
     private String email;
     @NotEmpty(message = "Password is mandatory")
     @NotBlank(message = "Password is mandatory")
-    @Size(min = 8, message = "Password should be 8 characters long minimum")
+
     private String password;
 
-    private Set<RoleType> roleTypes ;
+    private Set<Roles> roles ;
+
+    private List<Long> departments = new ArrayList<>(); // ✅ Évite les erreurs si `null`;
 
 
 }

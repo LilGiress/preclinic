@@ -4,6 +4,7 @@ import com.medecineWebApp.Employees.dto.EmployeeDTO;
 import com.medecineWebApp.Employees.enums.EmployeeStatus;
 import com.medecineWebApp.Employees.enums.EventType;
 import com.medecineWebApp.Employees.filter.EmployeeSpecifications;
+import com.medecineWebApp.Employees.mapper.AttendanceMapper;
 import com.medecineWebApp.Employees.mapper.EmployeeMapper;
 import com.medecineWebApp.Employees.models.Employee;
 import com.medecineWebApp.Employees.repository.EmployeeRepository;
@@ -23,12 +24,14 @@ public class EmployeServiceImpl implements EmployeService {
     private final EmployeeRepository employeeRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final EmployeeMapper employeeMapper;
+    private final AttendanceMapper attendanceMapper;
 
 
-    public EmployeServiceImpl(EmployeeRepository employeeRepository, ApplicationEventPublisher eventPublisher, EmployeeMapper employeeMapper) {
+    public EmployeServiceImpl(EmployeeRepository employeeRepository, ApplicationEventPublisher eventPublisher, EmployeeMapper employeeMapper, AttendanceMapper attendanceMapper) {
         this.employeeRepository = employeeRepository;
         this.eventPublisher = eventPublisher;
         this.employeeMapper = employeeMapper;
+        this.attendanceMapper = attendanceMapper;
     }
 
     @Override
@@ -39,11 +42,14 @@ public class EmployeServiceImpl implements EmployeService {
         employee.setFirstname(employeeDTO.getFirstname());
         employee.setLastname(employeeDTO.getLastname());
         employee.setEmail(employeeDTO.getEmail());
-        employee.setAttendanceRecords(employeeDTO.getAttendanceRecords());
-        employee.setDepartment(employeeDTO.getDepartment());
+        employee.setAttendanceRecords(employeeDTO.getAttendanceRecords().stream().map(
+                attendanceMapper::attendanceDTOToAttendance
+                ).toList()
+        );
+        employee.setDepartmentId(employeeDTO.getDepartmentId());
         employee.setPosition(employeeDTO.getPosition());
         employee.setStatus(EmployeeStatus.ACTIVE);
-        employee.setRoles(employeeDTO.getRoles());
+        employee.setRoleId(employeeDTO.getRoleId());
         employee.setDateDebutEntreEnFonction(employeeDTO.getDateDebutEntreEnFonction());
         Employee savedEmployee = employeeRepository.save(employee);
 
@@ -89,15 +95,17 @@ public class EmployeServiceImpl implements EmployeService {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
         if (employeeOptional.isPresent()) {
             Employee employeeToUpdate = employeeOptional.get();
-            employeeToUpdate.setDepartment(employeeDTO.getDepartment());
+            employeeToUpdate.setDepartmentId(employeeDTO.getDepartmentId());
             employeeToUpdate.setFirstname(employeeDTO.getFirstname());
             employeeToUpdate.setLastname(employeeDTO.getLastname());
-            employeeToUpdate.setRoles(employeeDTO.getRoles());
+            employeeToUpdate.setRoleId(employeeDTO.getRoleId());
             employeeToUpdate.setDateDebutEntreEnFonction(employeeDTO.getDateDebutEntreEnFonction());
             employeeToUpdate.setPosition(employeeDTO.getPosition());
             employeeToUpdate.setEmail(employeeDTO.getEmail());
             employeeToUpdate.setStatus(employeeDTO.getStatus());
-            employeeToUpdate.setAttendanceRecords(employeeDTO.getAttendanceRecords());
+            employeeToUpdate.setAttendanceRecords(employeeDTO.getAttendanceRecords().stream().map(
+                    attendanceMapper::attendanceDTOToAttendance
+            ).toList());
             Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
 
 

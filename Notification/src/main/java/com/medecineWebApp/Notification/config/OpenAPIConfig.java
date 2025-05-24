@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.config;
+package com.medecineWebApp.Notification.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;

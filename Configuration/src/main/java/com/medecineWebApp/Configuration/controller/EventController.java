@@ -20,29 +20,27 @@ public class EventController {
 
     // Create a new event
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody EventDTO event) {
-        Event newEvent = eventService.createEvent(event);
-        return ResponseEntity.ok(newEvent);
+    public ResponseEntity<EventDTO> createEvent(@RequestBody Event event) {
+        return ResponseEntity.ok(eventService.createEvent(event));
     }
 
     // Get all events
-    @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = eventService.getAllEvents();
-        return ResponseEntity.ok(events);
+    @GetMapping("/event/{calendarId}")
+    public ResponseEntity<List<EventDTO>> getAllEvents(@PathVariable Long calendarId) {
+
+        return ResponseEntity.ok(eventService.getAllEvents(calendarId));
     }
 
     // Get a specific event by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Event>> getEventById(@PathVariable Long id) {
+    public ResponseEntity<Optional<EventDTO>> getEventById(@PathVariable Long id) {
         return ResponseEntity.ok(eventService.getEventById(id));
     }
 
     // Update an event
-    @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody EventDTO updatedEvent) {
-        Event event = eventService.updateEvent(id, updatedEvent);
-        return ResponseEntity.ok(event);
+    @PutMapping("/event/{id}")
+    public ResponseEntity<EventDTO> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
+        return ResponseEntity.ok(eventService.updateEvent(id, updatedEvent));
     }
 
     // Delete an event
@@ -50,5 +48,23 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Ajouter un événement avec un jour férié spécifique
+    @PostMapping("/addWithHoliday/{holidayId}")
+    public EventDTO addEventWithHoliday(@RequestBody Event event, @PathVariable Long holidayId) {
+        return eventService.addEventWithHoliday(event, holidayId);
+    }
+
+    // Récupérer les événements par année et mois
+    @GetMapping("/year/{year}/month/{month}")
+    public List<EventDTO> getEventsByYearAndMonth(@PathVariable int year, @PathVariable int month) {
+        return eventService.getEventsByYearAndMonth(year, month);
+    }
+
+    // Récupérer tous les événements associés à un jour férié
+    @GetMapping("/holiday/{holidayId}")
+    public List<EventDTO> getEventsByHoliday(@PathVariable Long holidayId) {
+        return eventService.getEventsByHoliday(holidayId);
     }
 }

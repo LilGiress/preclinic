@@ -1,0 +1,51 @@
+<div class="dashboard">
+    <h2>📊 Tableau de Bord - Pharmacie</h2>
+  
+    <!-- Notifications -->
+    <div class="notifications">
+      <h3>🔔 Notifications</h3>
+      <ul>
+        <li *ngFor="let notification of notifications">{{ notification }}</li>
+      </ul>
+    </div>
+  
+    <!-- Prescriptions -->
+    <div class="prescriptions">
+      <h3>📋 Prescriptions Médicales</h3>
+      <table>
+        <tr>
+          <th>Patient</th>
+          <th>Médecin</th>
+          <th>Médicaments</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let prescription of prescriptions">
+          <td>{{ prescription.patientId }}</td>
+          <td>{{ prescription.doctorId }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let item of prescription.items">
+                {{ item.consumable.name }} ({{ item.quantity }})
+              </li>
+            </ul>
+          </td>
+          <td>{{ prescription.issuedAt | date:'short' }}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <!-- Stock -->
+    <div class="stock">
+      <h3>🏥 Stock des Médicaments</h3>
+      <table>
+        <tr>
+          <th>Médicament</th>
+          <th>Quantité</th>
+        </tr>
+        <tr *ngFor="let item of stock">
+          <td>{{ item.name }}</td>
+          <td [class.low-stock]="item.quantity < 10">{{ item.quantity }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>

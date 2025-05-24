@@ -4,20 +4,22 @@ import com.medecineWebApp.Configuration.dto.LeavesDTO;
 import com.medecineWebApp.Configuration.models.Leaves;
 import com.medecineWebApp.Configuration.payload.request.LeaveRequest;
 import com.medecineWebApp.Configuration.service.LeaveService;
-import com.medecineWebApp.Configuration.service.impl.LeavesServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/leaves")
 public class LeaveController {
-    @Autowired
-    private LeaveService leaveService;
+
+    private final LeaveService leaveService;
+
+    public LeaveController(LeaveService leaveService) {
+        this.leaveService = leaveService;
+    }
+
     @PostMapping("/create")
     public ResponseEntity<LeavesDTO> createLeaves(LeaveRequest leaveRequest) {
         return ResponseEntity.ok(leaveService.save(leaveRequest));

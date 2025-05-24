@@ -1,0 +1,109 @@
+{
+  "notifications": [
+    {
+      "event": "LOW_STOCK_ALERT",
+      "message": "Le stock de {item_name} est faible ({current_quantity} restants). Veuillez passer une commande avant rupture.",
+      "description": "Notification envoyée au responsable des stocks lorsqu'un article atteint un seuil critique.",
+      "item_id": "{item_id}",
+      "current_quantity": "{current_quantity}",
+      "threshold": "{threshold}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "OUT_OF_STOCK",
+      "message": "L'article {item_name} est en rupture de stock.",
+      "description": "Notification envoyée aux gestionnaires d'inventaire lorsqu'un article est épuisé.",
+      "item_id": "{item_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_SUPPLY_ORDER_PLACED",
+      "message": "Une commande de réapprovisionnement pour {item_name} ({quantity} unités) a été passée.",
+      "description": "Notification envoyée au fournisseur et à l'équipe d'inventaire lorsqu'une commande de matériel est effectuée.",
+      "item_id": "{item_id}",
+      "quantity": "{quantity}",
+      "order_id": "{order_id}",
+      "expected_delivery_date": "{expected_delivery_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "SUPPLY_ORDER_RECEIVED",
+      "message": "La commande {order_id} de {item_name} ({quantity} unités) a été reçue et enregistrée en stock.",
+      "description": "Notification envoyée pour confirmer la réception d'une commande de réapprovisionnement.",
+      "item_id": "{item_id}",
+      "quantity": "{quantity}",
+      "order_id": "{order_id}",
+      "received_by": "{received_by}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EQUIPMENT_NEEDS_MAINTENANCE",
+      "message": "L'équipement {asset_name} (ID: {asset_id}) nécessite une maintenance programmée.",
+      "description": "Notification envoyée aux techniciens pour prévenir qu'un équipement médical doit être entretenu.",
+      "asset_id": "{asset_id}",
+      "maintenance_due_date": "{maintenance_due_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EQUIPMENT_UNDER_REPAIR",
+      "message": "L'équipement {asset_name} (ID: {asset_id}) est en réparation. Durée estimée : {estimated_repair_time}.",
+      "description": "Notification envoyée au personnel pour signaler qu'un équipement médical est temporairement indisponible.",
+      "asset_id": "{asset_id}",
+      "estimated_repair_time": "{estimated_repair_time}",
+      "repaired_by": "{repaired_by}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_ASSET_REGISTERED",
+      "message": "Un nouvel équipement {asset_name} (ID: {asset_id}) a été ajouté à l'inventaire.",
+      "description": "Notification envoyée au service concerné lorsqu'un nouvel équipement est enregistré.",
+      "asset_id": "{asset_id}",
+      "asset_category": "{asset_category}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ASSET_DECOMMISSIONED",
+      "message": "L'équipement {asset_name} (ID: {asset_id}) a été mis hors service.",
+      "description": "Notification envoyée lorsque du matériel médical est retiré de l'inventaire.",
+      "asset_id": "{asset_id}",
+      "reason": "{decommission_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INVENTORY_AUDIT_SCHEDULED",
+      "message": "Un audit d'inventaire est prévu pour le {audit_date}. Tous les gestionnaires doivent être disponibles.",
+      "description": "Notification envoyée aux responsables de l'inventaire pour annoncer un audit de contrôle.",
+      "audit_date": "{audit_date}",
+      "audit_id": "{audit_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "INVENTORY_AUDIT_COMPLETED",
+      "message": "L'audit d'inventaire du {audit_date} a été terminé. {discrepancy_count} divergences ont été identifiées.",
+      "description": "Notification envoyée après la finalisation d’un audit d'inventaire.",
+      "audit_date": "{audit_date}",
+      "audit_id": "{audit_id}",
+      "discrepancy_count": "{discrepancy_count}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ASSET_TRANSFER_REQUESTED",
+      "message": "Une demande de transfert de l'équipement {asset_name} (ID: {asset_id}) vers {new_location} a été soumise.",
+      "description": "Notification envoyée lorsque du matériel doit être déplacé vers une autre unité.",
+      "asset_id": "{asset_id}",
+      "current_location": "{current_location}",
+      "new_location": "{new_location}",
+      "requested_by": "{requested_by}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ASSET_TRANSFER_APPROVED",
+      "message": "Le transfert de l'équipement {asset_name} (ID: {asset_id}) vers {new_location} a été approuvé.",
+      "description": "Notification envoyée pour confirmer qu'un transfert de matériel a été validé.",
+      "asset_id": "{asset_id}",
+      "new_location": "{new_location}",
+      "approved_by": "{approved_by}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

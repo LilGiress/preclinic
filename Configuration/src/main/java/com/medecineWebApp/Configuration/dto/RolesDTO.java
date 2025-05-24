@@ -1,11 +1,8 @@
 package com.medecineWebApp.Configuration.dto;
 
-import com.medecineWebApp.Configuration.enums.PermissionType;
-import com.medecineWebApp.Configuration.enums.RoleType;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
+
+
+import com.medecineWebApp.Configuration.models.role.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +13,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RolesDTO {
+public class RolesDTO extends AuditableDTO {
     private Long id;
-    private RoleType name;
-    private Set<PermissionType> permissions;
+    private String name;
+    private Set<Permission> permissions;
 }

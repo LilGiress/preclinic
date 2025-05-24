@@ -3,6 +3,7 @@ package com.medecineWebApp.Configuration.dto;
 import com.medecineWebApp.Configuration.enums.ExpenseCategory;
 import com.medecineWebApp.Configuration.enums.PaymentType;
 import com.medecineWebApp.Configuration.enums.Status;
+import com.medecineWebApp.Configuration.models.Auditable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExpenseDTO {
+public class ExpenseDTO extends Auditable {
     private Long id;
     private String itemName;
     private String purchaseFrom;

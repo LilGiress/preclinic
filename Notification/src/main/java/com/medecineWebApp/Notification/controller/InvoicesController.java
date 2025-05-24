@@ -1,7 +1,5 @@
-package com.medecineWebApp.Accounts.controller;
+package com.medecineWebApp.Notification.controller;
 
-import com.medecineWebApp.Accounts.models.Invoices;
-import com.medecineWebApp.Accounts.service.InvoiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

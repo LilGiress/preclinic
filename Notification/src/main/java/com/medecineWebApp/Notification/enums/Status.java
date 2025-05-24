@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.enums;
+package com.medecineWebApp.Notification.enums;
 
 public enum Status {
     PENDING,         // The task or request is awaiting action

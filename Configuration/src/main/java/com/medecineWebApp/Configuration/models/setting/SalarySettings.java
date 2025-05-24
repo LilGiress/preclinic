@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "config_salary_Settings")
+@Table(name = "salary_Settings")
 @Getter
 @Setter
 @NoArgsConstructor

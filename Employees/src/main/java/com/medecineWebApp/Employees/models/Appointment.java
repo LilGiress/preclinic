@@ -13,15 +13,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "doctors_appointment")
+@Table(name = "appointment")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Appointment implements Serializable {
+public class Appointment extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,12 +34,14 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
-    @Transient
-    @Column(nullable = false)
-    private Patient patientId;
+    private Long patientId;
 
-    @Column(nullable = false)
-    private Long departmentId;
+    private Long departementId;
+
+    // Liste des IDs des patients suivis par ce docteur
+    @ElementCollection
+    private List<Long> treatmentIds = new ArrayList<>();
+
 
     @Column(nullable = false)
     private String PatientPhoneNumber;

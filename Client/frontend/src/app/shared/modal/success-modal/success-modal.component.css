@@ -1,0 +1,20 @@
+.modal-body .col-sm-8 {
+    text-align: center;
+}
+.intro-title {
+  margin-bottom: 5px;
+  font-weight: 400;
+  color: #333;
+}
+
+@media (max-width: 575px) {
+  .modal-body .col-sm-4 {
+    text-align: center;
+    margin-top: 25px;
+  }
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+      max-width: 650px;
+  }
+}

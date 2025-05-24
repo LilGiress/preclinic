@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/patients")
+@RequestMapping("/api/patients")
 public class PatientController {
     private final PatientService patientService;
 
@@ -21,11 +21,12 @@ public class PatientController {
 
     }
     @GetMapping("/all")
-    public ResponseEntity<Page<Patient>> getAllPatients(
+    public ResponseEntity<Page<PatientDTO>> getAllPatients(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam Long doctorId
     ) {
-        Page<Patient> patients = patientService.getAllPatients(page, size);
+        Page<PatientDTO> patients = patientService.getAllPatients(page, size, doctorId);
         return ResponseEntity.ok(patients);
     }
     @GetMapping("/{id}")
@@ -40,5 +41,15 @@ public class PatientController {
     @DeleteMapping("/delete")
     public void deletePatient(@RequestParam Long id) {
         patientService.deletePatient(id);
+    }
+
+    @GetMapping("/count-by-doctor/{doctorId}")
+    public ResponseEntity<Long>  countPatientsByDoctor(@PathVariable Long doctorId) {
+        return ResponseEntity.ok( patientService.countPatientsByDoctor(doctorId));
+    }
+
+    @GetMapping("/count-today-by-doctor/{doctorId}")
+    public ResponseEntity<Long> countTodayPatientsByDoctor(@PathVariable Long doctorId) {
+        return ResponseEntity.ok( patientService.countTodayPatientsByDoctor(doctorId));
     }
 }

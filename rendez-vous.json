@@ -1,0 +1,104 @@
+{
+  "notifications": [
+    {
+      "event": "APPOINTMENT_REQUESTED",
+      "message": "Votre demande de rendez-vous avec Dr. {doctor_name} le {appointment_date} à {appointment_time} est en attente de confirmation.",
+      "description": "Notification envoyée au patient lorsqu'il demande un rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_CONFIRMED",
+      "message": "Votre rendez-vous avec Dr. {doctor_name} le {appointment_date} à {appointment_time} a été confirmé.",
+      "description": "Notification envoyée au patient lorsque le médecin confirme le rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_DENIED",
+      "message": "Votre demande de rendez-vous avec Dr. {doctor_name} le {appointment_date} à {appointment_time} a été refusée. Veuillez choisir un autre créneau.",
+      "description": "Notification envoyée au patient si le médecin refuse la demande de rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_REMINDER",
+      "message": "Rappel : Vous avez un rendez-vous avec Dr. {doctor_name} demain à {appointment_time}.",
+      "description": "Notification envoyée au patient pour rappeler son rendez-vous un jour avant.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_CANCELED_BY_DOCTOR",
+      "message": "Votre rendez-vous avec Dr. {doctor_name} le {appointment_date} à {appointment_time} a été annulé. Veuillez reprogrammer un nouveau rendez-vous.",
+      "description": "Notification envoyée au patient si le médecin annule le rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_CANCELED_BY_PATIENT",
+      "message": "Vous avez annulé votre rendez-vous avec Dr. {doctor_name} prévu le {appointment_date} à {appointment_time}.",
+      "description": "Notification envoyée au médecin si le patient annule le rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "DOCTOR_DELAYED",
+      "message": "Dr. {doctor_name} aura un retard de {delay_duration} minutes pour votre rendez-vous prévu à {appointment_time}. Merci de votre patience.",
+      "description": "Notification envoyée au patient si le médecin est en retard.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PATIENT_DELAYED",
+      "message": "Vous êtes en retard pour votre rendez-vous avec Dr. {doctor_name} prévu à {appointment_time}. Veuillez informer la clinique si vous arrivez bientôt.",
+      "description": "Notification envoyée au médecin si le patient est en retard.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_RESCHEDULED",
+      "message": "Votre rendez-vous avec Dr. {doctor_name} a été reporté au {new_appointment_date} à {new_appointment_time}.",
+      "description": "Notification envoyée au patient et au médecin si le rendez-vous est reprogrammé.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "old_appointment_id": "{old_appointment_id}",
+      "new_appointment_id": "{new_appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "APPOINTMENT_COMPLETED",
+      "message": "Votre consultation avec Dr. {doctor_name} le {appointment_date} est terminée. Merci de votre visite.",
+      "description": "Notification envoyée au patient après la fin du rendez-vous.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "appointment_id": "{appointment_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PRESCRIPTION_READY",
+      "message": "Votre prescription pour le rendez-vous du {appointment_date} avec Dr. {doctor_name} est disponible.",
+      "description": "Notification envoyée au patient lorsque son ordonnance est prête.",
+      "patient_id": "{patient_id}",
+      "doctor_id": "{doctor_id}",
+      "prescription_id": "{prescription_id}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

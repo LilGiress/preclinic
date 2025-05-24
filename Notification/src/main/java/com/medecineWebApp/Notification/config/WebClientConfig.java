@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.config;
+package com.medecineWebApp.Notification.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

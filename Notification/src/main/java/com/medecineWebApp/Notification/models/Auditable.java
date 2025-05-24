@@ -1,4 +1,4 @@
-package com.medecineWebApp.Accounts.models;
+package com.medecineWebApp.Notification.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.EntityListeners;

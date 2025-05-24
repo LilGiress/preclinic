@@ -6,6 +6,6 @@ import com.medecineWebApp.Configuration.models.setting.SmtpConfig;
 import java.util.Optional;
 
 public interface EmailConfigService {
-    SmtpConfig createSmtpConfig(SmtpConfigDTO smtpConfigDTO);
-   SmtpConfig updateSmtpConfig(Long id, SmtpConfigDTO smtpConfigDTO);
+    SmtpConfigDTO createSmtpConfig(SmtpConfig smtpConfig);
+    SmtpConfigDTO updateSmtpConfig(Long id, SmtpConfig smtpConfig);
 }

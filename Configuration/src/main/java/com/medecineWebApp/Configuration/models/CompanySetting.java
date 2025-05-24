@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "config_company_Setting")
+@Table(name = "company_Setting")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,7 +15,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "config_Leaves")
+@Table(name = "Leaves")
+@EntityListeners(AuditingEntityListener.class)
 public class Leaves extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +28,11 @@ public class Leaves extends Auditable implements Serializable {
 
     private String leaveReason;
 
+    private Long employeeId;
+
 
     @ManyToOne
     @JoinColumn(name = "leave_type_id")
     private LeaveType leaveType;
+
 }

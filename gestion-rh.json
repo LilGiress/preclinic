@@ -1,0 +1,121 @@
+{
+  "notifications": [
+    {
+      "event": "NEW_EMPLOYEE_HIRED",
+      "message": "Bienvenue à {employee_name}, qui rejoint notre équipe en tant que {job_title} à partir du {start_date}.",
+      "description": "Notification envoyée aux membres du personnel pour annoncer une nouvelle embauche.",
+      "employee_id": "{employee_id}",
+      "job_title": "{job_title}",
+      "start_date": "{start_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "LEAVE_REQUEST_SUBMITTED",
+      "message": "{employee_name} a soumis une demande de congé du {leave_start_date} au {leave_end_date}.",
+      "description": "Notification envoyée au responsable RH lorsqu'un employé soumet une demande de congé.",
+      "employee_id": "{employee_id}",
+      "leave_start_date": "{leave_start_date}",
+      "leave_end_date": "{leave_end_date}",
+      "leave_type": "{leave_type}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "LEAVE_REQUEST_APPROVED",
+      "message": "Votre demande de congé du {leave_start_date} au {leave_end_date} a été approuvée.",
+      "description": "Notification envoyée à l'employé lorsque sa demande de congé est validée par les RH.",
+      "employee_id": "{employee_id}",
+      "leave_start_date": "{leave_start_date}",
+      "leave_end_date": "{leave_end_date}",
+      "approved_by": "{approved_by}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "LEAVE_REQUEST_REJECTED",
+      "message": "Votre demande de congé du {leave_start_date} au {leave_end_date} a été refusée. Raison : {rejection_reason}.",
+      "description": "Notification envoyée à l'employé lorsque sa demande de congé est refusée.",
+      "employee_id": "{employee_id}",
+      "leave_start_date": "{leave_start_date}",
+      "leave_end_date": "{leave_end_date}",
+      "rejection_reason": "{rejection_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EMPLOYEE_ABSENCE_ALERT",
+      "message": "{employee_name} est absent aujourd'hui. Veuillez ajuster l'organisation du service si nécessaire.",
+      "description": "Notification envoyée aux responsables lorsque l'absence imprévue d'un employé est détectée.",
+      "employee_id": "{employee_id}",
+      "absence_date": "{absence_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "NEW_PAYROLL_PROCESSED",
+      "message": "Votre fiche de paie pour le mois de {payroll_month} est disponible.",
+      "description": "Notification envoyée aux employés lorsqu'une nouvelle fiche de paie est générée.",
+      "employee_id": "{employee_id}",
+      "payroll_month": "{payroll_month}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "CONTRACT_EXPIRATION_WARNING",
+      "message": "Le contrat de {employee_name} arrive à expiration le {contract_end_date}. Veuillez prévoir un renouvellement ou une mise à jour.",
+      "description": "Notification envoyée aux RH pour avertir qu'un contrat de travail arrive à son terme.",
+      "employee_id": "{employee_id}",
+      "contract_end_date": "{contract_end_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EMPLOYEE_PROMOTION",
+      "message": "Félicitations à {employee_name} pour sa promotion au poste de {new_job_title} !",
+      "description": "Notification envoyée aux employés pour annoncer la promotion d'un collègue.",
+      "employee_id": "{employee_id}",
+      "old_job_title": "{old_job_title}",
+      "new_job_title": "{new_job_title}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "MANDATORY_TRAINING_REMINDER",
+      "message": "Une formation obligatoire sur {training_topic} est prévue le {training_date}. Veuillez vous inscrire avant le {registration_deadline}.",
+      "description": "Notification envoyée aux employés pour leur rappeler une formation obligatoire.",
+      "employee_id": "{employee_id}",
+      "training_topic": "{training_topic}",
+      "training_date": "{training_date}",
+      "registration_deadline": "{registration_deadline}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "PERFORMANCE_REVIEW_SCHEDULED",
+      "message": "Votre évaluation de performance est prévue le {review_date} avec {reviewer_name}.",
+      "description": "Notification envoyée aux employés pour les informer d'une évaluation annuelle ou semestrielle.",
+      "employee_id": "{employee_id}",
+      "reviewer_name": "{reviewer_name}",
+      "review_date": "{review_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "WORK_FROM_HOME_APPROVED",
+      "message": "Votre demande de télétravail pour le {work_from_home_date} a été approuvée.",
+      "description": "Notification envoyée à un employé lorsque sa demande de télétravail est validée.",
+      "employee_id": "{employee_id}",
+      "work_from_home_date": "{work_from_home_date}",
+      "approved_by": "{approved_by}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "EMPLOYEE_TERMINATION",
+      "message": "L'employé {employee_name} quittera la clinique le {termination_date}.",
+      "description": "Notification envoyée aux RH et managers pour informer d'un départ d'un employé.",
+      "employee_id": "{employee_id}",
+      "termination_date": "{termination_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "TEAM_MEETING_SCHEDULED",
+      "message": "Une réunion d'équipe est prévue le {meeting_date} à {meeting_time}.",
+      "description": "Notification envoyée aux employés pour les informer d'une réunion de service ou d'équipe.",
+      "employee_id": "{employee_id}",
+      "meeting_date": "{meeting_date}",
+      "meeting_time": "{meeting_time}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

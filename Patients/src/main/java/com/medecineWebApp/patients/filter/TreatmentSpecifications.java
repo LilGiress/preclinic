@@ -12,11 +12,11 @@ public class TreatmentSpecifications {
                 description == null ? null :  criteriaBuilder.equal(root.get("description"), description));
     }
 
-    public static Specification<Treatment> treatmentDescriptionContains(String description){
-        return ((root, query, criteriaBuilder) ->
-                description == null ? null :  criteriaBuilder.equal(root.get("description"), description));
-
-    }
+//    public static Specification<Treatment> treatmentDescriptionContains(String description){
+//        return ((root, query, criteriaBuilder) ->
+//                description == null ? null :  criteriaBuilder.equal(root.get("description"), description));
+//
+//    }
 
     public static Specification<Treatment> hasDate(LocalDate date){
         return ((root, query, criteriaBuilder) ->

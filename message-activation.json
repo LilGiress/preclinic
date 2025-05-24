@@ -1,0 +1,57 @@
+{
+  "messages": [
+    {
+      "type": "patient",
+      "subject": "Activation de votre compte clinique - Patient",
+      "body": "Bonjour {userFirstName},\n\n" +
+      "Bienvenue dans notre système de gestion de clinique. Votre compte a été créé avec succès en tant que patient.\n\n" +
+      "Pour activer votre compte et commencer à prendre des rendez-vous, consulter vos dossiers médicaux et gérer vos informations personnelles, veuillez cliquer sur le lien ci-dessous :\n\n" +
+      "{activationLink}\n\n" +
+      "Si vous n'avez pas créé ce compte ou si vous avez des questions, n'hésitez pas à nous contacter.\n\n" +
+      "Cordialement,\n" +
+      "L'équipe de gestion de la clinique.\n\n" +
+      "Note : Ce lien d'activation est valable pendant 24 heures. Si vous ne l'avez pas utilisé avant cette échéance, veuillez demander un nouveau lien d'activation.",
+      "description": "Message d'activation pour un patient, permettant d'activer son compte et de commencer à utiliser les services associés à son rôle (prise de rendez-vous, consultation de dossiers médicaux, etc.). Le lien d'activation est valide pendant 24 heures."
+    },
+    {
+      "type": "medecin",
+      "subject": "Activation de votre compte clinique - Médecin",
+      "body": "Bonjour Dr. {userFirstName} {userLastName},\n\n" +
+      "Bienvenue dans notre système de gestion de clinique. Votre compte a été créé avec succès en tant que médecin.\n\n" +
+      "Pour activer votre compte et accéder à vos consultations, gérer vos patients et leurs dossiers médicaux, veuillez cliquer sur le lien ci-dessous :\n\n" +
+      "{activationLink}\n\n" +
+      "Si vous n'avez pas créé ce compte ou si vous avez des questions, n'hésitez pas à nous contacter.\n\n" +
+      "Cordialement,\n" +
+      "L'équipe de gestion de la clinique.\n\n" +
+      "Note : Ce lien d'activation est valable pendant 24 heures. Si vous ne l'avez pas utilisé avant cette échéance, veuillez demander un nouveau lien d'activation.",
+      "description": "Message d'activation pour un médecin, permettant d'activer son compte et d'accéder aux fonctionnalités réservées aux professionnels de santé (gestion des patients, consultation de dossiers médicaux, etc.)."
+    },
+    {
+      "type": "administrateur",
+      "subject": "Activation de votre compte clinique - Administrateur",
+      "body": "Bonjour {userFirstName},\n\n" +
+      "Bienvenue dans notre système de gestion de clinique. Votre compte administrateur a été créé avec succès.\n\n" +
+      "Pour activer votre compte et accéder à toutes les fonctionnalités d'administration, veuillez cliquer sur le lien ci-dessous :\n\n" +
+      "{activationLink}\n\n" +
+      "Si vous n'avez pas créé ce compte ou si vous avez des questions, n'hésitez pas à nous contacter.\n\n" +
+      "Cordialement,\n" +
+      "L'équipe de gestion de la clinique.\n\n" +
+      "Note : Ce lien d'activation est valable pendant 24 heures. Si vous ne l'avez pas utilisé avant cette échéance, veuillez demander un nouveau lien d'activation.",
+      "description": "Message d'activation pour un administrateur, permettant d'activer son compte et d'accéder aux fonctionnalités d'administration du système, telles que la gestion des utilisateurs et des rôles."
+    },
+    {
+      "type": "general",
+      "subject": "Activation de votre compte clinique",
+      "body": "Bonjour {userFirstName},\n\n" +
+      "Bienvenue dans notre système de gestion de clinique. Votre compte a été créé avec succès, et vous êtes désormais inscrit(e) dans notre base de données.\n\n" +
+      "Pour activer votre compte et accéder à nos services, veuillez cliquer sur le lien ci-dessous :\n\n" +
+      "{activationLink}\n\n" +
+      "Une fois votre compte activé, vous pourrez gérer vos informations, prendre des rendez-vous, consulter des dossiers médicaux, et plus encore selon votre rôle (Patient, Médecin, etc.).\n\n" +
+      "Si vous n'avez pas créé ce compte ou si vous avez des questions, n'hésitez pas à nous contacter.\n\n" +
+      "Cordialement,\n" +
+      "L'équipe de gestion de la clinique.\n\n" +
+      "Note : Ce lien d'activation est valable pendant 24 heures. Si vous ne l'avez pas utilisé avant cette échéance, veuillez demander un nouveau lien d'activation.",
+      "description": "Message générique d'activation de compte destiné à tout utilisateur (Patient, Médecin, Administrateur), contenant des informations générales et un lien d'activation valide pendant 24 heures."
+    }
+  ]
+}

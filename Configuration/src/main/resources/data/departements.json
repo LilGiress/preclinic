@@ -1,0 +1,109 @@
+ [
+    {
+      "nom": "Médecine de laboratoire",
+      "description": "Expertise en analyses biologiques et diagnostics.",
+      "services": [
+        {
+          "nom": "Microbiologie-infectiologie",
+          "description": "Expertise complète en bactériologie, virologie, sérologie, parasitologie et mycologie."
+        },
+        {
+          "nom": "Anatomopathologie",
+          "description": "Diagnostic des maladies par l’examen au microscope des prélèvements faits par biopsie."
+        }
+      ]
+    },
+    {
+      "nom": "Imagerie médicale",
+      "description": "Réalisation et interprétation de procédures diagnostiques et thérapeutiques.",
+      "services": [
+        {
+          "nom": "Radiologie",
+          "description": "Examen et interprétation des structures d’organes, tissus et os."
+        },
+        {
+          "nom": "Médecine nucléaire",
+          "description": "Utilisation de produits radiopharmaceutiques pour l’examen du fonctionnement des organes."
+        }
+      ]
+    },
+    {
+      "nom": "Médecine d’urgence",
+      "description": "Soins complets en urgence pour les patients en état critique.",
+      "services": [
+        {
+          "nom": "Urgences générales",
+          "description": "Responsabilité d’assurer aux usagers des soins complets en urgence."
+        }
+      ]
+    },
+    {
+      "nom": "Chirurgie",
+      "description": "Interventions chirurgicales sur différentes parties du corps.",
+      "services": [
+        {
+          "nom": "Chirurgie buccale",
+          "description": "Intervention sur les affections pathologiques de la bouche, du visage et de la mâchoire."
+        },
+        {
+          "nom": "Chirurgie générale",
+          "description": "Interventions sur le tube digestif, l’œsophage, le foie, les voies biliaires, etc."
+        },
+        {
+          "nom": "Orthopédie",
+          "description": "Offre de soins médicaux et chirurgicaux pour les maladies des os et des articulations."
+        },
+        {
+          "nom": "Chirurgie plastique",
+          "description": "Spécialisation en chirurgie de la main, du poignet et microchirurgie."
+        },
+        {
+          "nom": "Chirurgie vasculaire",
+          "description": "Traitement des lésions de l’aorte et du réseau artériel périphérique."
+        },
+        {
+          "nom": "Ophtalmologie",
+          "description": "Évaluation et traitement des maladies de la rétine, du glaucome et autres affections oculaires."
+        }
+      ]
+    },
+    {
+      "nom": "Médecine spécialisée",
+      "description": "Soins spécialisés pour diverses pathologies complexes.",
+      "services": [
+        {
+          "nom": "Allergologie-immunologie",
+          "description": "Évaluation et traitement des maladies auto-immunes et des allergies."
+        },
+        {
+          "nom": "Biochimie clinique",
+          "description": "Suivi des maladies métaboliques et nutrition entérale et parentérale."
+        },
+        {
+          "nom": "Cardiologie",
+          "description": "Suivi des patients atteints de maladies cardiaques, adultes et enfants."
+        },
+        {
+          "nom": "Dermatologie",
+          "description": "Évaluation et traitement des affections cutanées."
+        },
+        {
+          "nom": "Endocrinologie",
+          "description": "Suivi des patients diabétiques et des maladies endocriniennes."
+        },
+        {
+          "nom": "Gastro-entérologie",
+          "description": "Évaluation et traitement des affections digestives."
+        },
+        {
+          "nom": "Gériatrie spécialisée",
+          "description": "Soins pour personnes âgées afin de maintenir leur autonomie et santé."
+        },
+        {
+          "nom": "Hématologie-oncologie",
+          "description": "Traitement des pathologies hématologiques bénignes et malignes."
+        }
+      ]
+    }
+  ]
+

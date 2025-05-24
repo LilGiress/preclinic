@@ -10,9 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -31,9 +29,16 @@ public class Employee extends Auditable implements Serializable {
     private String username;
     private String email;
     private String password;
+    private Long addressId;
+
+    private Long cityId;
+    private String state;
+    private String zip;
+    private Long countryId;
+
     private LocalDate dateDebutEntreEnFonction;
-    @Transient
-    private Departement department;
+    private Long departmentId;
+
     private String position;
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
@@ -41,8 +46,11 @@ public class Employee extends Auditable implements Serializable {
     // One-to-Many relationship with Attendance
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attendance> attendanceRecords;
+    private Long roleId;
 
-    @Transient
-    private Set<Roles> roles = new HashSet<>();
+    private Long leaveId;
+
+    private Long invoiceId;
+
 
 }

@@ -9,7 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+@Entity
+@Table(name = "reply")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class Reply extends Auditable implements Serializable {
     private String replyText;
     private LocalDateTime repliedDate;
 
-    @Transient
+    @OneToOne
     @JoinColumn(name = "review_id")
     private Review review;
 }

@@ -1,84 +1,111 @@
 package com.medecineWebApp.Configuration.config.jwt;
 
+import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.models.user.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.function.Function;
 
+import java.util.*;
+import java.util.function.Function;
+@Getter
 @Service
 public class JwtService {
-    @Value("${security.jwt.Expiration}")
-    private long jwtExpiration;
-    @Value("${security.jwt-Secret}")
-    private String jwtSecret;
-    @Value("${security.jwt.refresh-token.expiration}")
-    private long refreshExpiration;
+
+    private final long jwtExpiration;
+    private final String jwtSecret;
+    private final long refreshExpiration;
+    @Autowired
+    public JwtService(@Value("${security.jwt.expiration}")long jwtExpiration, @Value("${security.jwt.refresh-token.expiration}")long refreshExpiration, @Value("${security.jwt.secret}")String jwtSecret) {
+        this.jwtExpiration = jwtExpiration;
+        this.refreshExpiration = refreshExpiration;
+        this.jwtSecret = jwtSecret;
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private <T> T extractClaim(String token, Function <Claims, T> claimsResolver) {
-        final Claims claims= extractAllClaims(token);
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
-
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public   String generateToken(HashMap<String,Object> claims, UserDetails userDetails) {
-
-       
-        return buildToken(claims, userDetails, jwtExpiration);
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
         return buildToken(new HashMap<>(), userDetails, refreshExpiration);
     }
 
-    private String buildToken(
-            HashMap<String, Object> extraClaims,
-            UserDetails userDetails,
-            long jwtExpiration) {
+    private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expirationTime) {
         var authorities = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        return Jwts
-                .builder()
+        return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .claim("authorities", authorities)
-                .signWith(getSignInKey())
+                .claim("roles", userDetails instanceof Users ?
+                        ((Users) userDetails).getRoles().stream()  // Stream des rôles
+                                .map(Roles::getName)  // Mapper chaque rôle en son nom
+                                .toList() // Collecter les noms des rôles dans une liste
+                        : null)  // Si ce n'est pas un Users, renvoyer null
+                .claim("permissions", userDetails instanceof Users ?
+                        ((Users) userDetails).getRoles().stream() // Récupérer les rôles de l'utilisateur
+                                .flatMap(role -> role.getPermissions().stream()) // Récupérer les permissions associées aux rôles
+                                .flatMap(permission -> { // Pour chaque permission, crée une liste de chaînes représentant les actions possibles
+                                    List<String> permissions = new ArrayList<>();
+                                    if (permission.isCanRead()) permissions.add("canRead");
+                                    if (permission.isCanWrite()) permissions.add("canWrite");
+                                    if (permission.isCanCreate()) permissions.add("canCreate");
+                                    if (permission.isCanDelete()) permissions.add("canDelete");
+                                    if (permission.isCanImport()) permissions.add("canImport");
+                                    if (permission.isCanExport()) permissions.add("canExport");
+                                    if (permission.isCanApprove()) permissions.add("canApprove");
+                                    if (permission.isCanValidate()) permissions.add("canValidate");
+                                    if (permission.isCanAssign()) permissions.add("canAssign");
+                                    if (permission.isCanGenerateReport()) permissions.add("canGenerateReport");
+                                    if (permission.isCanActivate()) permissions.add("canActivate");
+                                    return permissions.stream(); // Retourner le flux de permissions sous forme de chaînes
+                                })
+                                .toList() // Convertir en liste
+                        : Collections.emptyList()) // Retourner une liste vide si ce n'est pas un `Users`
+
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // ✅ Ajout du second paramètre obligatoire
                 .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username= extractUsername(token);
-        return (username.equals(userDetails.getUsername())) &&  !isTokenExpired(token);
+        final String username = extractUsername(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
@@ -89,9 +116,16 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String extractRole(String token) {
+        return extractAllClaims(token).get("roles", String.class); // ✅ Correction ici (roles au lieu de role)
+    }
+
+    public List<String> extractPermissions(String token) {
+        return extractAllClaims(token).get("permissions", List.class);
     }
 }

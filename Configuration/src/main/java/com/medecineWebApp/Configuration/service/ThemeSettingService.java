@@ -7,7 +7,7 @@ import java.util.Optional;
 
 
 public interface ThemeSettingService {
-    Optional<ThemeSettingDTO> getThemeByUserId(Long userId);
+    Optional<ThemeSettingDTO> getTheme();
     ThemeSettingDTO saveThemeSetting(ThemeSetting themeSetting);
     ThemeSettingDTO udpateThemeSetting(Long id, ThemeSetting themeSetting);
 }

@@ -3,7 +3,9 @@ package com.medecineWebApp.Configuration.controller;
 import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
 import com.medecineWebApp.Configuration.models.setting.ThemeSetting;
 import com.medecineWebApp.Configuration.service.ThemeSettingService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.medecineWebApp.Configuration.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,9 +15,11 @@ import java.util.Optional;
 public class ThemeSettingController {
 
     private final ThemeSettingService themeSettingService;
+    private final UserService userService;
 
-    public ThemeSettingController( ThemeSettingService themeSettingService) {
+    public ThemeSettingController(ThemeSettingService themeSettingService, UserService userService) {
         this.themeSettingService = themeSettingService;
+        this.userService = userService;
     }
 
 
@@ -29,8 +33,8 @@ public class ThemeSettingController {
 
     // Get the theme settings for a user
     @GetMapping("/get")
-    public Optional<ThemeSettingDTO> getTheme(@RequestParam Long userId) {
-        return themeSettingService.getThemeByUserId(userId);
+    public Optional<ThemeSettingDTO> getTheme() {
+        return themeSettingService.getTheme();
     }
     @PutMapping("/update")
     public ThemeSettingDTO updateThemeSetting(

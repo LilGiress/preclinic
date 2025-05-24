@@ -1,6 +1,5 @@
 package com.medecineWebApp.Configuration.dto;
 
-import com.medecineWebApp.Configuration.models.LeaveType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeavesDTO {
+public class LeavesDTO extends AuditableDTO {
     private Long id;
 
     private LocalDate startDate;
@@ -21,5 +20,7 @@ public class LeavesDTO {
 
     private String leaveReason;
 
-    private LeaveType leaveType;
+    private LeaveTypeDTO leaveType;
+
+    private Long employeeId;
 }

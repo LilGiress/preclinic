@@ -1,0 +1,61 @@
+groups:
+  - name: application_alerts
+    rules:
+      # 🔴 1. Alerte si l'application est DOWN
+      - alert: "Spring Boot Down"
+        expr: up{job="spring-boot-app"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "L'application Spring Boot ne répond plus"
+          description: "Le service 'spring-boot-app' ne répond pas depuis plus de 30 secondes."
+
+      # ⏳ 2. Alerte si le temps de réponse moyen dépasse 500ms
+      - alert: "Temps de réponse élevé"
+        expr: histogram_quantile(0.95, rate(http_server_requests_seconds_bucket[5m])) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Temps de réponse élevé détecté"
+          description: "Le temps de réponse moyen est supérieur à 500ms sur les 5 dernières minutes."
+
+      # 🚨 3. Alerte si plus de 5% des requêtes retournent une erreur 5xx
+      - alert: "Trop d'erreurs HTTP 5xx"
+        expr: (sum(rate(http_server_requests_seconds_count{status=~"5.."}[5m])) / sum(rate(http_server_requests_seconds_count[5m]))) * 100 > 5
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Trop d'erreurs HTTP 5xx"
+          description: "Plus de 5% des requêtes échouent avec un code 5xx (erreur serveur)."
+
+      # 💥 4. Alerte si l'utilisation du CPU dépasse 80% pendant 5 minutes
+      - alert: "CPU élevé"
+        expr: (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU élevé"
+          description: "L'utilisation du CPU dépasse 80% depuis 5 minutes."
+
+      # 🗑️ 5. Alerte si le Garbage Collector est trop sollicité (> 5s de pause par minute)
+      - alert: "GC trop sollicité"
+        expr: rate(jvm_gc_pause_seconds_sum[1m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Garbage Collector trop sollicité"
+          description: "Le GC passe plus de 5s par minute en nettoyage, ce qui peut impacter les performances."
+
+      - alert: "Mémoire RAM élevée"
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Mémoire RAM élevée"
+          description: "L'utilisation de la RAM dépasse 80%."

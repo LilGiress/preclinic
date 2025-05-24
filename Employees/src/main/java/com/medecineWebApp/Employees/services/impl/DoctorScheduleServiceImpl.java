@@ -7,6 +7,7 @@ import com.medecineWebApp.Employees.mapper.DoctorScheduleMapper;
 import com.medecineWebApp.Employees.models.doctors.DoctorSchedule;
 import com.medecineWebApp.Employees.repository.DoctorScheduleRepository;
 import com.medecineWebApp.Employees.services.DoctorScheduleService;
+import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,13 +33,13 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
     public Page<DoctorScheduleDTO> getAllDoctorSchedule(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<DoctorSchedule> doctorSchedule = doctorScheduleRepository.findAll(pageable);
-        return doctorScheduleMapper.DoctorScheduleDTO_PAGE(doctorSchedule);
+        return doctorSchedule.map(doctorScheduleMapper::DoctorScheduleToDoctorScheduleDTO);
     }
 
     @Override
     public Optional<DoctorScheduleDTO> getDoctorScheduleById(Long id) {
         Optional<DoctorSchedule> doctorSchedule = doctorScheduleRepository.findById(id);
-        return doctorScheduleMapper.DOCTOR_SCHEDULE_DTO_OPTIONAL(doctorSchedule);
+        return doctorSchedule.map(doctorScheduleMapper::DoctorScheduleToDoctorScheduleDTO);
     }
 
     @Override
@@ -54,20 +55,16 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
 
     @Override
     public DoctorScheduleDTO updateDoctorSchedule(Long id, DoctorSchedule doctorSchedule) {
-        Optional<DoctorSchedule> optionalDoctorSchedule = doctorScheduleRepository.findById(id);
-        if (optionalDoctorSchedule.isPresent()) {
-            DoctorSchedule doctorScheduleToUpdate = optionalDoctorSchedule.get();
-            doctorScheduleToUpdate.setDoctorId(doctorSchedule.getDoctorId());
-            doctorScheduleToUpdate.setMessage(doctorSchedule.getMessage());
-            doctorScheduleToUpdate.setStatus(doctorSchedule.getStatus());
-            doctorScheduleToUpdate.setAvailableDays(doctorSchedule.getAvailableDays());
-            doctorScheduleToUpdate.setStartTime(doctorSchedule.getStartTime());
-            doctorScheduleToUpdate.setEndTime(doctorSchedule.getEndTime());
-            doctorScheduleToUpdate.setDate(doctorSchedule.getDate());
-            DoctorSchedule updatedDoctorSchedule = doctorScheduleRepository.save(doctorScheduleToUpdate);
-            return doctorScheduleMapper.DoctorScheduleToDoctorScheduleDTO(updatedDoctorSchedule);
+        if (id != null){
+            return  doctorScheduleRepository.findById(id).map(
+             doctorScheduleMapper::DoctorScheduleToDoctorScheduleDTO
+        ).orElseThrow(
+                    () -> new ResourceNotFoundException("doctorSchedule not found for this id: " + id)
+            );
+
         }
         throw  new RuntimeException("Schedule not found with id " + id);
+
     }
 
     @Override
@@ -75,7 +72,7 @@ public class DoctorScheduleServiceImpl implements DoctorScheduleService {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<DoctorSchedule> doctorSchedule= doctorScheduleRepository.findByDoctorIdAndDate(doctorId, date,pageable);
-        return doctorScheduleMapper.DoctorScheduleDTO_PAGE(doctorSchedule);
+        return doctorSchedule.map(doctorScheduleMapper::DoctorScheduleToDoctorScheduleDTO);
     }
 
     @Override

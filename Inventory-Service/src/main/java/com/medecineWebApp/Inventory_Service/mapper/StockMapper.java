@@ -1,0 +1,19 @@
+package com.medecineWebApp.Inventory_Service.mapper;
+
+import com.medecineWebApp.Inventory_Service.dto.StockDTO;
+import com.medecineWebApp.Inventory_Service.models.Stock;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper(componentModel = "spring")
+public interface StockMapper {
+    @Mapping(source = "createdBy", target = "createdBy")
+    @Mapping(source = "createdDate", target = "createdDate")
+    @Mapping(source = "lastModifiedBy", target = "lastModifiedBy")
+    @Mapping(source = "lastModifiedDate", target = "lastModifiedDate")
+    Stock toStock(StockDTO stockDTO);
+    @InheritInverseConfiguration
+    StockDTO toStockDTO(Stock stock);
+
+}

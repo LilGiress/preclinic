@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: notification-microservice
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_notification?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database: mysql
+    properties:
+      hibernate:
+        show_sql: true
+        # format_sql: true  # D�commentez si n�cessaire
+
+  mail:
+    host: localhost
+    port: 1025
+    username: giress
+    password: giress
+    properties:
+      mail.smtp.trust: "*"
+      mail.auth: true
+      mail.starttls.enable: true
+      mail.connectiontimeout: 5000
+      mail.timeout: 3000
+      mail.writetimeout: 5000
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification-service-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: "*"
+    listener:
+      missing-topics-fatal: false
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+
+server:
+  port: 7002
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    org.apache.kafka: DEBUG
+    org.springframework.kafka: DEBUG
+
+security:
+  jwt:
+    secret: "bc91c3ce1544c639114a9ed756ff60a21d5ea42a72dfc99d0bec35fe15670110b97742f670ac97a4958995c45a4662e58fc8003c1c0947c1265e2307530d7ebd"

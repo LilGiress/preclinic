@@ -1,0 +1,107 @@
+{
+    "regions": [
+        {
+            "region": "Adamaoua",
+            "abbreviation": "AD",
+            "villes": [
+                "Ngaoundéré",
+                "Meiganga",
+                "Tibati",
+                "Banyo",
+                "Ngangassé"
+            ]
+        },
+        {
+            "region": "Centre",
+            "abbreviation": "CE",
+            "villes": [
+                "Yaoundé",
+                "Mbalmayo",
+                "Obala",
+                "Mfou",
+                "Eseka"
+            ]
+        },
+        {
+            "region": "Est",
+            "abbreviation": "ES",
+            "villes": [
+                "Bertoua",
+                "Batouri",
+                "Yokadouma",
+                "Garoua-Boulaï"
+            ]
+        },
+        {
+            "region": "Extrême-Nord",
+            "abbreviation": "EN",
+            "villes": [
+                "Maroua",
+                "Kousséri",
+                "Mora",
+                "Mokolo",
+                "Kaélé"
+            ]
+        },
+        {
+            "region": "Littoral",
+            "abbreviation": "LT",
+            "villes": [
+                "Douala",
+                "Edéa",
+                "Nkongsamba",
+                "Mbanga"
+            ]
+        },
+        {
+            "region": "Nord",
+            "abbreviation": "NO",
+            "villes": [
+                "Garoua",
+                "Figué",
+                "Guider",
+                "Pitoa"
+            ]
+        },
+        {
+            "region": "Nord-Ouest",
+            "abbreviation": "NW",
+            "villes": [
+                "Bamenda",
+                "Kumbo",
+                "Ndop",
+                "Fundong"
+            ]
+        },
+        {
+            "region": "Ouest",
+            "abbreviation": "OU",
+            "villes": [
+                "Bafoussam",
+                "Dschang",
+                "Bangangté",
+                "Mbouda"
+            ]
+        },
+        {
+            "region": "Sud",
+            "abbreviation": "SU",
+            "villes": [
+                "Ebolowa",
+                "Kribi",
+                "Sangmélima",
+                "Akom II"
+            ]
+        },
+        {
+            "region": "Sud-Ouest",
+            "abbreviation": "SW",
+            "villes": [
+                "Buea",
+                "Limbe",
+                "Kumba",
+                "Mamfé"
+            ]
+        }
+    ]
+}

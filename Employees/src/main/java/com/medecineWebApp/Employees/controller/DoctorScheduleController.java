@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/schedules")
+@RequestMapping("/api/schedules")
 public class DoctorScheduleController {
     private final DoctorScheduleService doctorScheduleService;
 

@@ -1,0 +1,85 @@
+{
+  "notifications": [
+    {
+      "event": "ORDER_REQUESTED",
+      "message": "Une nouvelle commande de matériaux médicaux a été passée. Référence de commande : {order_id}.",
+      "description": "Notification envoyée à l'équipe d'approvisionnement lorsqu'une commande est initiée.",
+      "order_id": "{order_id}",
+      "requested_by": "{employee_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_APPROVED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) a été approuvée et est en cours de traitement.",
+      "description": "Notification envoyée à l'initiateur de la commande une fois approuvée par la direction ou l’administration.",
+      "order_id": "{order_id}",
+      "approved_by": "{admin_id}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_REJECTED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) a été refusée pour la raison suivante : {rejection_reason}.",
+      "description": "Notification envoyée à l'initiateur de la commande si elle est rejetée.",
+      "order_id": "{order_id}",
+      "rejected_by": "{admin_id}",
+      "rejection_reason": "{rejection_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_DISPATCHED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) a été expédiée par le fournisseur {supplier_name}.",
+      "description": "Notification envoyée lorsque la commande est expédiée par le fournisseur.",
+      "order_id": "{order_id}",
+      "supplier_name": "{supplier_name}",
+      "tracking_number": "{tracking_number}",
+      "expected_delivery": "{expected_delivery_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_DELIVERED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) a été livrée à {delivery_location}.",
+      "description": "Notification envoyée une fois la commande livrée à la clinique ou au service concerné.",
+      "order_id": "{order_id}",
+      "delivered_by": "{delivery_person}",
+      "delivery_location": "{delivery_location}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_DELAYED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) est retardée. Nouvelle date de livraison estimée : {new_expected_delivery_date}.",
+      "description": "Notification envoyée si la commande prend du retard.",
+      "order_id": "{order_id}",
+      "supplier_name": "{supplier_name}",
+      "original_delivery_date": "{original_delivery_date}",
+      "new_expected_delivery_date": "{new_expected_delivery_date}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "ORDER_CANCELLED",
+      "message": "Votre commande de matériaux médicaux (Réf: {order_id}) a été annulée pour la raison suivante : {cancellation_reason}.",
+      "description": "Notification envoyée si une commande est annulée, soit par la clinique, soit par le fournisseur.",
+      "order_id": "{order_id}",
+      "cancelled_by": "{cancelled_by}",
+      "cancellation_reason": "{cancellation_reason}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "LOW_STOCK_ALERT",
+      "message": "Alerte stock faible : {material_name} est presque épuisé. Veuillez envisager de passer une nouvelle commande.",
+      "description": "Notification envoyée au gestionnaire d'inventaire lorsque le stock d'un matériel médical est bas.",
+      "material_name": "{material_name}",
+      "current_stock": "{current_stock_level}",
+      "reorder_threshold": "{reorder_threshold}",
+      "timestamp": "{timestamp}"
+    },
+    {
+      "event": "STOCK_REPLENISHED",
+      "message": "Le stock de {material_name} a été réapprovisionné. Quantité ajoutée : {quantity_added}.",
+      "description": "Notification envoyée après un réapprovisionnement du stock.",
+      "material_name": "{material_name}",
+      "quantity_added": "{quantity_added}",
+      "new_stock_level": "{new_stock_level}",
+      "timestamp": "{timestamp}"
+    }
+  ]
+}

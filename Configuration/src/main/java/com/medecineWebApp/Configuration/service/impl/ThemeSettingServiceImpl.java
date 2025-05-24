@@ -20,9 +20,9 @@ public class ThemeSettingServiceImpl implements ThemeSettingService {
     }
 
     @Override
-    public Optional<ThemeSettingDTO> getThemeByUserId(Long userId) {
-        Optional<ThemeSetting> themeSetting = themeSettingRepository.findByUserId(userId);
-        return themeSettingMapper.THEME_SETTING_DTO_OPTIONAL(themeSetting);
+    public Optional<ThemeSettingDTO> getTheme() {
+        return themeSettingRepository.findByThemeIsTrue().map(themeSettingMapper::themeSettingToThemeSettingDTO);
+
     }
 
     @Override

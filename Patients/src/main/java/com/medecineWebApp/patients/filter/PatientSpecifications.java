@@ -5,10 +5,10 @@ import com.medecineWebApp.patients.models.Patient;
 import org.springframework.data.jpa.domain.Specification;
 
 public class PatientSpecifications {
-    public static Specification<Patient> hasPatientId(Long patientId) {
-        return ((root, query, criteriaBuilder) ->
-                patientId == null ? null :    criteriaBuilder.equal(root.get("patientId"), patientId));
-    }
+//    public static Specification<Patient> hasPatientId(Long patientId) {
+//        return ((root, query, criteriaBuilder) ->
+//                patientId == null ? null :    criteriaBuilder.equal(root.get("patientId"), patientId));
+//    }
 
     public static  Specification<Patient> hasDoctorId(Long doctorId) {
         return ((root, query, criteriaBuilder) ->

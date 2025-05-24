@@ -1,6 +1,6 @@
 package com.medecineWebApp.Configuration.dto;
 
-import com.medecineWebApp.Configuration.models.user.Address;
+import com.medecineWebApp.Configuration.models.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CountryDTO {
+public class CountryDTO extends AuditableDTO {
     private Long id;
-    private String name;
-    private List<Address> addresses;
+    private List<RegionDTO> regions;
 }

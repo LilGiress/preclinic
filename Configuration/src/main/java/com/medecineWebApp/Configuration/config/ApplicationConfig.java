@@ -2,7 +2,6 @@ package com.medecineWebApp.Configuration.config;
 
 
 import com.medecineWebApp.Configuration.auditing.ApplicationAuditAware;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -20,11 +19,10 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.google.common.net.HttpHeaders.X_REQUESTED_WITH;
+
 import static org.springframework.http.HttpHeaders.*;
 
 @Configuration
-
 public class ApplicationConfig {
     private final UserDetailsService userDetailsService;
 
@@ -47,7 +45,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuditorAware<Long> auditorAware() {
+    public AuditorAware<String> auditorAware() {
         return new ApplicationAuditAware();
     }
 
@@ -75,7 +73,6 @@ public class ApplicationConfig {
                         CONTENT_TYPE,
                         ACCEPT,
                         AUTHORIZATION,
-                        X_REQUESTED_WITH,
                         ACCESS_CONTROL_REQUEST_METHOD,
                         ACCESS_CONTROL_REQUEST_HEADERS,
                         ACCESS_CONTROL_ALLOW_CREDENTIALS,

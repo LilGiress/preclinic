@@ -1,12 +1,21 @@
 package com.medecineWebApp.Employees.services.impl;
 
 
-import com.medecineWebApp.Employees.config.EmployeeClient;
+import com.medecineWebApp.Employees.feignClient.CountryClient;
+import com.medecineWebApp.Employees.dto.AppointmentDTO;
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
-import com.medecineWebApp.Employees.models.Patient;
+import com.medecineWebApp.Employees.feignClient.PatientClient;
+import com.medecineWebApp.Employees.filter.AppointmentSpecifications;
+import com.medecineWebApp.Employees.mapper.AppointmentMapper;
+import com.medecineWebApp.Employees.models.Appointment;
+import com.medecineWebApp.Employees.models.doctors.Doctor;
 import com.medecineWebApp.Employees.repository.AppointmentRepository;
 import com.medecineWebApp.Employees.services.AppointmentService;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,49 +25,47 @@ import java.util.Optional;
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
-    private final EmployeeClient employeeClient;
+    private final AppointmentMapper appointmentMapper;
 
-    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, EmployeeClient employeeClient) {
+
+
+    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, CountryClient employeeClient, AppointmentMapper appointmentMapper, PatientClient patientClient) {
         this.appointmentRepository = appointmentRepository;
-        this.employeeClient = employeeClient;
+        this.appointmentMapper = appointmentMapper;
     }
 
     @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+    public Page<AppointmentDTO> getAllAppointments(Long patient, Doctor doctor, String date, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Specification<Appointment> specification= Specification.where(
+                AppointmentSpecifications.byDoctorId(doctor)
+                        .and(AppointmentSpecifications.byPatientId(patient))
+                        .and(AppointmentSpecifications.hasDate(date))
+        );
+        // Récupération de la page de rendez-vous depuis le repository
+        Page<Appointment> appointmentPage = appointmentRepository.findAll(specification, pageable);
+        // Mapping de chaque entité Appointment vers AppointmentDTO
+        return appointmentPage.map(appointmentMapper::appointmentToAppointmentDTO);
     }
 
     @Override
     @Transactional
-    public Appointment createAppointment(Appointment appointment) {
+    public AppointmentDTO createAppointment(Appointment appointment) {
         if (appointment.getAppointmentCode() == null) {
             appointment.setAppointmentCode(generateAppointmentCode());
         }
-        return appointmentRepository.save(appointment);
+        return appointmentMapper.appointmentToAppointmentDTO(appointmentRepository.save(appointment));
     }
 
     @Override
-    public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
+    public AppointmentDTO updateAppointment(Long id, Appointment appointmentDetails) {
+        if (appointmentDetails.getPatientId() != null) {
+           return appointmentRepository.findById(id).map(
+                    appointmentMapper::appointmentToAppointmentDTO
+            ).orElseThrow(() -> new RuntimeException("Appointment not found with id " + id));
+        }
+        throw new RuntimeException("Appointment not found with id " + id);
 
-        Patient patient=employeeClient.getPatient(appointmentDetails.getPatientId());
-
-        return appointmentRepository.findById(id)
-                .map(appointment -> {
-                    appointment.setDoctorId(appointmentDetails.getDoctorId());
-                    if (patient==null) {
-                        appointment.setPatientId(patient.getId());
-                    }
-                    appointment.setAppointmentDate(appointmentDetails.getAppointmentDate());
-                    appointment.setAppointmentTime(appointmentDetails.getAppointmentTime());
-                    appointment.setStatus(appointmentDetails.getStatus());
-                    appointment.setPatientPhoneNumber(appointmentDetails.getPatientPhoneNumber());
-                    appointment.setMessage(appointmentDetails.getMessage());
-                    appointment.setEmail(appointmentDetails.getEmail());
-                    appointment.setDepartmentId(appointmentDetails.getDepartmentId());
-                    appointment.setAppointmentCode(appointmentDetails.getAppointmentCode());
-                    return appointmentRepository.save(appointment);
-                })
-                .orElseThrow(() -> new RuntimeException("Appointment not found with id " + id));
     }
 
     @Override
@@ -67,31 +74,66 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Optional<Appointment> getAppointmentById(Long id) {
-        return appointmentRepository.findById(id);
+    public Optional<AppointmentDTO> getAppointmentById(Long id) {
+
+        return appointmentRepository.findById(id).map(appointmentMapper::appointmentToAppointmentDTO);
     }
 
     @Override
-    public List<Appointment> findAppointmentsByDoctorAndDate(Long doctorId, LocalDate date) {
-        return appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);
+    public List<AppointmentDTO> findAppointmentsByDoctorAndDate(Long doctorId, LocalDate date) {
+        List<Appointment> appointmentList= appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);
+        return appointmentList.stream()
+                .map(appointmentMapper::appointmentToAppointmentDTO)
+                .toList();
+    }
+
+//    @Override
+//    public List<AppointmentDTO> findAppointmentsByPatientAndDate(Patient patient, LocalDate date) {
+//        Patient patient1=employeeClient.getPatient(patient.getId());
+//        if (patient1 != null) {
+//            List<Appointment> appointment = appointmentRepository.findByPatientAndAppointmentDate(patient1, date);
+//            return appointment.stream()
+//                    .map(appointmentMapper::appointmentToAppointmentDTO)
+//                    .collect(Collectors.toList());
+//        }
+//        throw new RuntimeException("Patient not found with id " + patient.getId());
+//
+//    }
+
+    @Override
+    public List<AppointmentDTO> findAppointmentsByDate(LocalDate date) {
+        List<Appointment> appointmentList= appointmentRepository.findByAppointmentDate(date);
+        return appointmentList.stream()
+                .map(appointmentMapper::appointmentToAppointmentDTO)
+                .toList();
     }
 
     @Override
-    public List<Appointment> findAppointmentsByPatientAndDate(Long patientId, LocalDate date) {
-        return appointmentRepository.findByPatientIdAndAppointmentDate(patientId, date);
-    }
-
-    @Override
-    public List<Appointment> findAppointmentsByDate(LocalDate date) {
-        return appointmentRepository.findByAppointmentDate(date);
-    }
-
-    @Override
-    public Appointment updateAppointmentStatus(Long id, AppointmentStatus status) {
+    public AppointmentDTO updateAppointmentStatus(Long id, AppointmentStatus status) {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found with id " + id));
         appointment.setStatus(status);
-        return appointmentRepository.save(appointment);
+        return appointmentMapper.appointmentToAppointmentDTO(appointmentRepository.save(appointment));
+    }
+
+    @Override
+    public Long countAppointmentsByDoctor(Long doctorId) {
+        return appointmentRepository.countAppointmentsByDoctor(doctorId);
+    }
+
+    @Override
+    public List<AppointmentDTO> getUpcomingAppointmentsByDoctor(Long doctorId) {
+        return appointmentRepository.findUpcomingAppointmentsByDoctor(doctorId).stream()
+                .map(appointmentMapper::appointmentToAppointmentDTO)
+                .toList();
+    }
+
+    @Override
+    public List<AppointmentDTO> getTodayAppointmentsByDoctor(Long doctorId) {
+        return appointmentRepository.findTodayAppointmentsByDoctor(doctorId)
+                .stream()
+                .map(appointmentMapper::appointmentToAppointmentDTO)
+                .toList();
     }
 
     private String generateAppointmentCode() {

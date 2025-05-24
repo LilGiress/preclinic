@@ -1,12 +1,25 @@
 package com.medecineWebApp.Configuration.models.setting;
 
 import com.medecineWebApp.Configuration.enums.EventCategory;
+import com.medecineWebApp.Configuration.models.Auditable;
+import com.medecineWebApp.Configuration.models.Holiday;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 @Entity
-@Table(name = "config_events")
-public class Event {
+@Table(name = "events")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class Event extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,56 +30,15 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventCategory category;
+    @ManyToOne
+    @JoinColumn(name = "calendar_id", nullable = false)
+    private Calendar calendar;
 
-    public Event() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(LocalDateTime eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public EventCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(EventCategory category) {
-        this.category = category;
-    }
+    // Optional: Link to a patient, doctor, or other entities
+    private Long relatedUserId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "holiday_id")
+    private Holiday holiday; // Le jour férié associé à cet événement
 
 
-    public Event(String title, LocalDateTime eventDate, EventCategory category) {
-        this.title = title;
-        this.eventDate = eventDate;
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", eventDate=" + eventDate +
-                ", category=" + category +
-                '}';
-    }
 }

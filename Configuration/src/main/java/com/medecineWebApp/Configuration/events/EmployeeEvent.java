@@ -24,8 +24,8 @@ public class EmployeeEvent {
     private EventType eventType;
     private String email;
     private String password;
-    private Set<Roles> roles = new HashSet<>();
-    private List<Departement> departments;
-   // private Set<Groupe> groups;
+    private Set<Long> roles = new HashSet<>();
+    private List<Long> departments;
+
 
 }

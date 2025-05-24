@@ -1,6 +1,5 @@
 package com.medecineWebApp.Configuration.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ThemeSettingDTO {
+public class ThemeSettingDTO extends AuditableDTO {
     private Long id;
 
     private Long userId; // ID of the user

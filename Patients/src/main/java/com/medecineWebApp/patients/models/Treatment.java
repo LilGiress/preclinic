@@ -1,5 +1,6 @@
 package com.medecineWebApp.patients.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medecineWebApp.patients.enums.TreatmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,14 @@ public class Treatment extends Auditable implements Serializable {
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
     private TreatmentStatus status;
-    @Transient
-    private Doctor doctor;
+
+    private Long doctorId;
+
+    @JsonIgnore
+    @Column(nullable = false)
+    private Long appointmentId;  // Stocker l'ID de l'appointment au lieu de l'objet complet
+
+    @Column(nullable = false)
+    private Long medicalRecordId; // Stocker l'ID du medical record
+
 }

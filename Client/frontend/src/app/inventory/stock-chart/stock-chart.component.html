@@ -1,0 +1,45 @@
+<div class="button-container">
+    <button (click)="exportToExcel()">📊 Exporter en Excel</button>
+    <button (click)="exportToPDF()">📄 Exporter en PDF</button>
+  </div>
+<div class="filter-container">
+    <label for="startDate">📅 Début:</label>
+    <input type="date" id="startDate" [(ngModel)]="startDate" (change)="loadStockData()">
+  
+    <label for="endDate">📅 Fin:</label>
+    <input type="date" id="endDate" [(ngModel)]="endDate" (change)="loadStockData()">
+  
+    <label for="medicine">💊 Médicament:</label>
+    <select id="medicine" [(ngModel)]="selectedMedicine" (change)="loadStockData()">
+      <option value="">Tous</option>
+      <option *ngFor="let med of medicines" [value]="med">{{ med }}</option>
+    </select>
+  </div>
+<div class="chart-container">
+    <h3>📉 Évolution du Stock des Médicaments</h3>
+   
+<!--
+ <canvas baseChart
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="lineChartType">
+    </canvas>
+
+    <canvas baseChart
+  [data]="chartData"
+  [labels]="chartLabels"
+  [chartType]="'line'">
+</canvas>
+
+
+<chart 
+  [type]="'line'" 
+  [data]="chartData" 
+  [options]="chartOptions">
+</chart>
+-->
+
+
+
+  </div>
+  

@@ -1,0 +1,163 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-8">
+                <h4 class="page-title">Roles & Permissions</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3">
+                <a href="javascript:void(0);" class="btn btn-primary btn-block" (click)="openCreateRoleForm()"><i class="fa fa-plus"></i> Add Roles</a>
+                <div class="roles-menu">
+                    <ul>
+                        <li class="active" *ngFor="let role of roles">
+                            <a  (click)="onSelectRole(role)" href="javascript:void(0);">{{ role.name }}</a>
+                            <span class="role-action">
+                                <a href="edit-role.html">
+                                    <span class="action-circle large">
+                                        <i class="material-icons">edit</i>
+                                    </span>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#delete_role">
+                                    <span class="action-circle large delete-btn">
+                                        <i class="material-icons">delete</i>
+                                    </span>
+                                </a>
+                            </span>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
+                <h6 class="card-title m-b-20">Module Access</h6>
+                <div class="m-b-30">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Employee
+                            <div class="material-switch float-right">
+                                <input id="staff_module" type="checkbox">
+                                <label for="staff_module" class="badge-success"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Holidays
+                            <div class="material-switch float-right">
+                                <input id="holidays_module" type="checkbox">
+                                <label for="holidays_module" class="badge-success"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Leave Request
+                            <div class="material-switch float-right">
+                                <input id="leave_module" type="checkbox">
+                                <label for="leave_module" class="badge-success"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Events
+                            <div class="material-switch float-right">
+                                <input id="events_module" type="checkbox">
+                                <label for="events_module" class="badge-success"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Chat
+                            <div class="material-switch float-right">
+                                <input id="chat_module" type="checkbox">
+                                <label for="chat_module" class="badge-success"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <h3>{{ selectedRole.name }}</h3>
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Module Permission</th>
+                                <th class="text-center">Acess</th>
+                                <th class="text-center">Read</th>
+                                <th class="text-center">Write</th>
+                                <th class="text-center">Create</th>
+                                <th class="text-center">Delete</th>
+                                <th class="text-center">Import</th>
+                                <th class="text-center">Export</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let module of selectedRole.modules">
+                                <td>{{ module.name }}</td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.access"
+                                    (change)="toggleAccess(module)">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.read"
+                                    (change)="togglePermission(module, 'read')">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.write"
+                                    (change)="togglePermission(module, 'write')">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.create"
+                                    (change)="togglePermission(module, 'create')">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.delete"
+                                    (change)="togglePermission(module, 'delete')">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.import"
+                                    (change)="togglePermission(module, 'import')">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" checked="" [checked]="module.permission.export"
+                                    (change)="togglePermission(module, 'export')">
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- modale -->
+
+<div class="add-role">
+    <h3>Ajouter un nouveau rôle</h3>
+    <form [formGroup]="newRoleForm" >
+      <!-- Nom du rôle -->
+      <div>
+        <label for="roleName">Nom du rôle</label>
+        <input id="roleName" formControlName="name" placeholder="Nom du rôle" />
+      </div>
+  
+      <!-- Modules -->
+      <div>
+        <h4>Modules</h4>
+        <div *ngFor="let module of modules.controls; let i = index" [formGroupName]="i">
+          <label>{{ module.get('name')?.value }}</label>
+          <input type="checkbox" formControlName="access" /> Activer
+          <div formGroupName="permission">
+            <label><input type="checkbox" formControlName="read" /> Read</label>
+            <label><input type="checkbox" formControlName="write" /> Write</label>
+            <label><input type="checkbox" formControlName="create" /> Create</label>
+            <label><input type="checkbox" formControlName="delete" /> Delete</label>
+            <label><input type="checkbox" formControlName="import" /> Import</label>
+            <label><input type="checkbox" formControlName="export" /> Export</label>
+          </div>
+        </div>
+        <button type="button" (click)="addModule('New Module')">Ajouter un module</button>
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <button type="submit" [disabled]="newRoleForm.invalid" (click)="addRole()">Créer le rôle</button>
+    </form>
+  </div>
+

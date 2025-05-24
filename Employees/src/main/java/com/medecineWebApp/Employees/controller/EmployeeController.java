@@ -1,8 +1,7 @@
 package com.medecineWebApp.Employees.controller;
 
-import com.medecineWebApp.Employees.config.EmployeeClient;
+import com.medecineWebApp.Employees.feignClient.CountryClient;
 import com.medecineWebApp.Employees.dto.EmployeeDTO;
-import com.medecineWebApp.Employees.models.Patient;
 import com.medecineWebApp.Employees.services.EmployeService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/employee")
+@RequestMapping("/api/employees")
 public class EmployeeController {
     private final EmployeService employeService;
-    private final EmployeeClient employeeClient;
+    private final CountryClient employeeClient;
 
-    public EmployeeController(EmployeService employeService, EmployeeClient employeeClient) {
+    public EmployeeController(EmployeService employeService, CountryClient employeeClient) {
         this.employeService = employeService;
         this.employeeClient = employeeClient;
     }
@@ -55,8 +54,8 @@ return ResponseEntity.ok(employeService.updateEmployee(employeId,employee,userId
         employeService.deleteEmployee(employeId,userId);
     }
 
-    @GetMapping("/patient/{id}")
-    public Patient getPatient(@PathVariable Long id) {
-        return employeeClient.getPatient(id);
-    }
+//    @GetMapping("/patient/{id}")
+//    public Patient getPatient(@PathVariable Long id) {
+//        return employeeClient.getPatient(id);
+//    }
 }

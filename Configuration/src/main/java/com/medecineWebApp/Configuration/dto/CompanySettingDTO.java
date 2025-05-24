@@ -1,6 +1,5 @@
 package com.medecineWebApp.Configuration.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanySettingDTO {
+public class CompanySettingDTO extends AuditableDTO {
     private Long id;
     private String companyName;
     private String companyAddress;

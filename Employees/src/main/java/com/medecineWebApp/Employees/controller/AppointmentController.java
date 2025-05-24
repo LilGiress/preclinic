@@ -1,8 +1,12 @@
 package com.medecineWebApp.Employees.controller;
 
 
+import com.medecineWebApp.Employees.dto.AppointmentDTO;
 import com.medecineWebApp.Employees.enums.AppointmentStatus;
+import com.medecineWebApp.Employees.models.Appointment;
+import com.medecineWebApp.Employees.models.doctors.Doctor;
 import com.medecineWebApp.Employees.services.AppointmentService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/appointments")
+@RequestMapping("/api/appointments")
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
@@ -18,28 +22,33 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Appointment>> getAllAppointments() {
-        return ResponseEntity.ok(appointmentService.getAllAppointments());
+    @GetMapping("/search")
+    public ResponseEntity<Page<AppointmentDTO>> getAllAppointments(
+            @RequestParam Long patient,
+            @RequestParam Doctor doctor,
+            @RequestParam String date,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(appointmentService.getAllAppointments(patient,doctor,date,page, size));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id) {
+    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable Long id) {
         return appointmentService.getAppointmentById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
+    public AppointmentDTO createAppointment(@RequestBody Appointment appointment) {
         return appointmentService.createAppointment(appointment);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointmentDetails) {
+    public ResponseEntity<AppointmentDTO> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointmentDetails) {
         try {
-            Appointment updatedAppointment = appointmentService.updateAppointment(id, appointmentDetails);
-            return ResponseEntity.ok(updatedAppointment);
+            return ResponseEntity.ok(appointmentService.updateAppointment(id, appointmentDetails));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -52,28 +61,41 @@ public class AppointmentController {
     }
 
     @GetMapping("/search/doctor")
-    public ResponseEntity<List<Appointment>> findAppointmentsByDoctorAndDate(@RequestParam Long doctorId, @RequestParam LocalDate date) {
+    public ResponseEntity<List<AppointmentDTO>> findAppointmentsByDoctorAndDate(@RequestParam Long doctorId, @RequestParam LocalDate date) {
         return ResponseEntity.ok(appointmentService.findAppointmentsByDoctorAndDate(doctorId, date));
     }
 
-    @GetMapping("/search/patient")
-    public ResponseEntity<List<Appointment>> findAppointmentsByPatientAndDate(@RequestParam Long patientId, @RequestParam LocalDate date) {
-        return ResponseEntity.ok(appointmentService.findAppointmentsByPatientAndDate(patientId, date));
-    }
+//    @GetMapping("/search/patient")
+//    public ResponseEntity<List<AppointmentDTO>> findAppointmentsByPatientAndDate(@RequestParam Patient patientId, @RequestParam LocalDate date) {
+//        return ResponseEntity.ok(appointmentService.findAppointmentsByPatientAndDate(patientId, date));
+//    }
 
     @GetMapping("/search/date")
-    public ResponseEntity<List<Appointment>> findAppointmentsByDate(@RequestParam LocalDate date) {
+    public ResponseEntity<List<AppointmentDTO>> findAppointmentsByDate(@RequestParam LocalDate date) {
         return ResponseEntity.ok(appointmentService.findAppointmentsByDate(date));
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Appointment> updateAppointmentStatus(@PathVariable Long id, @RequestParam AppointmentStatus status) {
+    public ResponseEntity<AppointmentDTO> updateAppointmentStatus(@PathVariable Long id, @RequestParam AppointmentStatus status) {
         try {
-            Appointment updatedAppointment = appointmentService.updateAppointmentStatus(id, status);
-            return ResponseEntity.ok(updatedAppointment);
+            return ResponseEntity.ok(appointmentService.updateAppointmentStatus(id, status));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
+    @GetMapping("/count-by-doctor/{doctorId}")
+    public ResponseEntity<Long>  countAppointmentsByDoctor(@PathVariable Long doctorId) {
+        return ResponseEntity.ok( appointmentService.countAppointmentsByDoctor(doctorId));
+    }
+
+    @GetMapping("/upcoming-by-doctor/{doctorId}")
+    public ResponseEntity<List<AppointmentDTO>> getUpcomingAppointmentsByDoctor(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(appointmentService.getUpcomingAppointmentsByDoctor(doctorId));
+    }
+
+    @GetMapping("/today-by-doctor/{doctorId}")
+    public ResponseEntity<List<AppointmentDTO>> getTodayAppointmentsByDoctor(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(appointmentService.getTodayAppointmentsByDoctor(doctorId));
+    }
 }

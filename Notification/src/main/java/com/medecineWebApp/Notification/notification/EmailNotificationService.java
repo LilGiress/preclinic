@@ -17,11 +17,17 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
 @Service
-@RequiredArgsConstructor
-public class EmailService {
+
+public class EmailNotificationService {
 
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
+
+    public EmailNotificationService(JavaMailSender mailSender, SpringTemplateEngine templateEngine) {
+        this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
+    }
+
     @Async
     public void sendEmail(
             String to,

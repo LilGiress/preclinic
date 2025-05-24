@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SmtpConfigDTO {
+public class SmtpConfigDTO extends AuditableDTO {
     private Long id;
     private String smtpHost;
     private int smtpPort;

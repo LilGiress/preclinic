@@ -1,12 +1,12 @@
 package com.medecineWebApp.Configuration.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Setter
@@ -18,17 +18,15 @@ public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @JsonProperty("nom")
     private String name;
+    private String description;
+    private Long medicalRecordId;
 
-    @ManyToMany(mappedBy = "services")
-    private Set<Groupe> groupes;
+    @ManyToOne
+    @JoinColumn(name = "departement_id", nullable = false)
+    @JsonBackReference
+    private Departement departement;
 
-  /*  @ManyToMany
-    @JoinTable(
-            name = "service_permission",
-            joinColumns = @JoinColumn(name = "service_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
-    )
-    private List<Permission> permissions = new ArrayList<>();*/
+
 }

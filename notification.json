@@ -1,0 +1,126 @@
+{
+  "patient_events": {
+    "created": {
+      "topic": "patient.created",
+      "message": "Un nouveau patient {nom} a été enregistré avec l'ID {id_patient}.",
+      "payload": {
+        "id": "{id_patient}",
+        "nom": "{nom}",
+        "date_enregistrement": "{date}"
+      },
+      "notification": {
+        "type": "EMAIL",
+        "recipient": "{email_patient}",
+        "subject": "Bienvenue à la clinique, {nom} !",
+        "body": "Cher(e) {nom},\n\nVotre dossier a été créé avec succès.\n\nCordialement,\nLa clinique"
+      }
+    }
+  },
+
+  "appointment_events": {
+    "scheduled": {
+      "topic": "appointment.scheduled",
+      "message": "Un rendez-vous a été programmé pour le patient {nom} avec le Dr {docteur} le {date}.",
+      "payload": {
+        "id_patient": "{id_patient}",
+        "id_docteur": "{id_docteur}",
+        "date": "{date}",
+        "heure": "{heure}"
+      },
+      "notification": {
+        "type": "SMS",
+        "recipient": "{telephone_patient}",
+        "message": "Rappel : Rendez-vous avec le Dr {docteur} prévu pour le {date} à {heure}."
+      }
+    },
+    "canceled": {
+      "topic": "appointment.canceled",
+      "message": "Le rendez-vous du patient {nom} avec le Dr {docteur} prévu pour {date} a été annulé.",
+      "payload": {
+        "id_patient": "{id_patient}",
+        "id_docteur": "{id_docteur}",
+        "date": "{date}"
+      },
+      "notification": {
+        "type": "PUSH",
+        "recipient": "{id_patient}",
+        "title": "Rendez-vous annulé",
+        "message": "Votre rendez-vous avec le Dr {docteur} prévu pour {date} a été annulé."
+      }
+    }
+  },
+
+  "inventory_events": {
+    "low_stock": {
+      "topic": "inventory.low_stock",
+      "message": "Stock faible pour {nom_produit} ({quantite_restante} unités restantes).",
+      "payload": {
+        "id_produit": "{id_produit}",
+        "nom_produit": "{nom_produit}",
+        "quantite_restante": "{quantite_restante}"
+      },
+      "notification": {
+        "type": "EMAIL",
+        "recipient": "{email_responsable_stock}",
+        "subject": "Alerte stock faible : {nom_produit}",
+        "body": "Attention, le stock de {nom_produit} est presque épuisé ({quantite_restante} unités restantes)."
+      }
+    }
+  },
+
+  "billing_events": {
+    "invoice_generated": {
+      "topic": "billing.invoice_generated",
+      "message": "Une facture a été générée pour le patient {nom}. Montant: {montant} €.",
+      "payload": {
+        "id_facture": "{id_facture}",
+        "id_patient": "{id_patient}",
+        "montant": "{montant}",
+        "statut": "En attente"
+      },
+      "notification": {
+        "type": "EMAIL",
+        "recipient": "{email_patient}",
+        "subject": "Nouvelle facture disponible",
+        "body": "Cher(e) {nom},\n\nVotre facture de {montant} € est disponible. Merci de procéder au paiement.\n\nCordialement,\nService comptabilité"
+      }
+    }
+  },
+
+  "staff_events": {
+    "doctor_assigned": {
+      "topic": "staff.doctor_assigned",
+      "message": "Le médecin {nom} a été affecté au département {departement}.",
+      "payload": {
+        "id_docteur": "{id_docteur}",
+        "nom": "{nom}",
+        "departement": "{departement}"
+      },
+      "notification": {
+        "type": "EMAIL",
+        "recipient": "{email_docteur}",
+        "subject": "Nouvelle affectation",
+        "body": "Bonjour Dr {nom},\n\nVous avez été affecté au département {departement}. Veuillez consulter votre tableau de bord pour plus d'informations."
+      }
+    }
+  },
+
+  "security_events": {
+    "unauthorized_access_attempt": {
+      "topic": "security.unauthorized_access_attempt",
+      "message": "Tentative d'accès non autorisé par l'utilisateur {nom}.",
+      "payload": {
+        "id_utilisateur": "{id_utilisateur}",
+        "nom": "{nom}",
+        "action": "{action}",
+        "date": "{date}"
+      },
+      "notification": {
+        "type": "EMAIL",
+        "recipient": "{email_admin}",
+        "subject": "Tentative d'accès suspecte",
+        "body": "Une tentative d'accès non autorisé a été détectée pour l'utilisateur {nom}.\n\nAction : {action}\nDate : {date}"
+      }
+    }
+  }
+}

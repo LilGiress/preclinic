@@ -9,18 +9,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/treatments")
+@RequestMapping("/api/treatments")
 public class TreatmentController {
     private final TreatmentService treatmentService;
 
     public TreatmentController(TreatmentService treatmentService) {
         this.treatmentService = treatmentService;
     }
-    @GetMapping
-    public ResponseEntity<Optional<TreatmentDTO>> getTreatmentById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<TreatmentDTO>> getTreatmentById(@PathVariable Long id) {
         return ResponseEntity.ok(treatmentService.getTreatment(id));
     }
 
@@ -49,5 +50,10 @@ public class TreatmentController {
             @RequestParam Integer size) {
         return ResponseEntity.ok(treatmentService.getAllTreatmentsByPatientId(patientId, doctorId, status, description, date, page, size));
 
+    }
+
+    @GetMapping("/medical-record/{medicalRecordId}")
+    public ResponseEntity<List<TreatmentDTO>> getTreatmentsByMedicalRecordId(@PathVariable Long medicalRecordId) {
+        return ResponseEntity.ok(treatmentService.findTreatmentsByMedicalRecordId(medicalRecordId));
     }
 }

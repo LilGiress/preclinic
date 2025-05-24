@@ -6,6 +6,7 @@ import com.medecineWebApp.patients.models.Treatment;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface TreatmentService {
@@ -14,4 +15,5 @@ public interface TreatmentService {
     TreatmentDTO updateTreatment(Long id,Treatment treatment);
     Optional<TreatmentDTO> getTreatment(Long id);
     void deleteTreatment(Long id);
+    List<TreatmentDTO> findTreatmentsByMedicalRecordId(Long medicalRecordId);
 }
