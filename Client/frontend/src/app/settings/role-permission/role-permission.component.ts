@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-role-permission',
-  standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule],
-  templateUrl: './role-permission.component.html',
-  styleUrl: './role-permission.component.css'
+    selector: 'app-role-permission',
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    templateUrl: './role-permission.component.html',
+    styleUrl: './role-permission.component.css'
 })
 export class RolePermissionComponent {
 openCreateRoleForm // Ajouter un nouveau rôle
@@ -32,10 +31,10 @@ throw new Error('Method not implemented.');
   
 
   ngOnInit(): void {
-    this.rolesService.roles$.subscribe((roles) => {
+  /*  this.rolesService.roles$.subscribe((roles) => {
       this.roles = roles;
       this.selectedRole = this.roles[0]; // Sélection par défaut
-    });
+    });*/
   }
 
   // Ajouter un nouveau rôle
@@ -82,12 +81,12 @@ throw new Error('Method not implemented.');
 
   toggleAccess(module: any): void {
     module.access = !module.access;
-    this.rolesService.updateRole(this.selectedRole);
+   // this.rolesService.updateRole(this.selectedRole);
   }
 
   togglePermission(module: any, permission: keyof any): void {
     module.permission[permission] = !module.permission[permission];
-    this.rolesService.updateRole(this.selectedRole);
+  //  this.rolesService.updateRole(this.selectedRole);
   }
 
 }

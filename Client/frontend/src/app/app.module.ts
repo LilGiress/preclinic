@@ -4,6 +4,8 @@ import {SharedModule} from "./shared/shared.module";
 import {httpInterceptorProviders} from "./utils/helper/http.interceptor";
 import { AdministrationModule } from "./administration/administration.module";
 import { PaginationService } from "./shared/service/pagination.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
 
 
 @NgModule({
@@ -12,6 +14,7 @@ import { PaginationService } from "./shared/service/pagination.service";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     AdministrationModule,
     

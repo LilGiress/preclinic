@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-forgot-password',
-  standalone: true,
-  imports: [],
-  templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+    selector: 'app-forgot-password',
+    imports: [],
+    templateUrl: './forgot-password.component.html',
+    styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent implements OnInit{
   data:any

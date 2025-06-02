@@ -1,34 +1,38 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import {Component, inject, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 
 import {AuthService} from "../../../services/auth/auth.service";
 import {TokenService} from "../../../services/token/token.service";
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    imports: [ReactiveFormsModule,CommonModule,RouterModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
+  private readonly fb = inject(FormBuilder);
+  
   roles: string[] = [];
   
   submitted = false;
   errorMessage="";
   user:any;
   constructor(
-    private router:Router,
-    private fb:FormBuilder,
-    private authservice:AuthService,
-    private tokenservie : TokenService,
-    //private spinner:NgxSpinnerService
+    private readonly router: Router,
+    private readonly authservice:AuthService,
+    private readonly tokenservie : TokenService,
+    private readonly spinner:NgxSpinnerService,
   ){
 
   }
 
- /* loginForm = this.fb.group(
+  loginForm = this.fb.group(
     {
 
       email: ['', [Validators.required, Validators.email]],
@@ -42,23 +46,26 @@ export class LoginComponent implements OnInit{
       ],
     },
 
-  );*/
+  );
   ngOnInit(): void {
-   /* if (this.tokenservie.getToken()) {
+    if (this.tokenservie.getToken() !== null) {
       this.roles = this.tokenservie.getUser().roles;
-    }*/
+    }
 
 
   }
 
-  /*get f(): { [key: string]: AbstractControl } {
+  get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
-  }*/
+  }
 
-  /*onSubmit():void{
+  onSubmit():void{
     this.submitted = true;
     if (this.loginForm.valid) {
       this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 3000); // spinner visible pendant 3 secondes
       this.authservice.login(this.loginForm.value).subscribe(
         {
           next:(res:any) =>{
@@ -79,11 +86,11 @@ export class LoginComponent implements OnInit{
       )
 
     }
-  }*/
+  }
 
 
-  /*onReset(): void {
+  onReset(): void {
     this.submitted = false;
     this.loginForm.reset();
-  }*/
+  }
 }

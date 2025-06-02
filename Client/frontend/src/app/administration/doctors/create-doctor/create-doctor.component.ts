@@ -3,11 +3,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DoctorService } from '../../../services/doctors/doctor.service';
 
 @Component({
-  selector: 'app-create-doctor',
-  standalone: true,
-  imports: [],
-  templateUrl: './create-doctor.component.html',
-  styleUrl: './create-doctor.component.css'
+    selector: 'app-create-doctor',
+    imports: [],
+    templateUrl: './create-doctor.component.html',
+    styleUrl: './create-doctor.component.css'
 })
 export class CreateDoctorComponent implements OnInit {
   profileForm: FormGroup;

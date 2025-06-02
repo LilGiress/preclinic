@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { UploadFile } from '../../models/file';
 
 @Component({
-  selector: 'app-bibliotheque',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './bibliotheque.component.html',
-  styleUrl: './bibliotheque.component.css'
+    selector: 'app-bibliotheque',
+    imports: [CommonModule],
+    templateUrl: './bibliotheque.component.html',
+    styleUrl: './bibliotheque.component.css'
 })
 export class BibliothequeComponent {
 uploads: UploadFile[] = [];

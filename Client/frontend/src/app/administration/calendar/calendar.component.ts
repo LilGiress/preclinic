@@ -11,12 +11,11 @@ import { ModalService } from '../../shared/service/modal.service';
 
 
 @Component({
-  selector: 'app-calendar',
-  standalone: true,
-  imports: [FullCalendarModule],
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    selector: 'app-calendar',
+    imports: [FullCalendarModule],
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.css',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CalendarComponent {
   selectedDate: string = ''; // Stocke la date sélectionnée

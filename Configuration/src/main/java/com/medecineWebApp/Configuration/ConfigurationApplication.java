@@ -1,17 +1,30 @@
 package com.medecineWebApp.Configuration;
 
+import com.medecineWebApp.Configuration.models.role.Permission;
+import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.repository.permission.PermissionRepository;
+import com.medecineWebApp.Configuration.repository.role.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @SpringBootApplication
 @EnableEurekaServer
 @EnableCaching
 @EnableJpaAuditing(auditorAwareRef = "customAuditorAware")
-public class ConfigurationApplication {
+public class ConfigurationApplication implements CommandLineRunner {
+	@Autowired
+	private  RoleRepository roleRepository;
+
+
 	/*	implements CommandLineRunner
 	@Autowired
 	private UserRepository UserRepository;
@@ -52,4 +65,25 @@ public class ConfigurationApplication {
 	}
 
 
+	@Override
+	public void run(String... args) throws Exception {
+		Roles roles = new Roles();
+		Permission permission= new Permission();
+		permission.setCanApprove(false);
+		permission.setCanAssign(true);
+		permission.setCanDelete(false);
+		permission.setCanCreate(true);
+		permission.setCanExport(true);
+		permission.setCanGenerateReport(false);
+		permission.setCanActivate(false);
+		permission.setCanImport(true);
+		permission.setCanValidate(false);
+		permission.setCanRead(true);
+		permission.setCanWrite(true);
+		Set<?> perm= new HashSet<>();
+
+		roles.setName("PATIENT");
+		roles.setPermissions((Set<Permission>) perm);
+		roleRepository.save(roles);
+	}
 }

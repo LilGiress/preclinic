@@ -5,11 +5,10 @@ import {Router, RouterModule} from "@angular/router";
 import {CodeInputModule} from "angular-code-input";
 
 @Component({
-  selector: 'app-activation-code',
-  standalone: true,
-  imports: [RouterModule, CodeInputModule],
-  templateUrl: './activation-code.component.html',
-  styleUrl: './activation-code.component.css'
+    selector: 'app-activation-code',
+    imports: [RouterModule, CodeInputModule],
+    templateUrl: './activation-code.component.html',
+    styleUrl: './activation-code.component.css'
 })
 export class ActivationCodeComponent {
   message='';

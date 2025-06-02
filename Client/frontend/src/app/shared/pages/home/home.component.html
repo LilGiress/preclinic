@@ -12,15 +12,15 @@
       <div class="search-box">
         <form action="javascript:void(0)">
           <div class="form-group search-location">
-            <input type="text" [(ngModel)]="region" class="form-control" placeholder="Search Location">
+            <input type="text" [(ngModel)]="region" class="form-control" placeholder="Search Location" name="region">
             <span class="form-text">Based on your Location</span>
           </div>
           <div class="form-group search-location">
-            <input type="text" [(ngModel)]="city" class="form-control" placeholder="Search Location">
+            <input type="text" [(ngModel)]="city" class="form-control" placeholder="Search Location" name="city">
             <span class="form-text">Based on your Location</span>
           </div>
           <div class="form-group search-info">
-            <input type="text" [(ngModel)]="service" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
+            <input type="text" [(ngModel)]="service" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc" name="service">
             <span class="form-text">Ex : Dental or Sugar Check up etc</span>
           </div>
           <button type="submit"(click)="onSearch()" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
@@ -98,7 +98,7 @@
 
         </div>
         <!-- /Slider -->
-
+        
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
         </div>
       </div>
       <div class="col-lg-8">
-        <div class="doctor-slider slider">
+        <div class="doctor-slider slider" >
 
           <!-- Doctor Widget -->
           <div class="profile-widget">
@@ -526,7 +526,7 @@
           <h2 class="mt-2">Availabe Features in Our Clinic</h2>
           <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
         </div>
-        <div class="features-slider slider">
+        <div class="features-slider slider" ngSkipHydration>
           <!-- Slider Item -->
           <div class="feature-item text-center">
             <img src="assets/img/features/feature-01.jpg" class="img-fluid" alt="Feature">

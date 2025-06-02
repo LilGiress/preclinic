@@ -1,5 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule } from '@angular/common';
 import {HomeComponent} from "./pages/home/home.component";
 import {RouterModule} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -26,6 +26,8 @@ import { DeleteModalComponent } from './modal/delete-modal/delete-modal.componen
 import { SuccessModalComponent } from './modal/success-modal/success-modal.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { BibliothequeComponent } from '../settings/bibliotheque/bibliotheque.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 
@@ -41,6 +43,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgImageSliderModule,
     SocketIoModule.forRoot(config),
     FooterComponent,
     LoginComponent,
@@ -72,6 +76,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgImageSliderModule,
     FooterComponent,
     LoginComponent,
     ProfilComponent,

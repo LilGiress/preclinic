@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-reset-password',
-  standalone: true,
-  imports: [],
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
+    selector: 'app-reset-password',
+    imports: [],
+    templateUrl: './reset-password.component.html',
+    styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent implements OnInit{
   submitted = false;

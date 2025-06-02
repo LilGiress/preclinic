@@ -4,23 +4,36 @@ const tokenKey="token";
   providedIn: 'root'
 })
 export class TokenService {
-
-  setToken(token:string){
-    localStorage.setItem(tokenKey,token);
-  }
-  getToken():string {
-    return localStorage.getItem(tokenKey) as string;
+    isBrowser(): boolean {
+    return typeof window !== 'undefined' && !!window.localStorage;
   }
 
-  removeToken(){
-    localStorage.removeItem(tokenKey);
+  setToken(token:string):void{
+     if (this.isBrowser()) {
+      localStorage.setItem(tokenKey, token);
+    }
+  }
+  getToken():string | null {
+
+    if (this.isBrowser()) {
+      return localStorage.getItem(tokenKey);
+    }
+    return null;
+  }
+
+  removeToken():void{
+    if (this.isBrowser()) {
+      localStorage.removeItem(tokenKey);
+    }
   }
   /**
    * fonction pour nettoyer les cookies
    */
 
   clean():void{
-    window.sessionStorage.clear();
+     if (this.isBrowser()) {
+      window.sessionStorage.clear();
+    }
   }
   /**
    * permet de retirer les ancien information de l'utilisateur
@@ -63,16 +76,14 @@ export class TokenService {
       .split('.')
       .map(token => _decodeToken(token))
       .reduce((acc, curr) => {
-        if (!!curr) acc = { ...acc, ...curr };
+        if (!curr) acc = { ...acc, ...curr };
         return acc;
       }, Object.create(null));
   }
 
   isTokenValid(input: string | number): boolean {
-    if (!input) {
-      return false;
-    }
-    const exp = typeof input === 'string' ? this.decodeToken(input)['exp'] : input;
-    return !!exp ? Math.floor(Date.now() / 1000) < exp : false;
+    if (!input) return false;
+    const exp = typeof input === 'string' ? this.decodeToken(input)?.['exp'] : input;
+    return !exp ? Math.floor(Date.now() / 1000) < exp : false;
   }
 }

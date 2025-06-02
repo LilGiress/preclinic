@@ -6,11 +6,10 @@ import { WarningModalComponent } from "../warning-modal/warning-modal.component"
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-modal-container',
-  standalone: true,
-  imports: [CommonModule,SuccessModalComponent, DeleteModalComponent, WarningModalComponent],
-  templateUrl: './modal-container.component.html',
-  styleUrl: './modal-container.component.css'
+    selector: 'app-modal-container',
+    imports: [CommonModule, SuccessModalComponent, DeleteModalComponent, WarningModalComponent],
+    templateUrl: './modal-container.component.html',
+    styleUrl: './modal-container.component.css'
 })
 export class ModalContainerComponent implements OnInit {
   modalData: any = null;

@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-warning-modal',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './warning-modal.component.html',
-  styleUrl: './warning-modal.component.css'
+    selector: 'app-warning-modal',
+    imports: [CommonModule],
+    templateUrl: './warning-modal.component.html',
+    styleUrl: './warning-modal.component.css'
 })
 export class WarningModalComponent {
   @Input() message: string = ''; // Message d'avertissement

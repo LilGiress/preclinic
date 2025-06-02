@@ -1,47 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { IRole,Role } from '../models/role';
+
+
+  const Url = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolesService {
-  private apiUrl = 'https://example.com/api/roles';
+
   constructor(
-    private http: HttpClient
+    private  readonly http: HttpClient
   ) { }
-  private rolesSubject = new BehaviorSubject<any[]>([
-    {
-      name: 'Administrator',
-      modules: [
-        { name: 'Employee', access: true, permission: { read: true, write: true, create: true, delete: true, import: true, export: true } },
-        { name: 'Holidays', access: false, permission: { read: false, write: false, create: false, delete: false, import: false, export: false } },
-        { name: 'Leave Request', access: false, permission: { read: false, write: false, create: false, delete: false, import: false, export: false } },
-        { name: 'Events', access: false, permission: { read: false, write: false, create: false, delete: false, import: false, export: false } },
-        { name: 'Chat', access: false, permission: { read: false, write: false, create: false, delete: false, import: false, export: false } }
-      ]
-    },
-    // Autres rôles comme 'Doctor', 'Nurse', etc.
-  ]);
-
-  roles$ = this.rolesSubject.asObservable();
-
-  updateRole(role: any): void {
-    const roles = this.rolesSubject.getValue();
-    const index = roles.findIndex((r) => r.name === role.name);
-    if (index !== -1) {
-      roles[index] = role;
-      this.rolesSubject.next(roles);
-    }
-  }
+ 
 
   // Méthode pour ajouter un nouveau rôle
   createRole(role: any): Observable<any> {
-    return this.http.post(this.apiUrl, role);
+    return this.http.post(Url+`/roles/create`, role);
   }
 
   // Récupérer la liste des rôles
-  getRoles(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getRoles(): Observable<IRole[]> {
+    return this.http.get<IRole[]>(Url+`/roles`);
+  }
+   // 🔹 DELETE: supprimer un rôle
+  deleteRole(id: number): Observable<void> {
+    return this.http.delete<void>(Url+`/roles/${id}`);
+  }
+   // 🔹 PUT: modifier un rôle existant
+  updateRole(id: number, role: Role): Observable<Role> {
+    return this.http.put<Role>(Url+`/roles/update/${id}`, role);
   }
 }

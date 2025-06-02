@@ -11,11 +11,10 @@ import { PaginationService } from '../../shared/service/pagination.service';
 import { DateService } from '../../utils/date.service';
 
 @Component({
-  selector: 'app-attendance',
-  standalone: true,
-  imports: [NgFor,FormsModule,CommonModule],
-  templateUrl: './attendance.component.html',
-  styleUrl: './attendance.component.css'
+    selector: 'app-attendance',
+    imports: [NgFor, FormsModule, CommonModule],
+    templateUrl: './attendance.component.html',
+    styleUrl: './attendance.component.css'
 })
 export class AttendanceComponent extends BasePagination<any> implements OnInit{
  

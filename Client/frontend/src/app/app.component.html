@@ -2,3 +2,7 @@
 <router-outlet />
 <!-- Ajoutez le modal container ici -->
 <app-modal-container></app-modal-container>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fffff" type="ball-clip-rotate-multiple" [fullScreen] = "true">
+     <img [src]="loading" style="background-color: transparent; width: 100px; align-content: center; height:auto"/>
+      <p style="color: #ffffff; font-size: 16px">Opération en cours ...</p>
+  </ngx-spinner> 

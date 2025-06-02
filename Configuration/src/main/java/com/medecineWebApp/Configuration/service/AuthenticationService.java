@@ -99,7 +99,7 @@ public class AuthenticationService implements LogoutHandler {
         if (existingUser != null) {
             throw new IllegalArgumentException("L'utilisateur existe déjà !");
         }
-
+        log.info("Roles récupérés: {}", request.getRoles());
         // Récupérer les rôles à partir des IDs
         List<Long> roleIds = request.getRoles().stream()
                 .map(Roles::getId)
@@ -110,7 +110,7 @@ public class AuthenticationService implements LogoutHandler {
         if (roles.isEmpty()) {
             throw new IllegalArgumentException("Aucun rôle valide n'a été trouvé.");
         }
-        log.info("Roles récupérés: {}", roles);
+
 
         // Récupérer les départements
         //List<Long> departmentIds =  request.getDepartments(); // Si déjà List<Long>
@@ -135,7 +135,7 @@ public class AuthenticationService implements LogoutHandler {
                 .build();
 
         // Sauvegarde en base de données
-
+            log.warn("request +++++ récupérés: {}", request);
         user = userRepository.save(user);
 
         sendValidationEmail(user);

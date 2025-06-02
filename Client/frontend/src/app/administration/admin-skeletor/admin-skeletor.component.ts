@@ -5,11 +5,10 @@ import { LeftSidebarAdminComponent } from "../../shared/navbar/admin/left-sideba
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-skeletor',
-  standalone: true,
-  imports: [AdminStylComponent, SettingNavbarComponent, LeftSidebarAdminComponent,RouterOutlet],
-  templateUrl: './admin-skeletor.component.html',
-  styleUrl: './admin-skeletor.component.css'
+    selector: 'app-admin-skeletor',
+    imports: [AdminStylComponent, SettingNavbarComponent, LeftSidebarAdminComponent, RouterOutlet],
+    templateUrl: './admin-skeletor.component.html',
+    styleUrl: './admin-skeletor.component.css'
 })
 export class AdminSkeletorComponent {
 

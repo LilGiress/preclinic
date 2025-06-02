@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../../../services/file/file.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-profil',
-  standalone: true,
-  imports: [],
-  templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css'
+    selector: 'app-profil',
+    imports: [CommonModule],
+    templateUrl: './profil.component.html',
+    styleUrl: './profil.component.css'
 })
 export class ProfilComponent implements OnInit{
 photoUrl: any|"assets/img/patients/patient.jpg";

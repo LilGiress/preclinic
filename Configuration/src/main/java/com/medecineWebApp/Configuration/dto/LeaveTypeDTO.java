@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.dto;
 
 import com.medecineWebApp.Configuration.enums.EntityStatus;
+import com.medecineWebApp.Configuration.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,5 @@ public class LeaveTypeDTO extends AuditableDTO {
     private Long id;
     private String leaveType;
     private int leaveDays;
-    private EntityStatus status;
+    private Status status;
 }

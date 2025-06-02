@@ -30,29 +30,29 @@ export class AuthService {
     return of(isTokenValid); // Return Observable with the boolean result
   }
 
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
 
   login(data:any):Observable<any>{
     return this.http.post<any>(
-      AUTH_API+ 'auth/authenticate',data,httpOptions
+      AUTH_API+ '/auth/authenticate',data,httpOptions
     );
 
   }
 
   register(data:any):Observable<any>{
     return this.http.post(
-      AUTH_API + 'auth/register',data,httpOptions
+      AUTH_API + '/auth/register',data,httpOptions
     );
   }
 
   logout():Observable<any> {
     return this.http.post(
-      AUTH_API + 'auth/register',httpOptions
+      AUTH_API + '/auth/register',httpOptions
     )
   }
 
   activateCode(token:string):Observable<any>{
-    return this.http.get(AUTH_API+'auth/activate-account/'+token,
+    return this.http.get(AUTH_API+'/auth/activate-account/'+token,
     );
   }
 }

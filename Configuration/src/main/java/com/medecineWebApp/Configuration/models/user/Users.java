@@ -67,37 +67,37 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
         for (Roles role : roles) {
             for (Permission permission : role.getPermissions()) {
                 if (permission.isCanRead()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_READ"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_READ"));
                 }
                 if (permission.isCanWrite()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_WRITE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_WRITE"));
                 }
                 if (permission.isCanCreate()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_CREATE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_CREATE"));
                 }
                 if (permission.isCanDelete()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_DELETE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_DELETE"));
                 }
                 if (permission.isCanAssign()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_ASSIGN"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_ASSIGN"));
                 }
                 if (permission.isCanImport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_IMPORT"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_IMPORT"));
                 }
                 if(permission.isCanExport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_EXPORT"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_EXPORT"));
                 }
                 if(permission.isCanApprove()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_APPROVE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_APPROVE"));
                 }
                 if(permission.isCanActivate()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_ACTIVATE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_ACTIVATE"));
                 }
                 if(permission.isCanValidate()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_VALIDATE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_VALIDATE"));
                 }
                 if(permission.isCanGenerateReport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getModule() + "_GENERATE"));
+                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_GENERATE"));
                 }
             }
         }

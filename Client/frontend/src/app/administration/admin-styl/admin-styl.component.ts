@@ -2,12 +2,11 @@ import { isPlatformBrowser } from '@angular/common';
 import {Component, Inject, OnInit, PLATFORM_ID, Renderer2, ViewEncapsulation} from '@angular/core';
 declare var $: any;
 @Component({
-  selector: 'app-admin-styl',
-  standalone: true,
-  imports: [],
-  templateUrl: './admin-styl.component.html',
-  styleUrl: './admin-styl.component.css',
-  encapsulation:ViewEncapsulation.None
+    selector: 'app-admin-styl',
+    imports: [],
+    templateUrl: './admin-styl.component.html',
+    styleUrl: './admin-styl.component.css',
+    encapsulation: ViewEncapsulation.None
 })
 export class AdminStylComponent implements OnInit{
   constructor(

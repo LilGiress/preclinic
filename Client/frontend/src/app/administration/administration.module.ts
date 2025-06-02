@@ -30,7 +30,6 @@ import { CreateDoctorComponent } from './doctors/create-doctor/create-doctor.com
 import { CreateEmployeeComponent } from './employees/create-employee/create-employee.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LeaveTypeComponent } from '../settings/leave-type/leave-type.component';
-import { DoctorDashboardComponent } from './doctors/doctor-dashboard/doctor-dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FormsModule } from '@angular/forms';
 

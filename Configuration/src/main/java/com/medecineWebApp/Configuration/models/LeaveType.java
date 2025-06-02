@@ -1,6 +1,6 @@
 package com.medecineWebApp.Configuration.models;
 
-import com.medecineWebApp.Configuration.enums.EntityStatus;
+import com.medecineWebApp.Configuration.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class LeaveType extends Auditable implements Serializable {
     @Column(nullable = false)
     private int leaveDays;
     @Enumerated(EnumType.STRING)
-    private EntityStatus status;
+    private Status status;
 
 
 }
