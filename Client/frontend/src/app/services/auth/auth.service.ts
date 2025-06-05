@@ -55,4 +55,7 @@ export class AuthService {
     return this.http.get(AUTH_API+'/auth/activate-account/'+token,
     );
   }
+  ForgotPassword(data:any){
+    return this.http.post(AUTH_API+'/user/forgot-password',data,httpOptions);
+  }
 }

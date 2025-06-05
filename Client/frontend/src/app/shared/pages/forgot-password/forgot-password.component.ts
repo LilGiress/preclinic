@@ -1,65 +1,74 @@
-import {Component, OnInit} from '@angular/core';
-import { Validators, FormBuilder, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, inject, OnInit} from '@angular/core';
+import { Validators, FormBuilder, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ModalService } from '../../service/modal.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { CommonModule } from '@angular/common';
+import { ForgotPasswordRequest } from '../../../models/playload/forgotPasswordRequest';
 
 
 @Component({
     selector: 'app-forgot-password',
-    imports: [],
+    imports: [CommonModule,ReactiveFormsModule,RouterModule],
     templateUrl: './forgot-password.component.html',
     styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent implements OnInit{
+  private readonly fb = inject(FormBuilder)
   data:any
   submitted = false;
   message='';
-  /*forgotform = this.fb.group(
+  forgotform = this.fb.group(
     {
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email,Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]],
 
     },
-  );*/
+  );
 
   constructor(
-    private router:Router,
-    private fb:FormBuilder,
-   /* private toastrService:ToastrService,
-    private spinner:NgxSpinnerService,
-    private accountService:AccountService*/
+    private readonly router:Router,
+    private readonly modalService:ModalService,
+    private readonly spinner:NgxSpinnerService,
+    private readonly authservice:AuthService
 
   ){}
   ngOnInit(): void {
   }
 
-  /*get f(): { [key: string]: AbstractControl } {
+  get f(): { [key: string]: AbstractControl } {
     return this.forgotform.controls;
-  }*/
+  }
 
- /* onSubmit() {
+  onSubmit() {
     this.submitted = true;
     if (this.forgotform.valid) {
+      let req:ForgotPasswordRequest={
+        email:this.forgotform.get('email')?.value ?? '',
+      }
       this.spinner.show();
-      this.accountService.ForgotPassword(this.forgotform.value).subscribe({
-        next:(value)=> {
-          this.data=value
+      this.authservice.ForgotPassword(req).subscribe({
+        next:(value:any)=> {
+          this.data=value;
           this.onReset();
-          this.toastrService.success('Operation effectuer','Success')
-          this.router.navigateByUrl("/reset-password");
+          this.modalService.openSuccessModal('Operation effectuer')
+          this.router.navigate(['/login']);
         },
-        error:(err)=> {
-          this.submitted=false
+        error:(err:any)=> {
+          this.submitted=false;
+          this.message=err;
           this.spinner.hide();
-          this.toastrService.error('Operation echouer','Echec')
+          this.modalService.openWarning('Operation echouer','Echec')
         },
       })
 
     }
-  }*/
+  }
 
 
- /* onReset(): void {
+  onReset(): void {
     this.submitted = false;
     this.forgotform.reset();
-  }*/
+  }
 
 }

@@ -36,11 +36,9 @@ export class LoginComponent implements OnInit{
     {
 
       email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
+      password: ['',[
           Validators.required,
-          Validators.minLength(8),
+          Validators.minLength(6),
           Validators.maxLength(40)
         ]
       ],
@@ -63,9 +61,6 @@ export class LoginComponent implements OnInit{
     this.submitted = true;
     if (this.loginForm.valid) {
       this.spinner.show();
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 3000); // spinner visible pendant 3 secondes
       this.authservice.login(this.loginForm.value).subscribe(
         {
           next:(res:any) =>{

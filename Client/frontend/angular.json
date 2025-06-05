@@ -26,7 +26,6 @@
                 "input": "public"
               },
               "src/favicon.ico",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/assets"
 
             ],

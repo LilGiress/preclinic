@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationDTO extends AuditableDTO{
+public class NotificationDTO{
     private Long id;
     private String message;
     private String type; // ex: TASK_ADDED, TASK_UPDATED

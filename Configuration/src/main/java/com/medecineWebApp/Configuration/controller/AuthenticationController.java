@@ -23,6 +23,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody RegistrationRequest request) throws MessagingException {
+        log.info("Roles récupérés: {}", request.getRoles());
         return ResponseEntity.ok(authenticationService.register(request));
 
     }
@@ -54,5 +55,11 @@ public class AuthenticationController {
     public void confirmedAuthentication(@PathVariable String token) throws MessagingException {
                 authenticationService.activateAccount(token);
     }
+
+    public void logout(){
+
+    }
+
+
 
 }

@@ -10,7 +10,8 @@
 <app-success-modal
   *ngIf="successModalData"
   [message]="successModalData?.message"
-  (closeSuccessModal)="closeSuccessModal()">
+  (closeSuccessModal)="closeSuccessModal()"
+  (afterClose)="onSuccessModalClosed()">
 </app-success-modal>
 
 <!-- Modal de warning -->

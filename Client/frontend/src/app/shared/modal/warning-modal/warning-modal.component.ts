@@ -10,11 +10,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class WarningModalComponent {
   @Input() message: string = ''; // Message d'avertissement
   @Input() title: string = 'Attention'; // Titre du modal
-  @Output() close = new EventEmitter<void>(); // Événement pour fermer le modal
+  @Output() closeWarning = new EventEmitter<void>(); // Événement pour fermer le modal
 
   // Méthode pour fermer le modal
   onClose() {
-    this.close.emit();
+    this.closeWarning.emit();
   }
 
 }

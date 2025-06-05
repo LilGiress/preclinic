@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+
 @Component({
     selector: 'app-success-modal',
     imports: [CommonModule],
@@ -10,9 +11,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SuccessModalComponent {
   @Input() message: string = 'Opération réussie !';
   @Output() closeSuccessModal = new EventEmitter<void>();
+    // Action personnalisée sur fermeture
+  @Output() afterClose = new EventEmitter<void>();
+ 
 
   closeModal() {
     this.closeSuccessModal.emit();
+    this.afterClose.emit();        // action personnalisée (ex: redirection)
   }
 
 }

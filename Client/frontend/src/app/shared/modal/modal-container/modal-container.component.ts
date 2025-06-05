@@ -4,6 +4,7 @@ import { SuccessModalComponent } from "../success-modal/success-modal.component"
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { WarningModalComponent } from "../warning-modal/warning-modal.component";
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modal-container',
@@ -18,7 +19,7 @@ export class ModalContainerComponent implements OnInit {
   title: string = '';
   showWarningModal: boolean = false;
 
-  constructor(public modalService: ModalService) {}
+  constructor(public modalService: ModalService, private readonly router: Router) {}
 
   ngOnInit() {
     // S'abonner au service pour écouter l'état des modals
@@ -26,6 +27,7 @@ export class ModalContainerComponent implements OnInit {
       this.modalData = data;
     });
     this.modalService.successModalState$.subscribe(data => {
+      //console.log('Success modal received:', data);
       this.successModalData = data;
     });
 
@@ -53,5 +55,14 @@ export class ModalContainerComponent implements OnInit {
    closeWarningModal() {
     this.modalService.closeWarning();
   }
+
+  onSuccessModalClosed() {
+    const callback = this.modalService.successCallback;
+    if (callback) {
+      callback(); // exécute la fonction personnalisée
+      this.modalService.successCallback = null; // reset après appel
+    }
+  }
+
 
 }

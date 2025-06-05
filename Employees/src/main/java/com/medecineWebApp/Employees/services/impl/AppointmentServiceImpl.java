@@ -29,7 +29,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
 
-    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, CountryClient employeeClient, AppointmentMapper appointmentMapper, PatientClient patientClient) {
+    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, AppointmentMapper appointmentMapper, PatientClient patientClient) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentMapper = appointmentMapper;
     }

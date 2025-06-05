@@ -7,10 +7,11 @@ import { BehaviorSubject } from 'rxjs';
 export class ModalService {
 
   constructor() { }
-  private modalSubject = new BehaviorSubject<any>(null);
-  private successModalSubject = new BehaviorSubject<any>(null);
+  private readonly modalSubject = new BehaviorSubject<any>(null);
+  private readonly successModalSubject = new BehaviorSubject<any>(null);
   // BehaviorSubject pour contrôler l'état du modal
-  private warningSubject = new BehaviorSubject<{ message: string; title: string } | null>(null);
+  private readonly warningSubject = new BehaviorSubject<{ message: string; title: string } | null>(null);
+   public successCallback: (() => void) | null = null;
 
 
   modalState$ = this.modalSubject.asObservable();
@@ -26,7 +27,8 @@ export class ModalService {
     this.modalSubject.next(null);
   }
 
-  openSuccessModal(message: string) {
+  openSuccessModal(message: string, callback?: () => void) {
+     this.successCallback = callback ?? null;
     this.successModalSubject.next({ message });
   }
 

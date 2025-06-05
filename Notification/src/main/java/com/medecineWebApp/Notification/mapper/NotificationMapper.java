@@ -8,10 +8,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface NotificationMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
+//    @Mapping(target = "createdBy", ignore = true)
+//    @Mapping(target = "createdDate", ignore = true)
+//    @Mapping(target = "lastModifiedBy", ignore = true)
+//    @Mapping(target = "lastModifiedDate", ignore = true)
     NotificationDTO notificationToNotificationDTO(Notification notification);
     @InheritInverseConfiguration
     Notification notificationDTOToNotification(NotificationDTO notificationDTO);

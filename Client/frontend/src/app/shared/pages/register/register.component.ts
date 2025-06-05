@@ -19,6 +19,7 @@ import { RegistrationRequest } from '../../../models/playload/RegistrationReques
 })
 export class RegisterComponent implements OnInit{
   private readonly fb = inject(FormBuilder)
+ 
   submitted = false;
   message='';
   isOkay=true;
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit{
   constructor(
     private readonly authservice:AuthService,
     private readonly route:Router,
-    private readonly toastr:ModalService,
+    private readonly modalService:ModalService,
     private readonly spinner:NgxSpinnerService,
     private readonly roleService:RolesService,
     private readonly departementService:DepartementService
@@ -66,28 +67,30 @@ export class RegisterComponent implements OnInit{
   lastname: this.registrationForm.get('lastname')?.value ?? '',
   email: this.registrationForm.get('email')?.value ?? '',
   password: this.registrationForm.get('password')?.value ?? '',
-  roles: [this.rolePatientId] 
+  roles: this.roles! 
 };
-   console.log('--------------------------------this.registration',registration);
+   
       this.spinner.show();
       this.authservice.register(registration).subscribe({
-        next: (value: any) =>{
-
-            console.log(value);
-          this.toastr.openSuccessModal('Opéretion effectuer');
-          this.route.navigate(['/activation-code'])
+        next: (value: any) =>{ 
           this.spinner.hide();
-
+          this.modalService.openSuccessModal(
+            ' Parfait ! Votre compte a été ajouté et est maintenant prêt à être utilisé. Veuillez verifier votre boite mail',
+          () => this.route.navigate(['/home'])
+          );
+          this.onReset();
+        
         },
         error:(err) =>{
           this.spinner.hide();
           this.message= err.error
-          this.toastr.openWarning('Opération echouer ','Echec');
+          this.modalService.openWarning('Opération echouer ','Echec');
 
         }
       })
     }
   }
+ 
 
  loadDepartements(): void {
     this.departementService.getAll().subscribe({
@@ -102,25 +105,21 @@ export class RegisterComponent implements OnInit{
         error:(err) =>{
           this.spinner.hide();
           this.message= err.error
-          this.toastr.openWarning('Opération echouer ','Echec');
+          this.modalService.openWarning('Opération echouer ','Echec');
 
         }
     })
       
-   
   }
 
    getAllRoles(): void {
     this.roleService.getRoles().subscribe({
       next:(value:any) => {
          this.roles = value
-        // this.rolePatient= this.roles.
           if (this.roles) {
           this.roles?.forEach(role => {
           if (role.name === 'PATIENT') {
-            this.rolePatientId = role.id!;
           this.rolePatient = role.name;
-           console.log('Role Patient trouvé :', this.rolePatientId);
              }
           });
         }

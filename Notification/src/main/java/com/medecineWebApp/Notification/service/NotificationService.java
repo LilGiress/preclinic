@@ -7,6 +7,9 @@ import com.medecineWebApp.Notification.models.kafka.UserEvent;
 import com.medecineWebApp.Notification.repositories.NotificationRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -44,7 +47,7 @@ public class NotificationService {
         notification.setCreatedAt(LocalDateTime.now());
 
         notificationRepository.save(notification);
-        System.out.println("✅ Notification enregistrée pour " + event.getRecipientRole() + " (ID: " + event.getUserName() + ")");
+        System.out.println("✅ Notification enregistrée pour "  + " (ID: " + event.getUserName() + ")");
 
         // Envoi de l'email avec template HTML
         try {

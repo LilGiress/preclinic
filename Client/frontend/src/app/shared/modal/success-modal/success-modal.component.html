@@ -1,23 +1,29 @@
 
   <!-- Modal -->
-  <div class="modal" id="learnMore1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-backdrop" *ngIf="message">
+ <div class="modal show d-block"  tabindex="-1" role="dialog" aria-labelledby="modalSuccess" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-  
         <div class="modal-body">
-          <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <br/>
+           
         <div class="container">
           <div class="row">
             <div class="col-sm-6">
                <img src="assets/img/check.png" alt="" width=50%/>
             </div>
-            <div class="col-sm-6 align-self-center"> 
-              <h3>  Parfait ! Votre {{ message }} a été ajouté et est maintenant prêt à être utilisé.</h3>
+            <div class="col-sm-6 "> 
+              <h3>  {{ message }} </h3>
               
-            </div>          
+            </div>       
+          </div>  
+
+          <div class="row justify-content-end">
+             <div class="col-auto">
+             <button type="button" class="btn btn-success" (click)="closeModal()" data-fs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Ok</span>
+            
+          </button>      
+            </div>      
           </div>  
         </div>
         
@@ -26,6 +32,8 @@
       </div>
     </div>
   </div>
+   </div>
+ 
   
   
   
