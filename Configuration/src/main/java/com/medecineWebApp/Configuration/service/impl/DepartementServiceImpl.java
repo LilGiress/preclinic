@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.DepartementDTO;
+import com.medecineWebApp.Configuration.exception.DepartementNotFoundException;
 import com.medecineWebApp.Configuration.mapper.DepartementMapper;
 import com.medecineWebApp.Configuration.models.Departement;
 import com.medecineWebApp.Configuration.repository.departement.DepartmentRepository;
@@ -36,11 +37,11 @@ public class DepartementServiceImpl implements DepartementService {
         if (id != null && department.getUserId() != null) {
             return departmentRepository.findById(id)
                     .map(departementMapper::departementToDepartementDTO).orElseThrow(
-                            () -> new ResourceNotFoundException("Department not found for this id: " + id)
+                            () -> new DepartementNotFoundException("Department not found for this id: " + id)
                     );
 
         }
-        throw new ResourceNotFoundException("Department not found with id: " + id);
+        throw new DepartementNotFoundException("Department not found with id: " + id);
     }
 
     @Override

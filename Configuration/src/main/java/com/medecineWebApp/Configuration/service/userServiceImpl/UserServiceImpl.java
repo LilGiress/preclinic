@@ -3,6 +3,7 @@ package com.medecineWebApp.Configuration.service.userServiceImpl;
 
 import com.medecineWebApp.Configuration.config.jwt.JwtService;
 import com.medecineWebApp.Configuration.dto.UserDTO;
+import com.medecineWebApp.Configuration.exception.UserNotFoundException;
 import com.medecineWebApp.Configuration.mapper.UserMapper;
 import com.medecineWebApp.Configuration.models.kafka.PasswordResetEvent;
 import com.medecineWebApp.Configuration.models.role.Roles;
@@ -64,11 +65,11 @@ public class UserServiceImpl implements UserService {
         // check if the current password is correct
         //!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())
         if (!new BCryptPasswordEncoder().matches(request.getCurrentPassword(), user.getPassword())) {
-           throw new IllegalStateException("Wrong password");
+           throw new UserNotFoundException("Wrong password");
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new IllegalCallerException("Passwords do not match");
+            throw new UserNotFoundException("Passwords do not match");
         }
         // mise à jour du mot de pass
 
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users forgotPassword(String email) {
         if (userRepository.findByEmail(email) == null) {
-            throw new IllegalStateException("User not found");
+            throw new UserNotFoundException("User not found");
         }
         return userRepository.findByEmail(email);
 
@@ -98,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new IllegalCallerException("Passwords do not match");
+            throw new UserNotFoundException("Passwords do not match");
         }
         // mise à jour du mot de pass
 
@@ -132,20 +133,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long userId) {
         if (userId >0) {
-            if (userRepository.existsById(userId)) {
-                userRepository.deleteById(userId);
+            Users user = userRepository.findById(userId).orElseThrow(
+                    ()-> new UserNotFoundException("User not found with id: " + userId)
+            );
+            if (user!= null) {
+                user.setEnabled(false);
+                userRepository.save(user);
             } else {
-                throw new EntityNotFoundException("User not found with id: " + userId);
+                throw new UserNotFoundException("User not found with id: " + userId);
             }
         } else {
-            throw new IllegalArgumentException("User id cannot be null");
+            throw new UserNotFoundException("User id cannot be null");
         }
     }
 
     @Override
     public ResponseMessage<UserDTO> updateUser(Long userId, Users user ) {
         Users olduser = userRepository.findById(userId).orElseThrow(
-                ()-> new EntityNotFoundException("User not found with id: " + userId)
+                ()-> new UserNotFoundException("User not found with id: " + userId)
         );
 
         olduser.setEmail(user.getEmail());
@@ -169,7 +174,7 @@ public class UserServiceImpl implements UserService {
     public String requestPasswordReset(String email) {
         // Vérifier si l'utilisateur existe
         if (!userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Utilisateur introuvable !");
+            throw new UserNotFoundException("Utilisateur introuvable !");
         }
 
         // Générer un code de vérification à 6 chiffres
@@ -195,28 +200,28 @@ public class UserServiceImpl implements UserService {
         if(request==null){
             throw new IllegalArgumentException("request is null");
         }
-        PasswordResetToken tokenReset = passwordResetTokenRepository.findByEmailAndVerificationCode(request.getEmail(), request.getVerificationCode())
+      /*  PasswordResetToken tokenReset = passwordResetTokenRepository.findByEmailAndVerificationCode(request.getEmail(), request.getVerificationCode())
                 .orElseThrow(() -> new IllegalArgumentException("Code de vérification invalide ou expiré"));
 
         // Vérifier si le code est expiré
         if(tokenReset.getExpirationTime().isBefore(LocalDateTime.now())){
             throw new IllegalCallerException("Code expiré !");
 
-        }
+        }*/
 
         Users user = userRepository.findByEmail(request.getEmail());
         if (user == null) {
-            throw new EntityNotFoundException("User not found with email: " + request.getEmail());
+            throw new UserNotFoundException("User not found with email: " + request.getEmail());
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new IllegalCallerException("Passwords do not match");
+            throw new UserNotFoundException("Passwords do not match");
         }else {
             user.setPassword(new BCryptPasswordEncoder().encode(request.getNewPassword()));
         }
         userRepository.save(user);
         passwordResetTokenRepository.deleteByEmail(request.getEmail());
-return "Mot de passe réinitialisé avec succès !";
+           return "Mot de passe réinitialisé avec succès !";
     }
 
     @Override

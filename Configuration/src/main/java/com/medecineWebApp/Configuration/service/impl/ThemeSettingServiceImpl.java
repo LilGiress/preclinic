@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
+import com.medecineWebApp.Configuration.exception.ThemeSettingNotFoundException;
 import com.medecineWebApp.Configuration.mapper.ThemeSettingMapper;
 import com.medecineWebApp.Configuration.models.setting.ThemeSetting;
 import com.medecineWebApp.Configuration.repository.ThemeSettingRepository;
@@ -50,6 +51,6 @@ public class ThemeSettingServiceImpl implements ThemeSettingService {
             ThemeSetting savedSetting = themeSettingRepository.save(themeSetting1);
             return themeSettingMapper.themeSettingToThemeSettingDTO(savedSetting);
         }
-        throw new ResourceNotFoundException("Theme setting with id " + id + " not found");
+        throw new ThemeSettingNotFoundException("Theme setting with id " + id + " not found");
     }
 }

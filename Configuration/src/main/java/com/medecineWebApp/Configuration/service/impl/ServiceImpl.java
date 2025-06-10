@@ -2,6 +2,8 @@ package com.medecineWebApp.Configuration.service.impl;
 
 
 import com.medecineWebApp.Configuration.dto.ServicesDTO;
+import com.medecineWebApp.Configuration.exception.DepartementNotFoundException;
+import com.medecineWebApp.Configuration.exception.ServiceNotFoundException;
 import com.medecineWebApp.Configuration.mapper.ServiceMapper;
 import com.medecineWebApp.Configuration.models.Departement;
 import com.medecineWebApp.Configuration.models.Services;
@@ -44,7 +46,7 @@ public class ServiceImpl implements ServiceService {
 
             return serviceMapper.serviceToServiceDTO(serviceRepository.save(serviceToUpdate));
         }
-        throw new RuntimeException("Service with id " + id + " not found");
+        throw new ServiceNotFoundException("Service with id " + id + " not found");
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ServiceImpl implements ServiceService {
         if (serviceOptional.isPresent()) {
             return serviceMapper.serviceToServiceDTO(serviceOptional.get());
         }
-       throw new RuntimeException("Service with id " + id + " not found");
+       throw new ServiceNotFoundException("Service with id " + id + " not found");
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ServiceImpl implements ServiceService {
 
     @Override
     public List<ServicesDTO> getAllServicesByDepartementId(Long departementId) {
-        Departement department = departmentRepository.findById(departementId).orElseThrow(() -> new ResourceNotFoundException("Department not found"));
+        Departement department = departmentRepository.findById(departementId).orElseThrow(() -> new DepartementNotFoundException("Department not found"));
         return serviceRepository.
                 findByDepartement(department).stream().map(serviceMapper::serviceToServiceDTO).collect(Collectors.toList());
     }

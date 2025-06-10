@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.PermissionDTO;
+import com.medecineWebApp.Configuration.exception.PermissionNotFoundException;
 import com.medecineWebApp.Configuration.mapper.PermissionMapper;
 import com.medecineWebApp.Configuration.models.ModulePermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
@@ -39,7 +40,7 @@ public class PermissionServiceImpl implements PermissionService {
                 return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionItem));
             }
         }
-        throw new RuntimeException("permission is null ");
+        throw new PermissionNotFoundException("permission is null ");
     }
 
     @Override
@@ -51,7 +52,7 @@ public class PermissionServiceImpl implements PermissionService {
           //  permissionToUpdate.setDescription(permission.getDescription());
             return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionToUpdate));
         }
-         throw new RuntimeException("Permission not found");
+         throw new PermissionNotFoundException("Permission not found");
     }
 
     @Override

@@ -6,6 +6,7 @@ import {TokenService} from "../../../services/token/token.service";
 import { Router, RouterModule } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../service/modal.service';
 
 
 
@@ -21,13 +22,14 @@ export class LoginComponent implements OnInit{
   roles: string[] = [];
   
   submitted = false;
-  errorMessage="";
+  message="";
   user:any;
   constructor(
-    private readonly router: Router,
+    private readonly route: Router,
     private readonly authservice:AuthService,
     private readonly tokenservie : TokenService,
     private readonly spinner:NgxSpinnerService,
+    private readonly modalService:ModalService
   ){
 
   }
@@ -70,12 +72,14 @@ export class LoginComponent implements OnInit{
             console.log('value+++++++++++++++this.tokenservie.getToken()',this.tokenservie.getToken())
             if (res.access_token === this.tokenservie.getToken()) {
               this.spinner.hide();
-              this.router.navigateByUrl("/home");
+              this.modalService.openSuccessModal('Opération effectuer',() => this.route.navigate(['/home']));
               this.onReset();
             }
           },
-          error:(err)=> {
-            this.errorMessage= err;
+          error:(err:any)=> {
+             this.spinner.hide();
+          this.message= err.error;
+          this.modalService.openWarning(this.message ,'Echec');
           },
         }
       )

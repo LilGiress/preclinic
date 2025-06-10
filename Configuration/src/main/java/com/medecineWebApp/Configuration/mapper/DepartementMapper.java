@@ -13,10 +13,6 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface DepartementMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     DepartementDTO departementToDepartementDTO(Departement departement);
     @InheritInverseConfiguration
     Departement departementDTOToDepartement(DepartementDTO departementDTO);

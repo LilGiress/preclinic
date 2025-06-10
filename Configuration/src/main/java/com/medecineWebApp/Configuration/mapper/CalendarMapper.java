@@ -9,10 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface CalendarMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
+
     CalendarDTO calendarToCalendarDTO(Calendar calendar);
     @InheritInverseConfiguration
     Calendar calendarDTOToCalendar(CalendarDTO calendarDTO);

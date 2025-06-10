@@ -4,6 +4,7 @@ import {AuthService} from "../../../services/auth/auth.service";
 import {Router, RouterModule} from "@angular/router";
 import {CodeInputModule} from "angular-code-input";
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../service/modal.service';
 
 @Component({
     selector: 'app-activation-code',
@@ -19,13 +20,15 @@ export class ActivationCodeComponent {
 
   constructor(
     private readonly router:Router,
-    private readonly authservice:AuthService
+    private readonly authservice:AuthService,
+    private readonly modalService:ModalService
 
   ){}
   private confirmAccount(token: string) {
       this.tokenRestore=token;
     this.authservice.activateCode(token).subscribe({
       next: data => {
+        this.modalService.openSuccessModal('Your account has been successfully activated.\nNow you can proceed to login');
         this.message = 'Your account has been successfully activated.\nNow you can proceed to login';
         this.submitted = true;
       },

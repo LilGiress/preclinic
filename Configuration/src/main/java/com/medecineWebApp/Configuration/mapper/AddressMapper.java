@@ -9,10 +9,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface AddressMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     AddressDTO addressToAddressDTO(Address address);
     @InheritInverseConfiguration
     Address addressDTOToAddress(AddressDTO addressDTO);

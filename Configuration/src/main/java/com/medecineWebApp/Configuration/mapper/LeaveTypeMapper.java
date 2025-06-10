@@ -9,10 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface LeaveTypeMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     LeaveTypeDTO LeaveTypeToLeaveTypeDTO(LeaveType leaveType);
     @InheritInverseConfiguration
     LeaveType LeaveTypeDTOToLeaveType(LeaveTypeDTO leaveTypeDTO);

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth/auth.service";
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -81,10 +81,10 @@ export class RegisterComponent implements OnInit{
           this.onReset();
         
         },
-        error:(err) =>{
+        error:(err:any) =>{
           this.spinner.hide();
-          this.message= err.error
-          this.modalService.openWarning('Opération echouer ','Echec');
+          this.message= err.error;
+          this.modalService.openWarning(this.message ,'Echec');
 
         }
       })
@@ -157,15 +157,4 @@ export class RegisterComponent implements OnInit{
     };
   }
 
-
-   passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
-  const password = form.get('password');
-  const confirmPassword = form.get('confirmPassword');
-  if (password && confirmPassword && password.value !== confirmPassword.value) {
-    confirmPassword.setErrors({ mismatch: true });
-    return { mismatch: true };
-  } else {
-    return null;
-  }
-}
 }

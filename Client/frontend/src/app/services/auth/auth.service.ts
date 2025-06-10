@@ -13,22 +13,21 @@ const AUTH_API= environment.apiUrl;
 })
 export class AuthService {
 
-  isLoggedIn() {
-    const token = localStorage.getItem('token'); // get token from local storage
-
-    if (!token) {
-      return of(false); // Return Observable with false if no token
-    }
-
-
-    const payload = atob(token!.split('.')[1]); // decode payload of token
-
-    const parsedPayload = JSON.parse(payload); // convert payload into an Object
-
-    const isTokenValid = parsedPayload.exp > Date.now() / 1000; // check if token is expired
-
-    return of(isTokenValid); // Return Observable with the boolean result
+ isLoggedIn(): Observable<boolean> {
+  const token = localStorage.getItem('token'); // get token from local storage
+  if (!token) {
+    return of(false);  // Return Observable with false if no token
   }
+
+  try {
+    const payload = atob(token.split('.')[1]); // decode payload of token
+    const parsedPayload = JSON.parse(payload); // convert payload into an Object
+    const isTokenValid = parsedPayload.exp > Date.now() / 1000; // check if token is expired
+    return of(isTokenValid);
+  } catch (error) {
+    return of(false);
+  }
+}
 
   constructor(private readonly http:HttpClient) { }
 
@@ -47,7 +46,7 @@ export class AuthService {
 
   logout():Observable<any> {
     return this.http.post(
-      AUTH_API + '/auth/register',httpOptions
+      AUTH_API + '/auth/logout', {},httpOptions
     )
   }
 
@@ -58,4 +57,19 @@ export class AuthService {
   ForgotPassword(data:any){
     return this.http.post(AUTH_API+'/user/forgot-password',data,httpOptions);
   }
+  changePassword(data:any){
+    return this.http.post(AUTH_API+'/user/reset-password',data,httpOptions);
+  }
+
+  getUserRole(): string | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.role ?? null;
+  } catch (e) {
+    return null;
+  }
+}
 }

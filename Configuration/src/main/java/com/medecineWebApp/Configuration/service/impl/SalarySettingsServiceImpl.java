@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.SalarySettingsDTO;
+import com.medecineWebApp.Configuration.exception.SalarySettingNotFoundException;
 import com.medecineWebApp.Configuration.mapper.SalarySettingsMapper;
 import com.medecineWebApp.Configuration.models.setting.SalarySettings;
 import com.medecineWebApp.Configuration.repository.SalarySettingsRepository;
@@ -36,7 +37,7 @@ public class SalarySettingsServiceImpl implements SalarySettingsService {
             updatedSalarySettings.setHraPercentage(salarySettings.getHraPercentage());
             return salarySettingsMapper.salarySettingsDTOToSalarySettingsDTO(salarySettingsRepository.save(updatedSalarySettings));
         }
-        throw new RuntimeException("SalarySettings not found");
+        throw new SalarySettingNotFoundException("SalarySettings not found");
     }
 
     @Override

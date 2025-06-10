@@ -11,10 +11,6 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface ThemeSettingMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     ThemeSettingDTO themeSettingToThemeSettingDTO(ThemeSetting themeSetting);
     @InheritInverseConfiguration
     ThemeSetting themeSettingDTOToThemeSetting(ThemeSettingDTO themeSettingDTO);

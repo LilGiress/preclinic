@@ -12,10 +12,6 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface RolesMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     RolesDTO rolesToRolesDTO(Roles roles);
     @InheritInverseConfiguration
     Roles rolesDTOToRoles(RolesDTO rolesDTO);

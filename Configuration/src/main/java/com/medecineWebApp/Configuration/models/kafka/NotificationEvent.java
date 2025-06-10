@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class NotificationEvent {
     private String message;
     private String type;
-    private Long userId;
-    private String recipientRole;
+    private String userName;
+    private String userEmail;
 
 }

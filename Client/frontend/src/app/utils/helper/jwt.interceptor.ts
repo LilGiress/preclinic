@@ -6,7 +6,7 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor{
 
-  constructor(private tokenservice : TokenService){}
+  constructor(private readonly tokenservice : TokenService){}
 
   intercept(
     req: HttpRequest<any>,

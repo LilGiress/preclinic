@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CompanySettingMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     CompanySettingDTO companySettingToCompanySettingDTO(CompanySetting companySetting);
     @InheritInverseConfiguration
     CompanySetting companySettingDTOToCompanySetting(CompanySettingDTO companySettingDTO);

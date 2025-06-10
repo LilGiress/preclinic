@@ -12,7 +12,9 @@ public class NotificationDTO{
     private Long id;
     private String message;
     private String type; // ex: TASK_ADDED, TASK_UPDATED
-    private Long userId; // Utilisateur concerné
+    private String userName; // Utilisateur concerné
+    private String userEmail;
     private LocalDateTime createdAt;
     private boolean read = false;
+    private boolean sent;
 }

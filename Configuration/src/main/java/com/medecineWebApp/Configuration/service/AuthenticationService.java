@@ -5,6 +5,8 @@ import com.medecineWebApp.Configuration.config.jwt.JwtService;
 import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
 import com.medecineWebApp.Configuration.dto.UserDTO;
 import com.medecineWebApp.Configuration.enums.TokenType;
+import com.medecineWebApp.Configuration.exception.RolesNotFoundException;
+import com.medecineWebApp.Configuration.exception.UserNotFoundException;
 import com.medecineWebApp.Configuration.mapper.DepartementMapper;
 import com.medecineWebApp.Configuration.mapper.UserMapper;
 import com.medecineWebApp.Configuration.models.Departement;
@@ -36,11 +38,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.security.SecureRandom;
@@ -92,13 +96,13 @@ public class AuthenticationService implements LogoutHandler {
     public UserDTO register(RegistrationRequest request) throws MessagingException {
         log.warn("Roles récupérés: {}", request.getRoles());
         if (request == null) {
-            throw new IllegalArgumentException("request cannot be null");
+            throw new UserNotFoundException("request cannot be null");
         }
 
         // Vérifier si l'utilisateur existe déjà
         Users existingUser = userRepository.findByEmail(request.getEmail());
         if (existingUser != null) {
-            throw new IllegalArgumentException("L'utilisateur existe déjà !");
+            throw new UserNotFoundException("L'utilisateur existe déjà !");
         }
 
         // Récupérer les rôles à partir des IDs
@@ -109,7 +113,7 @@ public class AuthenticationService implements LogoutHandler {
       //  Set<Roles> roles = new HashSet<>(roleRepository.findAllByIdIn(roleIds));
         Set<Roles> roles = new HashSet<>(roleRepository.findAllByIdIn(roleIds));
         if (roles.isEmpty()) {
-            throw new IllegalArgumentException("Aucun rôle valide n'a été trouvé.");
+            throw new RolesNotFoundException("Aucun rôle valide n'a été trouvé.");
         }
 
 

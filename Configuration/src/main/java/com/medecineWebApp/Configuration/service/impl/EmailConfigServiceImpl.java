@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.SmtpConfigDTO;
+import com.medecineWebApp.Configuration.exception.SmtpConfigNotFoundException;
 import com.medecineWebApp.Configuration.mapper.SmtpConfigMapper;
 import com.medecineWebApp.Configuration.models.setting.SmtpConfig;
 import com.medecineWebApp.Configuration.repository.EmailConfigRepository;
@@ -35,6 +36,6 @@ public class EmailConfigServiceImpl implements EmailConfigService {
             updatedSmtpConfig.setSmtpUser(smtpConfig.getSmtpUser());
             return smtpConfigMapper.smtpConfigToSmtpConfigDTO( emailConfigRepository.save(updatedSmtpConfig));
         }
-        throw new NotFoundException("Smtp config not found");
+        throw new SmtpConfigNotFoundException("Smtp config not found");
     }
 }

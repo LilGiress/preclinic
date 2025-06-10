@@ -10,10 +10,6 @@ import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring")
 public interface SalarySettingsMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     SalarySettingsDTO salarySettingsDTOToSalarySettingsDTO(SalarySettings salarySettings);
     @InheritInverseConfiguration
     SalarySettings salarySettingsDTOToSalarySettings(SalarySettingsDTO salarySettingsDTO);

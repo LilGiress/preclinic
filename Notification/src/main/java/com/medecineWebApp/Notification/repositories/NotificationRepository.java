@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long>,JpaSpecificationExecutor<Notification> {
-    Page<Notification> findByUserName(String userName);
+   // Page<Notification> findByUserName(String userName);
 }

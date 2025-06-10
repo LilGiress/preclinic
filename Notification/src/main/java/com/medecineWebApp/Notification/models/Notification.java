@@ -24,7 +24,6 @@ public class Notification extends Auditable implements Serializable {
     private LocalDateTime createdAt;
     private boolean read = false;
     private boolean sent;
-
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

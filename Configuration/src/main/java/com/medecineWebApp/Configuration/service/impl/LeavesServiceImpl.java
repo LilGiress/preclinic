@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.LeavesDTO;
+import com.medecineWebApp.Configuration.exception.LeaveNotFoundException;
 import com.medecineWebApp.Configuration.mapper.LeavesMapper;
 import com.medecineWebApp.Configuration.models.Leaves;
 import com.medecineWebApp.Configuration.payload.request.LeaveRequest;
@@ -56,7 +57,7 @@ public class LeavesServiceImpl implements LeaveService {
             updatedLeave.setEndDate(leave.getEndDate());
             return leavesMapper.LeavesToLeavesDTO(leavesRepository.save(updatedLeave));
         }
-        throw new RuntimeException("Leaves with id " + id + " not found");
+        throw new LeaveNotFoundException("Leaves with id " + id + " not found");
     }
 
     @Override

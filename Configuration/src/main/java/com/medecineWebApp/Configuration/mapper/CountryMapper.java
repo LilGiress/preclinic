@@ -9,10 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface CountryMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     CountryDTO countryToCountryDTO(Country country);
     @InheritInverseConfiguration
     Country countryDTOToCountry(CountryDTO countryDTO);

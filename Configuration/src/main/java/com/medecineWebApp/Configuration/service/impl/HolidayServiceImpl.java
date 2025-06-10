@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.HolidayDTO;
+import com.medecineWebApp.Configuration.exception.HolidayNotFoundException;
 import com.medecineWebApp.Configuration.mapper.HolidayMapper;
 import com.medecineWebApp.Configuration.models.Holiday;
 import com.medecineWebApp.Configuration.repository.HolidayRepository;
@@ -24,7 +25,7 @@ public class HolidayServiceImpl implements HolidayService {
     @Override
     public void deleteHoliday(Long id) {
         Holiday holiday = holidayRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Holiday not found with id " + id));
+                .orElseThrow(() -> new HolidayNotFoundException("Holiday not found with id " + id));
         holidayRepository.delete(holiday);
     }
 
@@ -37,7 +38,7 @@ public class HolidayServiceImpl implements HolidayService {
     @Override
     public HolidayDTO updateHoliday(Long id, Holiday holidayDetails) {
         Holiday holiday = holidayRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Holiday not found with id " + id));
+                .orElseThrow(() -> new HolidayNotFoundException("Holiday not found with id " + id));
 
         holiday.setName(holidayDetails.getName());
         holiday.setDate(holidayDetails.getDate());
@@ -66,7 +67,7 @@ public class HolidayServiceImpl implements HolidayService {
 
     @Override
     public HolidayDTO getHolidayById(Long id) {
-        Holiday holiday= holidayRepository.findById(id).orElseThrow(() -> new RuntimeException("Holiday not found with id " + id));
+        Holiday holiday= holidayRepository.findById(id).orElseThrow(() -> new HolidayNotFoundException("Holiday not found with id " + id));
         return holidayMapper.HolidayToHolidayDTO(holiday);
     }
 }

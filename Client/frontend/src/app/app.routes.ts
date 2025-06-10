@@ -43,9 +43,32 @@ export const routes: Routes = [
 
   {
     path: 'administration',
+   // canActivate: [roleGuard(['Admin'])],
     loadChildren: () =>
       import('./administration/administration.module').then(m => m.AdministrationModule),
   },
+ /* ,
+  {
+    path: 'doctor-dashboard',
+    canActivate: [roleGuard(['Doctor'])],
+    loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorModule),
+  },
+  {
+    path: 'employee-dashboard',
+    canActivate: [roleGuard(['Employee'])],
+    loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),
+  },
+  {
+    path: 'finance-dashboard',
+    canActivate: [roleGuard(['Finance'])],
+    loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule),
+  },
+  {
+    path: 'patient-dashboard',
+    canActivate: [roleGuard(['Patient'])],
+    loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule),
+  },
+  */
   {path: '**', component: PageNotFoundComponent},
 ];
 @NgModule({

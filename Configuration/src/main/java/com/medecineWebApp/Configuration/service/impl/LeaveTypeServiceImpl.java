@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.LeaveTypeDTO;
+import com.medecineWebApp.Configuration.exception.LeaveTypeNotFoundException;
 import com.medecineWebApp.Configuration.mapper.LeaveTypeMapper;
 import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
@@ -51,7 +52,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
             updatedLeaveType.setStatus(leaveType.getStatus());
             return leaveTypeMapper.LeaveTypeToLeaveTypeDTO(leaveTypeRepository.save(updatedLeaveType));
         }
-         throw new RuntimeException("Leave Type Not Found");
+         throw new LeaveTypeNotFoundException("Leave Type Not Found");
     }
 
     @Override

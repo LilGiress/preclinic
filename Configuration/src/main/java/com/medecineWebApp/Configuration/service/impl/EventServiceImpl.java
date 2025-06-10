@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.EventDTO;
+import com.medecineWebApp.Configuration.exception.EventNotFoundException;
 import com.medecineWebApp.Configuration.mapper.EventMapper;
 import com.medecineWebApp.Configuration.models.Holiday;
 import com.medecineWebApp.Configuration.models.setting.Event;
@@ -42,7 +43,7 @@ public class EventServiceImpl implements EventService {
 
            return eventMapper.eventToEventDTO(eventRepository.save(event));
        }
-        throw new RuntimeException("No event found with id " + id);
+        throw new EventNotFoundException("No event found with id " + id);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventDTO addEventWithHoliday(Event event, Long holidayId) {
-        Holiday holiday = holidayRepository.findById(holidayId).orElse(null);
+        Holiday holiday = holidayRepository.findById(holidayId).orElseThrow(() -> new EventNotFoundException("Event not found with id " + holidayId));
         if (holiday != null) {
             event.setHoliday(holiday);
             return eventMapper.eventToEventDTO(eventRepository.save(event));

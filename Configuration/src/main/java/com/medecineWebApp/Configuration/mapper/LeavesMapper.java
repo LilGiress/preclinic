@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface LeavesMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     LeavesDTO LeavesToLeavesDTO(Leaves leaves);
     @InheritInverseConfiguration
     Leaves LeavesDTOToLeaves(LeavesDTO leavesDTO);

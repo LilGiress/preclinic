@@ -9,10 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface RegionMapper {
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "createdDate", ignore = true)
-    @Mapping(target = "lastModifiedBy", ignore = true)
-    @Mapping(target = "lastModifiedDate", ignore = true)
     RegionDTO regionToRegionDTO(Region region);
     @InheritInverseConfiguration
     Region regionDTOToRegion(RegionDTO regionDTO);

@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.AddressDTO;
+import com.medecineWebApp.Configuration.exception.AddressNotFoundException;
 import com.medecineWebApp.Configuration.mapper.AddressMapper;
 import com.medecineWebApp.Configuration.models.Address;
 import com.medecineWebApp.Configuration.models.City;
@@ -30,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO saveAddress(Address addressDTO) {
         City city = cityRepository.findByCity(addressDTO.getCity().getCity())
-                .orElseThrow(() -> new RuntimeException("City not found"));
+                .orElseThrow(() -> new AddressNotFoundException("City not found"));
 
 //        Country country = countryRepository.findByName(addressDTO.getCountry().getName())
 //                .orElseThrow(() -> new RuntimeException("Country not found"));
@@ -52,7 +53,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDTO getAddressById(Long id) {
-        Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address not found"));
+        Address address = addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundException("Address not found"));
         return addressMapper.addressToAddressDTO(address);
     }
 }

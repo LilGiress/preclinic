@@ -52,7 +52,7 @@ export class ForgotPasswordComponent implements OnInit{
           this.data=value;
           this.onReset();
           this.modalService.openSuccessModal('Operation effectuer')
-          this.router.navigate(['/login']);
+          this.router.navigate(['/reset-password']);
         },
         error:(err:any)=> {
           this.submitted=false;

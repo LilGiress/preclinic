@@ -7,9 +7,12 @@ import com.medecineWebApp.Configuration.payload.request.RegistrationRequest;
 import com.medecineWebApp.Configuration.payload.response.AuthenticationResponse;
 import com.medecineWebApp.Configuration.service.AuthenticationService;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -56,8 +59,12 @@ public class AuthenticationController {
                 authenticationService.activateAccount(token);
     }
 
-    public void logout(){
-
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request,
+                                         HttpServletResponse response,
+                                         Authentication authentication) {
+        authenticationService.logout(request, response, authentication);
+        return ResponseEntity.ok("Déconnexion réussie.");
     }
 
 

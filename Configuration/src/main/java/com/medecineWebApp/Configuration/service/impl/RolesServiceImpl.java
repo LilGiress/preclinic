@@ -1,6 +1,8 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.RolesDTO;
+import com.medecineWebApp.Configuration.exception.PermissionNotFoundException;
+import com.medecineWebApp.Configuration.exception.RolesNotFoundException;
 import com.medecineWebApp.Configuration.mapper.RolesMapper;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import com.medecineWebApp.Configuration.models.role.Roles;
@@ -45,12 +47,12 @@ public class RolesServiceImpl implements RolesService {
 // Create a new role with permissions
     public RolesDTO createRole(RolesRequest request) {
         if (request.getName() == null || request.getName().isEmpty()) {
-            throw new IllegalArgumentException("Role name cannot be null or empty.");
+            throw new RolesNotFoundException("Role name cannot be null or empty.");
         }
         // Check if the role already exists
         Optional<Roles> existingRole = roleRepository.findByName(request.getName());
         if (existingRole.isPresent()) {
-            throw new IllegalArgumentException("Role already exists: " + request.getName());
+            throw new RolesNotFoundException("Role already exists: " + request.getName());
         }
 
         // Create a new Roles entity
@@ -96,7 +98,7 @@ public class RolesServiceImpl implements RolesService {
     public RolesDTO updateRole(Long roleId, UpdateRoleRequest request) {
         // Vérifier si le rôle existe
         Roles role =  roleRepository.findById(roleId)
-                .orElseThrow(() -> new EntityNotFoundException("Role with ID " + roleId + " does not exist."));
+                .orElseThrow(() -> new RolesNotFoundException("Role with ID " + roleId + " does not exist."));
         role.setName(request.getName().toUpperCase());
         log.info("Updating role --------------------: " + request.getName());
 
@@ -109,7 +111,7 @@ public class RolesServiceImpl implements RolesService {
             // Si vous voulez mettre à jour complètement les permissions, vous pouvez supprimer celles existantes
             for (UpdatePermissionRequest permissionDTO : request.getPermissions()) {
                 Permission permission = permissionRepository.findById(permissionDTO.getId())
-                        .orElseThrow(() -> new EntityNotFoundException("Permission not found"));
+                        .orElseThrow(() -> new PermissionNotFoundException("Permission not found"));
                 permission.setModule(permissionDTO.getModule());
                 permission.setCanRead(permissionDTO.isCanRead());
                 permission.setCanWrite(permissionDTO.isCanWrite());
@@ -147,21 +149,15 @@ public class RolesServiceImpl implements RolesService {
     public List<RolesDTO> findAllRoles() {
 
         return roleRepository.findAll().stream().map(rolesMapper::rolesToRolesDTO).collect(Collectors.toList());
-
-
     }
 
     @Override
     public void deleteRole(Long roleId) {
         // Vérifier si le rôle existe
         Roles role =  roleRepository.findById(roleId)
-                .orElseThrow(() -> new EntityNotFoundException("Role not found"));
-
-
-
+                .orElseThrow(() -> new RolesNotFoundException("Role not found"));
         // 2. Supprimer les permissions associées (cascades de suppression)
         permissionRepository.deleteAll(role.getPermissions());
-
         // Supprimer le rôle
         roleRepository.delete(role);
         log.info("Deleted role --------------------: " + role.getName());
