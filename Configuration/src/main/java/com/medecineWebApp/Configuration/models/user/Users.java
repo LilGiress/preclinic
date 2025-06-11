@@ -137,7 +137,6 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
 
     @Override
     public String getName() {
-
         return getFullName();
     }
 

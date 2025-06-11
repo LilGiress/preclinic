@@ -80,11 +80,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users forgotPassword(String email) {
+    public UserDTO forgotPassword(String email) {
         if (userRepository.findByEmail(email) == null) {
             throw new UserNotFoundException("User not found");
         }
-        return userRepository.findByEmail(email);
+        return userMapper.UserToUserDTO(userRepository.findByEmail(email));
 
     }
 
@@ -164,10 +164,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users getCurrentUser(String token) {
+    public UserDTO getCurrentUser(String token) {
+        token = token.replace("Bearer ", ""); // Nettoie le token
         String username = jwtService.extractUsername(token);
-
-        return userRepository.findByEmail(username);
+        Users user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + username);
+        }
+        // Vérification de validité du token avec UserDetails
+        if (!jwtService.isTokenValid(token, user)) {
+            throw new IllegalArgumentException("Invalid or expired token");
+        }
+        return userMapper.UserToUserDTO(user);
     }
 
     @Override

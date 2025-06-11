@@ -26,7 +26,7 @@ public interface UserService {
      * @param email
      * @return
      */
-    Users forgotPassword(String email);
+    UserDTO forgotPassword(String email);
 
     /**
      *
@@ -67,7 +67,7 @@ public interface UserService {
      *
      * @return Users
      */
-   Users getCurrentUser(String token);
+    UserDTO getCurrentUser(String token);
 
     /**
      *

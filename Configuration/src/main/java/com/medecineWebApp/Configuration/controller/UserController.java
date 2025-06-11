@@ -65,12 +65,8 @@ public class UserController {
         userService.deleteUserById(id);
     }
     @GetMapping("/current-user")
-    public ResponseEntity<Users> getCurentUser(@RequestHeader("Authorization")String tokenHeader){
-       Users user = userService.getCurrentUser(tokenHeader);
-       if(user == null){
-           throw new UsernameNotFoundException("User not found");
-       }
-       return  ResponseEntity.ok(user);
+    public ResponseEntity<UserDTO> getCurentUser(@RequestHeader("Authorization")String tokenHeader){
+       return  ResponseEntity.ok( userService.getCurrentUser(tokenHeader));
     }
 
     @GetMapping("/user-roles")

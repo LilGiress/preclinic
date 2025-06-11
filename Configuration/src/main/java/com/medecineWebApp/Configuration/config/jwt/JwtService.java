@@ -122,7 +122,7 @@ public class JwtService {
     }
 
     public String extractRole(String token) {
-        return extractAllClaims(token).get("roles", String.class); // ✅ Correction ici (roles au lieu de role)
+        return extractAllClaims(token).get("roles", String.class);
     }
 
     public List<String> extractPermissions(String token) {

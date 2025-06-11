@@ -21,7 +21,7 @@ spring:
     password:
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
       ddl-auto: create-drop
@@ -92,7 +92,7 @@ management:
 prometheus:
   metrics:
     export:
-      enabled: true
+      enabled: false
 
 metrics:
   tags:
@@ -131,6 +131,7 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
+        engine.jdbc.env.internal: trace
         type.descriptor.sql.BasicBinder: TRACE
       springframework: DEBUG
 
