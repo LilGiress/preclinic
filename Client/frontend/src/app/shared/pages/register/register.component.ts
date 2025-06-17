@@ -13,6 +13,7 @@ import { RegistrationRequest } from '../../../models/playload/RegistrationReques
 
 @Component({
     selector: 'app-register',
+    standalone: true,
     imports: [CommonModule,RouterModule,ReactiveFormsModule],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css'

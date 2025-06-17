@@ -16,7 +16,7 @@ export class TokenService {
   getToken():string | null {
 
     if (this.isBrowser()) {
-      return localStorage.getItem(tokenKey);
+      return localStorage.getItem(tokenKey) || sessionStorage.getItem(tokenKey);
     }
     return null;
   }

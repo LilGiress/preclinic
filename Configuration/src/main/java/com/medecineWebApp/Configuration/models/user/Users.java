@@ -33,7 +33,7 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
     private Long id;
     private String firstname;
     private String lastname;
-    private String username;
+    private String username = firstname + " " + lastname;
     @Column(unique = true)
     private String email;
     private String password;
@@ -108,11 +108,6 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
     @Override
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return  firstname + " " + lastname;
     }
 
     @Override

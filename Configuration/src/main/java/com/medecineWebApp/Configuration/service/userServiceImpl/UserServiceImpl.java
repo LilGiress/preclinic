@@ -156,6 +156,7 @@ public class UserServiceImpl implements UserService {
         olduser.setEmail(user.getEmail());
         olduser.setPassword(user.getPassword());
         olduser.setFirstname(user.getFirstname());
+        olduser.setUsername(user.getUsername());
         olduser.setLastname(user.getLastname());
         olduser.setRoles(user.getRoles());
         olduser.setAccountLocked(user.isAccountLocked());
@@ -167,10 +168,8 @@ public class UserServiceImpl implements UserService {
     public UserDTO getCurrentUser(String token) {
         token = token.replace("Bearer ", ""); // Nettoie le token
         String username = jwtService.extractUsername(token);
-        Users user = userRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + username);
-        }
+        Users user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found"+ username));
+
         // Vérification de validité du token avec UserDetails
         if (!jwtService.isTokenValid(token, user)) {
             throw new IllegalArgumentException("Invalid or expired token");

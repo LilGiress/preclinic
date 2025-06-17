@@ -22,7 +22,6 @@ public class UserDTO extends AuditableDTO {
     private String username;
     @Column(unique = true)
     private String email;
-    private String password;
     private boolean enabled;
     private boolean accountLocked;
     private String photoUrl; // Chemin ou URL de l'image
