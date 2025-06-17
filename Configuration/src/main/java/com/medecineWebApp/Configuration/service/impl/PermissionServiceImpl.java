@@ -48,7 +48,6 @@ public class PermissionServiceImpl implements PermissionService {
         Optional<Permission> permissionOptional = permissionRepository.findById(id);
         if (permissionOptional.isPresent()) {
             Permission permissionToUpdate = permissionOptional.get();
-            permissionToUpdate.setModule(permission.getModule());
           //  permissionToUpdate.setDescription(permission.getDescription());
             return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionToUpdate));
         }

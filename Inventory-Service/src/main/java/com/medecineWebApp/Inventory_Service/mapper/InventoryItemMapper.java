@@ -10,10 +10,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface InventoryItemMapper {
-    @Mapping(source = "createdBy", target = "createdBy")
-    @Mapping(source = "createdDate", target = "createdDate")
-    @Mapping(source = "lastModifiedBy", target = "lastModifiedBy")
-    @Mapping(source = "lastModifiedDate", target = "lastModifiedDate")
     InventoryItemDTO toDTO(InventoryItem item);
     @InheritInverseConfiguration
     InventoryItem fromDTO(InventoryItemDTO dto);

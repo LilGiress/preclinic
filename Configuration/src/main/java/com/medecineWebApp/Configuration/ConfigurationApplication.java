@@ -18,7 +18,7 @@ import java.util.Set;
 
 @SpringBootApplication
 @EnableEurekaServer
-@EnableCaching
+//@EnableCaching
 @EnableJpaAuditing(auditorAwareRef = "customAuditorAware")
 public class ConfigurationApplication implements CommandLineRunner {
 	@Autowired

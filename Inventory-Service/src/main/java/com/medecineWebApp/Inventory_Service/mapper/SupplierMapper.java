@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SupplierMapper {
-    @Mapping(source = "createdBy", target = "createdBy")
-    @Mapping(source = "createdDate", target = "createdDate")
-    @Mapping(source = "lastModifiedBy", target = "lastModifiedBy")
-    @Mapping(source = "lastModifiedDate", target = "lastModifiedDate")
     SupplierDTO entityToDto(Supplier supplier);
     @InheritInverseConfiguration
     Supplier entityToModel(SupplierDTO supplierDTO);

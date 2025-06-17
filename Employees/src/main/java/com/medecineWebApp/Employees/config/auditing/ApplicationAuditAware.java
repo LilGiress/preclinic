@@ -1,7 +1,6 @@
 package com.medecineWebApp.Employees.config.auditing;
 
 import com.medecineWebApp.Employees.models.CustomUserDetails;
-import com.medecineWebApp.Employees.models.externe.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

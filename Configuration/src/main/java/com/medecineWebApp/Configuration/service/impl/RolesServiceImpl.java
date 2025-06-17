@@ -66,7 +66,6 @@ public class RolesServiceImpl implements RolesService {
 
             for (PermissionRequest permissionDTO : request.getPermissions()) {
                 Permission permission = new Permission();
-                permission.setModule(permissionDTO.getModule());
                 permission.setCanRead(permissionDTO.isCanRead());
                 permission.setCanWrite(permissionDTO.isCanWrite());
                 permission.setCanCreate(permissionDTO.isCanCreate());
@@ -112,7 +111,6 @@ public class RolesServiceImpl implements RolesService {
             for (UpdatePermissionRequest permissionDTO : request.getPermissions()) {
                 Permission permission = permissionRepository.findById(permissionDTO.getId())
                         .orElseThrow(() -> new PermissionNotFoundException("Permission not found"));
-                permission.setModule(permissionDTO.getModule());
                 permission.setCanRead(permissionDTO.isCanRead());
                 permission.setCanWrite(permissionDTO.isCanWrite());
                 permission.setCanCreate(permissionDTO.isCanCreate());
