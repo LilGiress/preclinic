@@ -5,6 +5,7 @@ import { UploadFile } from '../../models/file';
 
 @Component({
     selector: 'app-bibliotheque',
+    standalone: true,
     imports: [CommonModule],
     templateUrl: './bibliotheque.component.html',
     styleUrl: './bibliotheque.component.css'

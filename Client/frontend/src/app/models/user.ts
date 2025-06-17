@@ -1,5 +1,5 @@
 import { IDepartement } from "./departments";
-import { IROle } from "./role";
+import { IRole } from "./role";
 
 export interface IUser {
     id?:number;
@@ -7,10 +7,9 @@ export interface IUser {
     lastname?:string;
     username?:string;
     email?:string;
-    password?:string;
     enabled?:boolean;
     accountLocked?:boolean,
-    roles?:IROle[],
+    roles?:IRole,
     departments?:IDepartement,
 }
 
@@ -21,10 +20,9 @@ export class User implements IUser {
     public lastname?: string,
     public username?:string,
     public email?: string,
-    public password?: string,
     public enabled?: boolean,
     public accountLocked?: boolean,
-    public roles?: IROle[],
+    public roles?: IRole,
     public departments?:IDepartement,
    ){}
     

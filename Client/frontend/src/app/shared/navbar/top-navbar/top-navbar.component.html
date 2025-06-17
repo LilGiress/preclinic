@@ -3,11 +3,11 @@
   <nav class="navbar navbar-expand-lg header-nav">
     <div class="navbar-header">
       <a id="mobile_btn" href="javascript:void(0);">
-                    <span class="bar-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+        <span class="bar-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
       </a>
       <a href="index-2.html" class="navbar-brand logo">
         <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
@@ -26,7 +26,7 @@
         <li class="active">
           <a href="index-2.html">Home</a>
         </li>
-        <li *ngIf="userRole === 'Doctor'" class="has-submenu">
+        <li *ngIf="currentUser?.roles?.name === 'Doctor'" class="has-submenu">
           <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
             <li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
@@ -41,7 +41,7 @@
             <li><a href="doctor-register.html">Doctor Register</a></li>
           </ul>
         </li>
-        <li *ngIf="userRole === 'patient'" class="has-submenu">
+        <li *ngIf="currentUser?.roles?.name === 'patient'" class="has-submenu">
           <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
             <li><a href="search.html">Search Doctor</a></li>
@@ -77,8 +77,9 @@
             <li><a href="forgot-password.html">Forgot Password</a></li>
           </ul>
         </li>
-        <li *ngIf="userRole === 'Admin'">
-          <a [routerLink]="['/administration/dashboard']" routerLinkActive="router-link-active"  href="javascript:void(0);" target="_blank">Admin</a>
+        <li *ngIf="currentUser?.roles?.name === 'Admin'">
+          <a routerLink="/administration/dashboard" routerLinkActive="router-link-active"
+            target="_blank">Admin</a>
         </li>
         <li class="login-link">
           <a routerLink="" href="login.html">Login / Signup</a>
@@ -96,34 +97,31 @@
         </div>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/login']" class="nav-link header-login"  href="javascript:void(0);">login / Signup </a>
+        <a routerLink="/login" class="nav-link header-login">login / Signup </a>
       </li>
       <!-- User Menu -->
-       @if (IsUserLogging()) {
+       @if (currentUser) {
         <li class="nav-item dropdown has-arrow logged-item">
         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<span class="users-img">
-									<img class="rounded-circle" [src]= userImage width="31" alt="Darren Elder">
-								</span>
+          <span class="users-img">
+            <img class="rounded-circle" [src]=userImage width="31" alt="Darren Elder">
+          </span>
 
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <div class="users-header">
-            <div class="avatar avatar-sm">
-              <img [src]= userImage alt="User Image" class="avatar-img rounded-circle">
-            </div>
             <div class="users-text">
-              <h6>Darren Elder</h6>
-              <p class="text-muted mb-0">Doctor</p>
+              <h6>{{ currentUser.username }}</h6>
+              <p class="text-muted mb-0">{{ currentUser.roles?.name}}</p>
             </div>
+            
           </div>
           <a class="dropdown-item" href="doctor-dashboard.html">Dashboard</a>
           <a class="dropdown-item" href="doctor-profile-settings.html">Profile Settings</a>
-          <a class="dropdown-item" (click)="logout()">Logout</a>
+          <a (click)="logout()" class="dropdown-item" href="javascript:void(0);" >Logout</a>
         </div>
       </li>
        }
-      
       <!-- /User Menu -->
     </ul>
   </nav>

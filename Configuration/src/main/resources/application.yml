@@ -18,7 +18,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/db_configuration?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password:
+    password: root
 
 #  jpa:
 #    database-platform: org.hibernate.dialect.MySQL8Dialect

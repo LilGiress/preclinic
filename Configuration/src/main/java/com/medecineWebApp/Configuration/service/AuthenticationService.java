@@ -129,6 +129,7 @@ public class AuthenticationService implements LogoutHandler {
         var user = Users.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
+                .username(request.getFirstname() +' '+ request.getLastname())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
                 .departments(departements)
@@ -244,10 +245,13 @@ public class AuthenticationService implements LogoutHandler {
 
         var claims = new HashMap<String, Object>();
         var user = ((Users) auth.getPrincipal());
-        claims.put("fullName",user.getFullName());
+        claims.put("fullName",user.getUsername());
         //var user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
         var jwtToken = jwtService.generateToken(claims, (Users) auth.getPrincipal());
+        Token token = tokenRepository.findByUsers(user);
+        token.setJwtToken(jwtToken);
+        tokenRepository.save(token);
        // var refreshToken = jwtService.generateRefreshToken(user);
       //  revokeAllUserToken(user);
        // saveUserToken(user,jwtToken);
@@ -296,12 +300,12 @@ public class AuthenticationService implements LogoutHandler {
             HttpServletResponse response,
             Authentication authentication) {
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return;
         }
-        jwt = authHeader.substring(7);
-        var storedToken = tokenRepository.findByToken(jwt)
+        String jwt = authHeader.substring(7);
+        log.warn("--------------------token-------------"+jwt);
+        var storedToken = tokenRepository.findByjwtToken(jwt)
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
 
         if (storedToken != null ) {

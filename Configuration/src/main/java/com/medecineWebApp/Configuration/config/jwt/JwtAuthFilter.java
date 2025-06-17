@@ -58,11 +58,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             jwt = authHeader.substring(7);
             String username = jwtService.extractUsername(jwt);
-            String role = jwtService.extractRole(jwt);
+            List<String> role = jwtService.extractRole(jwt);
             List<String> permissions = jwtService.extractPermissions(jwt);
 
             List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(role)); // Ajouter le rôle
+            role.forEach(r -> authorities.add(new SimpleGrantedAuthority(r)));  // Ajouter le rôle
             permissions.forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission))); // Ajouter les permissions
 
             UsernamePasswordAuthenticationToken authenticationToken =
@@ -72,27 +72,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         } catch (JwtException e) {
             logger.error("JWT invalide : " + e.getMessage());
         }
-
-
-//            userEmail = jwtService.extractUsername(jwt);
-//            if (userEmail == null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//                UserDetails userDetails= userDetailsService.loadUserByUsername(userEmail);
-//
-//                var isTokenValid = tokenRepository.findByToken(jwt)
-//                        .map(t -> !t.isIsexpired() && !t.isRevoked())
-//                        .orElse(false);
-//
-//
-//                if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
-//                    UsernamePasswordAuthenticationToken autheToken = new UsernamePasswordAuthenticationToken(
-//                            userDetails,null,userDetails.getAuthorities()
-//                    );
-//                    autheToken.setDetails(
-//                            new WebAuthenticationDetailsSource().buildDetails(request)
-//                    );
-//                    SecurityContextHolder.getContext().setAuthentication(autheToken);
-//                }
-//            }
             filterChain.doFilter(request, response);
     }
 }

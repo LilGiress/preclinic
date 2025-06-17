@@ -18,6 +18,9 @@ public class Token {
         private Integer id;
         @Column(unique = true)
         private String token;
+        @Lob
+        @Column(columnDefinition = "TEXT")
+        private String jwtToken;
         @Enumerated(EnumType.STRING)
         public TokenType tokenType;
         private LocalDateTime createdAt;
