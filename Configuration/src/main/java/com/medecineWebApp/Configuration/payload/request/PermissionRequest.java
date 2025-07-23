@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PermissionRequest {
-    private String module;
     private boolean canRead;   // Lire les informations
     private boolean canWrite;  // Modifier les informations
     private boolean canCreate; // Ajouter de nouvelles entrées

@@ -42,7 +42,7 @@ public class RolesController {
     }
 
     // Get all roles
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<RolesDTO>> getAllRoles(
 
     ) {

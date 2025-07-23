@@ -3,6 +3,8 @@ package com.medecineWebApp.Configuration.service.userServiceImpl;
 
 import com.medecineWebApp.Configuration.config.jwt.JwtService;
 import com.medecineWebApp.Configuration.dto.UserDTO;
+import com.medecineWebApp.Configuration.exception.BusinessErrorCodes;
+import com.medecineWebApp.Configuration.exception.CustomAppException;
 import com.medecineWebApp.Configuration.exception.UserNotFoundException;
 import com.medecineWebApp.Configuration.mapper.UserMapper;
 import com.medecineWebApp.Configuration.models.kafka.PasswordResetEvent;
@@ -39,75 +41,53 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final JwtService jwtService;
-    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-    //private final EmailService emailService;
+
     private final NotificationService notificationService;
     private final RoleRepository roleRepository;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private  final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, JwtService jwtService,  PasswordResetTokenRepository passwordResetTokenRepository, NotificationService notificationService, RoleRepository roleRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, JwtService jwtService, NotificationService notificationService, RoleRepository roleRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
-        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.notificationService = notificationService;
-        // this.emailService = emailService;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
     }
 
-    @Override
-    public void changePassword(ChangePasswordRequest request, Principal userConnected) {
 
-        var user = (Users)((UsernamePasswordAuthenticationToken) userConnected).getPrincipal();
-
-        // check if the current password is correct
-        //!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())
-        if (!new BCryptPasswordEncoder().matches(request.getCurrentPassword(), user.getPassword())) {
-           throw new UserNotFoundException("Wrong password");
-        }
-        // check if the two new passwords are the same
-        if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new UserNotFoundException("Passwords do not match");
-        }
-        // mise à jour du mot de pass
-
-        user.setPassword(new BCryptPasswordEncoder().encode(request.getNewPassword()));
-
-        userRepository.save(user);
-
-    }
 
     @Override
     public UserDTO forgotPassword(String email) {
         if (userRepository.findByEmail(email) == null) {
-            throw new UserNotFoundException("User not found");
+            throw new CustomAppException(BusinessErrorCodes.ACCOUNT_NOT_FOUND);
         }
         return userMapper.UserToUserDTO(userRepository.findByEmail(email));
 
     }
 
+
+
     @Override
-    public void updatepassword(ChangePasswordRequest request) {
-        if (request==null && request.getUserId()<0){
-            throw new RuntimeException("request and user is null and Cannot change password");
+    public void resetPassword(ResetPasswordRequest request) {
+        if(request==null){
+            throw new IllegalArgumentException("request is null");
         }
 
-       Users user = userRepository.findById(request.getUserId()).orElseThrow(RuntimeException::new);
-
-
+        Users user = userRepository.findByEmail(request.getEmail());
+        if (user == null) {
+            throw new CustomAppException(BusinessErrorCodes.ACCOUNT_NOT_FOUND);
+        }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new UserNotFoundException("Passwords do not match");
+            throw new CustomAppException(BusinessErrorCodes.NEW_PASSWORD_DOES_NOT_MATCH);
         }
-        // mise à jour du mot de pass
-
-        user.setPassword(new BCryptPasswordEncoder().encode(request.getNewPassword()));
+            user.setPassword(new BCryptPasswordEncoder().encode(request.getNewPassword()));
 
         userRepository.save(user);
 
     }
+
 
     @Override
     public ResponseMessage<UserDTO> getUserById(Long userId) {
@@ -134,13 +114,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long userId) {
         if (userId >0) {
             Users user = userRepository.findById(userId).orElseThrow(
-                    ()-> new UserNotFoundException("User not found with id: " + userId)
+                    ()-> new CustomAppException(BusinessErrorCodes.ACCOUNT_NOT_FOUND)
             );
             if (user!= null) {
                 user.setEnabled(false);
                 userRepository.save(user);
             } else {
-                throw new UserNotFoundException("User not found with id: " + userId);
+                throw new CustomAppException(BusinessErrorCodes.ACCOUNT_NOT_FOUND);
             }
         } else {
             throw new UserNotFoundException("User id cannot be null");
@@ -150,7 +130,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseMessage<UserDTO> updateUser(Long userId, Users user ) {
         Users olduser = userRepository.findById(userId).orElseThrow(
-                ()-> new UserNotFoundException("User not found with id: " + userId)
+                ()-> new CustomAppException(BusinessErrorCodes.ACCOUNT_NOT_FOUND)
         );
 
         olduser.setEmail(user.getEmail());
@@ -177,59 +157,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.UserToUserDTO(user);
     }
 
-    @Override
-    public String requestPasswordReset(String email) {
-        // Vérifier si l'utilisateur existe
-        if (!userRepository.existsByEmail(email)) {
-            throw new UserNotFoundException("Utilisateur introuvable !");
-        }
 
-        // Générer un code de vérification à 6 chiffres
-        String verificationCode = generateVerificationCode();
-
-        // Supprimer tout ancien code pour cet email
-        passwordResetTokenRepository.deleteByEmail(email);
-
-        PasswordResetToken token = new PasswordResetToken();
-        token.setEmail(email);
-        token.setExpirationTime(LocalDateTime.now().plusMinutes(10));
-        token.setVerificationCode(verificationCode);
-        passwordResetTokenRepository.save(token);
-        PasswordResetEvent eventReset = new PasswordResetEvent();
-        eventReset.setEmail(email);
-        eventReset.setVerificationCode(verificationCode);
-        notificationService.sendPasswordResetNotification(eventReset);
-    return "Code de vérification envoyé à " + email;
-    }
-
-    @Override
-    public String resetPassword(ResetPasswordRequest request) {
-        if(request==null){
-            throw new IllegalArgumentException("request is null");
-        }
-      /*  PasswordResetToken tokenReset = passwordResetTokenRepository.findByEmailAndVerificationCode(request.getEmail(), request.getVerificationCode())
-                .orElseThrow(() -> new IllegalArgumentException("Code de vérification invalide ou expiré"));
-
-        // Vérifier si le code est expiré
-        if(tokenReset.getExpirationTime().isBefore(LocalDateTime.now())){
-            throw new IllegalCallerException("Code expiré !");
-
-        }*/
-
-        Users user = userRepository.findByEmail(request.getEmail());
-        if (user == null) {
-            throw new UserNotFoundException("User not found with email: " + request.getEmail());
-        }
-        // check if the two new passwords are the same
-        if (!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new UserNotFoundException("Passwords do not match");
-        }else {
-            user.setPassword(new BCryptPasswordEncoder().encode(request.getNewPassword()));
-        }
-        userRepository.save(user);
-        passwordResetTokenRepository.deleteByEmail(request.getEmail());
-           return "Mot de passe réinitialisé avec succès !";
-    }
 
     @Override
     public List<UserDTO> getUsersByRole(List<String> roles) {
@@ -252,9 +180,5 @@ public class UserServiceImpl implements UserService {
                 .map(Users::getId) // Supposons que ta classe User a un getId()
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
-
-
-
-
 
 }

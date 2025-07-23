@@ -12,7 +12,6 @@ import {PageNotFoundComponent} from "./pages/page-not-found/page-not-found.compo
 import {TopNavbarComponent} from "./navbar/top-navbar/top-navbar.component";
 import {ActivationCodeComponent} from "./pages/activation-code/activation-code.component";
 import {LeftSidebarAdminComponent} from "./navbar/admin/left-sidebar-admin/left-sidebar-admin.component";
-import {LeftSittingSidebarComponent} from "./navbar/admin/left-sitting-sidebar/left-sitting-sidebar.component";
 import {SettingNavbarComponent} from "./navbar/admin/setting-navbar/setting-navbar.component";
 import { SearchComponent } from './pages/search/search.component';
 import { DoctorProfilComponent } from './pages/profil/doctor-profil/doctor-profil.component';
@@ -55,7 +54,6 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     TopNavbarComponent,
     ActivationCodeComponent,
     LeftSidebarAdminComponent,
-    LeftSittingSidebarComponent,
     SettingNavbarComponent,
     HomeComponent,
     SearchComponent,
@@ -87,7 +85,6 @@ const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
     TopNavbarComponent,
     ActivationCodeComponent,
     LeftSidebarAdminComponent,
-    LeftSittingSidebarComponent,
     SettingNavbarComponent,
     HomeComponent,
     SearchComponent,

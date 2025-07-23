@@ -4,22 +4,14 @@ package com.medecineWebApp.Configuration.service;
 
 import com.medecineWebApp.Configuration.dto.UserDTO;
 import com.medecineWebApp.Configuration.models.user.Users;
-import com.medecineWebApp.Configuration.payload.request.ChangePasswordRequest;
 import com.medecineWebApp.Configuration.payload.request.ResetPasswordRequest;
 import com.medecineWebApp.Configuration.payload.response.ResponseMessage;
 import org.springframework.data.domain.Page;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
+
 
 public interface UserService {
-    /**
-     *
-     * @param request
-     * @param userConnected
-     */
-    void changePassword(ChangePasswordRequest request, Principal userConnected);
 
     /**
      *
@@ -27,12 +19,6 @@ public interface UserService {
      * @return
      */
     UserDTO forgotPassword(String email);
-
-    /**
-     *
-     * @param request
-     */
-    void updatepassword(ChangePasswordRequest request);
 
     /**
      *
@@ -69,11 +55,6 @@ public interface UserService {
      */
     UserDTO getCurrentUser(String token);
 
-    /**
-     *
-     * @param email
-     */
-    String requestPasswordReset(String email);
 
     /**
      *
@@ -81,13 +62,8 @@ public interface UserService {
      * @param request
      *
      */
-    String resetPassword(ResetPasswordRequest request);
+    void resetPassword(ResetPasswordRequest request);
 
     List<UserDTO> getUsersByRole(List<String> roles);
-    Long getUserIdByUsername(String username);
-
-
-
-
 
 }

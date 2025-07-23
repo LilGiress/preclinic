@@ -1,5 +1,5 @@
 import { IDepartement } from "./departments";
-import { IRole } from "./role";
+import { Role } from "./role";
 
 export interface IUser {
     id?:number;
@@ -9,7 +9,7 @@ export interface IUser {
     email?:string;
     enabled?:boolean;
     accountLocked?:boolean,
-    roles?:IRole,
+    roles?:Role[],
     departments?:IDepartement,
 }
 
@@ -22,7 +22,7 @@ export class User implements IUser {
     public email?: string,
     public enabled?: boolean,
     public accountLocked?: boolean,
-    public roles?: IRole,
+    public roles?: Role[],
     public departments?:IDepartement,
    ){}
     

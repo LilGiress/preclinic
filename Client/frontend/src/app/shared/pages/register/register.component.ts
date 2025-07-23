@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit{
         },
         error:(err:any) =>{
           this.spinner.hide();
-          this.message= err.error;
+          this.message= err.error.error;
           this.modalService.openWarning(this.message ,'Echec');
 
         }

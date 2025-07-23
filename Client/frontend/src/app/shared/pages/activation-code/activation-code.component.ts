@@ -27,16 +27,28 @@ export class ActivationCodeComponent {
   private confirmAccount(token: string) {
       this.tokenRestore=token;
     this.authservice.activateCode(token).subscribe({
-      next: data => {
+      next: (data) => {
         this.modalService.openSuccessModal('Your account has been successfully activated.\nNow you can proceed to login');
-        this.message = 'Your account has been successfully activated.\nNow you can proceed to login';
         this.submitted = true;
       },
-      error: err => {
-        this.message= "Token has been expired or invalid";
+       error:( err )=> {
+         if (err.status === 401) { 
+          this.message="Activation token has expired. A new token has been sent to the same email address." // Token expiré
+        this.modalService.openWarning(
+          "Activation token has expired. A new token has been sent to the same email address.",
+          "Activation Failed!"
+        );
+      } else if (err.status === 400) { // Token invalide
+        this.modalService.openWarning(
+          "Invalid or missing activation token.",
+          "Activation Failed!"
+        );
+      } 
         this.submitted = true;
-        this.isOkay = false;
-      }
+         this.isOkay = false;
+         console.log("****************Error",err);
+        
+       }
     });
   }
 
@@ -47,7 +59,5 @@ export class ActivationCodeComponent {
   onCodeCompleted(token: string) {
     this.confirmAccount(token);
   }
-  onResentActivationCode(){
-     this.confirmAccount(this.tokenRestore);
-  }
+  
 }

@@ -5,13 +5,13 @@ import com.medecineWebApp.Configuration.config.jwt.JwtService;
 import com.medecineWebApp.Configuration.dto.ThemeSettingDTO;
 import com.medecineWebApp.Configuration.dto.UserDTO;
 import com.medecineWebApp.Configuration.enums.TokenType;
-import com.medecineWebApp.Configuration.exception.RolesNotFoundException;
-import com.medecineWebApp.Configuration.exception.UserNotFoundException;
+import com.medecineWebApp.Configuration.exception.*;
 import com.medecineWebApp.Configuration.mapper.DepartementMapper;
 import com.medecineWebApp.Configuration.mapper.UserMapper;
 import com.medecineWebApp.Configuration.models.Departement;
 import com.medecineWebApp.Configuration.models.kafka.UserEvent;
 import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.models.user.UserSession;
 import com.medecineWebApp.Configuration.models.user.Users;
 import com.medecineWebApp.Configuration.payload.request.AuthenticationRequest;
 import com.medecineWebApp.Configuration.payload.request.RegistrationRequest;
@@ -21,6 +21,7 @@ import com.medecineWebApp.Configuration.repository.departement.DepartmentReposit
 import com.medecineWebApp.Configuration.repository.role.RoleRepository;
 import com.medecineWebApp.Configuration.repository.token.TokenRepository;
 import com.medecineWebApp.Configuration.repository.user.UserRepository;
+import com.medecineWebApp.Configuration.repository.user.UserSessionRepository;
 import com.medecineWebApp.Configuration.service.kafka.EmailService;
 import com.medecineWebApp.Configuration.service.kafka.EmailTemplateName;
 import com.medecineWebApp.Configuration.service.kafka.NotificationService;
@@ -29,7 +30,8 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import jakarta.transaction.Transactional;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -38,13 +40,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 
-import javax.management.relation.RoleNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.security.SecureRandom;
@@ -72,13 +74,14 @@ public class AuthenticationService implements LogoutHandler {
     private final ThemeSettingService themeSettingService ;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final UserSessionRepository userSessionRepository;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Value("${mailing.frontend.activation-url}")
     private String activationUrl;
 
 
-    public AuthenticationService(@Lazy AuthenticationManager authenticationManager, UserRepository userRepository, TokenRepository tokenRepository, NotificationService notificationService, JwtService jwtService, RoleRepository roleRepository, DepartmentRepository departmentRepository, DepartementMapper departementMapper, EmailService emailService, ThemeSettingRepository themeSettingRepository, ThemeSettingService themeSettingService, UserService userService, UserMapper userMapper) {
+    public AuthenticationService(@Lazy AuthenticationManager authenticationManager, UserRepository userRepository, TokenRepository tokenRepository, NotificationService notificationService, JwtService jwtService, RoleRepository roleRepository, DepartmentRepository departmentRepository, DepartementMapper departementMapper, EmailService emailService, ThemeSettingRepository themeSettingRepository, ThemeSettingService themeSettingService, UserService userService, UserMapper userMapper, UserSessionRepository userSessionRepository) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
@@ -91,6 +94,7 @@ public class AuthenticationService implements LogoutHandler {
         this.themeSettingService = themeSettingService;
         this.userService = userService;
         this.userMapper = userMapper;
+        this.userSessionRepository = userSessionRepository;
     }
 
     public UserDTO register(RegistrationRequest request) throws MessagingException {
@@ -139,7 +143,6 @@ public class AuthenticationService implements LogoutHandler {
                 .build();
 
         // Sauvegarde en base de données
-            log.warn("request +++++ récupérés: {}", request);
         user = userRepository.save(user);
 
         sendValidationEmail(user);
@@ -147,15 +150,17 @@ public class AuthenticationService implements LogoutHandler {
     }
 
     private void sendValidationEmail(Users user) throws MessagingException { // send email
-
+        log.warn("user +++++ récupérés: {}", user.toString());
         // Générer un jeton d'activation unique
-        generateAndSaveActivationToken(user);
-      //  String activationToken = UUID.randomUUID().toString();
+      String generateToken =  generateAndSaveActivationToken(user);
         Token tokenExiste= tokenRepository.findByUsers(user);
+        log.warn("tokenExiste +++++ récupérés: {}", tokenExiste);
+        if (Objects.equals(generateToken, tokenExiste.getToken())) {
+            log.warn(" +++++ tokenExiste +++++++++: {}", tokenExiste.getToken() +" generateToken"+ generateToken);
         String activationToken = tokenExiste.getToken();
         // Génération du lien d'activation
         String activationLink = activationUrl + "?token=" + activationToken;
-        log.warn(" +++++ activationLink: {}", activationLink);
+
         String htmlLink = String.format(
                 "<p><a href=\"%s\" style=\"color: #4CAF50; font-weight: bold;\">Activer mon compte</a></p>",
                 activationLink
@@ -190,15 +195,31 @@ public class AuthenticationService implements LogoutHandler {
         event.setUsername(user.getFullName());
 
        // notificationService.sendWelcomeNotification(event);
-
+        }
     }
     //generate a token
-    private Object generateAndSaveActivationToken(Users user) {
+    private String generateAndSaveActivationToken(Users user) {
         Token tokenExiste= tokenRepository.findByUsers(user);
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expirationTime = now.plusHours(24);
         String generatedToken = generateActivationCode(6);
-        if (tokenExiste == null) {
+
+        if(tokenExiste != null ) {
+            if (now.isAfter(tokenExiste.getExpiresAt())){
+                // Token expiré → régénérer
+                tokenExiste.setToken(generatedToken);
+                tokenExiste.setCreatedAt(now);
+                tokenExiste.setExpiresAt(expirationTime);
+                Token expire =tokenRepository.save(tokenExiste);
+                return expire.getToken();
+            }else {
+                // Token encore valide → renvoyer le même
+                return tokenExiste.getToken();
+            }
+
+
+        }
+
 
             var token = Token.builder()
                     .token(generatedToken)
@@ -208,18 +229,7 @@ public class AuthenticationService implements LogoutHandler {
                     .users(user)
                     .build();
             tokenRepository.save(token);
-            return generatedToken;
-        }else if(tokenExiste.getExpiresAt().isBefore(now)){
-            // Token expiré → régénérer
-            tokenExiste.setToken(generatedToken);
-            tokenExiste.setCreatedAt(now);
-            tokenExiste.setExpiresAt(expirationTime);
-            tokenRepository.save(tokenExiste);
-            return generatedToken;
-        }else {
-            // Token encore valide → renvoyer le même
-            return tokenExiste.getToken();
-        }
+            return   generatedToken;
 
     }
 
@@ -234,7 +244,7 @@ public class AuthenticationService implements LogoutHandler {
         return result.toString();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request,HttpServletRequest httpRequest) {
 
         Authentication auth=   authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -246,19 +256,49 @@ public class AuthenticationService implements LogoutHandler {
         var claims = new HashMap<String, Object>();
         var user = ((Users) auth.getPrincipal());
         claims.put("fullName",user.getUsername());
-        //var user = userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        var jwtToken = jwtService.generateToken(claims, (Users) auth.getPrincipal());
-        Token token = tokenRepository.findByUsers(user);
-        token.setJwtToken(jwtToken);
-        tokenRepository.save(token);
-       // var refreshToken = jwtService.generateRefreshToken(user);
-      //  revokeAllUserToken(user);
-       // saveUserToken(user,jwtToken);
-        return AuthenticationResponse.builder()
-                .accessToken(jwtToken)
+        // Vérifie s'il existe une session active sur CE fingerprint
+        Optional<UserSession> existingSameDeviceSession = userSessionRepository
+                .findByUserAndFingerprintAndActiveTrue(user, request.getFingerprint());
+
+        // Si une session existe pour ce fingerprint, on l'invalide
+        existingSameDeviceSession.ifPresent(session -> {
+            session.setActive(false);
+            userSessionRepository.save(session);
+        });
+
+        // Supprime les autres sessions actives sur d'autres appareils
+        List<UserSession> otherSessions = userSessionRepository
+                .findByUserAndActiveTrue(user).stream()
+                .filter(session -> !request.getFingerprint().equals(session.getFingerprint()))
+                .toList();
+
+        for (UserSession s : otherSessions) {
+            s.setActive(false);
+            s.setLastAccessedAt(LocalDateTime.now());
+            userSessionRepository.save(s);
+        }
+
+
+        // ✅ Étape 3: créer la nouvelle session
+        UserSession newSession = UserSession.builder()
+                .user(user)
+                .ipAddress(httpRequest.getRemoteAddr())
+                .userAgent(httpRequest.getHeader("User-Agent"))
+                .os(detectOS(httpRequest.getHeader("User-Agent")))
+                .userAgent(detectBrowser(httpRequest.getHeader("User-Agent")))
+                .active(true)
+                .fingerprint(request.getFingerprint())
+                .createdAt(LocalDateTime.now())
                 .build();
 
+        userSessionRepository.save(newSession);
+
+        var jwtToken = jwtService.generateToken(claims, (Users) auth.getPrincipal());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+            return AuthenticationResponse.builder()
+                    .accessToken(jwtToken)
+                    .build();
 
     }
 
@@ -274,23 +314,25 @@ public class AuthenticationService implements LogoutHandler {
         tokenRepository.saveAll(validUserTokens);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = CustomAppException.class)
     public void activateAccount(String token) throws MessagingException {
+        Token tokenExiste = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new CustomAppException(BusinessErrorCodes.TOKEN_INVALID));
 
-        log.info("token récupérés: {}", token);
-        Token savedToken = tokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
-        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
-            sendValidationEmail(savedToken.getUsers());
-            throw new RuntimeException("Activation token has expired . A new token has been sent to the same email address.");
-        }
-        var user = userRepository.findById(savedToken.getUsers().getId())
+            if (LocalDateTime.now().isAfter(tokenExiste.getExpiresAt())){
+
+                Users user = userRepository.findById(tokenExiste.getUsers().getId())
+                        .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+                    sendValidationEmail(user);
+                throw new CustomAppException(BusinessErrorCodes.TOKEN_EXPIRED);
+            }
+
+        Users user = userRepository.findById(tokenExiste.getUsers().getId())
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
         userRepository.save(user);
-        savedToken.setValidatedAt(LocalDateTime.now().plusHours(24));
-        tokenRepository.save(savedToken);
-
+        tokenExiste.setValidatedAt(LocalDateTime.now().plusHours(24));
+        tokenRepository.save(tokenExiste);
 
     }
 
@@ -299,21 +341,27 @@ public class AuthenticationService implements LogoutHandler {
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication) {
-        final String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        String jwt = authHeader.substring(7);
-        log.warn("--------------------token-------------"+jwt);
-        var storedToken = tokenRepository.findByjwtToken(jwt)
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
+//        final String authHeader = request.getHeader("Authorization");
+//        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+//            return;
+//        }
 
-        if (storedToken != null ) {
-            storedToken.setIsexpired(true);
-            storedToken.setRevoked(true);
-            tokenRepository.save(storedToken);
-            SecurityContextHolder.clearContext();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
         }
+        SecurityContextHolder.clearContext();
+
+//        String jwt = authHeader.substring(7);
+//        var storedToken = tokenRepository.findByjwtToken(jwt)
+//                .orElseThrow(() -> new RuntimeException("Invalid token"));
+//
+//        if (storedToken != null ) {
+//            storedToken.setIsexpired(true);
+//            storedToken.setRevoked(true);
+//            tokenRepository.save(storedToken);
+//            SecurityContextHolder.clearContext();
+//        }
 
     }
 
@@ -370,6 +418,26 @@ public class AuthenticationService implements LogoutHandler {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private String detectOS(String userAgent) {
+        if (userAgent == null) return "Unknown";
+        if (userAgent.toLowerCase().contains("windows")) return "Windows";
+        if (userAgent.toLowerCase().contains("mac")) return "Mac";
+        if (userAgent.toLowerCase().contains("x11")) return "Unix";
+        if (userAgent.toLowerCase().contains("android")) return "Android";
+        if (userAgent.toLowerCase().contains("iphone")) return "iOS";
+        return "Other";
+    }
+
+    private String detectBrowser(String userAgent) {
+        if (userAgent == null) return "Unknown";
+        if (userAgent.contains("Chrome")) return "Chrome";
+        if (userAgent.contains("Firefox")) return "Firefox";
+        if (userAgent.contains("MSIE") || userAgent.contains("Trident")) return "Internet Explorer";
+        if (userAgent.contains("Safari") && !userAgent.contains("Chrome")) return "Safari";
+        if (userAgent.contains("Opera") || userAgent.contains("OPR")) return "Opera";
+        return "Other";
     }
 
 }

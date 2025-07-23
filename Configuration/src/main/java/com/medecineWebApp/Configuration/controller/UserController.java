@@ -32,20 +32,13 @@ public class UserController {
         return ResponseEntity.ok( userService.getUserById(id));
     }
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
-        try {
-            String responseMessage = userService.requestPasswordReset(request.getEmail());
-            return ResponseEntity.ok().body(responseMessage);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Une erreur est survenue lors de la demande de réinitialisation du mot de passe.");
-        }
+    public ResponseEntity<UserDTO> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+
+            return ResponseEntity.ok().body(userService.forgotPassword(request.getEmail()));
     }
     @PostMapping("/reset-password")
-    ResponseEntity<?> updatePassword(@RequestBody ResetPasswordRequest request) {
-      return ResponseEntity.ok(userService.resetPassword(request));
+   void updatePassword(@RequestBody ResetPasswordRequest request) {
+     userService.resetPassword(request);
     }
 
     @GetMapping("/allUsers")

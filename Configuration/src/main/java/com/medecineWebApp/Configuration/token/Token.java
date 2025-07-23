@@ -18,9 +18,6 @@ public class Token {
         private Integer id;
         @Column(unique = true)
         private String token;
-        @Lob
-        @Column(columnDefinition = "TEXT")
-        private String jwtToken;
         @Enumerated(EnumType.STRING)
         public TokenType tokenType;
         private LocalDateTime createdAt;
@@ -29,7 +26,7 @@ public class Token {
         private boolean revoked;
         private boolean isexpired;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         @JoinColumn(name = "user_Id", nullable = false)
         private Users users;
 

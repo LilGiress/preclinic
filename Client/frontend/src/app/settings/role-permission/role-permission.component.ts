@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RolesService } from '../../services/roles.service';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ModalService } from '../../shared/service/modal.service';
+import { Role } from '../../models/role';
+declare  let $:any;
 @Component({
     selector: 'app-role-permission',
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -10,16 +13,21 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Va
     styleUrl: './role-permission.component.css'
 })
 export class RolePermissionComponent {
-openCreateRoleForm // Ajouter un nouveau rôle
-() {
-throw new Error('Method not implemented.');
+   private readonly fb = inject(FormBuilder)
+ // Ajouter un nouveau rôle
+openCreateRoleForm() {
+$("#exampleModal").modal('show');
 }
-  roles: any[] = [];
+submitted = false;
+  message='';
+  loading=false
+  roles: Role[] = [];
   selectedRole: any;
   newRoleForm: FormGroup;
   constructor(
-    private rolesService: RolesService,
-    private fb:FormBuilder
+    private readonly rolesService: RolesService,
+    private readonly modalService:ModalService,
+     private readonly spinner:NgxSpinnerService,
 
   ) {
     this.newRoleForm = this.fb.group({
@@ -35,6 +43,7 @@ throw new Error('Method not implemented.');
       this.roles = roles;
       this.selectedRole = this.roles[0]; // Sélection par défaut
     });*/
+    this.getAllRoles();
   }
 
   // Ajouter un nouveau rôle
@@ -54,11 +63,10 @@ throw new Error('Method not implemented.');
 
   // Méthode pour ajouter un module dans le formulaire
   addModule(name: string): void {
-    const modules = this.newRoleForm.get('modules') as FormArray;
+    const modules = this.newRoleForm.get('permissions') as FormArray;
     modules.push(
       this.fb.group({
         name: [name, Validators.required],
-        access: [false],
         permission: this.fb.group({
           read: [false],
           write: [false],
@@ -72,21 +80,39 @@ throw new Error('Method not implemented.');
   }
 
   get modules(): FormArray {
-    return this.newRoleForm.get('modules') as FormArray;
+    return this.newRoleForm.get('permisions') as FormArray;
   }
 
   onSelectRole(role: any): void {
     this.selectedRole = role;
   }
 
-  toggleAccess(module: any): void {
-    module.access = !module.access;
-   // this.rolesService.updateRole(this.selectedRole);
-  }
+  // toggleAccess(module: any): void {
+  //   module.access = !module.access;
+  //  // this.rolesService.updateRole(this.selectedRole);
+  // }
 
   togglePermission(module: any, permission: keyof any): void {
     module.permission[permission] = !module.permission[permission];
   //  this.rolesService.updateRole(this.selectedRole);
   }
+
+  getAllRoles(): void {
+    this.spinner.show();
+    this.rolesService.getRoles().subscribe({
+      next:(value:any) => {
+         this.roles = value
+         console.log('Role retournée', value);
+          this.spinner.hide();
+      },
+      error:(err) =>{
+
+          this.spinner.hide();
+      },
+     
+   });
+   
+  }
+
 
 }

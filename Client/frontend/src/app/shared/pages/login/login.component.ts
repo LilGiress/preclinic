@@ -8,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../service/modal.service';
 import { User } from '../../../models/user';
+import { AuthenticationRequest } from '../../../models/authentication-request';
 
 @Component({
   selector: 'app-login',
@@ -60,11 +61,15 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if (this.loginForm.valid) {
+      let login:AuthenticationRequest={
+        email:this.loginForm.get('email')?.value ?? '',
+        password:this.loginForm.get('password')?.value ?? '',
+        fingerprint:this.generateFingerprint(),
+      };
       this.spinner.show();
-      this.authservice.login(this.loginForm.value).subscribe(
+      this.authservice.login(login).subscribe(
         {
-          next: (user: User) => {
-             // console.log('Utilisateur connecté :', user.email);
+          next: (user: any) => {
               this.spinner.hide();
 
               this.modalService.openSuccessModal(
@@ -77,14 +82,14 @@ export class LoginComponent implements OnInit {
           },
           error: (err: any) => {
             this.spinner.hide();
-            this.message = err.error;
+            this.message = err.error.error;
             // Gérer différents types d’erreurs
             if (err.status === 0) {
               this.message = 'Erreur réseau. Veuillez vérifier votre connexion.';
             } else if (err.status === 401) {
               this.message = 'Identifiants incorrects.';
             } else if (err.error && typeof err.error === 'string') {
-              this.message = err.error;
+              this.message = err.error.error;
             } else {
               this.message = 'Une erreur est survenue.';
             }
@@ -101,4 +106,8 @@ export class LoginComponent implements OnInit {
     this.submitted = false;
     this.loginForm.reset();
   }
+
+  generateFingerprint(): string {
+  return btoa(navigator.userAgent + screen.width + screen.height);
+}
 }

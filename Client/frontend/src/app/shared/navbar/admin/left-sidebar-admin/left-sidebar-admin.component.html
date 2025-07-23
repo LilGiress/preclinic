@@ -5,30 +5,39 @@
       <ul>
         <li class="menu-title">Main</li>
         <li class="active">
-          <a href="javascript:void(0)"><i class="far fa-dashboard"></i> <span>Dashboard</span></a>
+          <a href="javascript:void(0)" [routerLink]="['/administration/dashboard']"><i class="far fa-dashboard"></i> <span>Dashboard</span></a>
         </li>
         <li>
-          <a [routerLink]="['/administration/doctors']" routerLinkActive="router-link-active"  href="javascript:void(0)"  ><i class="fa fa-users-md"></i> <span>Doctors</span></a>
+          <a [routerLink]="['/administration/doctors']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-users-md"></i> <span>Doctors</span></a>
         </li>
         <li>
-          <a [routerLink]="['/administration/patient']" routerLinkActive="router-link-active"  href="javascript:void(0)" ><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+          <a [routerLink]="['/administration/patient']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
         </li>
         <li>
-          <a [routerLink]="['/administration/appointment']" routerLinkActive="router-link-active"  href="javascript:void(0)"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+          <a [routerLink]="['/administration/appointment']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
         </li>
         <li>
-          <a [routerLink]="['/administration/doctor-schedule']" routerLinkActive="router-link-active"  href="javascript:void(0)" ><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
+          <a [routerLink]="['/administration/doctor-schedule']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
         </li>
         <li>
-          <a [routerLink]="['/administration/department']" routerLinkActive="router-link-active"  href="javascript:void(0)"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
+          <a [routerLink]="['/administration/department']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
         </li>
         <li class="submenu">
           <a href="#"><i class="fa fa-users"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
           <ul style="display: none;">
-            <li><a [routerLink]="['/administration/employee']" routerLinkActive="router-link-active"  href="javascript:void(0)" >Employees List</a></li>
-            <li><a [routerLink]="['/administration/leaves']" routerLinkActive="router-link-active"  href="javascript:void(0)" >Leaves</a></li>
-            <li><a [routerLink]="['/administration/holidays']" routerLinkActive="router-link-active"  href="javascript:void(0)" >Holidays</a></li>
-            <li><a [routerLink]="['/administration/attendance']" routerLinkActive="router-link-active"  href="javascript:void(0)">Attendance</a></li>
+            <li><a [routerLink]="['/administration/employee']" routerLinkActive="router-link-active"
+                href="javascript:void(0)">Employees List</a></li>
+            <li><a [routerLink]="['/administration/leaves']" routerLinkActive="router-link-active"
+                href="javascript:void(0)">Leaves</a></li>
+            <li><a [routerLink]="['/administration/holidays']" routerLinkActive="router-link-active"
+                href="javascript:void(0)">Holidays</a></li>
+            <li><a [routerLink]="['/administration/attendance']" routerLinkActive="router-link-active"
+                href="javascript:void(0)">Attendance</a></li>
           </ul>
         </li>
         <li class="submenu">
@@ -49,7 +58,8 @@
           </ul>
         </li>
         <li>
-          <a href="chat.html"><i class="fa fa-comments"></i> <span>Chat</span> <span class="badge badge-pill bg-primary float-right">5</span></a>
+          <a href="chat.html"><i class="fa fa-comments"></i> <span>Chat</span> <span
+              class="badge badge-pill bg-primary float-right">5</span></a>
         </li>
         <li class="submenu">
           <a href="#"><i class="fa fa-video-camera camera"></i> <span> Calls</span> <span class="menu-arrow"></span></a>
@@ -67,7 +77,7 @@
             <li><a href="mail-view.html">Mail View</a></li>
           </ul>
         </li>
-        <li class="submenu">
+        <!-- <li class="submenu">
           <a href="#"><i class="fa fa-commenting-o"></i> <span> Blog</span> <span class="menu-arrow"></span></a>
           <ul style="display: none;">
             <li><a href="blog.html">Blog</a></li>
@@ -75,7 +85,7 @@
             <li><a href="add-blog.html">Add Blog</a></li>
             <li><a href="edit-blog.html">Edit Blog</a></li>
           </ul>
-        </li>
+        </li> -->
         <li>
           <a href="assets.html"><i class="fa fa-cube"></i> <span>Assets</span></a>
         </li>
@@ -89,10 +99,48 @@
             <li><a href="invoice-reports.html"> Invoice Report </a></li>
           </ul>
         </li>
-        <li>
-          <a href="settings.html"><i class="fa fa-cog"></i> <span>Settings</span></a>
+
+        <li class="submenu">
+          <a href="#"><i class="fa fa-cog"></i> <span> Settings</span> <span class="menu-arrow"></span></a>
+          <ul style="display: none;">
+            <li class="active">
+              <a [routerLink]="['/administration/role-permission']" routerLinkActive="router-link-active"
+                href="javascript:void(0)" ><i class="fa fa-building"></i> <span>Company Settings</span></a>
+            </li>
+            <li>
+              <a href="localization.html"><i class="fa fa-clock-o"></i> <span>Localization</span></a>
+            </li>
+            <li>
+              <a  [routerLink]="['/administration/role-permission']" routerLinkActive="router-link-active"
+                href="javascript:void(0)" href="theme-settings.html"><i class="fa fa-picture-o"></i> <span>Theme Settings</span></a>
+            </li>
+            <li>
+              <a [routerLink]="['/administration/role-permission']" routerLinkActive="router-link-active"
+                href="javascript:void(0)"><i class="fa fa-key"></i> <span>Roles & Permissions</span></a>
+            </li>
+            <li>
+              <a href="email-settings.html"><i class="fa fa-envelope-o"></i> <span>Email Settings</span></a>
+            </li>
+            <li>
+              <a href="invoice-settings.html"><i class="fa fa-pencil-square-o"></i> <span>Invoice Settings</span></a>
+            </li>
+            <li>
+              <a href="salary-settings.html"><i class="fa fa-money"></i> <span>Salary Settings</span></a>
+            </li>
+            <li>
+              <a [routerLink]="['/administration/notification']" routerLinkActive="router-link-active"
+                href="javascript:void(0)"><i class="fa fa-globe"></i> <span>Notifications</span></a>
+            </li>
+            <li>
+              <a href="change-password.html"><i class="fa fa-lock"></i> <span>Change Password</span></a>
+            </li>
+            <li>
+              <a  [routerLink]="['/administration/leave-type']" routerLinkActive="router-link-active"
+                href="javascript:void(0)"><i class="fa fa-cogs"></i> <span>Leave Type</span></a>
+            </li>
+          </ul>
         </li>
-        <li class="menu-title">UI Elements</li>
+        <!-- <li class="menu-title">UI Elements</li>
         <li class="submenu">
           <a href="#"><i class="fa fa-laptop"></i> <span> Components</span> <span class="menu-arrow"></span></a>
           <ul style="display: none;">
@@ -116,11 +164,12 @@
             <li><a href="tables-basic.html">Basic Tables</a></li>
             <li><a href="tables-datatables.html">Data Table</a></li>
           </ul>
-        </li>
+        </li> -->
         <li>
-          <a [routerLink]="['/administration/calendar']" routerLinkActive="router-link-active"  href="javascript:void(0)" ><i class="fa fa-calendar"></i> <span>Calendar</span></a>
+          <a [routerLink]="['/administration/calendar']" routerLinkActive="router-link-active"
+            href="javascript:void(0)"><i class="fa fa-calendar"></i> <span>Calendar</span></a>
         </li>
-        <li class="menu-title">Extras</li>
+        <!-- <li class="menu-title">Extras</li>
         <li class="submenu">
           <a href="#"><i class="fa fa-columns"></i> <span>Pages</span> <span class="menu-arrow"></span></a>
           <ul style="display: none;">
@@ -135,9 +184,10 @@
             <li><a href="error-500.html">500 Error </a></li>
             <li><a href="blank-page.html"> Blank Page </a></li>
           </ul>
-        </li>
-        <li class="submenu">
-          <a href="javascript:void(0);"><i class="fa fa-share-alt"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+        </li> -->
+        <!-- <li class="submenu">
+          <a href="javascript:void(0);"><i class="fa fa-share-alt"></i> <span>Multi Level</span> <span
+              class="menu-arrow"></span></a>
           <ul style="display: none;">
             <li class="submenu">
               <a href="javascript:void(0);"><span>Level 1</span> <span class="menu-arrow"></span></a>
@@ -157,7 +207,7 @@
               <a href="javascript:void(0);"><span>Level 1</span></a>
             </li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

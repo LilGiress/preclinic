@@ -24,7 +24,7 @@ export class RolesService {
 
   // Récupérer la liste des rôles
   getRoles(): Observable<IRole[]> {
-    return this.http.get<IRole[]>(Url+`/roles`);
+    return this.http.get<IRole[]>(Url+`/roles/all`);
   }
    // 🔹 DELETE: supprimer un rôle
   deleteRole(id: number): Observable<void> {

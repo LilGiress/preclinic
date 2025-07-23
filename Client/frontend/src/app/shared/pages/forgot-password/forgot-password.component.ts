@@ -16,7 +16,6 @@ import { ForgotPasswordRequest } from '../../../models/playload/forgotPasswordRe
 })
 export class ForgotPasswordComponent implements OnInit{
   private readonly fb = inject(FormBuilder)
-  data:any
   submitted = false;
   message='';
   forgotform = this.fb.group(
@@ -49,16 +48,16 @@ export class ForgotPasswordComponent implements OnInit{
       this.spinner.show();
       this.authservice.ForgotPassword(req).subscribe({
         next:(value:any)=> {
-          this.data=value;
           this.onReset();
+          this.spinner.hide();
           this.modalService.openSuccessModal('Operation effectuer')
-          this.router.navigate(['/reset-password']);
+          this.router.navigate(['/reset-password'],{queryParams:req});
         },
         error:(err:any)=> {
           this.submitted=false;
-          this.message=err;
+          this.message=err.error.error;
           this.spinner.hide();
-          this.modalService.openWarning('Operation echouer','Echec')
+          this.modalService.openWarning(this.message,'Echec')
         },
       })
 

@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.models.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medecineWebApp.Configuration.models.Auditable;
 import com.medecineWebApp.Configuration.models.Departement;
 import com.medecineWebApp.Configuration.models.role.Permission;
@@ -54,6 +55,7 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "department_id")
     )
+    @JsonIgnore
     private List<Departement> departments;
 
     private Long employeeId;

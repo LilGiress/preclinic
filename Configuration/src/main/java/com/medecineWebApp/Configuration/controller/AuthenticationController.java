@@ -51,12 +51,12 @@ public class AuthenticationController {
 //
 //    }
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
-            return ResponseEntity.ok( authenticationService.authenticate(request));
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpServletRequest httpRequest) {
+            return ResponseEntity.ok( authenticationService.authenticate(request,httpRequest));
     }
     @GetMapping("/activate-account/{token}")
     public void confirmedAuthentication(@PathVariable String token) throws MessagingException {
-                authenticationService.activateAccount(token);
+               authenticationService.activateAccount(token)  ;
     }
 
     @PostMapping("/logout")
@@ -66,7 +66,5 @@ public class AuthenticationController {
         authenticationService.logout(request, response, authentication);
         return ResponseEntity.ok("Déconnexion réussie.");
     }
-
-
 
 }

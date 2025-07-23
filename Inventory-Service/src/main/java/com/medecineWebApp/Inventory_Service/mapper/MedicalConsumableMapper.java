@@ -8,10 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface MedicalConsumableMapper {
-    @Mapping(source = "createdBy", target = "createdBy")
-    @Mapping(source = "createdDate", target = "createdDate")
-    @Mapping(source = "lastModifiedBy", target = "lastModifiedBy")
-    @Mapping(source = "lastModifiedDate", target = "lastModifiedDate")
     MedicalConsumableDTO toMedicalConsumableDTO(MedicalConsumable consumable);
     @InheritInverseConfiguration
     MedicalConsumable toMedicalConsumable(MedicalConsumableDTO consumableDTO);

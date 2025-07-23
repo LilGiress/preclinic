@@ -26,7 +26,6 @@ export class AuthService {
       if (token) {
         try {
           const payload = JSON.parse(atob(token.split('.')[1]));
-         // this.currentUserSubject.next(payload); // préremplir l’utilisateur courant
         } catch { }
       }
     }
@@ -53,7 +52,7 @@ export class AuthService {
     }
   }
 
-  login(data: any): Observable<any> {
+  login(data: any): Observable<{ token: string, user: User[] }> {
   return this.http.post<{ access_token: string }>(AUTH_API + '/auth/authenticate', data, httpOptions).pipe(
     switchMap((response) => {
       if (!isPlatformBrowser(this.platformId)) {
@@ -68,16 +67,16 @@ export class AuthService {
       // Stockage du token
       localStorage.setItem('token', token);
 
-      // Décodage simple du JWT (juste pour lecture immédiate)
-      //const payload = JSON.parse(atob(token.split('.')[1]));
-      //this.currentUserSubject.next(payload); // émet un utilisateur minimal (id, email, role...)
-
       // Requête pour récupérer l'utilisateur complet
       return this.curentUser(token).pipe(
         map((userList: User[]) => {
-          const user = userList[0]; // ou adapter si l’API retourne un seul objet
-          this.currentUserSubject.next(user); // mettre à jour avec l'utilisateur complet
-          return user;
+          
+           if (!userList || userList.length === 0) {
+             throw new Error('Aucun utilisateur retourné');
+           }
+          const user = userList; 
+          this.currentUserSubject.next(userList); // mettre à jour avec l'utilisateur complet
+          return { token, user };
         })
       );
     }),
@@ -88,41 +87,18 @@ export class AuthService {
   );
 }
 
-
-
-
- /* login(data: any): Observable<any> {
-    return this.http.post<any>(AUTH_API + '/auth/authenticate', data, httpOptions).pipe(
-      tap((response: { access_token: string; }) => {
-        if (isPlatformBrowser(this.platformId)) {
-          const token = response?.access_token;
-          if (!token) {
-            console.error('Token non trouvé dans la réponse du serveur');
-            return;
-          }
-
-          localStorage.setItem('token', response.access_token); // stocker le token
-          const payload = JSON.parse(atob(response.access_token.split('.')[1]));
-          this.currentUserSubject.next(payload);// notifier tous les abonnés (navbar, etc.)
-        }
-      }),
-      catchError(error => {
-        // Optionnel : tu peux logger ici
-        console.error('Erreur lors de la connexion', error);
-        return throwError(() => error); // renvoyer l’erreur au composant
-      })
-    );
-  }*/
-
   register(data: any): Observable<any> {
     return this.http.post(
       AUTH_API + '/auth/register', data, httpOptions
     );
   }
 
-  logout(token: string): void {
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  this.http.post(AUTH_API + '/auth/logout', {}, { headers }).subscribe({
+  logout(): void {
+  //const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  this.http.post(AUTH_API + '/auth/logout', {}, { 
+    //withCredentials:true,
+   // responseType: 'text'
+   }).subscribe({
     next: () => {
       if (isPlatformBrowser(this.platformId)) {
         localStorage.removeItem('token');
@@ -135,7 +111,6 @@ export class AuthService {
     },
     error: (err) => {
       console.error('Erreur lors de la déconnexion', err);
-      // Optionnel : tu peux gérer une redirection même en cas d'erreur
       this.currentUserSubject.next(null);
       if (isPlatformBrowser(this.platformId)) {
         localStorage.removeItem('token');
@@ -149,12 +124,12 @@ export class AuthService {
 
 
 
-  activateCode(token: string): Observable<any> {
-    return this.http.get(AUTH_API + '/auth/activate-account/' + token,
+  activateCode(token: string): Observable<string> {
+    return this.http.get<string>(AUTH_API + '/auth/activate-account/' + token,
     );
   }
-  ForgotPassword(data: any) {
-    return this.http.post(AUTH_API + '/user/forgot-password', data, httpOptions);
+  ForgotPassword(data: any): Observable<User[]> {
+    return this.http.post<User[]>(AUTH_API + '/user/forgot-password', data, httpOptions);
   }
   changePassword(data: any) {
     return this.http.post(AUTH_API + '/user/reset-password', data, httpOptions);
@@ -179,5 +154,12 @@ export class AuthService {
       return null;
     }
   }
+
+resentToken(token:string):Observable<any>{
+   return this.http.post(
+      AUTH_API + '/auth/resent-active-token/', token, httpOptions
+    );
+}
+
 
 }

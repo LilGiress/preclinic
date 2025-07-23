@@ -43,11 +43,11 @@ public class SecurityConfig {
     };
 
     private final JwtAuthFilter jwtAuthFilter;
-    private final LogoutHandler logoutHandler;
+    private final CustomLogoutHandler logoutHandler;
     private final AuthenticationProvider authenticationProvider;
     private final CustomPermissionEvaluator customPermissionEvaluator;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, LogoutHandler logoutHandler, AuthenticationProvider authenticationProvider, CustomPermissionEvaluator customPermissionEvaluator) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomLogoutHandler logoutHandler, AuthenticationProvider authenticationProvider, CustomPermissionEvaluator customPermissionEvaluator) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.logoutHandler = logoutHandler;
         this.authenticationProvider = authenticationProvider;
@@ -56,7 +56,9 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   SessionValidationFilter sessionValidationFilter)
+            throws Exception {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -106,11 +108,12 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout -> logout.logoutSuccessUrl("/api/auth/logout")
+                .addFilterAfter(sessionValidationFilter, JwtAuthFilter.class)
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
                         .addLogoutHandler(logoutHandler)
-                        .logoutSuccessHandler((request, response, authentication) -> {
-                            SecurityContextHolder.clearContext();
-                        })
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 );
         return http.build();
     }

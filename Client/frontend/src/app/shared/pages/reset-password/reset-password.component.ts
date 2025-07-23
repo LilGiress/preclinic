@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {Component, inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalService } from '../../service/modal.service';
+import { ResetPasswordRequest } from '../../../models/playload/resetPasswordRequest';
 
 
 @Component({
@@ -18,12 +19,13 @@ private readonly fb = inject(FormBuilder);
   submitted = false;
   data:any
   message='';
-  
+  email: string = '';
   constructor(
     private readonly router:Router,
     private readonly modalService:ModalService,
     private readonly spinner:NgxSpinnerService,
-    private readonly AuthService:AuthService
+    private readonly AuthService:AuthService,
+    private readonly route:ActivatedRoute
   ){}
 
   resetForm = this.fb.group(
@@ -48,7 +50,14 @@ private readonly fb = inject(FormBuilder);
     { validators:  this.matchPasswords('password', 'confirmPassword') }
   );
   ngOnInit(): void {
-
+    this.route.queryParams.subscribe(params => {
+    const email = params['email'];
+    if (email) {
+      console.log('Email reçu dans reset-password :', email);
+      // Tu peux maintenant préremplir un champ ou faire une requête
+      this.email = email;
+    }
+  });
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -57,19 +66,25 @@ private readonly fb = inject(FormBuilder);
   onSubmit() {
     this.submitted = true;
     if (this.resetForm.valid) {
+       let req:ResetPasswordRequest={
+              email:this.email,
+              newPassword:this.resetForm.get('password')?.value ?? '',
+              confirmationPassword:this.resetForm.get('confirmPassword')?.value ?? '',
+            }
       this.spinner.show();
-      this.AuthService.changePassword(this.resetForm.value).subscribe({
+      
+      this.AuthService.changePassword(req).subscribe({
         next:(value:any)=> {
-          this.data=value;
+           console.log(' reset-password :', value);
           this.spinner.hide();
           this.onReset();
-          this.modalService.openSuccessModal('Operation effectuer');
+          this.modalService.openSuccessModal('Mot de passe réinitialisé avec succès !');
           this.router.navigate(['/login']);
         },
         error:(err:any) => {
           this.submitted=false
           this.spinner.hide();
-          this.modalService.openWarning('Operation echouer');
+          this.modalService.openWarning(err.error.error);
         },
       })
 
