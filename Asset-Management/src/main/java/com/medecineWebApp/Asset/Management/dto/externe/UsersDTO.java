@@ -25,7 +25,7 @@ public class UsersDTO {
     private boolean accountLocked;
     private String photoUrl; // Chemin ou URL de l'image
 
-    private Set<Roles> roles = new HashSet<>();
+   // private Set<Roles> roles = new HashSet<>();
 
     private List<Long> departments;
 

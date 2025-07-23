@@ -22,7 +22,6 @@ public class Permission extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String module;
     private boolean canRead;   // Lire les informations
     private boolean canWrite;  // Modifier les informations
     private boolean canCreate; // Ajouter de nouvelles entrées
@@ -42,10 +41,10 @@ public class Permission extends Auditable implements Serializable {
 
 
 
-    public Permission(String module, boolean canRead, boolean canWrite, boolean canCreate, boolean canDelete,
+    public Permission( boolean canRead, boolean canWrite, boolean canCreate, boolean canDelete,
                       boolean canImport, boolean canExport, boolean canApprove, boolean canValidate,
                       boolean canAssign, boolean canGenerateReport, boolean canActivate) {
-        this.module = module;
+
         this.canRead = canRead;
         this.canWrite = canWrite;
         this.canCreate = canCreate;
@@ -59,8 +58,8 @@ public class Permission extends Auditable implements Serializable {
         this.canActivate = canActivate;
     }
 
-    public Permission(String module, boolean b, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5, boolean b6, boolean b7, boolean b8, boolean b9, boolean b10, boolean b11) {
-        this.module = module;
+    public Permission(boolean b, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5, boolean b6, boolean b7, boolean b8, boolean b9, boolean b10, boolean b11) {
+
         this.canRead = b1;
         this.canWrite = b2;
         this.canCreate = b3;

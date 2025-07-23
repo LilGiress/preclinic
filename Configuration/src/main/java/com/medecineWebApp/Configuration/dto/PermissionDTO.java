@@ -13,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PermissionDTO extends AuditableDTO {
     private Long id;
-    private String module;
     private boolean canRead;   // Lire les informations
     private boolean canWrite;  // Modifier les informations
     private boolean canCreate; // Ajouter de nouvelles entrées
@@ -26,4 +25,5 @@ public class PermissionDTO extends AuditableDTO {
     private boolean canGenerateReport; // Générer des rapports
     private boolean canActivate;
     private Roles role;
+
 }

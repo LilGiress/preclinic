@@ -53,7 +53,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 
         for (Roles role : users.getRoles()) {
             for (Permission permission : role.getPermissions()) {
-                if (permission.getModule().equalsIgnoreCase(module)) {
+
                     switch (action) {
                         case "READ": return permission.isCanRead();
                         case "WRITE": return permission.isCanWrite();
@@ -67,7 +67,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                         case "VALIDATE": return permission.isCanValidate();
                         case "GENERATE": return permission.isCanGenerateReport();
                     }
-                }
+
             }
         }
         return false;
