@@ -8,7 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../service/modal.service';
 import { User } from '../../../models/user';
-import { AuthenticationRequest } from '../../../models/authentication-request';
+import { AuthenticationRequest } from '../../../models/playload/authentication-request';
 
 @Component({
   selector: 'app-login',

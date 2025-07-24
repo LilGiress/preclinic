@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Departement } from '../models/departments';
+import { Departement } from '../../models/departments';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+}
 const baseUrl= environment.apiUrl;
 @Injectable({
   providedIn: 'root'
@@ -14,21 +16,21 @@ export class DepartementService {
 
   // 🔹 GET : récupérer tous les départements
   getAll(): Observable<Departement[]> {
-    return this.http.get<Departement[]>(baseUrl+`/departement`);
+    return this.http.get<Departement[]>(baseUrl+`/departement/all`);
   }
 
   // 🔹 POST : créer un nouveau département
   create(departement: Departement): Observable<Departement> {
-    return this.http.post<Departement>(baseUrl, departement);
+    return this.http.post<Departement>(baseUrl, departement,httpOptions);
   }
 
   // 🔹 PUT : modifier un département
   update(id: number, departement: Departement): Observable<Departement> {
-    return this.http.put<Departement>(baseUrl+`/departement/${id}`, departement);
+    return this.http.put<Departement>(baseUrl+`/departement/update`, departement,httpOptions);
   }
 
   // 🔹 DELETE : supprimer un département
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(baseUrl+`/departement/${id}`);
+    return this.http.delete<void>(baseUrl+`/departement/${id}`,httpOptions);
   }
 }

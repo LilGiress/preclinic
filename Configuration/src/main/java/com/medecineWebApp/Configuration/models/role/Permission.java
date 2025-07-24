@@ -22,6 +22,7 @@ public class Permission extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String description;
     private boolean canRead;   // Lire les informations
     private boolean canWrite;  // Modifier les informations
     private boolean canCreate; // Ajouter de nouvelles entrées

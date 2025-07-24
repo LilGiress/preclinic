@@ -20,9 +20,9 @@ import java.util.Set;
 @EnableEurekaServer
 //@EnableCaching
 @EnableJpaAuditing(auditorAwareRef = "customAuditorAware")
-public class ConfigurationApplication implements CommandLineRunner {
-	@Autowired
-	private  RoleRepository roleRepository;
+public class ConfigurationApplication  {
+//	@Autowired
+//	private  RoleRepository roleRepository;
 
 
 	/*	implements CommandLineRunner
@@ -65,25 +65,25 @@ public class ConfigurationApplication implements CommandLineRunner {
 	}
 
 
-	@Override
-	public void run(String... args) throws Exception {
-		Roles roles = new Roles();
-		Permission permission= new Permission();
-		permission.setCanApprove(false);
-		permission.setCanAssign(true);
-		permission.setCanDelete(false);
-		permission.setCanCreate(true);
-		permission.setCanExport(true);
-		permission.setCanGenerateReport(false);
-		permission.setCanActivate(false);
-		permission.setCanImport(true);
-		permission.setCanValidate(false);
-		permission.setCanRead(true);
-		permission.setCanWrite(true);
-		Set<?> perm= new HashSet<>();
-
-		roles.setName("PATIENT");
-		roles.setPermissions((Set<Permission>) perm);
-		roleRepository.save(roles);
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		Roles roles = new Roles();
+//		Permission permission= new Permission();
+//		permission.setCanApprove(false);
+//		permission.setCanAssign(true);
+//		permission.setCanDelete(false);
+//		permission.setCanCreate(true);
+//		permission.setCanExport(true);
+//		permission.setCanGenerateReport(false);
+//		permission.setCanActivate(false);
+//		permission.setCanImport(true);
+//		permission.setCanValidate(false);
+//		permission.setCanRead(true);
+//		permission.setCanWrite(true);
+//		Set<?> perm= new HashSet<>();
+//
+//		roles.setName("PATIENT");
+//		roles.setPermissions((Set<Permission>) perm);
+//		roleRepository.save(roles);
+//	}
 }

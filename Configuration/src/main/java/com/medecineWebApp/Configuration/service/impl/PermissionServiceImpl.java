@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class PermissionServiceImpl implements PermissionService {
     public PermissionDTO createPermission(List<Permission> permission) {
         if (permission != null ) {
             for (Permission permissionItem : permission) {
+                permissionItem.setCreatedDate(LocalDateTime.now());
                 // permissionRepository.save(permissionItem);
                 return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionItem));
             }

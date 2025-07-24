@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "name": "ADMIN",
+    "description": "Administrateur du système.",
+    "permission": {
+      "description": "Configuration des utilisateur",
+      "canRead": true,
+      "canWrite": true,
+      "canCreate": true,
+      "canDelete": true,
+      "canImport": true,
+      "canExport": true,
+      "canApprove": true,
+      "canValidate": true,
+      "canAssign": true,
+      "canGenerateReport": true,
+      "canActivate": true
+    }
+  },
+  {
+    "id": 2,
+    "name": "MEDECIN",
+    "description": "Médecin général ou spécialiste.",
+    "permission": {
+      "canRead": true,
+      "canWrite": true,
+      "canCreate": true,
+      "canDelete": false,
+      "canImport": false,
+      "canExport": true,
+      "canApprove": true,
+      "canValidate": true,
+      "canAssign": true,
+      "canGenerateReport": true,
+      "canActivate": false
+    }
+  },
+  {
+    "id": 3,
+    "name": "INFIRMIER",
+    "description": "Infirmier en charge des soins.",
+    "permission": {
+      "canRead": true,
+      "canWrite": true,
+      "canCreate": false,
+      "canDelete": false,
+      "canImport": false,
+      "canExport": false,
+      "canApprove": false,
+      "canValidate": true,
+      "canAssign": false,
+      "canGenerateReport": false,
+      "canActivate": false
+    }
+  },
+  {
+    "id": 4,
+    "name": "SECRETAIRE",
+    "description": "Secrétaire médical(e).",
+    "permission": {
+      "canRead": true,
+      "canWrite": false,
+      "canCreate": true,
+      "canDelete": false,
+      "canImport": true,
+      "canExport": true,
+      "canApprove": false,
+      "canValidate": false,
+      "canAssign": false,
+      "canGenerateReport": false,
+      "canActivate": false
+    }
+  },
+  {
+    "id": 5,
+    "name": "PATIENT",
+    "description": "Patient.",
+    "permission": {
+      "canRead": true,
+      "canWrite": false,
+      "canCreate": true,
+      "canDelete": false,
+      "canImport": true,
+      "canExport": true,
+      "canApprove": false,
+      "canValidate": false,
+      "canAssign": false,
+      "canGenerateReport": false,
+      "canActivate": false
+    }
+  }
+]

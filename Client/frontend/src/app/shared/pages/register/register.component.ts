@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalService } from '../../service/modal.service';
 import { IDepartement } from '../../../models/departments';
 import { RolesService } from '../../../services/roles.service';
-import { DepartementService } from '../../../services/departement.service';
+import { DepartementService } from '../../../services/department/departement.service';
 import { IRole } from '../../../models/role';
 import { RegistrationRequest } from '../../../models/playload/RegistrationRequest';
 
@@ -92,27 +92,6 @@ export class RegisterComponent implements OnInit{
     }
   }
  
-
- loadDepartements(): void {
-    this.departementService.getAll().subscribe({
-      next: (value:any) =>{
-         this.departements = value;
-          console.log('--------------------------------this.departements',this.departements);
-          //  console.log(value);
-         // this.toastr.openSuccessModal('Opéretion effectuer');
-         // this.route.navigate(['/activation-code'])
-
-        },
-        error:(err) =>{
-          this.spinner.hide();
-          this.message= err.error
-          this.modalService.openWarning('Opération echouer ','Echec');
-
-        }
-    })
-      
-  }
-
    getAllRoles(): void {
     this.roleService.getRoles().subscribe({
       next:(value:any) => {

@@ -20,52 +20,54 @@ spring:
     username: root
     password: root
 
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQL8Dialect
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
-#    database: mysql
-#    defer-datasource-initialization: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database: mysql
+    defer-datasource-initialization: true
 
-#  cloud:
-#    openfeign:
-#      client:
-#        config:
-#          default:
-#            logger-level: full
-#            connectTimeout: 5000
-#            readTimeout: 5000
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+            connectTimeout: 5000
+            readTimeout: 5000
+    compatibility-verifier:
+      enabled: false
 
-#  kafka:
+  #  kafka:
 #    producer:
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 #    listener:
 #      missing-topics-fatal: false
 
-#  mail:
-#    host: localhost
-#    port: 1025
-#    username: giress
-#    password: giress
-#    properties:
-#      mail:
-#        smtp:
-#          trust: "*"
-#        auth: true
-#        starttls:
-#          enable: true
-#        connectiontimeout: 5000
-#        timeout: 3000
-#        writetimeout: 5000
-#  thymeleaf:
-#    check-template-location: true
-#    prefix: classpath:/templates/
-#    suffix: .html
-#    mode: HTML
-#    cache: false
-#    encoding: UTF-8
+  mail:
+    host: localhost
+    port: 1025
+    username: giress
+    password: giress
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
+    encoding: UTF-8
 
 server:
   port: 7001

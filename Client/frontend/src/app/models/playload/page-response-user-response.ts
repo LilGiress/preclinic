@@ -1,4 +1,4 @@
-import { UserResponse } from "./userResponse";
+import { UserResponse } from "../userResponse";
 
 export interface PageResponseUserResponse {
     content?: Array<UserResponse>,

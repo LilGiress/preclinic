@@ -20,6 +20,7 @@ import { LeavesComponent } from '../settings/leaves/leaves.component';
 import { HolidaysComponent } from '../settings/holidays/holidays.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { DoctorsComponent } from './doctors/doctors.component';
+import { ServiceConfigComponent } from '../settings/service-config/service-config.component';
 
 const routes: Routes = [
   {path : '', component : AdminSkeletorComponent,
@@ -41,7 +42,8 @@ const routes: Routes = [
       {path: 'leaves',component: LeavesComponent},
       {path: 'holidays',component: HolidaysComponent},
       {path: 'attendance',component: AttendanceComponent},
-      {path: 'doctors',component: DoctorsComponent}
+      {path: 'doctors',component: DoctorsComponent},
+      {path: 'services',component: ServiceConfigComponent},
       
       /*{path: 'cotation-start',component: CotationStartComponent},
       {path: 'details-menbre/:id',component: DetailsMenbreComponent},

@@ -1,4 +1,6 @@
 export interface IPermission {
+    id?:number;
+        description?:string;
       canRead?:boolean;   // Lire les informations
       canWrite?:boolean;  // Modifier les informations
       canCreate?:boolean; // Ajouter de nouvelles entrées
@@ -15,6 +17,8 @@ export interface IPermission {
 
 export class Permission implements IPermission{
     constructor (
+       public id?:number,
+        public description?:string,
         public  canRead?:boolean,   // Lire les informations
         public  canWrite?:boolean,  // Modifier les informations
         public  canCreate?:boolean, // Ajouter de nouvelles entrées

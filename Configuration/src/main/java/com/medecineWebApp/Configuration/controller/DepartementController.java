@@ -17,7 +17,7 @@ public class DepartementController {
     public DepartementController(DepartementService departementService) {
         this.departementService = departementService;
     }
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<DepartementDTO>> getAllDepartements() {
         return ResponseEntity.ok(departementService.getAllDepartements());
     }
@@ -29,12 +29,12 @@ public class DepartementController {
     public ResponseEntity<DepartementDTO> createDepartement(@RequestBody Departement departement) {
         return ResponseEntity.ok(departementService.createDepartement(departement));
     }
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<DepartementDTO> updateDepartement(@RequestParam Long id,@RequestBody Departement departement) {
         return ResponseEntity.ok(departementService.updateDepartement(id, departement));
     }
-    @DeleteMapping
-    public void deleteDepartementById(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteDepartementById(@PathVariable Long id) {
         departementService.deleteDepartement(id);
     }
 }

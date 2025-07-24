@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.medecineWebApp.Configuration.enums.EntityStatus;
 import jakarta.persistence.*;
@@ -31,6 +32,7 @@ public class Departement extends Auditable implements Serializable {
     private EntityStatus status;
 
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Services> services = new ArrayList<>();
 
     private Long userId;

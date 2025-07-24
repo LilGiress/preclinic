@@ -32,7 +32,15 @@ public class SessionValidationFilter extends OncePerRequestFilter {
             Object principal = auth.getPrincipal();
 
             if (principal instanceof Users user){
+
                 String fingerprint = request.getHeader("Fingerprint");
+
+                if (fingerprint == null || fingerprint.isBlank()) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Fingerprint manquant\"}");
+                    return;
+                }
 
                 boolean sessionActive = userSessionRepository
                         .findByUserAndFingerprintAndActiveTrue(user, fingerprint)
@@ -41,7 +49,7 @@ public class SessionValidationFilter extends OncePerRequestFilter {
                 if (!sessionActive) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
-                    response.getWriter().write("Session désactivée");
+                    response.getWriter().write("{\"error\": \"Session désactivée\"}");
                     return;
                 }
             }
