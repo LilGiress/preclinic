@@ -1,15 +1,15 @@
-import { IPermission } from "./permission";
+import { Permission } from "./group-attributio-permission";
 
 export interface IRole{
     id?:number,
     name?:string,
-    permissions?:IPermission[]
+    permissions?:Permission[]
 }
 
 export class Role implements IRole{
     constructor(
         public id?:number,
         public name?:string,
-        public  permissions?:IPermission[]
+        public  permissions?:Permission[]
     ){}
 }

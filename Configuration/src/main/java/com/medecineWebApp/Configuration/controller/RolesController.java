@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.controller;
 
 import com.medecineWebApp.Configuration.dto.RolesDTO;
+import com.medecineWebApp.Configuration.models.role.Roles;
 import com.medecineWebApp.Configuration.payload.request.RolesRequest;
 import com.medecineWebApp.Configuration.payload.request.UpdateRoleRequest;
 import com.medecineWebApp.Configuration.service.RolesService;
@@ -18,11 +19,13 @@ public class RolesController {
     public RolesController(RolesService rolesService) {
         this.rolesService = rolesService;
     }
-    // Endpoint to create a new role with permissions
-    @PostMapping("/create")
-    public ResponseEntity<RolesDTO> createRole(
-            @RequestBody RolesRequest request) {
-        return ResponseEntity.ok(rolesService.createRole(request));
+
+    @PostMapping
+    public ResponseEntity<RolesDTO> createRole(@RequestBody RolesRequest request) {
+        Roles role = new Roles();
+        role.setName(request.getName());
+
+        return ResponseEntity.ok(rolesService.createRoleWithPermissions(role, request.getPermissions()));
     }
 
 
@@ -31,8 +34,8 @@ public class RolesController {
     @PutMapping("/update")
     public ResponseEntity<RolesDTO> updateRole(
             @RequestParam("id") Long id,
-            @RequestBody UpdateRoleRequest roleName) {
-        return ResponseEntity.ok(rolesService.updateRole(id,roleName));
+            @RequestBody UpdateRoleRequest request) {
+        return ResponseEntity.ok(rolesService.updateRole(id,request));
     }
 
     // Get role by name

@@ -6,8 +6,9 @@ import com.medecineWebApp.Configuration.utilis.PermissionDeserializer;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "roles")
@@ -24,13 +25,12 @@ public class Roles {
     private String name;
     private String description;
 
-    @Getter
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonDeserialize(contentUsing = PermissionDeserializer.class)
     @JsonManagedReference
-    private Set<Permission> permissions = new HashSet<>();
+    private List<Permission> permissions = new ArrayList<>();
 
-    public Roles(String name, Set<Permission> permissions) {
+    public Roles(String name, List<Permission> permissions) {
         this.name = name;
         this.permissions = permissions;
     }

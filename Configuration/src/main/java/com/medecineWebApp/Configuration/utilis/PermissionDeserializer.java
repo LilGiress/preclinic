@@ -1,29 +1,46 @@
 package com.medecineWebApp.Configuration.utilis;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PermissionDeserializer extends JsonDeserializer<Permission> {
+
     @Override
-    public Permission deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-        return switch (p.getText().toUpperCase()) {
-            case "READ" -> new Permission(true, false, false, false, false, false, false, false, false, false, false, false);
-            case "WRITE" -> new Permission(false, true, false, false, false, false, false, false, false, false, false, false);
-            case "CREATE" -> new Permission(false, false, true, false, false, false, false, false, false, false, false, false);
-            case "DELETE" -> new Permission(false, false, false, true, false, false, false, false, false, false, false, false);
-            case "IMPORT" -> new Permission(false, false, false, false, true, false, false, false, false, false, false, false);
-            case "EXPORT" -> new Permission(false, false, false, false, false, true, false, false, false, false, false, false);
-            case "APPROVE" -> new Permission(false, false, false, false, false, false, true, false, false, false, false, false);
-            case "VALIDATE" -> new Permission(false, false, false, false, false, false, false, true, false, false, false, false);
-            case "ASSIGN" -> new Permission(false, false, false, false, false, false, false, false, true, false, false, false);
-            case "GENERATE_REPORT" -> new Permission(false, false, false, false, false, false, false, false, false, true, false, false);
-            case "ACTIVATE" -> new Permission(false, false, false, false, false, false, false, false, false, false, true, false);
-            default -> new Permission(false, false, false, false, false, false, false, false, false, false, false, false);
-        };
+    public Permission deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        JsonNode node = p.getCodec().readTree(p);
+
+        Permission permission = new Permission();
+
+        // Lire les champs simples du module
+        permission.setLabel(node.has("label") ? node.get("label").asText() : null);
+        permission.setDescription(node.has("description") ? node.get("description").asText() : null);
+        permission.setSelected(node.has("isSelected") && node.get("isSelected").asBoolean(false));
+        permission.setDisabled(node.has("disabled") && node.get("disabled").asBoolean(false));
+
+        // Lire la liste des actions
+        List<ActionPermission> actions = new ArrayList<>();
+        if (node.has("actions") && node.get("actions").isArray()) {
+            for (JsonNode actionNode : node.get("actions")) {
+                ActionPermission action = new ActionPermission();
+                action.setLabel(actionNode.has("label") ? actionNode.get("label").asText() : null);
+                action.setSelected(actionNode.has("isSelected") && actionNode.get("isSelected").asBoolean(false));
+                action.setDisabled(actionNode.has("disabled") && actionNode.get("disabled").asBoolean(false));
+                action.setPermission(permission); // lien vers le module parent
+                actions.add(action);
+            }
+        }
+
+        permission.setActions(actions);
+
+        return permission;
     }
 }

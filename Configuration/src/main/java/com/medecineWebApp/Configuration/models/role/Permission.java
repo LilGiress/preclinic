@@ -10,6 +10,8 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "permission")
@@ -22,55 +24,33 @@ public class Permission extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String label;
     private String description;
-    private boolean canRead;   // Lire les informations
-    private boolean canWrite;  // Modifier les informations
-    private boolean canCreate; // Ajouter de nouvelles entrées
-    private boolean canDelete; // Supprimer une entrée
-    private boolean canImport; // Importer des données
-    private boolean canExport; // Exporter des données
-    private boolean canApprove; // Approuver des documents ou dossiers
-    private boolean canValidate; // Valider un dossier médical
-    private boolean canAssign;  // Assigner un médecin à un patient
-    private boolean canGenerateReport; // Générer des rapports
-    private boolean canActivate;
+    private boolean isSelected;
+    private boolean disabled;
+
+
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ActionPermission> actions = new ArrayList<>();  // Toutes les actions liées au module
+
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     @JsonBackReference
     private Roles role;
 
-
-
-    public Permission( boolean canRead, boolean canWrite, boolean canCreate, boolean canDelete,
-                      boolean canImport, boolean canExport, boolean canApprove, boolean canValidate,
-                      boolean canAssign, boolean canGenerateReport, boolean canActivate) {
-
-        this.canRead = canRead;
-        this.canWrite = canWrite;
-        this.canCreate = canCreate;
-        this.canDelete = canDelete;
-        this.canImport = canImport;
-        this.canExport = canExport;
-        this.canApprove = canApprove;
-        this.canValidate = canValidate;
-        this.canAssign = canAssign;
-        this.canGenerateReport = canGenerateReport;
-        this.canActivate = canActivate;
+    public Permission(String label, String description, boolean isSelected, boolean disabled, List<ActionPermission> actions) {
+        this.label = label;
+        this.description = description;
+        this.isSelected = isSelected;
+        this.disabled = disabled;
+        this.actions = actions != null ? actions : new ArrayList<>();
     }
 
-    public Permission(boolean b, boolean b1, boolean b2, boolean b3, boolean b4, boolean b5, boolean b6, boolean b7, boolean b8, boolean b9, boolean b10, boolean b11) {
-
-        this.canRead = b1;
-        this.canWrite = b2;
-        this.canCreate = b3;
-        this.canDelete = b4;
-        this.canImport = b5;
-        this.canExport = b6;
-        this.canApprove = b7;
-        this.canValidate = b8;
-        this.canAssign = b9;
-        this.canGenerateReport = b10;
-        this.canActivate = b11;
+    // Méthode utilitaire pour ajouter une action et lier la permission
+    public void addAction(ActionPermission action) {
+        actions.add(action);
+        action.setPermission(this);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.config;
 
+import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import com.medecineWebApp.Configuration.models.role.Roles;
 import com.medecineWebApp.Configuration.models.user.Users;
@@ -48,28 +49,25 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     }
 
     public boolean hasPermission(String username, String module, String action) {
-        Users users = userRepository.findByUsername(username)
+        Users user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        for (Roles role : users.getRoles()) {
+        for (Roles role : user.getRoles()) {
             for (Permission permission : role.getPermissions()) {
-
-                    switch (action) {
-                        case "READ": return permission.isCanRead();
-                        case "WRITE": return permission.isCanWrite();
-                        case "CREATE": return permission.isCanCreate();
-                        case "DELETE": return permission.isCanDelete();
-                        case "IMPORT": return permission.isCanImport();
-                        case "ASSIGN": return permission.isCanAssign();
-                        case "EXPORT": return permission.isCanExport();
-                        case "APPROVE": return permission.isCanApprove();
-                        case "ACTIVATE": return permission.isCanActivate();
-                        case "VALIDATE": return permission.isCanValidate();
-                        case "GENERATE": return permission.isCanGenerateReport();
+                // Vérifie si c'est le bon module
+                if (permission.getLabel().equalsIgnoreCase(module)) {
+                    // Vérifie si l'action demandée existe et est sélectionnée
+                    for (ActionPermission actionPermission : permission.getActions()) {
+                        if (actionPermission.getLabel().equalsIgnoreCase(action)
+                                && actionPermission.isSelected()
+                                && !actionPermission.isDisabled()) {
+                            return true;
+                        }
                     }
-
+                }
             }
         }
+
         return false;
     }
 }

@@ -8,622 +8,168 @@
         <div class="row">
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3">
                 <a href="javascript:void(0);" class="btn btn-primary btn-block" data-toggle="modal"
-                    data-target="#nouveauGroup"><i class="fa fa-plus"></i> Add Roles</a>
+                    data-target="#nouveauRole"><i class="fa fa-plus"></i> Add Roles</a>
                 <div class="roles-menu">
                     <ul>
-                        <li class="active" *ngFor="let role of roles">
+                        <li class="active" *ngFor="let role of roles; let i = index"
+                            [class.active]="i === selectedRoleIndex" (click)="selectedRoleIndex = i">
                             <a (click)="onSelectRole(role)" href="javascript:void(0);">{{ role.name }}</a>
                             <div class="role-action">
                                 <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
-                                   <span href="" class="button">
-                                    <i class="fa fa-pencil"></i>
-                                </span>
-                                </a> 
-                                <!-- <a href="#" data-toggle="modal" data-target="#delete_role">
-                                    <span class="button">
-                                        <i class="fa fa-trash"></i>
+                                    <span href="" class="button" (click)="editRole(i)">
+                                        <i class="fa fa-pencil"></i>
                                     </span>
-                                </a> -->
-
-                            </div>
-                             <div class="role-action" >
-                                <!-- <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
-                                   <span href="" class="button">
-                                    <i class="fa fa-pencil"></i>
-                                </span>
-                                </a>  -->
+                                </a>
                                 <a href="#" data-toggle="modal" data-target="#delete_role">
-                                    <span class="button">
+                                    <span class="button" (click)="deleteRole(i)">
                                         <i class="fa fa-trash"></i>
                                     </span>
                                 </a>
 
                             </div>
-                            
-                            <!-- <div class="">
-                                                        <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
-                                                            <img src="assest/image/Icon/edit-icons.svg" alt="">
-                                                        </a>&emsp;
-                                                        <a href="" class="h6 text-danger a-noline">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
-                                                  </div> -->
-
 
                         </li>
                     </ul>
                 </div>
             </div>
+
             <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
 
                 <div class="card-body histo-dash bg-white">
                     <div class="mb-3">
-
                         <!-- Accordeons questions -->
+                        <!-- <div class="accordion-perso-wrapper">
+                            
+
+    <form [formGroup]="form">
+  <div formArrayName="modules" *ngFor="let moduleGroup of modulesArray.controls; let mi = index">
+    <div [formGroupName]="mi" class="accordion-perso mb-20">
+
+      <label class="accordion-perso-label h5">
+        <input type="checkbox" formControlName="allSelected" (change)="toggleModule(mi)">
+        {{ moduleGroup.get('moduleName')?.value }}
+      </label>
+
+      <div formArrayName="permissions" *ngFor="let permGroup of getPermissionsArray(mi).controls; let pi = index">
+        <div [formGroupName]="pi" class="p-2 border rounded mb-20">
+          <strong>{{ permGroup.get('description')?.value }}</strong>
+
+          <div class="d-flex flex-wrap">
+            <label *ngFor="let action of actionKeys">
+              <input type="checkbox" [formControlName]="action">
+              {{ action }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal Creer un nouveau groupe -->
+<div class="modal fade" id="nouveauRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4 font-weight-bold">Créer un rôle </h5>
+                <button type="button" class="close circle" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-3">
+                <form>
+                    <div class="mb-3">
+                        <label>Libele</label>
+                        <input type="text" class="form-control" required name="roleName" [(ngModel)]="role.name"
+                        [ngModelOptions]="{standalone: true}"
+                            placeholder="Ex: ADMIN">
+                    </div>
+                    <!-- Description du rôle -->
+                    <div class="mb-3">
+                        <label for="roleDesc" class="form-label">Description</label>
+                        <textarea id="roleDesc" class="form-control" rows="2" [(ngModel)]="role.description"
+                        [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div *ngIf="message" class="alert alert-danger py-2">{{ message }}</div>
+
+                    <div class="mb-3">
+                        <div class="h5 p-2">Affectation des modules et permission au groupe</div>
+                        <!-- Accordeons questions -->
+                        @for (module of modulePermission; track module.label; let i = $index) {
                         <div class="accordion-perso-wrapper">
                             <div class="accordion-perso mb-20">
-                                <input type="radio" name="radio-a" class="input-accordeon" id="moduleGroupe" checked>
-                                <label class="accordion-perso-label h5" for="moduleGroupe">
-                                    <div> Contrôle interne</div>
-                                    <div class="d-flex">
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Tous
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1" >
-                                            <label class="permission">
-                                                Créer
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Consulter
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission ">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Modifier
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Supprimer
-                                            </label>
-                                        </div>
-                                    </div>
-                                </label>
-                                <div class="accordion-perso-content" *ngFor="let role of roles">
-                                    <div class="p-2"> {{role.permissions![0].description}}</div>
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
+                                 <input type="radio" name="radio-a" class="input-accordeon" id="check11" checked>
+                                    <label class="accordion-perso-label h5"  for="check11">
+                                        <div> {{ module.label }}</div>
+
                                         <div class="d-flex">
                                             <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
+                                                <input type="checkbox" class="form-check-input"
+                                                    [checked]="isAllSelectedModule(module)"
+                                                    (change)="toggleAllModule(module, $any($event.target).checked)">
                                                 <label class="permission">
                                                     Tous
                                                 </label>
                                             </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canCreate">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canRead">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canWrite">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canDelete">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canExport">
-                                                <label class="permission">
-                                                    Exporter
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canImport">
-                                                <label class="permission">
-                                                    Importer
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canApprove">
-                                                <label class="permission">
-                                                    Aprouver
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canAssign">
-                                                <label class="permission">
-                                                    Assigner
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canGenerateReport">
-                                                <label class="permission">
-                                                    Generate Rapport
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canActivate">
-                                                <label class="permission">
-                                                    Activer
-                                                </label>
-                                            </div>
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1" [(ngModel)]="role.permissions![0].canValidate">
-                                                <label class="permission">
-                                                    Valider
-                                                </label>
-                                            </div>
+                                     
                                         </div>
+
+                                    </label>
+                                    <ng-container *ngFor="let sub of module.subModules;let j=index">
+                                          <div class="accordion-perso-content">
+                                            <div class=""> {{ sub.description }}</div>
+                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
+                                        
+                                        <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
+                                          <div class="d-flex">
+                                            <div class="permission">
+                                                <input type="checkbox" name="quest1-1"
+                                                 [disabled]="action.disabled"
+                                                [(ngModel)]="action.isSelected"
+                                                >&emsp;
+                                                <label class="permission">
+                                                     {{ action.label.replace('CAN_', '')
+                                                        }}
+                                                </label>
+                                            </div>&emsp;
+                                            
+                                            
+                                        </div>
+                                        </ng-container>
+                                        
+                                        
 
 
                                     </div>
                                     
 
                                 </div>
-                            </div>
-                            <div class="accordion-perso">
-                                <input type="radio" name="radio-a" class="input-accordeon" id="moduleGroupe2">
-                                <label class="accordion-perso-label h5" for="moduleGroupe2">
-                                    <div> Audit interne</div>
-
-                                    <div class="d-flex">
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Tous
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Créer
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Consulter
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission ">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Modifier
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Supprimer
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </label>
-                                <div class="accordion-perso-content">
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Plan d'audit</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Mission d'audit</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
+                                    </ng-container>
+                                    
+                                
+                               
                             </div>
 
                         </div>
+                        }
 
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- modale ajout roles -->
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un nouveau rôle</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="newRoleForm">
-                    <!-- Nom du rôle -->
-                    <div>
-                        <label for="roleName">Nom du rôle</label>
-                        <input id="roleName" formControlName="name" placeholder="Nom du rôle" />
-                    </div>
-
-                    <!-- Modules -->
-                    <div>
-                        <h4>permissions</h4>
-                        <!-- <div *ngFor="let module of modules.controls; let i = index" [formGroupName]="i">
-          <label>{{ module.get('name')?.value }}</label>
-          <input type="checkbox" formControlName="access" /> Activer
-          <div formGroupName="permission">
-            <label><input type="checkbox" formControlName="read" /> Read</label>
-            <label><input type="checkbox" formControlName="write" /> Write</label>
-            <label><input type="checkbox" formControlName="create" /> Create</label>
-            <label><input type="checkbox" formControlName="delete" /> Delete</label>
-            <label><input type="checkbox" formControlName="import" /> Import</label>
-            <label><input type="checkbox" formControlName="export" /> Export</label>
-          </div>
-        </div> -->
-                        <button type="button" (click)="addModule('New Module')">Ajouter un module</button>
-                    </div>
-
-                    <!-- Bouton de soumission -->
-                    <button type="submit" [disabled]="newRoleForm.invalid" (click)="addRole()">Créer le rôle</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Creer un nouveau groupe -->
-<div class="modal fade" id="nouveauGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title h4 font-weight-bold">Créer un groupe </h5>
-                <button type="button" class="close circle" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-3">
-                <form action="">
-                    <div class="mb-3">
-                        <label>Libele</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="h5 p-2">Affectation des modules et permission au groupe</div>
-                        <!-- Accordeons questions -->
-                        <div class="accordion-perso-wrapper">
-                            <div class="accordion-perso mb-20">
-                                <input type="radio" name="radio-a" class="input-accordeon" id="check11" checked>
-                                <label class="accordion-perso-label h5" for="check11">
-                                    <div> Contrôle interne</div>
-
-                                    <div class="d-flex">
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Tous
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Créer
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Consulter
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission ">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Modifier
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Supprimer
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </label>
-                                <div class="accordion-perso-content">
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Auto-Evaluation</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Diagnostic Flash</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="accordion-perso">
-                                <input type="radio" name="radio-a" class="input-accordeon" id="check22">
-                                <label class="accordion-perso-label h5" for="check22">
-                                    <div> Audit interne</div>
-
-                                    <div class="d-flex">
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Tous
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Créer
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Consulter
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission ">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Modifier
-                                            </label>
-                                        </div>&emsp;
-                                        <div class="permission">
-                                            <input type="checkbox" class="form-check-input" name="quest1-1">
-                                            <label class="permission">
-                                                Supprimer
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </label>
-                                <div class="accordion-perso-content">
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Plan d'audit</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        <div class="p-2"> Mission d'audit</div>
-
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Créer
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Consulter
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission ">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Modifier
-                                                </label>
-                                            </div>&emsp;
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1">
-                                                <label class="permission">
-                                                    Supprimer
-                                                </label>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
 
                     </div>
 
@@ -631,9 +177,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                    data-target="#modalvalidation" class="close" data-dismiss="modal" aria-label="Close">Créer</button>
+                    data-target="#modalvalidation" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="saveRole()">Enregistrer</button>
             </div>
-
+            <!-- [disabled]="submitted || !roleForm.form.valid"  -->
         </div>
     </div>
 </div>

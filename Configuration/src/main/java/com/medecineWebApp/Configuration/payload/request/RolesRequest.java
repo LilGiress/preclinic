@@ -1,7 +1,9 @@
 package com.medecineWebApp.Configuration.payload.request;
 
+import com.medecineWebApp.Configuration.models.role.Permission;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -11,5 +13,5 @@ import java.util.Set;
 @NoArgsConstructor
 public class RolesRequest {
     private String name;
-    private Set<PermissionRequest> permissions;
+    private List<Permission> permissions;
 }

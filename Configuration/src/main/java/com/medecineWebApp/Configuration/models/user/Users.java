@@ -4,6 +4,7 @@ package com.medecineWebApp.Configuration.models.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medecineWebApp.Configuration.models.Auditable;
 import com.medecineWebApp.Configuration.models.Departement;
+import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import com.medecineWebApp.Configuration.models.role.Roles;
 import jakarta.persistence.*;
@@ -67,39 +68,19 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
 
         // Convertir chaque permission de rôle en GrantedAuthority
         for (Roles role : roles) {
+            // Nom du rôle (ex: ADMIN, MANAGER, etc.)
+            String roleName = role.getName();
             for (Permission permission : role.getPermissions()) {
-                if (permission.isCanRead()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_READ"));
-                }
-                if (permission.isCanWrite()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_WRITE"));
-                }
-                if (permission.isCanCreate()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_CREATE"));
-                }
-                if (permission.isCanDelete()) {
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_DELETE"));
-                }
-                if (permission.isCanAssign()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_ASSIGN"));
-                }
-                if (permission.isCanImport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_IMPORT"));
-                }
-                if(permission.isCanExport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_EXPORT"));
-                }
-                if(permission.isCanApprove()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_APPROVE"));
-                }
-                if(permission.isCanActivate()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_ACTIVATE"));
-                }
-                if(permission.isCanValidate()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_VALIDATE"));
-                }
-                if(permission.isCanGenerateReport()){
-                    authorities.add(new SimpleGrantedAuthority(permission.getRole().getName() + "_GENERATE"));
+                // Nom du module (ex: TR_TRAINING, TR_PARTICIPANT, etc.)
+                String module = permission.getLabel();
+
+                for (ActionPermission action : permission.getActions()) {
+                    if (action.isSelected() && !action.isDisabled()) {
+                        // Exemple d'autorité : "ADMIN_TR_TRAINING_CAN_READ"
+                        authorities.add(
+                                new SimpleGrantedAuthority(roleName + "_" + module + "_" + action.getLabel())
+                        );
+                    }
                 }
             }
         }

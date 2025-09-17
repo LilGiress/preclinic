@@ -1,93 +1,76 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.PermissionDTO;
-import com.medecineWebApp.Configuration.exception.PermissionNotFoundException;
 import com.medecineWebApp.Configuration.mapper.PermissionMapper;
-import com.medecineWebApp.Configuration.models.ModulePermission;
+import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
-import com.medecineWebApp.Configuration.repository.ModulePermissionRepository;
 import com.medecineWebApp.Configuration.repository.permission.PermissionRepository;
-import com.medecineWebApp.Configuration.repository.user.UserRepository;
 import com.medecineWebApp.Configuration.service.PermissionService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
     private final PermissionMapper permissionMapper;
-    private final ModulePermissionRepository permissionModuleRepository;
-    private final UserRepository userRepository;
 
-    public PermissionServiceImpl(PermissionRepository permissionRepository, PermissionMapper permissionMapper, ModulePermissionRepository permissionModuleRepository, UserRepository userRepository) {
+
+    public PermissionServiceImpl(PermissionRepository permissionRepository, PermissionMapper permissionMapper) {
         this.permissionRepository = permissionRepository;
         this.permissionMapper = permissionMapper;
-        this.permissionModuleRepository = permissionModuleRepository;
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    public PermissionDTO createPermission(List<Permission> permission) {
-        if (permission != null ) {
-            for (Permission permissionItem : permission) {
-                permissionItem.setCreatedDate(LocalDateTime.now());
-                // permissionRepository.save(permissionItem);
-                return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionItem));
-            }
-        }
-        throw new PermissionNotFoundException("permission is null ");
-    }
-
-    @Override
-    public PermissionDTO updatePermission(Long id,Permission permission) {
-        Optional<Permission> permissionOptional = permissionRepository.findById(id);
-        if (permissionOptional.isPresent()) {
-            Permission permissionToUpdate = permissionOptional.get();
-          //  permissionToUpdate.setDescription(permission.getDescription());
-            return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permissionToUpdate));
-        }
-         throw new PermissionNotFoundException("Permission not found");
-    }
-
-    @Override
-    public Page<PermissionDTO> listPermissions(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return permissionRepository.findAll(pageable).map(permissionMapper::permissionToPermissionDTO);
-    }
-
-    @Override
-    public void deletePermission(Long permissionId) {
-        permissionRepository.deleteById(permissionId);
 
     }
 
     @Override
-    public ModulePermission createModulePermission(String moduleName, List<Permission> permissions) {
-        ModulePermission modulePermission = new ModulePermission();
-        modulePermission.setModuleName(moduleName);
-        modulePermission.setPermissions(permissions);
-        return permissionModuleRepository.save(modulePermission);
+    public PermissionDTO createPermission(Permission permission) {
+        permission.setCreatedDate(LocalDateTime.now());
+        return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permission));
     }
 
     @Override
-    public List<ModulePermission> listModulePermissions() {
-        return permissionModuleRepository.findAll();
+    public PermissionDTO updatePermission(String label, List<ActionPermission> actionDTOs) {
+        Permission permission = permissionRepository.findByLabel(label)
+                .orElseThrow(() -> new RuntimeException("Permission non trouvée pour label : " + label));
+
+        // mise à jour des actions
+        permission.getActions().forEach(action -> {
+            actionDTOs.stream()
+                    .filter(dto -> dto.getLabel().equals(action.getLabel()))
+                    .findFirst()
+                    .ifPresent(dto -> action.setSelected(dto.isSelected()));
+        });
+        return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permission));
+
     }
 
     @Override
-    public List<Permission> listPermissions(List<Long> permissionsId) {
-        return permissionRepository.findByIdIn(permissionsId);
+    public List<PermissionDTO> listPermissions() {
+        return permissionRepository.findAll()
+                .stream()
+                .map(permissionMapper::permissionToPermissionDTO)
+                .toList();
     }
 
 
+    @Override
+    public List<ActionPermission> getActionsByLabel(String label) {
+        return permissionRepository.findByLabel(label)
+                .map(Permission::getActions)
+                .orElseThrow(() -> new RuntimeException("Permission non trouvée pour le label : " + label));
 
+    }
+
+    @Override
+    public PermissionDTO getPermissionById(Long id) {
+        Permission permission = permissionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Permission non trouvée avec id " + id));
+        return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permission));
+    }
 
 
 }
