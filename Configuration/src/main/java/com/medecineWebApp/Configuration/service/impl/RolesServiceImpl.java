@@ -6,11 +6,11 @@ import com.medecineWebApp.Configuration.mapper.RolesMapper;
 import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.payload.request.RolesRequest;
 import com.medecineWebApp.Configuration.payload.request.UpdateRoleRequest;
-import com.medecineWebApp.Configuration.repository.permission.PermissionRepository;
+import com.medecineWebApp.Configuration.repository.permission.ActionPermissionRepository;
 import com.medecineWebApp.Configuration.repository.role.RoleRepository;
 import com.medecineWebApp.Configuration.service.RolesService;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,14 +26,14 @@ public class RolesServiceImpl implements RolesService {
 
     private final RoleRepository roleRepository;
     private final RolesMapper rolesMapper;
-    private final EntityManager entityManager;
-    private final PermissionRepository permissionRepository;
+    private final PermissionServiceImpl permissionServiceImpl;
+    private final ActionPermissionRepository actionPermissionRepository;
 
-    public RolesServiceImpl(RoleRepository roleRepository, RolesMapper rolesMapper, EntityManager entityManager, PermissionRepository permissionRepository) {
+    public RolesServiceImpl(RoleRepository roleRepository, RolesMapper rolesMapper, PermissionServiceImpl permissionServiceImpl, ActionPermissionRepository actionPermissionRepository) {
         this.roleRepository = roleRepository;
         this.rolesMapper = rolesMapper;
-        this.entityManager = entityManager;
-        this.permissionRepository = permissionRepository;
+        this.permissionServiceImpl = permissionServiceImpl;
+        this.actionPermissionRepository = actionPermissionRepository;
     }
 
     @Transactional
@@ -61,11 +61,9 @@ public class RolesServiceImpl implements RolesService {
                 ActionPermission action = new ActionPermission();
                 action.setLabel(actionDTO.getLabel());
                 action.setSelected(actionDTO.isSelected());
-                action.setDisabled(actionDTO.isDisabled());
-                action.setPermission(permission); // lien bidirectionnel
+                action.setPermissions((List<Permission>) permission); // lien bidirectionnel
                 permission.getActions().add(action);
             }
-
             role.getPermissions().add(permission);
         }
 
@@ -92,18 +90,38 @@ public class RolesServiceImpl implements RolesService {
                 .orElseThrow(() -> new RolesNotFoundException("Role not found"));
         // Supprimer le rôle
         roleRepository.delete(role);
-        log.info("Deleted role --------------------: " + role.getName());
+       // log.info("Deleted role --------------------: " + role.getName());
     }
 
     @Override
-    public RolesDTO createRoleWithPermissions(Roles role, List<Permission> permissions) {
+    public RolesDTO createRoleWithPermissions(RolesRequest request) {
         // Associer les permissions au rôle
-        for (Permission permission : permissions) {
-            permission.setRole(role);
-        }
-        role.setPermissions(permissions);
+        Roles role = new Roles();
+        role.setName(request.getName().toUpperCase());
+        role.setDescription(request.getDescription());
+        Roles role1 = roleRepository.save(role);
 
-        return rolesMapper.rolesToRolesDTO(roleRepository.save(role));
+
+        for (Permission permission : request.getPermissions()) {
+            Permission permission1 = new Permission();
+            permission1.setLabel(permission.getLabel());
+            permission1.setDescription(permission.getDescription());
+            permission1.setActions(permission.getActions());
+            permission1.setRole(role1);
+
+            for (ActionPermission actionDTO : permission.getActions()) {
+                // 🔍 Si les actions existent déjà, il vaut mieux les chercher via repo
+                ActionPermission action = actionPermissionRepository.findByLabel((actionDTO.getLabel()))
+                        .orElseGet(() -> actionPermissionRepository.save(actionDTO));
+
+                permission.addAction(action);
+
+            }
+            role.addPermission(permission1);
+          // permissionServiceImpl.createPermission(permission1);
+
+        }
+        return rolesMapper.rolesToRolesDTO(role1);
     }
 
 

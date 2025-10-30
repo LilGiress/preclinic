@@ -5,7 +5,6 @@ import com.medecineWebApp.Configuration.dto.AddressDTO;
 import com.medecineWebApp.Configuration.models.Address;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface AddressMapper {

@@ -1,7 +1,8 @@
 package com.medecineWebApp.Configuration.models.role;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.medecineWebApp.Configuration.models.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,17 +21,22 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Permission extends Auditable implements Serializable {
+public class Permission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String label;
     private String description;
-    private boolean isSelected;
-    private boolean disabled;
 
 
-    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "permission_action", // nom de la table d'association
+            joinColumns = @JoinColumn(name = "permission_id"),
+            inverseJoinColumns = @JoinColumn(name = "action_id")
+    )
+    @JsonIgnore
     private List<ActionPermission> actions = new ArrayList<>();  // Toutes les actions liées au module
 
 
@@ -39,18 +45,24 @@ public class Permission extends Auditable implements Serializable {
     @JsonBackReference
     private Roles role;
 
-    public Permission(String label, String description, boolean isSelected, boolean disabled, List<ActionPermission> actions) {
+    public Permission(String label, String description, List<ActionPermission> actions) {
         this.label = label;
         this.description = description;
-        this.isSelected = isSelected;
-        this.disabled = disabled;
         this.actions = actions != null ? actions : new ArrayList<>();
     }
 
     // Méthode utilitaire pour ajouter une action et lier la permission
     public void addAction(ActionPermission action) {
-        actions.add(action);
-        action.setPermission(this);
+        if (!this.actions.contains(action)) {
+            this.actions.add(action);
+            action.getPermissions().add(this);
+        }
+    }
+
+    // ✅ Méthode utilitaire inverse
+    public void removeAction(ActionPermission action) {
+        this.actions.remove(action);
+        action.getPermissions().remove(this);
     }
 
 }

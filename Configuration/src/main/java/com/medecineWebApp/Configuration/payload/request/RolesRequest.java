@@ -1,10 +1,11 @@
 package com.medecineWebApp.Configuration.payload.request;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -13,5 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class RolesRequest {
     private String name;
-    private List<Permission> permissions;
+    private String description;
+    private List<Permission> permissions = new ArrayList<>();
 }

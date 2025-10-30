@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { IRole,Role } from '../models/role';
 
-
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+}
   const Url = environment.apiUrl;
 
 @Injectable({
@@ -18,8 +20,8 @@ export class RolesService {
  
 
   // Méthode pour ajouter un nouveau rôle
-  createRole(role: any): Observable<any> {
-    return this.http.post(Url+`/roles/create`, role);
+  createRole(role: any): Observable<Role> {
+    return this.http.post<Role>(Url+`/roles`, role,httpOptions);
   }
 
   // Récupérer la liste des rôles

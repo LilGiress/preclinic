@@ -1,14 +1,12 @@
 package com.medecineWebApp.Configuration.dto;
 
-
-
-import com.medecineWebApp.Configuration.models.role.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -17,5 +15,5 @@ public class RolesDTO extends AuditableDTO {
     private Long id;
     private String name;
     private String description;
-    private Set<Permission> permissions;
+    private List<PermissionDTO> permissions;
 }

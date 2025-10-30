@@ -1,186 +1,258 @@
 <div class="page-wrapper">
-    <div class="content">
-        <div class="row">
-            <div class="col-sm-8">
-                <h4 class="page-title">Roles & Permissions</h4>
-            </div>
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-8">
+        <h4 class="page-title">Roles & Permissions</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <a href="javascript:void(0);" class="btn btn-primary btn-block" data-toggle="modal"
+          data-target="#exampleModal"><i class="fa fa-plus"></i> Add Roles</a>
+        <div class="roles-menu">
+          <ul>
+            <li class="active" *ngFor="let role of roles; let i = index" [class.active]="i === selectedRoleIndex"
+              (click)="selectedRoleIndex = i">
+              <a (click)="onSelectRole(role)" href="javascript:void(0);">{{ role.name }}</a>
+              <div class="role-action">
+                <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
+                  <span href="" class="button" (click)="editRole(i)">
+                    <i class="fa fa-pencil"></i>
+                  </span>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#delete_role">
+                  <span class="button" (click)="deleteRole(i)">
+                    <i class="fa fa-trash"></i>
+                  </span>
+                </a>
+
+              </div>
+
+            </li>
+          </ul>
         </div>
-        <div class="row">
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-3">
-                <a href="javascript:void(0);" class="btn btn-primary btn-block" data-toggle="modal"
-                    data-target="#nouveauRole"><i class="fa fa-plus"></i> Add Roles</a>
-                <div class="roles-menu">
-                    <ul>
-                        <li class="active" *ngFor="let role of roles; let i = index"
-                            [class.active]="i === selectedRoleIndex" (click)="selectedRoleIndex = i">
-                            <a (click)="onSelectRole(role)" href="javascript:void(0);">{{ role.name }}</a>
-                            <div class="role-action">
-                                <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
-                                    <span href="" class="button" (click)="editRole(i)">
-                                        <i class="fa fa-pencil"></i>
-                                    </span>
-                                </a>
-                                <a href="#" data-toggle="modal" data-target="#delete_role">
-                                    <span class="button" (click)="deleteRole(i)">
-                                        <i class="fa fa-trash"></i>
-                                    </span>
-                                </a>
+      </div>
 
-                            </div>
+      <div class="col-sm-9 col-md-9 col-lg-9 col-xl-10">
 
-                        </li>
-                    </ul>
+        <div class="container-fluid bg-gray" id="accordion-style-1">
+          <div class="container">
+
+            <div class="row">
+              <div class="col-12">
+                <h1 class="text-green mb-4 text-center">Affectation des modules et permission au roles</h1>
+              </div>
+
+                            <div class="col-12">
+                <div class="accordion" id="accordionExample">
+                  @for (module of modulePermission; track module.label; let i = $index) {
+                  <div class="card">
+                    <div class="card-header" id="heading{{ i }}">
+                      <h5 class="mb-0" (click)="selectLabelModule(module)">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                          [attr.data-target]="'#collapse' + i" aria-expanded="false"
+                          [attr.aria-controls]="'collapse' + i"
+                          >
+                          <i class="fa fa-angle-double-right mr-3"></i>
+                          {{ module.label }}
+                        </button>
+
+                      </h5>
+                    </div>
+
+                    <div id="collapse{{ i }}" class="collapse fade" [attr.aria-labelledby]="'heading' + i"
+                      data-parent="#accordionExample">
+
+                      <ng-container *ngFor="let sub of module.subModules;let j=index">
+                        <div class="card-body" (click)="selectDescriptionSub(sub)">
+                          <label class="accordion-perso-label h5" for="check11" >
+                            <div>{{ sub.description }} </div>
+                            <p></p>
+                            <!-- <div *ngIf="selectedRole; else noData">
+                               <ng-container
+                                *ngFor="let action of selectedRole.permissions?.[0]?.actions; trackBy:trackByAction">
+                                <div class=" flex" style="display: inline-block;gap: 10px;">
+                                  <div class="form-check  flex-column-inline  mb-2">
+                                    <input type="checkbox" class="form-check-input mb-1" [disabled]="action.disabled"
+                                      [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
+                                      [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label">{{
+                                      extractAction(action.label)
+                                      }}</label>
+                                  </div>
+
+                                </div>
+                              </ng-container>
+                            </div> -->
+
+                            <ng-container *ngIf="selectedRole; else defaultActions">
+                              <ng-container
+                                *ngFor="let action of selectedRole.permissions?.[0]?.actions; trackBy:trackByAction">
+                                <div class=" flex" style="display: inline-block;gap: 10px;">
+                                  <div class="form-check  flex-column-inline  mb-2">
+                                    <input type="checkbox" class="form-check-input mb-1" 
+                                      [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
+                                      [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label">{{
+                                      extractAction(action.label)
+                                      }}</label>
+                                  </div>
+
+                                </div>
+                              </ng-container>
+
+                            </ng-container>
+                            
+                            <ng-template #defaultActions>
+                               <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
+                                <div class=" flex" style="display: inline-block;gap: 10px;">
+                                  <div class="form-check  flex-column-inline  mb-2">
+                                    <input type="checkbox" class="form-check-input mb-1" 
+                                      [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
+                                      [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label">{{
+                                      extractAction(action.label)
+                                      }}</label>
+                                  </div>
+
+                                </div>
+                              </ng-container>
+
+                            </ng-template>
+                          
+                          </label>
+                        </div>
+                      </ng-container>
+
+                    </div>
+                  </div>
+                  }
                 </div>
+              </div>
+
             </div>
 
-            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-9">
-
-                <div class="card-body histo-dash bg-white">
-                    <div class="mb-3">
-                        <!-- Accordeons questions -->
-                        <!-- <div class="accordion-perso-wrapper">
-                            
-
-    <form [formGroup]="form">
-  <div formArrayName="modules" *ngFor="let moduleGroup of modulesArray.controls; let mi = index">
-    <div [formGroupName]="mi" class="accordion-perso mb-20">
-
-      <label class="accordion-perso-label h5">
-        <input type="checkbox" formControlName="allSelected" (change)="toggleModule(mi)">
-        {{ moduleGroup.get('moduleName')?.value }}
-      </label>
-
-      <div formArrayName="permissions" *ngFor="let permGroup of getPermissionsArray(mi).controls; let pi = index">
-        <div [formGroupName]="pi" class="p-2 border rounded mb-20">
-          <strong>{{ permGroup.get('description')?.value }}</strong>
-
-          <div class="d-flex flex-wrap">
-            <label *ngFor="let action of actionKeys">
-              <input type="checkbox" [formControlName]="action">
-              {{ action }}
-            </label>
           </div>
         </div>
+
       </div>
 
     </div>
   </div>
-</form>
-
-
-
-                        </div> -->
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </div>
 
 </div>
 
-<!-- Modal Creer un nouveau groupe -->
-<div class="modal fade" id="nouveauRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title h4 font-weight-bold">Créer un rôle </h5>
-                <button type="button" class="close circle" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Créer un rôle </h1>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="RoleForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Libele</label>
+            <input type="text" class="form-control" required name="ng-container" formControlName="name"
+              placeholder="Ex: ADMIN">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['name'].errors?.['required']">Le nom est requis.</div>
+
             </div>
-            <div class="modal-body p-3">
-                <form>
-                    <div class="mb-3">
-                        <label>Libele</label>
-                        <input type="text" class="form-control" required name="roleName" [(ngModel)]="role.name"
-                        [ngModelOptions]="{standalone: true}"
-                            placeholder="Ex: ADMIN">
-                    </div>
-                    <!-- Description du rôle -->
-                    <div class="mb-3">
-                        <label for="roleDesc" class="form-label">Description</label>
-                        <textarea id="roleDesc" class="form-control" rows="2" [(ngModel)]="role.description"
-                        [ngModelOptions]="{standalone: true}"></textarea>
-                    </div>
-                    <div *ngIf="message" class="alert alert-danger py-2">{{ message }}</div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <textarea id="roleDesc" class="form-control" rows="2" formControlName="description"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['description'].errors?.['required']">La description est requise.</div>
 
-                    <div class="mb-3">
-                        <div class="h5 p-2">Affectation des modules et permission au groupe</div>
-                        <!-- Accordeons questions -->
-                        @for (module of modulePermission; track module.label; let i = $index) {
-                        <div class="accordion-perso-wrapper">
-                            <div class="accordion-perso mb-20">
-                                 <input type="radio" name="radio-a" class="input-accordeon" id="check11" checked>
-                                    <label class="accordion-perso-label h5"  for="check11">
-                                        <div> {{ module.label }}</div>
+            </div>
+          </div>
+          <div class="container-fluid bg-gray" id="accordion-style-1">
+            <div class="container">
 
-                                        <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" class="form-check-input"
-                                                    [checked]="isAllSelectedModule(module)"
-                                                    (change)="toggleAllModule(module, $any($event.target).checked)">
-                                                <label class="permission">
-                                                    Tous
-                                                </label>
-                                            </div>&emsp;
-                                     
-                                        </div>
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="text-green mb-4 text-center">Affectation des modules et permission au roles</h1>
+                </div>
+                <div class="col-12">
+                  <div class="accordion" id="accordionExample">
+                    @for (module of modulePermission; track module.label; let i = $index) {
+                    <div class="card">
+                      <div class="card-header" id="heading{{ i }}">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            [attr.data-target]="'#collapse' + i" aria-expanded="false"
+                            [attr.aria-controls]="'collapse' + i">
+                            <i class="fa fa-angle-double-right mr-3"></i>
+                            {{ module.label }}
+                          </button>
 
-                                    </label>
-                                    <ng-container *ngFor="let sub of module.subModules;let j=index">
-                                          <div class="accordion-perso-content">
-                                            <div class=""> {{ sub.description }}</div>
-                                    <div class="border d-flex justify-content-between rounded p-2 mb-20">
-                                        
-                                        <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
-                                          <div class="d-flex">
-                                            <div class="permission">
-                                                <input type="checkbox" name="quest1-1"
-                                                 [disabled]="action.disabled"
-                                                [(ngModel)]="action.isSelected"
-                                                >&emsp;
-                                                <label class="permission">
-                                                     {{ action.label.replace('CAN_', '')
-                                                        }}
-                                                </label>
-                                            </div>&emsp;
-                                            
-                                            
-                                        </div>
-                                        </ng-container>
-                                        
-                                        
+                        </h5>
+                      </div>
+
+                      <div id="collapse{{ i }}" class="collapse fade" [attr.aria-labelledby]="'heading' + i"
+                        data-parent="#accordionExample">
+
+                        <ng-container *ngFor="let sub of module.subModules;let j=index">
+                          <div class="card-body">
+                            <label class="accordion-perso-label h5" for="check11">
+                              <div>{{ sub.description }} </div>
+                              <p></p>
+                              <!-- <input type="checkbox" class="form-check-input " 
+                                    [checked]="isAllSelectedModule(module)"
+                                    (change)="toggleAllModule(module, $any($event.target).checked)">
+                                  <label class="form-check-label" >Tous</label> -->
 
 
-                                    </div>
-                                    
+
+                              <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
+                                <div class=" flex" style="display: inline-block;gap: 10px;">
+                                  <div class="form-check  flex-column-inline  mb-2">
+                                    <input type="checkbox" class="form-check-input mb-1" 
+                                      [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
+                                      [ngModelOptions]="{standalone: true}">
+                                    <label class="form-check-label">{{
+                                      extractAction(action.label)
+                                      }}</label>
+                                  </div>
 
                                 </div>
-                                    </ng-container>
-                                    
-                                
-                               
-                            </div>
-
-                        </div>
-                        }
+                              </ng-container>
 
 
+                            </label>
+                          </div>
+                        </ng-container>
+
+                      </div>
                     </div>
+                    }
+                  </div>
+                </div>
 
-                </form>
+              </div>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                    data-target="#modalvalidation" class="close" data-dismiss="modal" aria-label="Close"
-                    (click)="saveRole()">Enregistrer</button>
-            </div>
-            <!-- [disabled]="submitted || !roleForm.form.valid"  -->
-        </div>
+          </div>
+          <!-- .// Accordion -->
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveRole()"
+          [disabled]="!RoleForm.valid">Enregistrer</button>
+      </div>
     </div>
+  </div>
 </div>

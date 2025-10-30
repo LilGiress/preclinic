@@ -60,7 +60,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                     for (ActionPermission actionPermission : permission.getActions()) {
                         if (actionPermission.getLabel().equalsIgnoreCase(action)
                                 && actionPermission.isSelected()
-                                && !actionPermission.isDisabled()) {
+                                ) {
                             return true;
                         }
                     }

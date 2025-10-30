@@ -13,3 +13,9 @@ export class Role implements IRole{
         public  permissions?:Permission[]
     ){}
 }
+
+export class RoleRequest{
+    name?:string;
+    description?:string;
+    permissions?:Permission[]
+}

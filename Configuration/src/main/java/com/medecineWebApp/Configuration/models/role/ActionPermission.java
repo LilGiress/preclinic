@@ -1,7 +1,6 @@
 package com.medecineWebApp.Configuration.models.role;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.medecineWebApp.Configuration.models.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +9,9 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "action_permission")
 @Getter
@@ -17,23 +19,22 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class ActionPermission extends Auditable implements Serializable {
+public class ActionPermission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String label;       // Exemple: "CAN_READ", "CAN_WRITE"
-    private boolean isSelected;
-    private boolean disabled;
+    private boolean selected;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id", nullable = false)
-    @JsonBackReference
-    private Permission permission;
 
-    public ActionPermission(String label, boolean isSelected, boolean disabled) {
+    @ManyToMany(mappedBy = "actions", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Permission> permissions = new ArrayList<>();
+
+    public ActionPermission(String label, boolean selected) {
         this.label = label;
-        this.isSelected = isSelected;
-        this.disabled = disabled;
+        this.selected = selected;
+
     }
 
 }

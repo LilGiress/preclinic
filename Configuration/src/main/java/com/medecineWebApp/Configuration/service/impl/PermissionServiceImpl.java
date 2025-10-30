@@ -1,12 +1,16 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.PermissionDTO;
+import com.medecineWebApp.Configuration.mapper.ActionPermissionMapper;
 import com.medecineWebApp.Configuration.mapper.PermissionMapper;
 import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
+import com.medecineWebApp.Configuration.repository.permission.ActionPermissionRepository;
 import com.medecineWebApp.Configuration.repository.permission.PermissionRepository;
 import com.medecineWebApp.Configuration.service.PermissionService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,20 +20,38 @@ import java.util.List;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
+    private static final Logger log = LoggerFactory.getLogger(PermissionServiceImpl.class);
     private final PermissionRepository permissionRepository;
     private final PermissionMapper permissionMapper;
+    private final ActionPermissionRepository actionPermissionRepository;
 
-
-    public PermissionServiceImpl(PermissionRepository permissionRepository, PermissionMapper permissionMapper) {
+    public PermissionServiceImpl(PermissionRepository permissionRepository, PermissionMapper permissionMapper,  ActionPermissionRepository actionPermissionRepository) {
         this.permissionRepository = permissionRepository;
         this.permissionMapper = permissionMapper;
+        this.actionPermissionRepository = actionPermissionRepository;
 
     }
 
     @Override
     public PermissionDTO createPermission(Permission permission) {
-        permission.setCreatedDate(LocalDateTime.now());
-        return permissionMapper.permissionToPermissionDTO(permissionRepository.save(permission));
+        Permission permission1= new Permission();
+        permission1.setDescription(permission.getDescription());
+        permission1.setLabel(permission.getLabel());
+        permission1.setRole(permission.getRole());
+
+        Permission permission2 = permissionRepository.save(permission1);
+        for (ActionPermission actionPermission : permission.getActions()) {
+            //log.warn("-------------------actionPermission----------",actionPermission.toString());
+            ActionPermission actionPermission1 = new ActionPermission();
+            actionPermission1.setLabel(actionPermission.getLabel());
+            actionPermission1.setSelected(actionPermission.isSelected());
+            actionPermission1.setPermissions(List.of(permission2));
+            permission.addAction(actionPermission1);
+            actionPermissionRepository.save(actionPermission1);
+
+        }
+
+        return permissionMapper.permissionToPermissionDTO(permission2);
     }
 
     @Override

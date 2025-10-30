@@ -4,137 +4,492 @@
     "name": "ADMIN",
     "permissions": [
       {
-        "label": "TR_TRAINING",
-        "description": "Gestion des formations",
-        "actions": [
-          { "label": "CAN_READ", "selected": true },
-          { "label": "CAN_WRITE", "selected": true  },
-          { "label": "CAN_CREATE", "selected": true  },
-          { "label": "CAN_UPDATE", "selected": true  },
-          { "label": "CAN_DELETE", "selected": true  },
-          { "label": "CAN_IMPORT", "selected": true  },
-          { "label": "CAN_EXPORT", "selected": true  },
-          { "label": "CAN_APPROVE", "selected": true },
-          { "label": "CAN_VALIDATE", "selected": true  },
-          { "label": "CAN_ASSIGN", "selected": true  },
-          { "label": "CAN_ACTIVATE", "selected": true  },
-          { "label": "CAN_GENERATE", "selected": true  }
-        ]
-      },
-      {
         "label": "TR_PATIENTS",
         "description": "Gestion des patients",
         "actions": [
-          { "label": "CAN_READ", "selected": true  },
-          { "label": "CAN_WRITE", "selected": true  },
-          { "label": "CAN_CREATE", "selected": true  },
-          { "label": "CAN_UPDATE", "selected": true  },
-          { "label": "CAN_DELETE", "selected": true  },
-          { "label": "CAN_IMPORT", "selected": true  },
-          { "label": "CAN_EXPORT", "selected": true  },
-          { "label": "CAN_APPROVE", "selected": true  },
-          { "label": "CAN_VALIDATE", "selected": true  },
-          { "label": "CAN_ASSIGN", "selected": true },
-          { "label": "CAN_ACTIVATE", "selected": true  },
-          { "label": "CAN_GENERATE", "selected": true  }
+          { "label": "CAN_READ_PATIENTS", "selected": true  },
+          { "label": "CAN_WRITE_PATIENTS", "selected": true  },
+          { "label": "CAN_CREATE_PATIENTS", "selected": true  },
+          { "label": "CAN_UPDATE_PATIENTS", "selected": true  },
+          { "label": "CAN_DELETE_PATIENTS", "selected": true  },
+          { "label": "CAN_IMPORT_PATIENTS", "selected": true  },
+          { "label": "CAN_EXPORT_PATIENTS", "selected": true  },
+          { "label": "CAN_APPROVE_PATIENTS", "selected": true  },
+          { "label": "CAN_VALIDATE_PATIENTS", "selected": true  },
+          { "label": "CAN_ASSIGN_PATIENTS", "selected": true },
+          { "label": "CAN_ACTIVATE_PATIENTS", "selected": true  },
+          { "label": "CAN_GENERATE_PATIENTS", "selected": true  }
         ]
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "name": "MEDECIN",
-    "permissions": [
+      },
       {
-        "label": "TR_PATIENTS",
-        "description": "Suivi et gestion des patients",
+        "label": "MEDECINE",
+        "description": "Suivi et gestion des medecins",
         "actions": [
-          { "label": "CAN_READ", "selected": true  },
-          { "label": "CAN_WRITE", "selected": true  },
-          { "label": "CAN_CREATE", "selected": true  },
-          { "label": "CAN_UPDATE", "selected": true  },
-          { "label": "CAN_DELETE", "selected": false  },
-          { "label": "CAN_IMPORT", "selected": false  },
-          { "label": "CAN_EXPORT", "selected": true  },
-          { "label": "CAN_APPROVE", "selected": false  },
-          { "label": "CAN_VALIDATE", "selected": true  },
-          { "label": "CAN_ASSIGN", "selected": true  },
-          { "label": "CAN_ACTIVATE", "selected": false  },
-          { "label": "CAN_GENERATE", "selected": true  }
+          { "label": "CAN_READ_MEDECIN", "selected": true  },
+          { "label": "CAN_WRITE_MEDECIN", "selected": true  },
+          { "label": "CAN_CREATE_MEDECIN", "selected": true  },
+          { "label": "CAN_UPDATE_MEDECIN", "selected": true  },
+          { "label": "CAN_DELETE_MEDECIN", "selected": true  },
+          { "label": "CAN_IMPORT_MEDECIN", "selected": true  },
+          { "label": "CAN_EXPORT_MEDECIN", "selected": true  },
+          { "label": "CAN_APPROVE_MEDECIN", "selected": true  },
+          { "label": "CAN_VALIDATE_MEDECIN", "selected": true  },
+          { "label": "CAN_ASSIGN_MEDECIN", "selected": true  },
+          { "label": "CAN_ACTIVATE_MEDECIN", "selected": true  },
+          { "label": "CAN_GENERATE_MEDECIN", "selected": true  }
         ]
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "name": "INFIRMIER",
-    "permissions": [
+      },
       {
-        "label": "TR_PATIENTS",
-        "description": "Suivi de base des patients",
+        "label": "INFIRMIER",
+        "description": "Suivi de base des infirmiers",
         "actions": [
-          { "label": "CAN_READ", "selected": true  },
-          { "label": "CAN_WRITE", "selected": true  },
-          { "label": "CAN_CREATE", "selected": false  },
-          { "label": "CAN_UPDATE", "selected": true },
-          { "label": "CAN_DELETE", "selected": false  },
-          { "label": "CAN_IMPORT", "selected": false  },
-          { "label": "CAN_EXPORT", "selected": false  },
-          { "label": "CAN_APPROVE", "selected": false  },
-          { "label": "CAN_VALIDATE", "selected": false  },
-          { "label": "CAN_ASSIGN", "selected": false  },
-          { "label": "CAN_ACTIVATE", "selected": false  },
-          { "label": "CAN_GENERATE", "selected": false  }
+          { "label": "CAN_READ_INFIRMIER", "selected": true  },
+          { "label": "CAN_WRITE_INFIRMIER", "selected": true  },
+          { "label": "CAN_CREATE_INFIRMIER", "selected": true  },
+          { "label": "CAN_UPDATE_INFIRMIER", "selected": true },
+          { "label": "CAN_DELETE_INFIRMIER", "selected": true  },
+          { "label": "CAN_IMPORT_INFIRMIER", "selected": true  },
+          { "label": "CAN_EXPORT_INFIRMIER", "selected": true  },
+          { "label": "CAN_APPROVE_INFIRMIER", "selected": true  },
+          { "label": "CAN_VALIDATE_INFIRMIER", "selected": true  },
+          { "label": "CAN_ASSIGN_INFIRMIER", "selected": true  },
+          { "label": "CAN_ACTIVATE_INFIRMIER", "selected": true  },
+          { "label": "CAN_GENERATE_INFIRMIER", "selected": true  }
         ]
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "name": "SECRETAIRE",
-    "permissions": [
+      },
       {
-        "label": "TR_PATIENTS",
-        "description": "Gestion administrative des patients",
+        "label": "SECRETARIA",
+        "description": "Gestion administrative des patients et personnel",
         "actions": [
-          { "label": "CAN_READ", "selected": true  },
-          { "label": "CAN_WRITE", "selected": true  },
-          { "label": "CAN_CREATE", "selected": true  },
-          { "label": "CAN_UPDATE", "selected": true  },
-          { "label": "CAN_DELETE", "selected": false  },
-          { "label": "CAN_IMPORT", "selected": true  },
-          { "label": "CAN_EXPORT", "selected": true  },
-          { "label": "CAN_APPROVE", "selected": false  },
-          { "label": "CAN_VALIDATE", "selected": false  },
-          { "label": "CAN_ASSIGN", "selected": false  },
-          { "label": "CAN_ACTIVATE", "selected": false  },
-          { "label": "CAN_GENERATE", "selected": false  }
+          { "label": "CAN_READ_SECRETAIRE", "selected": true  },
+          { "label": "CAN_WRITE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_CREATE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_UPDATE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_DELETE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_IMPORT_SECRETAIRE", "selected": true  },
+          { "label": "CAN_EXPORT_SECRETAIRE", "selected": true  },
+          { "label": "CAN_APPROVE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_VALIDATE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_ASSIGN_SECRETAIRE", "selected": true  },
+          { "label": "CAN_ACTIVATE_SECRETAIRE", "selected": true  },
+          { "label": "CAN_GENERATE_SECRETAIRE", "selected": true  }
         ]
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "name": "PATIENT",
-    "permissions": [
+      },
       {
-        "label": "TR_PATIENTS",
+        "label": "PNEUMOLOGIE",
         "description": "Accès à ses propres informations médicales",
         "actions": [
-          { "label": "CAN_READ", "selected": true  },
-          { "label": "CAN_WRITE", "selected": false },
-          { "label": "CAN_CREATE", "selected": false },
-          { "label": "CAN_UPDATE", "selected": false },
-          { "label": "CAN_DELETE", "selected": false },
-          { "label": "CAN_IMPORT", "selected": false },
-          { "label": "CAN_EXPORT", "selected": false },
-          { "label": "CAN_APPROVE", "selected": false },
-          { "label": "CAN_VALIDATE", "selected": false },
-          { "label": "CAN_ASSIGN", "selected": false },
-          { "label": "CAN_ACTIVATE", "selected": false },
-          { "label": "CAN_GENERATE", "selected": false }
+          { "label": "CAN_READ_PNEUMOLOGIE", "selected": true  },
+          { "label": "CAN_WRITE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_CREATE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_UPDATE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_DELETE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_IMPORT_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_EXPORT_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_APPROVE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_VALIDATE_PNEUMOLOGIES", "selected": true },
+          { "label": "CAN_ASSIGN_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_ACTIVATE_PNEUMOLOGIE", "selected": true },
+          { "label": "CAN_GENERATE_PNEUMOLOGIE", "selected": true }
+        ]
+      },
+      {
+        "label": "MEDECINE INTERNE",
+        "description": "Accès à ses propres informations médicales",
+        "actions": [
+          { "label": "CAN_READ_MEDECINE_INTERNE", "selected": true  },
+          { "label": "CAN_WRITE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_CREATE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_UPDATE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_DELETE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_IMPORT_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_EXPORT_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_APPROVE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_VALIDATE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_ASSIGN_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_ACTIVATE_MEDECINE_INTERNE", "selected": true },
+          { "label": "CAN_GENERATE_MEDECINE_INTERNE", "selected": true }
+        ]
+      },
+      {
+        "label": "CARDIOLOGIE",
+        "description": "Accès à ses propres informations médicales",
+        "actions": [
+          { "label": "CAN_READ_CARDIOLOGIE", "selected": true  },
+          { "label": "CAN_WRITE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_CREATE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_UPDATE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_DELETE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_IMPORT_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_EXPORT_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_APPROVE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_VALIDATE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_ASSIGN_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_ACTIVATE_CARDIOLOGIE", "selected": true },
+          { "label": "CAN_GENERATE_CARDIOLOGIE", "selected": true }
+        ]
+      },
+      {
+        "label": "SOINS PALLIATIFS",
+        "description": "Gestion des services liés au soins palliatifs.",
+        "actions": [
+          { "label": "CAN_READ_SOINS_PALLIATIFS", "selected": true  },
+          { "label": "CAN_WRITE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_CREATE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_UPDATE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_DELETE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_IMPORT_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_EXPORT_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_APPROVE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_VALIDATE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_ASSIGN_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_ACTIVATE_SOINS_PALLIATIFS", "selected": true },
+          { "label": "CAN_GENERATE_SOINS_PALLIATIFS", "selected": true }
+        ]
+      },
+      {
+        "label": "PEDIATRIE",
+        "description": "Gestion des services liés à la pédiatrie.",
+        "actions": [
+          { "label": "CAN_READ_PEDIATRIE", "selected": true  },
+          { "label": "CAN_WRITE_PEDIATRIE", "selected": true },
+          { "label": "CAN_CREATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_UPDATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_DELETE_PEDIATRIE", "selected": true },
+          { "label": "CAN_IMPORT_PEDIATRIE", "selected": true },
+          { "label": "CAN_EXPORT_PEDIATRIE", "selected": true },
+          { "label": "CAN_APPROVE_PEDIATRIE", "selected": true },
+          { "label": "CAN_VALIDATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_ASSIGN_PEDIATRIE", "selected": true },
+          { "label": "CAN_ACTIVATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_GENERATE_PEDIATRIE", "selected": true }
+        ]
+      },
+      {
+        "label": "HOSPITALISATION",
+        "description": "Gestion des services liés à l'hospitalisation.",
+        "actions": [
+          { "label": "CAN_READ_HOSPITALISATION", "selected": true  },
+          { "label": "CAN_WRITE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_CREATE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_UPDATE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_DELETE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_IMPORT_HOSPITALISATION", "selected": true },
+          { "label": "CAN_EXPORT_HOSPITALISATION", "selected": true },
+          { "label": "CAN_APPROVE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_VALIDATE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_ASSIGN_HOSPITALISATION", "selected": true },
+          { "label": "CAN_ACTIVATE_HOSPITALISATION", "selected": true },
+          { "label": "CAN_GENERATE_HOSPITALISATION", "selected": true }
+        ]
+      },
+      {
+        "label": "OBSTETRIQUE",
+        "description": "Gestion des services liés à obstetrique.",
+        "actions": [
+          { "label": "CAN_READ_OBSTETRIQUE", "selected": true  },
+          { "label": "CAN_WRITE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_CREATE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_UPDATE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_DELETE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_IMPORT_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_EXPORT_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_APPROVE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_VALIDATE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_ASSIGN_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_ACTIVATE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_GENERATE_OBSTETRIQUE", "selected": true }
+        ]
+      },
+      {
+        "label": "IVG",
+        "description": "Gestion des services liés à IVG.",
+        "actions": [
+          { "label": "CAN_READ_IVG", "selected": true  },
+          { "label": "CAN_WRITE_IVG", "selected": true },
+          { "label": "CAN_CREATE_IVG", "selected": true },
+          { "label": "CAN_UPDATE_IVG", "selected": true },
+          { "label": "CAN_DELETE_IVG", "selected": true },
+          { "label": "CAN_IMPORT_IVG", "selected": true },
+          { "label": "CAN_EXPORT_IVG", "selected": true },
+          { "label": "CAN_APPROVE_IVG", "selected": true },
+          { "label": "CAN_VALIDATE_IVG", "selected": true },
+          { "label": "CAN_ASSIGN_IVG", "selected": true },
+          { "label": "CAN_ACTIVATE_IVG", "selected": true },
+          { "label": "CAN_GENERATE_IVG", "selected": true }
+        ]
+      },
+      {
+        "label": "CHIRURGIE BUCCALE",
+        "description": "Gestion des services de chirurgie buccale.",
+        "actions": [
+          { "label": "CAN_READ_CHIRURGIE_BUCCALE", "selected": true  },
+          { "label": "CAN_WRITE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_CREATE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_UPDATE_TCHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_DELETE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_IMPORT_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_EXPORT_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_APPROVE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_VALIDATE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_ASSIGN_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_ACTIVATE_CHIRURGIE_BUCCALE", "selected": true },
+          { "label": "CAN_GENERATE_CHIRURGIE_BUCCALE", "selected": true }
+        ]
+      },
+      {
+        "label": "CHIRURGIE GENERALE",
+        "description": "Gestion des services de la chirurgie générale.",
+        "actions": [
+          { "label": "CAN_READ_CHIRURGIE_GENERALE", "selected": true  },
+          { "label": "CAN_WRITE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_CREATE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_UPDATE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_DELETE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_IMPORT_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_EXPORT_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_APPROVE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_VALIDATE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_ASSIGN_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_ACTIVATE_CHIRURGIE_GENERALE", "selected": true },
+          { "label": "CAN_GENERATE_CHIRURGIE_GENERALE", "selected": true }
+        ]
+      },
+      {
+        "label": "CHIRURGIE PLASTIQUE",
+        "description": "Gestion des services de la chirurgie plastique.",
+        "actions": [
+          { "label": "CAN_READ_CHIRURGIE_PLASTIQUE", "selected": true  },
+          { "label": "CAN_WRITE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_CREATE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_UPDATE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_DELETE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_IMPORT_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_EXPORT_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_APPROVE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_VALIDATE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_ASSIGN_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_ACTIVATE_CHIRURGIE_PLASTIQUE", "selected": true },
+          { "label": "CAN_GENERATE_CHIRURGIE_PLASTIQUE", "selected": true }
+        ]
+      },
+      {
+        "label": "CHIRURGIE VASCULAIRE",
+        "description": "Gestion des services de la chirurgie vasculaire.",
+        "actions": [
+          { "label": "CAN_READ_CHIRURGIE_VASCULAIRE", "selected": true  },
+          { "label": "CAN_WRITE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_CREATE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_UPDATE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_DELETE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_IMPORT_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_EXPORT_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_APPROVE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_VALIDATE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_ASSIGN_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_ACTIVATE_CHIRURGIE_VASCULAIRE", "selected": true },
+          { "label": "CAN_GENERATE_CHIRURGIE_VASCULAIRE", "selected": true }
+        ]
+      },
+      {
+        "label": "ORL",
+        "description": "Gestion des services d'ORL.",
+        "actions": [
+          { "label": "CAN_READ_ORL", "selected": true  },
+          { "label": "CAN_WRITE_ORL", "selected": true },
+          { "label": "CAN_CREATE_ORL", "selected": true },
+          { "label": "CAN_UPDATE_ORL", "selected": true },
+          { "label": "CAN_DELETE_ORL", "selected": true },
+          { "label": "CAN_IMPORT_ORL", "selected": true },
+          { "label": "CAN_EXPORT_ORL", "selected": true },
+          { "label": "CAN_APPROVE_ORL", "selected": true },
+          { "label": "CAN_VALIDATE_ORL", "selected": true },
+          { "label": "CAN_ASSIGN_ORL", "selected": true },
+          { "label": "CAN_ACTIVATE_ORL", "selected": true },
+          { "label": "CAN_GENERATE_TR_PATIENTS", "selected": true }
+        ]
+      },
+      {
+        "label": "OPHTALMOLOGIE",
+        "description": "Gestion des services d'ophtalmologie.",
+        "actions": [
+          { "label": "CAN_READ_OPHTALMOLOGIE", "selected": true  },
+          { "label": "CAN_WRITE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_CREATE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_UPDATE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_DELETE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_IMPORT_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_EXPORT_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_APPROVE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_VALIDATE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_ASSIGN_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_ACTIVATE_OPHTALMOLOGIE", "selected": true },
+          { "label": "CAN_GENERATE_OPHTALMOLOGIE", "selected": true }
+        ]
+      },
+      {
+        "label": "ORTHOPEDIE",
+        "description": "Gestion des services d'orthopédie.",
+        "actions": [
+          { "label": "CAN_READ_ORTHOPEDIE", "selected": true  },
+          { "label": "CAN_WRITE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_CREATE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_UPDATE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_DELETE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_IMPORT_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_EXPORT_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_APPROVE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_VALIDATE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_ASSIGN_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_ACTIVATE_ORTHOPEDIE", "selected": true },
+          { "label": "CAN_GENERATE_ORTHOPEDIE", "selected": true }
+        ]
+      },
+      {
+        "label": "UROLOGIE",
+        "description": "Gestion des services d'urologie.",
+        "actions": [
+          { "label": "CAN_READ_UROLOGIE", "selected": true  },
+          { "label": "CAN_WRITE_UROLOGIE", "selected": true },
+          { "label": "CAN_CREATE_UROLOGIE", "selected": true },
+          { "label": "CAN_UPDATE_UROLOGIE", "selected": true },
+          { "label": "CAN_DELETE_UROLOGIE", "selected": true },
+          { "label": "CAN_IMPORT_UROLOGIE", "selected": true },
+          { "label": "CAN_EXPORT_UROLOGIE", "selected": true },
+          { "label": "CAN_APPROVE_UROLOGIE", "selected": true },
+          { "label": "CAN_VALIDATE_UROLOGIE", "selected": true },
+          { "label": "CAN_ASSIGN_UROLOGIE", "selected": true },
+          { "label": "CAN_ACTIVATE_UROLOGIE", "selected": true },
+          { "label": "CAN_GENERATE_UROLOGIE", "selected": true }
+        ]
+      },
+      {
+        "label": "ANESTHESISTE",
+        "description": "Gestion des services d'anesthésie.",
+        "actions": [
+          { "label": "CAN_READ_ANESTHESIE", "selected": true  },
+          { "label": "CAN_WRITE_ANESTHESIE", "selected": true },
+          { "label": "CAN_CREATE_ANESTHESIE", "selected": true },
+          { "label": "CAN_UPDATE_ANESTHESIE", "selected": true },
+          { "label": "CAN_DELETE_ANESTHESIE", "selected": true },
+          { "label": "CAN_IMPORT_ANESTHESIE", "selected": true },
+          { "label": "CAN_EXPORT_ANESTHESIE", "selected": true },
+          { "label": "CAN_APPROVE_ANESTHESIE", "selected": true },
+          { "label": "CAN_VALIDATE_ANESTHESIE", "selected": true },
+          { "label": "CAN_ASSIGN_ANESTHESIE", "selected": true },
+          { "label": "CAN_ACTIVATE_ANESTHESIE", "selected": true },
+          { "label": "CAN_GENERATE_ANESTHESIE", "selected": true }
+        ]
+      },
+      {
+        "label": "GYNECOLOGIE & OBSTETRIQUE",
+        "description": "Gestion des services de gynécologie et obstetrique",
+        "actions": [
+          { "label": "CAN_READ_GYNECOLOGIE_OBSTETRIQUE", "selected": true  },
+          { "label": "CAN_WRITE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_CREATE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_UPDATE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_DELETE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_IMPORT_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_EXPORT_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_APPROVE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_VALIDATE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_ASSIGN_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_ACTIVATE_GYNECOLOGIE_OBSTETRIQUE", "selected": true },
+          { "label": "CAN_GENERATE_GYNECOLOGIE_OBSTETRIQUE", "selected": true }
+        ]
+      },
+      {
+        "label": "SERVICE DES URGENCES",
+        "description": "Gestion des services d'urgence médicale.",
+        "actions": [
+          { "label": "CAN_READ_URGENCES", "selected": true  },
+          { "label": "CAN_WRITE_URGENCES", "selected": true },
+          { "label": "CAN_CREATE_URGENCES", "selected": true },
+          { "label": "CAN_UPDATE_URGENCES", "selected": true },
+          { "label": "CAN_DELETE_URGENCES", "selected": true },
+          { "label": "CAN_IMPORT_URGENCES", "selected": true },
+          { "label": "CAN_EXPORT_URGENCES", "selected": true },
+          { "label": "CAN_APPROVE_URGENCES", "selected": true },
+          { "label": "CAN_VALIDATE_URGENCES", "selected": true },
+          { "label": "CAN_ASSIGN_URGENCES", "selected": true },
+          { "label": "CAN_ACTIVATE_URGENCES", "selected": true },
+          { "label": "CAN_GENERATE_URGENCES", "selected": true }
+        ]
+      },
+      {
+        "label": "RADIOLOGIE",
+        "description": "Gestion des services de radiologie",
+        "actions": [
+          { "label": "CAN_READ_RADIOLOGIE", "selected": true  },
+          { "label": "CAN_WRITE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_CREATE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_UPDATE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_DELETE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_IMPORT_RADIOLOGIE", "selected": true },
+          { "label": "CAN_EXPORT_RADIOLOGIE", "selected": true },
+          { "label": "CAN_APPROVE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_VALIDATE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_ASSIGN_RADIOLOGIE", "selected": true },
+          { "label": "CAN_ACTIVATE_RADIOLOGIE", "selected": true },
+          { "label": "CAN_GENERATE_RADIOLOGIE", "selected": true }
+        ]
+      },
+      {
+        "label": "MEDECINE NUCLEAIRE",
+        "description": "Gestion des services de la médecine nucléaire",
+        "actions": [
+          { "label": "CAN_READ_MEDECINE_NUCLEAIRE", "selected": true  },
+          { "label": "CAN_WRITE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_CREATE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_UPDATE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_DELETE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_IMPORT_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_EXPORT_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_APPROVE_TMEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_VALIDATE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_ASSIGN_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_ACTIVATE_MEDECINE_NUCLEAIRE", "selected": true },
+          { "label": "CAN_GENERATE_MEDECINE_NUCLEAIRE", "selected": true }
+        ]
+      },
+      {
+        "label": "PEDIATRIE",
+        "description": "Gestion des services de pédiatrie.",
+        "actions": [
+          { "label": "CAN_READ_PEDIATRIE", "selected": true  },
+          { "label": "CAN_WRITE_PEDIATRIE", "selected": true },
+          { "label": "CAN_CREATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_UPDATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_DELETE_PEDIATRIE", "selected": true },
+          { "label": "CAN_IMPORT_PEDIATRIE", "selected": true },
+          { "label": "CAN_EXPORT_PEDIATRIE", "selected": true },
+          { "label": "CAN_APPROVE_PEDIATRIE", "selected": true },
+          { "label": "CAN_VALIDATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_ASSIGN_PEDIATRIE", "selected": true },
+          { "label": "CAN_ACTIVATE_PEDIATRIE", "selected": true },
+          { "label": "CAN_GENERATE_PEDIATRIE", "selected": true }
+        ]
+      },
+      {
+        "label": "PHARMACIE",
+        "description": "Accès à ses propres informations médicales",
+        "actions": [
+          { "label": "CAN_READ_PHARMACIE", "selected": true  },
+          { "label": "CAN_WRITE_PHARMACIE", "selected": true },
+          { "label": "CAN_CREATE_PHARMACIE", "selected": true },
+          { "label": "CAN_UPDATE_PHARMACIE", "selected": true },
+          { "label": "CAN_DELETE_PHARMACIE", "selected": true },
+          { "label": "CAN_IMPORT_PHARMACIE", "selected": true },
+          { "label": "CAN_EXPORT_PHARMACIE", "selected": true },
+          { "label": "CAN_APPROVE_PHARMACIE", "selected": true },
+          { "label": "CAN_VALIDATE_PHARMACIE", "selected": true },
+          { "label": "CAN_ASSIGN_PHARMACIE", "selected": true },
+          { "label": "CAN_ACTIVATE_PHARMACIE", "selected": true },
+          { "label": "CAN_GENERATE_PHARMACIE", "selected": true }
         ]
       }
     ]
   }
+
 ]

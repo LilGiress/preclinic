@@ -1,8 +1,7 @@
 package com.medecineWebApp.Configuration.service;
 
 import com.medecineWebApp.Configuration.dto.RolesDTO;
-import com.medecineWebApp.Configuration.models.role.Permission;
-import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.payload.request.RolesRequest;
 import com.medecineWebApp.Configuration.payload.request.UpdateRoleRequest;
 
 import java.util.List;
@@ -13,6 +12,6 @@ public interface RolesService {
     Optional<RolesDTO> findByName(String role);
     List<RolesDTO> findAllRoles();
     void deleteRole(Long id);
-    RolesDTO createRoleWithPermissions(Roles role, List<Permission> permissions);
+    RolesDTO createRoleWithPermissions(RolesRequest  request);
 
 }

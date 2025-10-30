@@ -75,7 +75,7 @@ public class Users extends Auditable implements UserDetails, Serializable, Princ
                 String module = permission.getLabel();
 
                 for (ActionPermission action : permission.getActions()) {
-                    if (action.isSelected() && !action.isDisabled()) {
+                    if (action.isSelected()) {
                         // Exemple d'autorité : "ADMIN_TR_TRAINING_CAN_READ"
                         authorities.add(
                                 new SimpleGrantedAuthority(roleName + "_" + module + "_" + action.getLabel())

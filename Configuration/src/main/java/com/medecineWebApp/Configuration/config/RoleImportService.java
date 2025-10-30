@@ -52,6 +52,7 @@ public class RoleImportService implements CommandLineRunner {
                 for (Map<String, Object> permMap : permissionsData) {
                     Permission permission = new Permission();
                     permission.setLabel((String) permMap.get("label"));
+                    permission.setDescription((String)permMap.get("description"));
                     permission.setRole(role);
 
                     List<ActionPermission> actions = new ArrayList<>();
@@ -61,8 +62,8 @@ public class RoleImportService implements CommandLineRunner {
                         for (Map<String, Object> actionMap : actionsData) {
                             ActionPermission action = new ActionPermission();
                             action.setLabel((String) actionMap.get("label"));
-                            action.setSelected(Boolean.TRUE.equals(actionMap.get("isSelected")));
-                            action.setPermission(permission);
+                            action.setSelected((boolean)(actionMap.get("selected")));
+                            action.setPermissions(List.of(permission) );
                             actions.add(action);
                         }
                     }

@@ -2,8 +2,7 @@ export interface GroupAttributioPermission {
 }
 export interface Action {
   label: string;
-  isSelected: boolean;
-  disabled: boolean;
+  selected: boolean;
 }
 
 export interface ModulePermission {
@@ -32,8 +31,7 @@ export interface ModulePermission {
 
 export interface ActionPermission {
   label: string;
-  isSelected: boolean;
-  disabled: boolean;
+  selected: boolean;
 }
 
 
@@ -41,8 +39,6 @@ export interface Permission {
   id?:number;
   label: string;            
   description?: string;
-  selected?: boolean;
-  disabled?: boolean;
   actions: Action[];
   subModules?: SubModulePermission[];
 }
@@ -58,23 +54,7 @@ export interface Module {
   subModules?: SubModulePermission[]; 
 }
 
-type ActionKeys =
-  | 'read'
-  | 'write'
-  | 'update'
-  | 'delete'
-  | 'import'
-  | 'export'
-  | 'approve'
-  | 'validate'
-  | 'assign'
-  | 'activate'
-  | 'generate';
 
-const actionKeys: ActionKeys[] = [
-  'read', 'write', 'update', 'delete', 'import', 'export',
-  'approve', 'validate', 'assign', 'activate', 'generate'
-];
 
 
 

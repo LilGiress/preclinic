@@ -5,12 +5,13 @@ import com.medecineWebApp.Configuration.models.role.Roles;
 import com.medecineWebApp.Configuration.payload.request.RolesRequest;
 import com.medecineWebApp.Configuration.payload.request.UpdateRoleRequest;
 import com.medecineWebApp.Configuration.service.RolesService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @RestController
 @RequestMapping("/api/roles")
 public class RolesController {
@@ -22,10 +23,8 @@ public class RolesController {
 
     @PostMapping
     public ResponseEntity<RolesDTO> createRole(@RequestBody RolesRequest request) {
-        Roles role = new Roles();
-        role.setName(request.getName());
-
-        return ResponseEntity.ok(rolesService.createRoleWithPermissions(role, request.getPermissions()));
+        log.warn("create role --------------------: " + request.getPermissions());
+        return ResponseEntity.ok(rolesService.createRoleWithPermissions(request));
     }
 
 

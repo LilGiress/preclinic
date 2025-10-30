@@ -6,8 +6,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalService } from '../../shared/service/modal.service';
 import { Role } from '../../models/role';
 import { AuthorityDataService } from '../../services/AuthorityData/authority-data.service';
-import { Action, ActionPermission, Module, ModulePermission, Permission, SubModulePermission } from '../../models/group-attributio-permission';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Action,Permission, SubModulePermission } from '../../models/group-attributio-permission';
+
+
 
 declare  let $:any;
 
@@ -18,7 +19,7 @@ declare  let $:any;
     styleUrl: './role-permission.component.css'
 })
 export class RolePermissionComponent {
- 
+
   modulePermission: Permission[] = [];
   role = {
     name: '',
@@ -36,26 +37,20 @@ editRole(_t15: number) {
    private readonly dataService = inject(AuthorityDataService);
    active: string | null = null;
    selectedRoleIndex = 0;
-  // modulePermission:Module[]=[];
-   
-   
-
-  form = this.fb.group({
-    label: ['', Validators.required],
-    roleName: [''],
-    modules: this.fb.array([]),
-  });
-
  
-
+   
  
 
  submitted = false;
   message='';
   loading=false;
   roles: Role[] = [];
-  selectedRole: any;
-  newRoleForm: FormGroup;
+  selectedRole: Role = {};
+  RoleForm: FormGroup;
+  allActions:Action[]=[];
+  selectedModuleLabel!: string; 
+  selectedSubDescription!: string;
+  permissions: Permission[] = [];
   // sub_module?:SubModulePermission[]=[]
    sub_modules_with_parent: { parent: string; subModule: SubModulePermission }[] = [];
   constructor(
@@ -64,9 +59,10 @@ editRole(_t15: number) {
      private readonly spinner:NgxSpinnerService,
 
   ) {
-    this.newRoleForm = this.fb.group({
+    this.RoleForm = this.fb.group({
       name: ['', Validators.required],
-      modules: this.fb.array([]),
+      description: ['', Validators.required],
+      actions: [[]],
     });
   }
 
@@ -74,7 +70,7 @@ editRole(_t15: number) {
 
   ngOnInit(): void {
     this.modulePermission = this.dataService.getAuthorities();
-    console.log('Liste modules permissions****************',this.modulePermission);
+    //console.log('Liste modules permissions****************',this.modulePermission);
     this.sub_modules_with_parent = this.modulePermission.flatMap(module =>
   (module.subModules ?? []).map(sub => ({
     parent: module.label,
@@ -82,22 +78,61 @@ editRole(_t15: number) {
   }))
 );
 
-     //   console.log('Liste sous modules ****************',this.soub_module);
 
     this.getAllRoles();
   }
 
   
+ // Fonction pour accéder facilement aux contrôles
+  get f() {
+    return this.RoleForm.controls;
+  }
+  get modules(): FormArray {
+    return this.RoleForm.get('modules') as FormArray;
+  }
 
-   get modulesArray(): FormArray {
-  return this.form.get('modules') as FormArray;
+  getSubModules(moduleIndex: number): FormArray {
+    return this.modules.at(moduleIndex).get('subModules') as FormArray;
+  }
+
+  getActions(moduleIndex: number, subIndex: number): FormArray {
+    return this.getSubModules(moduleIndex).at(subIndex).get('actions') as FormArray;
+  }
+
+  selectDescriptionSub(desc : any) {
+this.selectedSubDescription=desc.description;
 }
+selectLabelModule(lab: any) {
+this.selectedModuleLabel=lab.label;
+}
+ 
 
 
+// ----------- Builders -------------
+  createModuleForm(module: Permission): FormGroup {
+    return this.fb.group({
+      label: [module.label],
+      subModules: this.fb.array(module.subModules!.map(sm => this.createSubModuleForm(sm)))
+    });
+  }
 
+  createSubModuleForm(sub: SubModulePermission): FormGroup {
+    return this.fb.group({
+      label:[sub.label],
+      description: [sub.description],
+      actions: this.fb.array(sub.actions.map(a => this.createActionForm(a)))
+    });
+  }
 
+  createActionForm(action: Action): FormGroup {
+    return this.fb.group({
+      label: [action.label],
+      selected: [action.selected]
+    });
+  }
     onSelectRole(role: any): void {
       this.selectedRole = role;
+      console.log('Role retournée', this.selectedRole.permissions);
     }
 
 
@@ -106,7 +141,7 @@ editRole(_t15: number) {
      this.rolesService.getRoles().subscribe({
        next:(value:any) => {
           this.roles = value
-          console.log('Role retournée', value);
+          
            this.spinner.hide();
        },
       error:(err) =>{
@@ -120,13 +155,13 @@ editRole(_t15: number) {
 
     /** Vérifie si toutes les actions d’un sous-module sont cochées */
   isAllSelectedSub(sub: SubModulePermission): boolean {
-    return sub.actions.every(a => a.isSelected);
+    return sub.actions.every(a => a.selected);
   }
 
   /** Coche/décoche toutes les actions d’un sous-module */
   toggleAllSub(sub: SubModulePermission, checked: boolean): void {
     sub.actions.forEach(a => {
-      if (!a.disabled) a.isSelected = checked;
+     // if (!a.disabled) a.selected = checked;
     });
   }
 
@@ -136,29 +171,108 @@ editRole(_t15: number) {
     return module.subModules.every(sub => this.isAllSelectedSub(sub));
   }
 
-  /** Coche/décoche toutes les actions d’un module */
-  // toggleAllModule(module: Permission, checked: boolean): void {
-  //   module.subModules?.forEach(sub => this.toggleAllSub(sub, checked));
-  // }
+ 
 
   toggleAllModule(module: any, checked: boolean): void {
     module.subModules?.forEach((sub: any) => {
       sub.actions?.forEach((action: any) => {
-        action.isSelected = checked;
+        if (!action.disabled) {
+           action.selected = checked;
+        }
+       
       });
     });
   }
 
+  onActionChange(sub: any, action: any) {
+  const index = this.allActions.findIndex(a => a.label === action.label);
+
+  if (action.selected) {
+    // Ajouter uniquement si pas déjà présent
+    if (index === -1) {
+      this.allActions.push(action);
+    }
+  } else {
+    // Retirer si décoché
+    if (index !== -1) {
+      this.allActions.splice(index, 1);
+    }
+  }
+
+  this.RoleForm.patchValue({
+    actions:this.allActions,
+  });
+
+  console.log('Actions sélectionnées :', this.allActions);
+}
+
   /** Sauvegarde du rôle avec ses permissions */
    saveRole(): void {
-    /// this.role.permissions = this.modules;
-     console.log('Rôle enregistré : ', this.role);
+    this.submitted = true;
+    if (this.RoleForm.invalid) {
+      this.RoleForm.markAllAsTouched(); // marque tous les champs pour afficher les erreurs
+      return;
+    }
+   const permissions: Permission[]=[{
+     label: this.selectedModuleLabel,
+     description:this.selectedSubDescription,
+     actions: this.allActions,
+   }
+  ]
+     const payload = {
+    name: this.RoleForm.value.name,
+    description: this.RoleForm.value.description,
+    permissions:permissions
+
+  };
+ 
+this.spinner.show();
+this.rolesService.createRole(payload).subscribe(
+        {
+          next: (value: any) => {
+              this.spinner.hide();
+            // ✅ Fermer le modal après succès
+        ($('#exampleModal') as any).modal('hide');
+              this.modalService.openSuccessModal(
+                'Opération effectuer',
+              );
+             this.getAllRoles();
+              this.onReset();
+            
+          },
+          error: (err: any) => {
+            this.spinner.hide();
+            this.message = err.error.error;
+            this.modalService.openWarning(this.message, 'Échec');
+          },
+        }
+      )
+   console.log('Payload à envoyer à l’API :', payload);
    }
 
 
 trackByAction(index: number, action: any): string {
   return action.label; // ou action.id si tu as un identifiant unique
 }
+
+onReset(): void {
+    this.submitted = false;
+    this.RoleForm.reset();
+  }
+// fonction pour extraire l’expression régulière ^CAN_([^_]+) capture tout ce qui se trouve après CAN_ jusqu’au prochain _.
+
+//Exemple :
+
+//CAN_READ_CHIRURGIE_BUCCALE → READ
+
+//CAN_WRITE_TR_PATIENTS → WRITE
+
+  extractAction(label: string): string {
+  const regex = /^CAN_([^_]+)/; 
+  const match = label.match(regex);
+  return match ? match[1] : '';
+}
+
 
 
 }
