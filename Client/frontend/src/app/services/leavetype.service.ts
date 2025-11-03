@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {LeaveType} from "../models/leaveType";
+import {LeaveTypeRequest} from "../models/playload/LeaveTypeRequest";
 
 
 const httpOptions = {
@@ -18,7 +19,7 @@ export class LeavetypeService {
     private  readonly http: HttpClient
   ) { }
 
-  create(leavetype: any): Observable<LeaveType> {
+  create(leavetype: LeaveTypeRequest): Observable<LeaveType> {
     return this.http.post<LeaveType>(Url+`/leavetype/create`, leavetype,httpOptions);
   }
 

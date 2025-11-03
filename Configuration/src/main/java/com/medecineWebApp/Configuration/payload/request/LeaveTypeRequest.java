@@ -11,6 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 public class LeaveTypeRequest {
     private String leaveType;
-    private Integer leaveDays;
+    private long leaveDays;
     private Status status;
 }

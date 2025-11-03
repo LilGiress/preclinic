@@ -19,10 +19,10 @@ public class LeaveType extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String leaveType;
-    @Column(nullable = false)
-    private int leaveDays;
+   // @Column(nullable = false)
+    private Long leaveDays;
     @Enumerated(EnumType.STRING)
     private Status status;
 

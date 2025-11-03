@@ -1,12 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {LeaveService} from "../../services/leave.service";
-import {Router} from "express";
 import {ModalService} from "../../shared/service/modal.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import { NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LeaveType} from "../../models/leaveType";
 import {LeavetypeService} from "../../services/leavetype.service";
+import {EntityStatus} from "../../models/Enum/EntityStatus";
+import {LeaveTypeRequest} from "../../models/playload/LeaveTypeRequest";
 declare  let $:any;
 @Component({
     selector: 'app-leave-type',
@@ -23,22 +23,21 @@ export class LeaveTypeComponent implements OnInit {
   message='';
   loading=false;
   leaveTypeForm: FormGroup;
-  leaveType:LeaveType[]=[];
+  leaveTypes:LeaveType[]=[];
 
     ngOnInit(): void {
-
+      this.getAllLeaveType();
     }
 
     constructor(
-      private leaveTypeService:LeavetypeService,
-      private router: Router,
+      private readonly leaveTypeService:LeavetypeService,
       private readonly modalService:ModalService,
       private readonly spinner:NgxSpinnerService,
 
     ) {
       this.leaveTypeForm = this.fb.group({
         LeaveType: ['', Validators.required],
-        NumberOfDays: ['', Validators.required],
+        leaveDays: ['', Validators.required],
       });
 
     }
@@ -54,9 +53,10 @@ export class LeaveTypeComponent implements OnInit {
       this.leaveTypeForm.markAllAsTouched(); // marque tous les champs pour afficher les erreurs
       return;
     }
-    const payload = {
-      name: this.leaveTypeForm.value.LeaveType,
-      description: this.leaveTypeForm.value.NumberOfDays,
+    let payload : LeaveTypeRequest = {
+      leaveType:this.leaveTypeForm.get('LeaveType')?.value ?? '',
+      leaveDays: this.leaveTypeForm.get('leaveDays')?.value ?? 1,
+      status:EntityStatus.ACTIVE
     };
 
     this.spinner.show();
@@ -88,8 +88,8 @@ export class LeaveTypeComponent implements OnInit {
     this.spinner.show();
     this.leaveTypeService.getLeaves().subscribe({
       next:(value:any) => {
-        this.leaveType = value
-
+        this.leaveTypes = value
+          console.log("******************** All leaves Types *************",value)
         this.spinner.hide();
       },
       error:(err) =>{

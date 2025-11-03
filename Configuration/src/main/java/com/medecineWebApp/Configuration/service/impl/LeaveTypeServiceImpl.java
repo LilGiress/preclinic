@@ -7,6 +7,7 @@ import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.repository.leaves.LeaveTypeRepository;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

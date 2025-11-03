@@ -4,6 +4,7 @@ import com.medecineWebApp.Configuration.dto.LeaveTypeDTO;
 import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/leavetype")
+@Slf4j
 public class LeaveTypeController {
     private final LeaveTypeService leaveTypeService;
 

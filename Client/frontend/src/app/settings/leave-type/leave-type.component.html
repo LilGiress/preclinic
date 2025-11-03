@@ -343,7 +343,7 @@
 
 <!-- Add LeaveType Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-s">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un type de congé </h1>
@@ -362,9 +362,9 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Nombre de jours</label>
-            <input id="roleDesc" type="number"  class="form-control floating"  formControlName="NumberOfDays">
-            <div *ngIf="f['NumberOfDays'].touched && f['NumberOfDays'].invalid" class="text-danger mt-1">
-              <div *ngIf="f['NumberOfDays'].errors?.['required']">La Nombre de jours est requise.</div>
+            <input id="roleDesc" type="number" min="1" oninput="if(this.value < 0) this.value = 1;" onkeydown="if(event.key === '-' || event.key === 'e') event.preventDefault();" class="form-control floating"  formControlName="leaveDays">
+            <div *ngIf="f['leaveDays'].touched && f['leaveDays'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['leaveDays'].errors?.['required']">La Nombre de jours est requise.</div>
 
             </div>
           </div>

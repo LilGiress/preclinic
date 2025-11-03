@@ -14,6 +14,6 @@ import lombok.Setter;
 public class LeaveTypeDTO extends AuditableDTO {
     private Long id;
     private String leaveType;
-    private int leaveDays;
+    private long leaveDays;
     private Status status;
 }
