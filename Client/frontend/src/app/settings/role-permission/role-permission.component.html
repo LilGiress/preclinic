@@ -15,13 +15,14 @@
               (click)="selectedRoleIndex = i">
               <a (click)="onSelectRole(role)" href="javascript:void(0);">{{ role.name }}</a>
               <div class="role-action">
-                <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#ModifGroup">
-                  <span href="" class="button" (click)="editRole(i)">
+                <a href="" role="button" class="a-noline" data-toggle="modal" data-target="#updateModal">
+                  <span href="" class="button" (click)="openUpdateModal(role)">
                     <i class="fa fa-pencil"></i>
                   </span>
                 </a>
+                &nbsp;
                 <a href="#" data-toggle="modal" data-target="#delete_role">
-                  <span class="button" (click)="deleteRole(i)">
+                  <span class="button" (click)="deleteRole(role)">
                     <i class="fa fa-trash"></i>
                   </span>
                 </a>
@@ -90,7 +91,7 @@
                                 *ngFor="let action of selectedRole.permissions?.[0]?.actions; trackBy:trackByAction">
                                 <div class=" flex" style="display: inline-block;gap: 10px;">
                                   <div class="form-check  flex-column-inline  mb-2">
-                                    <input type="checkbox" class="form-check-input mb-1" 
+                                    <input type="checkbox" class="form-check-input mb-1"
                                       [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
                                       [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">{{
@@ -102,12 +103,12 @@
                               </ng-container>
 
                             </ng-container>
-                            
+
                             <ng-template #defaultActions>
                                <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
                                 <div class=" flex" style="display: inline-block;gap: 10px;">
                                   <div class="form-check  flex-column-inline  mb-2">
-                                    <input type="checkbox" class="form-check-input mb-1" 
+                                    <input type="checkbox" class="form-check-input mb-1"
                                       [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
                                       [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">{{
@@ -119,7 +120,7 @@
                               </ng-container>
 
                             </ng-template>
-                          
+
                           </label>
                         </div>
                       </ng-container>
@@ -163,7 +164,7 @@
         <form [formGroup]="RoleForm">
           <div class="form-group">
             <label for="exampleInputEmail1">Libele</label>
-            <input type="text" class="form-control" required name="ng-container" formControlName="name"
+            <input type="text" class="form-control " required name="ng-container" formControlName="name"
               placeholder="Ex: ADMIN">
             <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger mt-1">
               <div *ngIf="f['name'].errors?.['required']">Le nom est requis.</div>
@@ -209,7 +210,7 @@
                             <label class="accordion-perso-label h5" for="check11">
                               <div>{{ sub.description }} </div>
                               <p></p>
-                              <!-- <input type="checkbox" class="form-check-input " 
+                              <!-- <input type="checkbox" class="form-check-input "
                                     [checked]="isAllSelectedModule(module)"
                                     (change)="toggleAllModule(module, $any($event.target).checked)">
                                   <label class="form-check-label" >Tous</label> -->
@@ -219,7 +220,7 @@
                               <ng-container *ngFor="let action of sub.actions; trackBy:trackByAction">
                                 <div class=" flex" style="display: inline-block;gap: 10px;">
                                   <div class="form-check  flex-column-inline  mb-2">
-                                    <input type="checkbox" class="form-check-input mb-1" 
+                                    <input type="checkbox" class="form-check-input mb-1"
                                       [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
                                       [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">{{
@@ -252,6 +253,107 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="saveRole()"
           [disabled]="!RoleForm.valid">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+.<!-- Modal update role -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier un rôle </h1>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="updateRoleForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Libele</label>
+            <input type="text" class="form-control" required name="ng-container" formControlName="name"
+                   placeholder="Ex: ADMIN">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['name'].errors?.['required']">Le nom est requis.</div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <textarea id="roleDesc" class="form-control" rows="2" formControlName="description"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['description'].errors?.['required']">La description est requise.</div>
+
+            </div>
+          </div>
+          <div class="container-fluid bg-gray" id="accordion-style-1">
+            <div class="container">
+
+              <div class="row">
+                <div class="col-12">
+                  <h1 class="text-green mb-4 text-center">Affectation des modules et permission au roles</h1>
+                </div>
+                <div class="col-12">
+                  <div class="accordion" id="accordionExample">
+                    @for (module of modulePermission; track module.label; let i = $index) {
+                      <div class="card">
+                        <div class="card-header" id="heading{{ i }}">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                    [attr.data-target]="'#collapse' + i" aria-expanded="false"
+                                    [attr.aria-controls]="'collapse' + i">
+                              <i class="fa fa-angle-double-right mr-3"></i>
+                              {{ module.label }}
+                            </button>
+
+                          </h5>
+                        </div>
+
+                        <div id="collapse{{ i }}" class="collapse fade" [attr.aria-labelledby]="'heading' + i"
+                             data-parent="#accordionExample">
+                          <ng-container *ngIf="updateRole">
+                          <ng-container *ngFor="let sub of module.subModules;let j=index">
+                            <div class="card-body">
+                              <label class="accordion-perso-label h5" for="check11">
+                                <div>{{ sub.description }} </div>
+                                <p></p>
+                                <ng-container *ngFor="let action of updateRole; trackBy:trackByAction">
+                                  <div class=" flex" style="display: inline-block;gap: 10px;">
+                                    <div class="form-check  flex-column-inline  mb-2">
+                                      <input type="checkbox" class="form-check-input mb-1"
+                                              [checked]="action.selected"
+                                             [(ngModel)]="action.selected" (change)="onActionChange(sub, action)"
+                                             [ngModelOptions]="{standalone: true}">
+                                      <label class="form-check-label">{{
+                                          extractAction(action.label)
+                                        }}</label>
+                                    </div>
+
+                                  </div>
+                                </ng-container>
+
+
+                              </label>
+                            </div>
+                          </ng-container>
+                          </ng-container>
+
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <!-- .// Accordion -->
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="editRole()"
+                [disabled]="!updateRoleForm.valid">Enregistrer</button>
       </div>
     </div>
   </div>

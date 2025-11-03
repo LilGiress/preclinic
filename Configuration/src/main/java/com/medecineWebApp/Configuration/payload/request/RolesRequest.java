@@ -15,5 +15,5 @@ import java.util.List;
 public class RolesRequest {
     private String name;
     private String description;
-    private List<Permission> permissions = new ArrayList<>();
+    private List<PermissionRequest> permissions = new ArrayList<>();
 }

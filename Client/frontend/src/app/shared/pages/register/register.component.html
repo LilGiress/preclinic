@@ -18,7 +18,8 @@
               <form [formGroup]="registrationForm">
                 <!-- First Name -->
                 <div class="form-group form-focus">
-                  <input type="text" formControlName="firstname" class="form-control floating" placeholder="FirstName" />
+                  <input type="text" formControlName="firstname" class="form-control floating" placeholder="FirstName" name="firstname" />
+                  <label class="focus-label">FirstName</label>
                   <div *ngIf="(f['firstname'].touched || f['firstname'].dirty) && f['firstname'].errors" class="text-danger">
                     <small *ngIf="f['firstname'].errors['required']">First name is required</small>
                   </div>
@@ -26,7 +27,8 @@
 
                 <!-- Last Name -->
                 <div class="form-group form-focus">
-                  <input type="text" formControlName="lastname" class="form-control floating" placeholder="LastName" />
+                  <input type="text" formControlName="lastname" class="form-control floating" placeholder="LastName"  name="lastname"/>
+                  <label class="focus-label">LastName</label>
                   <div *ngIf="(f['lastname'].touched || f['lastname'].dirty ) && f['lastname'].errors" class="text-danger">
                     <small *ngIf="f['lastname'].errors['required']">Last name is required</small>
                     <small *ngIf="f['lastname'].errors['minlength']">Last name should be at least 2 characters</small>
@@ -35,7 +37,8 @@
 
                 <!-- Email -->
                 <div class="form-group form-focus">
-                  <input type="email" formControlName="email" class="form-control floating" placeholder="E-mail" />
+                  <input type="email" formControlName="email" class="form-control floating" placeholder="E-mail"  name="email"/>
+                  <label class="focus-label">Email</label>
                   <div *ngIf="(f['email'].touched || f['email'].dirty ) && f['email'].errors" class="text-danger">
                     <small *ngIf="f['email'].errors['required']">Email is required</small>
                     <small *ngIf="f['email'].errors['email']">Invalid email format</small>
@@ -44,7 +47,8 @@
 
                 <!-- Password -->
                 <div class="form-group form-focus">
-                  <input type="password" formControlName="password" class="form-control floating" placeholder="Password" />
+                  <input type="password" formControlName="password" class="form-control floating" placeholder="Password"  name="password"/>
+                  <label class="focus-label">Password</label>
                   <div *ngIf="(f['password'].touched || f['password'].dirty ) && f['password'].errors" class="text-danger">
                     <small *ngIf="f['password'].errors['required']">Password is required</small>
                     <small *ngIf="f['password'].errors['minlength']">Minimum 6 characters</small>
@@ -55,7 +59,8 @@
                 <!-- Confirm Password -->
                 <div class="form-group form-focus">
                   <input type="password" formControlName="confirmPassword" class="form-control floating"
-                    placeholder="Confirm-Password" />
+                    placeholder="Confirm-Password"  name="Confirm-Password"/>
+                  <label class="focus-label">Confirm-Password</label>
                   <div *ngIf="(f['confirmPassword'].touched || f['confirmPassword'].dirty ) && f['confirmPassword'].errors" class="text-danger">
                     <small *ngIf="f['confirmPassword'].errors['required']">Confirmation is required</small>
                     <small *ngIf="f['confirmPassword'].errors['mismatch']">Passwords do not match</small>

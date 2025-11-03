@@ -18,6 +18,7 @@ export class ModalContainerComponent implements OnInit {
   message: string = '';
   title: string = '';
   showWarningModal: boolean = false;
+  deleteModal:boolean = false;
 
   constructor(public modalService: ModalService, private readonly router: Router) {}
 
@@ -41,6 +42,11 @@ export class ModalContainerComponent implements OnInit {
         this.showWarningModal = false;
       }
     });
+
+     this.modalService.deleteModalState$.subscribe(data => {
+       this.deleteModal = data;
+     })
+
   }
 
   // Méthodes pour fermer les modals
@@ -62,6 +68,10 @@ export class ModalContainerComponent implements OnInit {
       callback(); // exécute la fonction personnalisée
       this.modalService.successCallback = null; // reset après appel
     }
+  }
+
+  closeDelete() {
+    this.modalService.cancel()
   }
 
 

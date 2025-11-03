@@ -21,7 +21,7 @@
                   <input type="email" class="form-control floating" formControlName="email" name="email">
                   <label class="focus-label">Email</label>
                   <div *ngIf="(f['email'].touched || f['email'].dirty ) && f['email'].touched && f['email'].errors "
-                       class="alert alert-danger">
+                       class="text-danger">
                     <small *ngIf="f['email'].errors['required']">email is required.</small>
                   </div>
                 </div>
@@ -29,7 +29,7 @@
                   <input type="password" class="form-control floating" formControlName="password" name="password">
                   <label class="focus-label">Password</label>
                   <div *ngIf="(f['password'].touched || f['password'].dirty ) && f['password'].errors"
-                       class="alert alert-danger">
+                       class="text-danger">
                     <small *ngIf="f['password'].errors['required']">password is required.</small>
                     <small *ngIf="f['password'].errors['minlength']">password should be 6 character.</small>
                   </div>
@@ -38,12 +38,12 @@
                   <a class="forgot-link" [routerLink]="['/forgot-password']">Forgot Password ?</a>
                 </div>
                 <button class="btn btn-primary btn-block btn-lg login-btn" type="submit" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
-                
+
                 <div class="text-center dont-have">Don’t have an account? <a  [routerLink]="['/register']">Register</a></div>
               </form>
             </div>
           </div>
-        </div>  
+        </div>
         <!-- /Login Tab Content -->
 
       </div>
@@ -52,7 +52,7 @@
   </div>
 
 </div>
-<!-- /Page Content 
+<!-- /Page Content
 
 
  -->

@@ -3,7 +3,7 @@
   *ngIf="modalData"
   [itemName]="modalData?.itemName"
   (confirmDelete)="modalService.closeModal()"
-  (cancelDelete)="closeDeleteModal()">
+  (cancelDelete)="closeDelete()">
 </app-delete-modal>
 
 <!-- Modal de succès -->

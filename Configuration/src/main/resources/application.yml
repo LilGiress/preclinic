@@ -15,7 +15,7 @@ spring:
     default-produces-media-type: application/json
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/db_configuration?createDatabaseIfNotExist=true
+    url: jdbc:mysql://127.0.0.1:3306/db_configuration?createDatabaseIfNotExist=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root

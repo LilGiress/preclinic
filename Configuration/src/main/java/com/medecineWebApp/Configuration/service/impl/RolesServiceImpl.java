@@ -6,6 +6,8 @@ import com.medecineWebApp.Configuration.mapper.RolesMapper;
 import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import com.medecineWebApp.Configuration.models.role.Permission;
 import com.medecineWebApp.Configuration.models.role.Roles;
+import com.medecineWebApp.Configuration.payload.request.ActionPermissionRequest;
+import com.medecineWebApp.Configuration.payload.request.PermissionRequest;
 import com.medecineWebApp.Configuration.payload.request.RolesRequest;
 import com.medecineWebApp.Configuration.payload.request.UpdateRoleRequest;
 import com.medecineWebApp.Configuration.repository.permission.ActionPermissionRepository;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,34 +97,43 @@ public class RolesServiceImpl implements RolesService {
     }
 
     @Override
+    @Transactional
     public RolesDTO createRoleWithPermissions(RolesRequest request) {
         // Associer les permissions au rôle
         Roles role = new Roles();
         role.setName(request.getName().toUpperCase());
         role.setDescription(request.getDescription());
-        Roles role1 = roleRepository.save(role);
 
 
-        for (Permission permission : request.getPermissions()) {
+        for (PermissionRequest permission : request.getPermissions()) {
             Permission permission1 = new Permission();
             permission1.setLabel(permission.getLabel());
             permission1.setDescription(permission.getDescription());
-            permission1.setActions(permission.getActions());
-            permission1.setRole(role1);
+            List<ActionPermission> actionList=new ArrayList<>();
 
-            for (ActionPermission actionDTO : permission.getActions()) {
+            permission1.setRole(role);
+
+            for (ActionPermissionRequest actionDTO : permission.getActions()) {
                 // 🔍 Si les actions existent déjà, il vaut mieux les chercher via repo
                 ActionPermission action = actionPermissionRepository.findByLabel((actionDTO.getLabel()))
-                        .orElseGet(() -> actionPermissionRepository.save(actionDTO));
+                        .orElseGet(() -> {
+                            ActionPermission newAction= new ActionPermission();
+                            newAction.setLabel(actionDTO.getLabel());
+                            newAction.setSelected(actionDTO.isSelected());
+                            return actionPermissionRepository.save(newAction);
+                        });
+                actionList.add(action);
 
-                permission.addAction(action);
+
 
             }
+            permission1.setActions(actionList);
             role.addPermission(permission1);
           // permissionServiceImpl.createPermission(permission1);
 
         }
-        return rolesMapper.rolesToRolesDTO(role1);
+        Roles roleSaved=roleRepository.save(role);
+        return rolesMapper.rolesToRolesDTO(roleSaved);
     }
 
 

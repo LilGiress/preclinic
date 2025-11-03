@@ -38,6 +38,7 @@ public class SessionValidationFilter extends OncePerRequestFilter {
                 if (fingerprint == null || fingerprint.isBlank()) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
                     response.getWriter().write("{\"error\": \"Fingerprint manquant\"}");
                     return;
                 }
@@ -49,6 +50,7 @@ public class SessionValidationFilter extends OncePerRequestFilter {
                 if (!sessionActive) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
                     response.getWriter().write("{\"error\": \"Session désactivée\"}");
                     return;
                 }

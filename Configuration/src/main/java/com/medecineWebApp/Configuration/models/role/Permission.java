@@ -29,7 +29,6 @@ public class Permission implements Serializable {
     private String description;
 
 
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "permission_action", // nom de la table d'association

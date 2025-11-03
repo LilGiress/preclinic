@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
+import {callback} from "chart.js/helpers";
+interface DeleteModalData {
+  message: string;
+  callback?: () => void;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -11,13 +15,21 @@ export class ModalService {
   private readonly successModalSubject = new BehaviorSubject<any>(null);
   // BehaviorSubject pour contrôler l'état du modal
   private readonly warningSubject = new BehaviorSubject<{ message: string; title: string } | null>(null);
+  private readonly informationSubject = new BehaviorSubject<any>(null);
+  private readonly deleteModalSubject = new BehaviorSubject<any>(null);
+
+
    public successCallback: (() => void) | null = null;
+   public informationCallback: (() => void) | null = null;
+   public deleteCallback: (() => void) | null = null;
 
 
   modalState$ = this.modalSubject.asObservable();
   successModalState$ = this.successModalSubject.asObservable();
    // Observable pour les composants qui veulent s'abonner aux changements du modal
    warning$ = this.warningSubject.asObservable();
+   infoModalState$ = this.warningSubject.asObservable();
+   deleteModalState$ = this.deleteModalSubject.asObservable();
 
   openModal(itemName: string) {
     this.modalSubject.next({ itemName });
@@ -39,7 +51,7 @@ export class ModalService {
   // Ouvre le modal avec un message et un délai pour le fermer automatiquement
   openWarning(message: string, title: string = 'Attention', delay: number = 3000) {
     this.warningSubject.next({ message, title });
-    
+
     // Ferme automatiquement après un délai
     setTimeout(() => {
       this.closeWarning();
@@ -50,4 +62,25 @@ export class ModalService {
   closeWarning() {
     this.warningSubject.next(null);
   }
+
+  info(message: string, callback?: () => void) {
+    this.informationCallback = callback ?? null;
+    this.informationSubject.next({ message });
+
+  }
+
+  closeInfo() {
+    this.warningSubject.next(null);
+  }
+    delete(message:string,callback?:() => void){
+      this.deleteCallback= callback ?? null;
+      this.deleteModalSubject.next({ message });
+    }
+
+    cancel(){
+    this.deleteModalSubject.next(null  );
+    }
+
+
+
 }

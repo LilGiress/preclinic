@@ -1,6 +1,10 @@
 package com.medecineWebApp.Configuration.payload.request;
 
+import com.medecineWebApp.Configuration.models.role.ActionPermission;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -8,15 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PermissionRequest {
-    private boolean canRead;   // Lire les informations
-    private boolean canWrite;  // Modifier les informations
-    private boolean canCreate; // Ajouter de nouvelles entrées
-    private boolean canDelete; // Supprimer une entrée
-    private boolean canImport; // Importer des données
-    private boolean canExport; // Exporter des données
-    private boolean canApprove; // Approuver des documents ou dossiers
-    private boolean canValidate; // Valider un dossier médical
-    private boolean canAssign;  // Assigner un médecin à un patient
-    private boolean canGenerateReport; // Générer des rapports
-    private boolean canActivate;
+    private String label;
+    private String description;
+    private List<ActionPermissionRequest> actions = new ArrayList<>();
 }

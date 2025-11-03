@@ -9,7 +9,6 @@ import { AuthorityDataService } from '../../services/AuthorityData/authority-dat
 import { Action,Permission, SubModulePermission } from '../../models/group-attributio-permission';
 
 
-
 declare  let $:any;
 
 @Component({
@@ -27,19 +26,13 @@ export class RolePermissionComponent {
     permissions: [] as Permission[]
   };
 
-deleteRole(_t15: number) {
 
-}
-editRole(_t15: number) {
 
-}
    private readonly fb = inject(FormBuilder);
    private readonly dataService = inject(AuthorityDataService);
    active: string | null = null;
    selectedRoleIndex = 0;
- 
-   
- 
+   roleIndex = 0;
 
  submitted = false;
   message='';
@@ -47,10 +40,11 @@ editRole(_t15: number) {
   roles: Role[] = [];
   selectedRole: Role = {};
   RoleForm: FormGroup;
+  updateRoleForm: FormGroup;
   allActions:Action[]=[];
-  selectedModuleLabel!: string; 
+  selectedModuleLabel!: string;
   selectedSubDescription!: string;
-  permissions: Permission[] = [];
+  updateRole:Action[]=[];
   // sub_module?:SubModulePermission[]=[]
    sub_modules_with_parent: { parent: string; subModule: SubModulePermission }[] = [];
   constructor(
@@ -64,9 +58,16 @@ editRole(_t15: number) {
       description: ['', Validators.required],
       actions: [[]],
     });
+
+    this.updateRoleForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      actions: [[]],
+    });
+
   }
 
-  
+
 
   ngOnInit(): void {
     this.modulePermission = this.dataService.getAuthorities();
@@ -82,7 +83,7 @@ editRole(_t15: number) {
     this.getAllRoles();
   }
 
-  
+
  // Fonction pour accéder facilement aux contrôles
   get f() {
     return this.RoleForm.controls;
@@ -105,31 +106,10 @@ this.selectedSubDescription=desc.description;
 selectLabelModule(lab: any) {
 this.selectedModuleLabel=lab.label;
 }
- 
 
 
-// ----------- Builders -------------
-  createModuleForm(module: Permission): FormGroup {
-    return this.fb.group({
-      label: [module.label],
-      subModules: this.fb.array(module.subModules!.map(sm => this.createSubModuleForm(sm)))
-    });
-  }
 
-  createSubModuleForm(sub: SubModulePermission): FormGroup {
-    return this.fb.group({
-      label:[sub.label],
-      description: [sub.description],
-      actions: this.fb.array(sub.actions.map(a => this.createActionForm(a)))
-    });
-  }
 
-  createActionForm(action: Action): FormGroup {
-    return this.fb.group({
-      label: [action.label],
-      selected: [action.selected]
-    });
-  }
     onSelectRole(role: any): void {
       this.selectedRole = role;
       console.log('Role retournée', this.selectedRole.permissions);
@@ -141,48 +121,18 @@ this.selectedModuleLabel=lab.label;
      this.rolesService.getRoles().subscribe({
        next:(value:any) => {
           this.roles = value
-          
+
            this.spinner.hide();
        },
       error:(err) =>{
 
            this.spinner.hide();
        },
-     
+
    });
-   
+
    }
 
-    /** Vérifie si toutes les actions d’un sous-module sont cochées */
-  isAllSelectedSub(sub: SubModulePermission): boolean {
-    return sub.actions.every(a => a.selected);
-  }
-
-  /** Coche/décoche toutes les actions d’un sous-module */
-  toggleAllSub(sub: SubModulePermission, checked: boolean): void {
-    sub.actions.forEach(a => {
-     // if (!a.disabled) a.selected = checked;
-    });
-  }
-
-  /** Vérifie si toutes les actions de tous les sous-modules d’un module sont cochées */
-  isAllSelectedModule(module: Permission): boolean {
-    if (!module.subModules) return false;
-    return module.subModules.every(sub => this.isAllSelectedSub(sub));
-  }
-
- 
-
-  toggleAllModule(module: any, checked: boolean): void {
-    module.subModules?.forEach((sub: any) => {
-      sub.actions?.forEach((action: any) => {
-        if (!action.disabled) {
-           action.selected = checked;
-        }
-       
-      });
-    });
-  }
 
   onActionChange(sub: any, action: any) {
   const index = this.allActions.findIndex(a => a.label === action.label);
@@ -225,7 +175,7 @@ this.selectedModuleLabel=lab.label;
     permissions:permissions
 
   };
- 
+
 this.spinner.show();
 this.rolesService.createRole(payload).subscribe(
         {
@@ -238,7 +188,7 @@ this.rolesService.createRole(payload).subscribe(
               );
              this.getAllRoles();
               this.onReset();
-            
+
           },
           error: (err: any) => {
             this.spinner.hide();
@@ -249,6 +199,73 @@ this.rolesService.createRole(payload).subscribe(
       )
    console.log('Payload à envoyer à l’API :', payload);
    }
+
+   /** Mise à jour du rôle **/
+
+   // 🟩 Méthode appelée quand tu ouvres la modale d'édition
+   openUpdateModal(selectedRole: any): void {
+     this.roleIndex=selectedRole.id;
+     this.updateRole=selectedRole.permissions[0].actions;
+     console.log('********************* update role*****',this.updateRole);
+     this.updateRoleForm.patchValue({
+       actions:selectedRole.actions,
+       name: selectedRole.name,
+       description: selectedRole.description,
+     })
+
+   }
+
+
+
+   editRole() {
+     this.submitted = true;
+     if (this.updateRoleForm.invalid) {
+       this.RoleForm.markAllAsTouched(); // marque tous les champs pour afficher les erreurs
+       return;
+     }
+
+
+     const payload = this.updateRoleForm.value;
+     this.spinner.show();
+     this.rolesService.updateRole(this.roleIndex, payload).subscribe({
+         next: (value: any) => {
+           this.spinner.hide();
+           // ✅ Fermer le modal après succès
+           ($('#updateModal') as any).modal('hide');
+           this.modalService.openSuccessModal(
+             'Opération effectuer',
+           );
+           this.getAllRoles();
+           this.onReset();
+
+         },
+         error: (err: any) => {
+           this.spinner.hide();
+           this.message = err.error.error;
+           this.modalService.openWarning(this.message, 'Échec');
+         }
+     });
+
+
+   }
+
+  /** Suppression du rôle **/
+  deleteRole(selectedRole:any) {
+    this.rolesService.deleteRole(selectedRole.id).subscribe({
+      next: (value: any) => {
+        this.spinner.hide();
+        this.modalService.delete('Voulez-vous vraiment effectuer cette action ?')
+        this.getAllRoles();
+
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.message = err.error.error;
+        this.modalService.openWarning(this.message, 'Échec')
+      }
+    })
+
+  }
 
 
 trackByAction(index: number, action: any): string {
@@ -268,7 +285,7 @@ onReset(): void {
 //CAN_WRITE_TR_PATIENTS → WRITE
 
   extractAction(label: string): string {
-  const regex = /^CAN_([^_]+)/; 
+  const regex = /^CAN_([^_]+)/;
   const match = label.match(regex);
   return match ? match[1] : '';
 }

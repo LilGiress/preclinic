@@ -5,7 +5,7 @@
                 <h4 class="page-title">Leave Type</h4>
             </div>
             <div class="col-sm-4 col-7 text-right m-b-30">
-                <a href="add-leave-type.html" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Leave Type</a>
+                <a href="javascript:void(0);" class="btn btn-primary btn-rounded float-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Ajouter un type de congé</a>
             </div>
         </div>
         <div class="row">
@@ -331,4 +331,50 @@
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Add LeaveType Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un type de congé </h1>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="leaveTypeForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Type de congé</label>
+            <input type="text" class="form-control floating" required name="ng-container" formControlName="LeaveType"
+                   placeholder="Ex: ADMIN">
+            <div *ngIf="f['LeaveType'].touched && f['LeaveType'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['LeaveType'].errors?.['required']">Le Type de congé est requis.</div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Nombre de jours</label>
+            <input id="roleDesc" type="number"  class="form-control floating"  formControlName="NumberOfDays">
+            <div *ngIf="f['NumberOfDays'].touched && f['NumberOfDays'].invalid" class="text-danger mt-1">
+              <div *ngIf="f['NumberOfDays'].errors?.['required']">La Nombre de jours est requise.</div>
+
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveLeaveType()"
+                [disabled]="!leaveTypeForm.valid">Enregistrer</button>
+      </div>
+    </div>
+  </div>
 </div>
