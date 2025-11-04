@@ -1,13 +1,13 @@
 package com.medecineWebApp.Configuration.service.impl;
 
 import com.medecineWebApp.Configuration.dto.LeaveTypeDTO;
+import com.medecineWebApp.Configuration.enums.EntityStatus;
 import com.medecineWebApp.Configuration.exception.LeaveTypeNotFoundException;
 import com.medecineWebApp.Configuration.mapper.LeaveTypeMapper;
 import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.repository.leaves.LeaveTypeRepository;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +59,14 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
     @Override
     public void deleteLeaveType(Long id) {
         leaveTypeRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean changeStatus(Long id, EntityStatus status) {
+        LeaveType leaveType= leaveTypeRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("type de congé non trouvée pour  : " + id));
+        leaveType.setStatus(status);
+        leaveTypeRepository.save(leaveType);
+        return true ;
     }
 }

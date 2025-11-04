@@ -1,7 +1,7 @@
 package com.medecineWebApp.Configuration.payload.request;
 
 
-import com.medecineWebApp.Configuration.enums.Status;
+import com.medecineWebApp.Configuration.enums.EntityStatus;
 import lombok.*;
 
 @Getter
@@ -11,6 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 public class LeaveTypeRequest {
     private String leaveType;
-    private long leaveDays;
-    private Status status;
+    private Integer leaveDays;
+    private EntityStatus status;
 }

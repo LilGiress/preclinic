@@ -1,6 +1,7 @@
 package com.medecineWebApp.Configuration.controller;
 
 import com.medecineWebApp.Configuration.dto.LeaveTypeDTO;
+import com.medecineWebApp.Configuration.enums.EntityStatus;
 import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/leavetype")
+@RequestMapping("/api/leave_type")
 @Slf4j
 public class LeaveTypeController {
     private final LeaveTypeService leaveTypeService;
@@ -22,13 +23,14 @@ public class LeaveTypeController {
         this.leaveTypeService = leaveTypeService;
 
     }
-    @PostMapping("/create")
-    public ResponseEntity<LeaveTypeDTO> createLeaves(LeaveTypeRequest leaveTypeRequest) {
+    @PostMapping
+    public ResponseEntity<LeaveTypeDTO> createLeaves(@RequestBody LeaveTypeRequest leaveTypeRequest) {
+        log.warn("*************** leavetypeRequest *******"+leaveTypeRequest.getStatus());
         return ResponseEntity.ok(leaveTypeService.save(leaveTypeRequest));
 
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity <List<LeaveTypeDTO>> getAllLeaves(
     ) {
         return ResponseEntity.ok(leaveTypeService.getAllLeaveTypes());
@@ -47,5 +49,11 @@ public class LeaveTypeController {
     @DeleteMapping("/{id}")
     public void deleteLeaveById(@PathVariable Long id) {
         leaveTypeService.deleteLeaveType(id);
+    }
+
+
+    @PutMapping("/changeStatus/{id}")
+    public ResponseEntity<Boolean> changeStatus(@PathVariable Long id, @RequestBody EntityStatus leaveType) {
+        return ResponseEntity.ok(leaveTypeService.changeStatus(id, leaveType));
     }
 }

@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ModalService} from "../../shared/service/modal.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import { NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LeaveType} from "../../models/leaveType";
 import {LeavetypeService} from "../../services/leavetype.service";
@@ -12,18 +12,23 @@ declare  let $:any;
     selector: 'app-leave-type',
   imports: [
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgForOf
   ],
     templateUrl: './leave-type.component.html',
     styleUrl: './leave-type.component.css'
 })
 export class LeaveTypeComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
+  protected readonly EntityStatus = EntityStatus;
   submitted = false;
   message='';
   loading=false;
   leaveTypeForm: FormGroup;
   leaveTypes:LeaveType[]=[];
+  index?:number;
+  Leavetype:LeaveType ={};
+  onChangeStatus?:string;
 
     ngOnInit(): void {
       this.getAllLeaveType();
@@ -60,7 +65,7 @@ export class LeaveTypeComponent implements OnInit {
     };
 
     this.spinner.show();
-    this.leaveTypeService.create(payload).subscribe(
+    this.leaveTypeService.createLeaveType(payload).subscribe(
       {
         next: (value: any) => {
           this.spinner.hide();
@@ -105,5 +110,23 @@ export class LeaveTypeComponent implements OnInit {
     this.submitted = false;
     this.leaveTypeForm.reset();
   }
+
+  selectStatus(status: string): void {
+    console.log("---------------------------Statut choisi :", status);
+
+    console.log("Changement de statut vers :", status);
+
+    //leave.status = status; // ✅ change le statut
+   // this.onChangeStatus = status;
+  }
+
+
+  changeStatus(type:LeaveType) {
+    console.log("---------------------------Statut choisi :", status);
+    //  this.index=type.id;
+    //this.spinner.show();
+
+  }
+
 
 }

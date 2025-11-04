@@ -1,7 +1,7 @@
 import {EntityStatus} from "../Enum/EntityStatus";
 
 export class LeaveTypeRequest {
-    leaveType?:String;
-    leaveDays?:Number;
+    leaveType?:string;
+    leaveDays?:number;
     status?:EntityStatus
 }

@@ -80,7 +80,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/email-config/**").permitAll()
                                 .requestMatchers("/api/calendars/**").permitAll()
                                 .requestMatchers("/api/leaves/**").permitAll()
-                                .requestMatchers("/api/leavetype/**").permitAll()
+                                .requestMatchers("/api/leave_type/**").permitAll()
                                 .requestMatchers("/api/files/profile/**").permitAll()
                                 .requestMatchers("/api/holidays/**").permitAll()
                                 .requestMatchers("/api/medicalfiles/**").permitAll()

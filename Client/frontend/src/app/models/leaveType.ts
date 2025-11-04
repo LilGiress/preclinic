@@ -2,7 +2,7 @@ import {EntityStatus} from "./Enum/EntityStatus";
 
 export interface ILeaveType {
 id?:number,
-  leavetype?:string,
+  leaveType?:string,
   leaveDays?:number,
   status?:EntityStatus
 }
@@ -10,7 +10,7 @@ id?:number,
 export class LeaveType implements ILeaveType{
   constructor(
     public id?:number,
-    public leavetype?:string,
+    public leaveType?:string,
    public leaveDays?:number,
    public status?:EntityStatus
   ) {

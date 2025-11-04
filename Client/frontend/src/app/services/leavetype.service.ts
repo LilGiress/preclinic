@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {LeaveType} from "../models/leaveType";
+import {ILeaveType} from "../models/leaveType";
 import {LeaveTypeRequest} from "../models/playload/LeaveTypeRequest";
 
 
@@ -19,20 +19,25 @@ export class LeavetypeService {
     private  readonly http: HttpClient
   ) { }
 
-  create(leavetype: LeaveTypeRequest): Observable<LeaveType> {
-    return this.http.post<LeaveType>(Url+`/leavetype/create`, leavetype,httpOptions);
+  createLeaveType(type: LeaveTypeRequest): Observable<ILeaveType> {
+    return this.http.post<ILeaveType>(Url+`/leave_type`, type,httpOptions);
   }
 
   // Récupérer la liste des rôles
-  getLeaves(): Observable<LeaveType[]> {
-    return this.http.get<LeaveType[]>(Url+`/leavetype`);
+  getLeaves(): Observable<ILeaveType[]> {
+    return this.http.get<ILeaveType[]>(Url+`/leave_type`);
   }
-  // 🔹 DELETE: supprimer un rôle
+  // 🔹 DELETE: supprimer un type de congé
   deleteLeave(id: number): Observable<void> {
-    return this.http.delete<void>(Url+`/leavetype/${id}`);
+    return this.http.delete<void>(Url+`/leave_type/${id}`);
   }
-  // 🔹 PUT: modifier un rôle existant
-  updateLeave(id: number, leavetype: LeaveType): Observable<LeaveType> {
-    return this.http.put<LeaveType>(Url+`/leavetype/${id}`, leavetype);
+  // 🔹 PUT: modifier un type de congé existant
+  updateLeave(id: number, leavetype: ILeaveType): Observable<ILeaveType> {
+    return this.http.put<ILeaveType>(Url+`/leave_type/${id}`, leavetype);
+  }
+
+  // 🔹 PUT: modifier un status existant
+  ChangeLeave(id: number, leavetype: ILeaveType): Observable<ILeaveType> {
+    return this.http.put<ILeaveType>(Url+`/leave_type/changeStatus/${id}`, leavetype);
   }
 }
