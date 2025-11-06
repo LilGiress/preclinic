@@ -8,7 +8,8 @@ import { RouterOutlet } from '@angular/router';
     selector: 'app-admin-skeletor',
     imports: [AdminStylComponent, SettingNavbarComponent, LeftSidebarAdminComponent, RouterOutlet],
     templateUrl: './admin-skeletor.component.html',
-    styleUrl: './admin-skeletor.component.css'
+    styleUrl: './admin-skeletor.component.css',
+   host:{ngSkipHydration: ''}
 })
 export class AdminSkeletorComponent {
 

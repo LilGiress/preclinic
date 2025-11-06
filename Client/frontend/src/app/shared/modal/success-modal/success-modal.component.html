@@ -5,30 +5,30 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-body">
-           
+
         <div class="container">
           <div class="row">
             <div class="col-sm-6">
                <img src="assets/img/check.png" alt="" width=50%/>
             </div>
-            <div class="col-sm-6 "> 
+            <div class="col-sm-6 ">
               <h3>  {{ message }} </h3>
-              
-            </div>       
-          </div>  
+
+            </div>
+          </div>
 
           <div class="row justify-content-end">
              <div class="col-auto">
              <button type="button" class="btn btn-success" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">Ok</span>
-            
-          </button>      
-            </div>      
-          </div>  
+
+          </button>
+            </div>
+          </div>
         </div>
-        
+
         </div>
-  
+
       </div>
     </div>
   </div>
@@ -37,28 +37,30 @@
 
 
 
- 
+
 
 <!-- Modal HTML -->
-<div class="modal fade" *ngIf="message">
+  <div class="modal-backdrop" *ngIf="message">
+<div class="modal show d-block" tabindex="-1" role="dialog" aria-labelledby="modalSuccess" aria-hidden="true" >
 	<div class="modal-dialog modal-confirm">
 		<div class="modal-content">
 			<div class="modal-header justify-content-center">
 				<div class="icon-box">
-					<i class="material-icons">&#xE876;</i>
+          <img src="assets/img/check.png" alt="" width=50%/>
 				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body text-center">
-				<h4>Great!</h4>	
+				<h4>Great!</h4>
 				<p>{{ message }}</p>
-				<button class="btn btn-success" data-dismiss="modal"  aria-label="Close" (click)="closeModal()"><span>Start Exploring</span> <i class="material-icons">&#xE5C8;</i></button>
+				<button class="btn btn-success" data-dismiss="modal"  aria-label="Close" (click)="closeModal()"><span>Confimer</span> <i class="material-icons">&#xE5C8;</i></button>
 			</div>
 		</div>
 	</div>
-</div>     
-                          
- 
-  
-  
-  
+</div>
+  </div>
+
+
+
+
+

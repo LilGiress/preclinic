@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
-import {ILeaveType} from "../models/leaveType";
+import {ILeaveType, LeaveType} from "../models/leaveType";
 import {LeaveTypeRequest} from "../models/playload/LeaveTypeRequest";
+
 
 
 const httpOptions = {
@@ -32,12 +33,12 @@ export class LeavetypeService {
     return this.http.delete<void>(Url+`/leave_type/${id}`);
   }
   // 🔹 PUT: modifier un type de congé existant
-  updateLeave(id: number, leavetype: ILeaveType): Observable<ILeaveType> {
-    return this.http.put<ILeaveType>(Url+`/leave_type/${id}`, leavetype);
+  updateLeave(id: number, leavetype: any): Observable<ILeaveType> {
+    return this.http.put<ILeaveType>(Url+`/leave_type/${id}`, leavetype,httpOptions);
   }
 
   // 🔹 PUT: modifier un status existant
-  ChangeLeave(id: number, leavetype: ILeaveType): Observable<ILeaveType> {
-    return this.http.put<ILeaveType>(Url+`/leave_type/changeStatus/${id}`, leavetype);
+  ChangeLeave(id: number, status: any): Observable<ILeaveType> {
+    return this.http.put<ILeaveType>(Url+`/leave_type/changeStatus/${id}`, status,httpOptions);
   }
 }

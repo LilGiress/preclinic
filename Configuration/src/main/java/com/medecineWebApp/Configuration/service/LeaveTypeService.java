@@ -14,5 +14,5 @@ public interface LeaveTypeService {
     List<LeaveTypeDTO> getAllLeaveTypes();
     LeaveTypeDTO updateLeaveType(Long id, LeaveType leaveType);
     void deleteLeaveType(Long id);
-    boolean changeStatus(Long id, EntityStatus status);
+    boolean changeStatus(Long id, String status);
 }

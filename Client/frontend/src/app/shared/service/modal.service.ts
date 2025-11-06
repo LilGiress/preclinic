@@ -16,12 +16,12 @@ export class ModalService {
   // BehaviorSubject pour contrôler l'état du modal
   private readonly warningSubject = new BehaviorSubject<{ message: string; title: string } | null>(null);
   private readonly informationSubject = new BehaviorSubject<any>(null);
-  private readonly deleteModalSubject = new BehaviorSubject<any>(null);
+  private readonly deleteModalSubject = new BehaviorSubject<{ message: string } | null>(null);
 
 
    public successCallback: (() => void) | null = null;
    public informationCallback: (() => void) | null = null;
-   public deleteCallback: (() => void) | null = null;
+  public deleteCallback: (() => void) | null = null;
 
 
   modalState$ = this.modalSubject.asObservable();
@@ -29,7 +29,7 @@ export class ModalService {
    // Observable pour les composants qui veulent s'abonner aux changements du modal
    warning$ = this.warningSubject.asObservable();
    infoModalState$ = this.warningSubject.asObservable();
-   deleteModalState$ = this.deleteModalSubject.asObservable();
+  deleteModalState$ = this.deleteModalSubject.asObservable();
 
   openModal(itemName: string) {
     this.modalSubject.next({ itemName });
@@ -72,15 +72,29 @@ export class ModalService {
   closeInfo() {
     this.warningSubject.next(null);
   }
-    delete(message:string,callback?:() => void){
-      this.deleteCallback= callback ?? null;
+  openDeleteModal(message:string,callback?:() => void){
+      this.deleteCallback = callback?? null;
       this.deleteModalSubject.next({ message });
     }
 
-    cancel(){
-    this.deleteModalSubject.next(null  );
-    }
+  closeDeleteModal() {
+    this.deleteModalSubject.next(null);
+    this.deleteCallback = null;
+  }
 
+  cancelDelete() {
+    this.deleteModalSubject.next(null);
+    this.deleteCallback = null;
+  }
+
+
+  confirmDelete() {
+    if (this.deleteCallback) {
+      this.deleteCallback();   //
+      this.deleteCallback = null;
+    }
+    this.deleteModalSubject.next(null);
+  }
 
 
 }

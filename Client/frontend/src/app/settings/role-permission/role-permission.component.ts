@@ -254,7 +254,7 @@ this.rolesService.createRole(payload).subscribe(
     this.rolesService.deleteRole(selectedRole.id).subscribe({
       next: (value: any) => {
         this.spinner.hide();
-        this.modalService.delete('Voulez-vous vraiment effectuer cette action ?')
+        this.modalService.openDeleteModal('Voulez-vous vraiment effectuer cette action ?')
         this.getAllRoles();
 
       },

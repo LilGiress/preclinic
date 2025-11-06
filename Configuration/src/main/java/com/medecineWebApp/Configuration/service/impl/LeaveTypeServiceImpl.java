@@ -8,6 +8,7 @@ import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.repository.leaves.LeaveTypeRepository;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class LeaveTypeServiceImpl implements LeaveTypeService {
     private final LeaveTypeRepository leaveTypeRepository;
     private final LeaveTypeMapper leaveTypeMapper;
@@ -62,10 +64,17 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
     }
 
     @Override
-    public boolean changeStatus(Long id, EntityStatus status) {
+    public boolean changeStatus(Long id, String status) {
         LeaveType leaveType= leaveTypeRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("type de congé non trouvée pour  : " + id));
-        leaveType.setStatus(status);
+        if(status.equals( EntityStatus.ACTIVE.name())){
+            leaveType.setStatus(EntityStatus.ACTIVE);
+        }
+        if(status.equals (EntityStatus.INACTIVE.name())){
+            leaveType.setStatus(EntityStatus.INACTIVE);
+        }
+
+
         leaveTypeRepository.save(leaveType);
         return true ;
     }

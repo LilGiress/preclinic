@@ -6,7 +6,6 @@ declare let $: any;
     imports: [],
     templateUrl: './admin-styl.component.html',
     styleUrl: './admin-styl.component.css',
-    encapsulation: ViewEncapsulation.Emulated
 })
 export class AdminStylComponent implements OnInit{
   constructor(
@@ -32,28 +31,26 @@ export class AdminStylComponent implements OnInit{
      .catch((err) => {
        console.error('Error loading style:', err);
      });
-    
+
 
      Promise.all([
-        this.loadScript('assets/preclinic/js/jquery-3.2.1.min.js'),
-        this.loadScript('assets/preclinic/js/popper.min.js'),
+       this.loadScript('assets/preclinic/js/jquery-3.2.1.min.js'),
+       this.loadScript('assets/preclinic/js/popper.min.js'),
         this.loadScript('assets/preclinic/js/bootstrap.min.js'),
         this.loadScript('assets/preclinic/js/jquery.slimscroll.js'),
-        this.loadScript('assets/preclinic/js/Chart.bundle.js'),
-        this.loadScript('assets/preclinic/js/chart.js'),
-        this.loadScript('assets/preclinic/js/app.js'),
+        //this.loadScript('assets/preclinic/js/Chart.bundle.js'),
+        //this.loadScript('assets/preclinic/js/chart.js'),
+       this.loadScript('assets/preclinic/js/moment.min.js'),
         this.loadScript('assets/preclinic/js/bootstrap-datetimepicker.min.js'),
+       this.loadScript('assets/preclinic/js/jquery.dataTables.min.js'),
        this.loadScript('assets/preclinic/js/dataTables.bootstrap4.min.js'),
        this.loadScript('assets/preclinic/js/fullcalendar.min.js'),
-      
-      this.loadScript('assets/preclinic/js/moment.min.js'),
-      
-      this.loadScript('assets/preclinic/js/jquery.dataTables.min.js'),
       this.loadScript('assets/preclinic/js/select2.min.js'),
       this.loadScript('assets/preclinic/js/tagsinput.js'),
       this.loadScript('assets/preclinic/plugins/summernote/dist/summernote-bs4.min.js'),
       this.loadScript('assets/preclinic/plugins/light-gallery/js/lightgallery-all.min.js'),
-    
+       this.loadScript('assets/preclinic/js/app.js'),
+
      ])
        .then(() => {
          console.log('All scripts loaded successfully!');
@@ -106,6 +103,6 @@ export class AdminStylComponent implements OnInit{
      }
    }
 
- 
+
 
 }

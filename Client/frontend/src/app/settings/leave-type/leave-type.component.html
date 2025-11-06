@@ -21,8 +21,8 @@
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let type of leaveTypes">
-                            <tr>
+                        <tbody *ngIf="leaveTypes && leaveTypes.length > 0">
+                            <tr *ngFor="let type of leaveTypes">
 
                                 <td>{{ type.leaveType }}</td>
                                 <td>{{ type.leaveDays }}</td>
@@ -32,7 +32,7 @@
                                             Active
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                          <a href="javascript:void(0);" (click)="selectStatus(EntityStatus.INACTIVE)" class="dropdown-item">Inactive</a>
+                                          <a href="javascript:void(0);" (click)="selectStatus(EntityStatus.INACTIVE,type)" class="dropdown-item">Inactive</a>
                                         </div>
                                     </div>
 
@@ -41,7 +41,7 @@
                                       Inactive
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                      <a href="javascript:void(0);" (click)="selectStatus(EntityStatus.ACTIVE)" class="dropdown-item">Active</a>
+                                      <a href="javascript:void(0);" (click)="selectStatus(EntityStatus.ACTIVE,type)" class="dropdown-item">Active</a>
                                     </div>
                                   </div>
 
@@ -51,14 +51,19 @@
                                     <div class="dropdown dropdown-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);" (click)="selectStatus(EntityStatus.ACTIVE)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#delete_leavetype"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" (click)="openUpdateModal(type)" data-toggle="modal" data-target="#updateModal" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" (click)="confirmDeleteLeaveType(type)"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+
                         </tbody>
-                      .
+                      <tbody *ngIf="!leaveTypes || leaveTypes.length === 0">
+                      <tr>
+                        <td colspan="4" class="text-center">Aucune donnée</td>
+                      </tr>
+                      </tbody>
                     </table>
                 </div>
             </div>
@@ -115,30 +120,30 @@
 </div>
 
 
-<!-- Add LeaveType Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+<!-- Update LeaveType Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog modal-s">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un type de congé </h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier un type de congé </h1>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="leaveTypeForm">
+        <form [formGroup]="updateleaveTypeForm">
           <div class="form-group">
             <label for="exampleInputEmail1">Type de congé</label>
             <input type="text" class="form-control floating" required name="ng-container" formControlName="LeaveType"
                    placeholder="Ex: ADMIN">
-            <div *ngIf="f['LeaveType'].touched && f['LeaveType'].invalid" class="text-danger mt-1">
-              <div *ngIf="f['LeaveType'].errors?.['required']">Le Type de congé est requis.</div>
+            <div *ngIf="u['LeaveType'].touched && u['LeaveType'].invalid" class="text-danger mt-1">
+              <div *ngIf="u['LeaveType'].errors?.['required']">Le Type de congé est requis.</div>
 
             </div>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Nombre de jours</label>
             <input id="roleDesc" type="number" min="1" oninput="if(this.value < 0) this.value = 1;" onkeydown="if(event.key === '-' || event.key === 'e') event.preventDefault();" class="form-control floating"  formControlName="leaveDays">
-            <div *ngIf="f['leaveDays'].touched && f['leaveDays'].invalid" class="text-danger mt-1">
-              <div *ngIf="f['leaveDays'].errors?.['required']">La Nombre de jours est requise.</div>
+            <div *ngIf="u['leaveDays'].touched && u['leaveDays'].invalid" class="text-danger mt-1">
+              <div *ngIf="u['leaveDays'].errors?.['required']">La Nombre de jours est requise.</div>
 
             </div>
           </div>
@@ -146,8 +151,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveLeaveType()"
-                [disabled]="!leaveTypeForm.valid">Enregistrer</button>
+        <button type="button" class="btn btn-primary" (click)="updateLeave()"
+                [disabled]="!updateleaveTypeForm.valid">Enregistrer</button>
       </div>
     </div>
   </div>

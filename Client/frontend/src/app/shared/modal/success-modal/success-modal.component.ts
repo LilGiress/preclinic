@@ -13,7 +13,8 @@ export class SuccessModalComponent {
   @Output() closeSuccessModal = new EventEmitter<void>();
     // Action personnalisée sur fermeture
   @Output() afterClose = new EventEmitter<void>();
- 
+  image='';
+
 
   closeModal() {
     this.closeSuccessModal.emit();

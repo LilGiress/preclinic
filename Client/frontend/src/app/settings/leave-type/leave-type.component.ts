@@ -7,6 +7,8 @@ import {LeaveType} from "../../models/leaveType";
 import {LeavetypeService} from "../../services/leavetype.service";
 import {EntityStatus} from "../../models/Enum/EntityStatus";
 import {LeaveTypeRequest} from "../../models/playload/LeaveTypeRequest";
+
+
 declare  let $:any;
 @Component({
     selector: 'app-leave-type',
@@ -25,10 +27,12 @@ export class LeaveTypeComponent implements OnInit {
   message='';
   loading=false;
   leaveTypeForm: FormGroup;
+  updateleaveTypeForm: FormGroup;
   leaveTypes:LeaveType[]=[];
   index?:number;
-  Leavetype:LeaveType ={};
-  onChangeStatus?:string;
+  updateId?:number;
+  changeStatus?:string
+
 
     ngOnInit(): void {
       this.getAllLeaveType();
@@ -45,10 +49,20 @@ export class LeaveTypeComponent implements OnInit {
         leaveDays: ['', Validators.required],
       });
 
+      this.updateleaveTypeForm = this.fb.group({
+        LeaveType: ['', Validators.required],
+        leaveDays: ['', Validators.required],
+      });
+
     }
   // Fonction pour accéder facilement aux contrôles
   get f() {
     return this.leaveTypeForm.controls;
+  }
+
+  // Fonction pour accéder facilement aux contrôles
+  get u() {
+    return this.updateleaveTypeForm.controls;
   }
 
 
@@ -111,22 +125,101 @@ export class LeaveTypeComponent implements OnInit {
     this.leaveTypeForm.reset();
   }
 
-  selectStatus(status: string): void {
-    console.log("---------------------------Statut choisi :", status);
+  selectStatus(status: string,type:LeaveType) {
+     this.index=Number(type.id);
+    this.spinner.show();
+    this.leaveTypeService.ChangeLeave(this.index,status).subscribe(
+      {
+        next: (value: any) => {
+          this.spinner.hide();
+          this.modalService.openSuccessModal(
+            'Opération effectuer',
+          );
+          this.getAllLeaveType();
+          this.onReset();
 
-    console.log("Changement de statut vers :", status);
+        },
+        error: (err: any) => {
+          this.spinner.hide();
+          this.message = err.error.error;
+          this.modalService.openWarning(this.message, 'Échec');
+        },
+      }
+    )
 
-    //leave.status = status; // ✅ change le statut
-   // this.onChangeStatus = status;
   }
 
 
-  changeStatus(type:LeaveType) {
-    console.log("---------------------------Statut choisi :", status);
-    //  this.index=type.id;
-    //this.spinner.show();
+  // 🟩 Méthode appelée quand tu ouvres la modale d'édition
+  openUpdateModal(type:LeaveType): void {
+      this.updateId=type.id;
+    this.submitted = false;
+    this.changeStatus=type.status;
+    this.updateleaveTypeForm.patchValue({
+      LeaveType:type.leaveType,
+      leaveDays: type.leaveDays,
+
+
+    })
 
   }
 
+  updateLeave() {
+    this.submitted = true;
+    if (this.updateleaveTypeForm.invalid) {
+      this.updateleaveTypeForm.markAllAsTouched(); // marque tous les champs pour afficher les erreurs
+      return;
+    }
+    const payload = {
+      leaveType: this.updateleaveTypeForm.get('LeaveType')?.value ?? '',
+      leaveDays: this.updateleaveTypeForm.get('leaveDays')?.value ?? '',
+      status: this.changeStatus,
+    };
+
+    this.spinner.show();
+    this.leaveTypeService.updateLeave(Number(this.updateId), payload).subscribe({
+      next: (value: any) => {
+        this.spinner.hide();
+        // ✅ Fermer le modal après succès
+        ($('#updateModal') as any).modal('hide');
+        this.modalService.openSuccessModal(
+          'Opération effectuer',
+        );
+        this.getAllLeaveType();
+        this.onReset();
+
+      },
+      error: (err: any) => {
+        this.spinner.hide();
+        this.message = err.error.error;
+        this.modalService.openWarning(this.message, 'Échec');
+      }
+    });
+
+  }
+
+  confirmDeleteLeaveType(type: LeaveType) {
+    this.modalService.openDeleteModal(
+      `Voulez-vous vraiment supprimer : ${type.leaveType} ?`,
+      () =>  this.deleteLeaveType(Number(type.id))
+    );
+  }
+
+  deleteLeaveType(index:number): void {
+    this.leaveTypeService.deleteLeave(Number(index)).subscribe({
+      next: (value: any) => {
+        this.modalService.openSuccessModal(
+          'Opération effectuer',
+        );
+        this.getAllLeaveType();
+        this.onReset();
+
+      },
+      error: (err: any) => {
+        this.message = err.error.error;
+        this.modalService.openWarning(this.message, 'Échec');
+      }
+    });
+  }
 
 }

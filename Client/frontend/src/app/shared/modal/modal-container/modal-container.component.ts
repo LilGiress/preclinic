@@ -18,14 +18,15 @@ export class ModalContainerComponent implements OnInit {
   message: string = '';
   title: string = '';
   showWarningModal: boolean = false;
-  deleteModal:boolean = false;
+  deleteModal:any = null;
 
   constructor(public modalService: ModalService, private readonly router: Router) {}
 
   ngOnInit() {
     // S'abonner au service pour écouter l'état des modals
-    this.modalService.modalState$.subscribe(data => {
-      this.modalData = data;
+    this.modalService.deleteModalState$.subscribe(data => {
+      this.deleteModal = data;
+
     });
     this.modalService.successModalState$.subscribe(data => {
       //console.log('Success modal received:', data);
@@ -71,7 +72,12 @@ export class ModalContainerComponent implements OnInit {
   }
 
   closeDelete() {
-    this.modalService.cancel()
+    this.modalService.cancelDelete()
+  }
+
+  // ✅ Confirmer la suppression
+  confirmDelete() {
+    this.modalService.confirmDelete();
   }
 
 

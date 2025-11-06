@@ -25,7 +25,6 @@ public class LeaveTypeController {
     }
     @PostMapping
     public ResponseEntity<LeaveTypeDTO> createLeaves(@RequestBody LeaveTypeRequest leaveTypeRequest) {
-        log.warn("*************** leavetypeRequest *******"+leaveTypeRequest.getStatus());
         return ResponseEntity.ok(leaveTypeService.save(leaveTypeRequest));
 
     }
@@ -53,7 +52,7 @@ public class LeaveTypeController {
 
 
     @PutMapping("/changeStatus/{id}")
-    public ResponseEntity<Boolean> changeStatus(@PathVariable Long id, @RequestBody EntityStatus leaveType) {
+    public ResponseEntity<Boolean> changeStatus(@PathVariable Long id, @RequestBody String leaveType) {
         return ResponseEntity.ok(leaveTypeService.changeStatus(id, leaveType));
     }
 }

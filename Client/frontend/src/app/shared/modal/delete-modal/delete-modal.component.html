@@ -1,11 +1,11 @@
-<div id="delete_patient" class="modal delete-modal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal-backdrop" *ngIf="state$ | async as state">
+    <div class="modal-dialog modal-dialog-centered"  tabindex="-1" role="dialog" aria-labelledby="modalSuccess" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img src="assets/img/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to delete this {{ itemName }}?</h3>
-                <div class="m-t-20"> 
-                    <a href="javascript(void)" class="btn btn-white"(click)="closeModal()" data-fs-dismiss="modal">Close</a>
+                <img [src]=image alt="" width="50" height="46">
+                <h3>Voulez-vous vraiment supprimer cet élément ?</h3>
+                <div class="m-t-20">
+                    <a href="javascript:void(0)" class="btn btn-white" (click)="closeModal()" data-fs-dismiss="modal" style="margin-left: 0.5rem">Annuler</a>
                     <button type="submit" (click)="confirm()" class="btn btn-danger">Delete</button>
                 </div>
             </div>

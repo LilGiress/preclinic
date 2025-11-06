@@ -1,7 +1,8 @@
 <!-- Modal de suppression -->
 <app-delete-modal
-  *ngIf="modalData"
-  [itemName]="modalData?.itemName"
+  *ngIf="deleteModal"
+  [itemName]="deleteModal?.itemName"
+  [message]="successModalData?.message"
   (confirmDelete)="modalService.closeModal()"
   (cancelDelete)="closeDelete()">
 </app-delete-modal>
