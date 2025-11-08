@@ -17,19 +17,19 @@ export class LeaveService {
     private  readonly http: HttpClient
   ) { }
 
-  create(leave: any): Observable<Leave> {
+  createLeave(leave: any): Observable<Leave> {
     return this.http.post<Leave>(Url+`/leaves/create`, leave,httpOptions);
   }
 
-  // Récupérer la liste des rôles
+  // Récupérer la liste des leaves
   getLeaves(): Observable<Leave[]> {
     return this.http.get<Leave[]>(Url+`/leaves`);
   }
-  // 🔹 DELETE: supprimer un rôle
+  // 🔹 DELETE: supprimer un leave
   deleteLeaves(id: number): Observable<void> {
     return this.http.delete<void>(Url+`/leaves/${id}`);
   }
-  // 🔹 PUT: modifier un rôle existant
+  // 🔹 PUT: modifier un leave existant
   updateLeaves(id: number, leave: Leave): Observable<Leave> {
     return this.http.put<Leave>(Url+`/leaves/${id}`, leave);
   }

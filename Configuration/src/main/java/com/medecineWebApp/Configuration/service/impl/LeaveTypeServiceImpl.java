@@ -8,7 +8,6 @@ import com.medecineWebApp.Configuration.models.LeaveType;
 import com.medecineWebApp.Configuration.payload.request.LeaveTypeRequest;
 import com.medecineWebApp.Configuration.repository.leaves.LeaveTypeRepository;
 import com.medecineWebApp.Configuration.service.LeaveTypeService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
+
 public class LeaveTypeServiceImpl implements LeaveTypeService {
     private final LeaveTypeRepository leaveTypeRepository;
     private final LeaveTypeMapper leaveTypeMapper;

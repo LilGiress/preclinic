@@ -1,4 +1,5 @@
 import {LeaveType} from "./leaveType";
+import {LeaveStatus} from "./Enum/LeaveStatus";
 
 export interface ILeave {
   id?:number,
@@ -6,7 +7,9 @@ export interface ILeave {
   endDate?:Date,
   leaveReason?:string,
   employeeId?:number,
-  leaveType?: LeaveType[]
+  RemainingLeave?:number,
+  leaveType?: LeaveType[],
+  status?:LeaveStatus
 }
 
 export class Leave implements ILeave {
@@ -15,7 +18,9 @@ export class Leave implements ILeave {
               public endDate?:Date,
               public leaveReason?:string,
               public employeeId?:number,
-              public leaveType?: LeaveType[]
+             public RemainingLeave?:number,
+              public leaveType?: LeaveType[],
+              public status?:LeaveStatus
               ) {
   }
 }

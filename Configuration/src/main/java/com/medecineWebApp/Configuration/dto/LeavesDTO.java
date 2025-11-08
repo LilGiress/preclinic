@@ -1,5 +1,9 @@
 package com.medecineWebApp.Configuration.dto;
 
+import com.medecineWebApp.Configuration.enums.LeaveStatus;
+import com.medecineWebApp.Configuration.models.LeaveType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +27,8 @@ public class LeavesDTO extends AuditableDTO {
     private LeaveTypeDTO leaveType;
 
     private Long employeeId;
+
+    private Long RemainingLeave;
+
+    private LeaveStatus status;
 }

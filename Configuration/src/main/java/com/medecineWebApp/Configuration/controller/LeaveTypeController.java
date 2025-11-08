@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/leave_type")
-@Slf4j
 public class LeaveTypeController {
     private final LeaveTypeService leaveTypeService;
 

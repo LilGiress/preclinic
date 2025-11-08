@@ -1,5 +1,6 @@
 package com.medecineWebApp.Configuration.models;
 
+import com.medecineWebApp.Configuration.enums.LeaveStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Leaves extends Auditable implements Serializable {
     private LocalDate endDate;
 
     private String leaveReason;
+    private Long RemainingLeave;
 
     private Long employeeId;
 
@@ -34,5 +36,6 @@ public class Leaves extends Auditable implements Serializable {
     @ManyToOne
     @JoinColumn(name = "leave_type_id")
     private LeaveType leaveType;
+    private LeaveStatus status;
 
 }

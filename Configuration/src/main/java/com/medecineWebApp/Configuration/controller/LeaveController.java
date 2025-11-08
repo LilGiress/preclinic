@@ -1,13 +1,18 @@
 package com.medecineWebApp.Configuration.controller;
 
 import com.medecineWebApp.Configuration.dto.LeavesDTO;
+import com.medecineWebApp.Configuration.enums.LeaveStatus;
 import com.medecineWebApp.Configuration.models.Leaves;
 import com.medecineWebApp.Configuration.payload.request.LeaveRequest;
 import com.medecineWebApp.Configuration.service.LeaveService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -26,12 +31,19 @@ public class LeaveController {
 
     }
 
-    @GetMapping("")
+    @GetMapping("/search")
     public ResponseEntity <Page<LeavesDTO>> getAllLeaves(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(required = false) Long employeeId,
+            @RequestParam(required = false) LeaveStatus status,
+            @RequestParam(required = false) String startFrom,
+            @RequestParam(required = false) String endBefore,
+            @RequestParam(required = false) Long leaveTypeId,
+            @PageableDefault(page = 0, size = 10, sort = "startDate", direction = Sort.Direction.DESC)
+            Pageable pageable
     ) {
-        return ResponseEntity.ok(leaveService.findAllLeaves(page, size));
+        LocalDate start = (startFrom != null) ? LocalDate.parse(startFrom) : null;
+        LocalDate end = (endBefore != null) ? LocalDate.parse(endBefore) : null;
+        return ResponseEntity.ok(leaveService.findAllLeaves(employeeId, status, start, end, leaveTypeId, pageable));
     }
 
     @GetMapping("/{id}")
