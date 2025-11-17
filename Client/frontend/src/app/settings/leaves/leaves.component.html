@@ -2,23 +2,24 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-8 col-6">
-                <h4 class="page-title">Leave Request</h4>
+                <h4 class="page-title">Demande de congé</h4>
             </div>
             <div class="col-sm-4 col-6 text-right m-b-30">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#createleavesModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un congé</a>
             </div>
         </div>
+        <form [formGroup]="filterForm">
         <div class="row filter-row">
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus">
-                    <label class="focus-label">Employee Name</label>
-                    <input type="text" class="form-control floating">
+                    <label class="focus-label">Nom de l'employé</label>
+                    <input type="text" class="form-control floating" formControlName="employeeName">
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus select-focus">
-                    <label class="focus-label">Leave Type</label>
-                    <select class="select floating">
+                    <label class="focus-label ">Type de congé</label>
+                    <select class="select floating form-control" formControlName="leaveType">
                         <option> -- Select -- </option>
                         <option>Casual Leave</option>
                         <option>Medical Leave</option>
@@ -28,8 +29,8 @@
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus select-focus">
-                    <label class="focus-label">Leave Status</label>
-                    <select class="select floating">
+                    <label class="focus-label">Statut de congé</label>
+                    <select class="select floating form-control" formControlName="leaveStatus">
                         <option> -- Select -- </option>
                         <option> Pending </option>
                         <option> Approved </option>
@@ -39,24 +40,25 @@
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus">
-                    <label class="focus-label">From</label>
-                    <div class="cal-icon">
-                        <input class="form-control floating datetimepicker" type="text">
-                    </div>
+                    <label class="focus-label">Date de début</label>
+                    
+                        <input class="form-control floating " type="date" formControlName="startDate">
+                    
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus">
-                    <label class="focus-label">To</label>
-                    <div class="cal-icon">
-                        <input class="form-control floating datetimepicker" type="text">
-                    </div>
+                    <label class="focus-label">date de fin</label>
+                    
+                        <input class="form-control floating " type="date" formControlName="endDate">
+                    
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                <a href="#" class="btn btn-success btn-block"> Search </a>
+                <a href="#" class="btn btn-success btn-block"> Rechercher </a>
             </div>
         </div>
+        </form>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -264,44 +266,43 @@
             <div class="col-lg-8 offset-lg-2">
                 <div class="form-group">
                   <label>Type de congé <span class="text-danger">*</span></label>
-                  <select   class="select" formControlName="leaveType" >
+                  <select   class="select" formControlName="leaveType" name="leaveType" class="form-control" (change)="getLeavetypeSelected($event)">
                     <option value="">Sélectionnez un type de congé</option>
-                    <option *ngFor="let type of leaveTypes" [value]="type" >{{ type.leaveType }}</option>
+                    <option *ngFor="let type of leaveTypes" [value]="type.id" >{{ type.leaveType }}</option>
                   </select>
-                  <div *ngIf="f['leaveType'].touched && f['leaveType'].invalid" class="text-danger mt-1">
-                    <div *ngIf="f['leaveType'].errors?.['required']">Le Type de congé est requis.</div>
+                   <div *ngIf="f['leaveType'].touched && f['leaveType'].invalid" class="text-danger mt-1">
+                    <div *ngIf="f['leaveType'].errors?.['required']">Le type de congé est requis.</div>
 
-                  </div>
+                  </div> 
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Date de début <span class="text-danger">*</span></label>
-                      <div class="cal-icon">
-                        <input class="form-control datetimepicker" type="text" formControlName="startDate">
-                        <div *ngIf="f['startDate'].touched && f['startDate'].invalid" class="text-danger mt-1">
+                        <input class="form-control " type="date" formControlName="startDate"  [min]="minDate">
+                        
+                         <div *ngIf="(f['startDate'].touched || submitted) && f['startDate'].invalid" class="text-danger mt-1">
                           <div *ngIf="f['startDate'].errors?.['required']">La date de début est requis.</div>
 
-                        </div>
-                      </div>
+                        </div> 
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Date de fin <span class="text-danger">*</span></label>
-                      <div class="cal-icon">
-                        <input class="form-control datetimepicker" type="text" formControlName="endDate">
-                        <div *ngIf="f['endDate'].touched && f['endDate'].invalid" class="text-danger mt-1">
+                      
+                        <input class="form-control " type="date" formControlName="endDate" [min]="leaveForm.get('startDate')?.value || minDate">
+                        
+                           <div *ngIf="(f['endDate'].touched || submitted) && f['endDate'].invalid" class="text-danger mt-1">
                           <div *ngIf="f['endDate'].errors?.['required']">La date de fin est requis.</div>
                           <div *ngIf="f['endDate']?.errors?.['pastDate']">
                              La date de fin ne peut pas être dans le passé
                           </div>
-                          <div *ngIf="f['dateRangeInvalid'].errors">
+                          <div *ngIf="leaveForm?.errors?.['dateRangeInvalid']" class="text-danger mt-1">
                             La date de fin doit être postérieure à la date de début
                           </div>
+                        </div> 
 
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -309,7 +310,7 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Nombre de jours <span class="text-danger">*</span></label>
-                      <input class="form-control" [value]="leaveTypeSelect?.leaveDays || '' " readonly="" type="text">
+                        <input class="form-control" [value]="leaveTypeSelect?.leaveDays || '' " readonly="" type="text"> 
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -322,13 +323,13 @@
                 <div class="form-group">
                   <label>Motif du départ <span class="text-danger">*</span></label>
                   <textarea rows="4" cols="5" class="form-control" formControlName="leaveReason"></textarea>
-                  <div *ngIf="f['leaveReason'].touched && f['leaveReason'].invalid" class="text-danger mt-1">
+                   <div *ngIf="f['leaveReason'].touched && f['leaveReason'].invalid" class="text-danger mt-1">
                     <div *ngIf="f['leaveReason'].errors?.['required']">Le motif du congé est requis.</div>
 
-                  </div>
+                  </div> 
                 </div>
                 <div class="m-t-20 text-center">
-                  <button class="btn btn-primary submit-btn"[disabled]="!leaveForm.valid" (click)="saveLeaves()">Enregistrer</button>
+                    <button class="btn btn-primary submit-btn"[disabled]="leaveForm.invalid" (click)="saveLeaves()">Enregistrer</button>
                 </div>
             </div>
           </div>
@@ -343,7 +344,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Leave</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modifier un congé</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

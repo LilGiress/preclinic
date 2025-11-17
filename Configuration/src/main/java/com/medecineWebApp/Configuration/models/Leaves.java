@@ -31,8 +31,7 @@ public class Leaves extends Auditable implements Serializable {
     private Long RemainingLeave;
 
     private Long employeeId;
-
-
+    
     @ManyToOne
     @JoinColumn(name = "leave_type_id")
     private LeaveType leaveType;

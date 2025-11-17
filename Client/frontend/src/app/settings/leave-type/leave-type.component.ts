@@ -31,7 +31,8 @@ export class LeaveTypeComponent implements OnInit {
   leaveTypes:LeaveType[]=[];
   index?:number;
   updateId?:number;
-  changeStatus?:string
+  changeStatus?:string;
+  
 
 
     ngOnInit(): void {

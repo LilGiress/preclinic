@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {LeaveType} from "../models/leaveType";
@@ -22,8 +22,24 @@ export class LeaveService {
   }
 
   // Récupérer la liste des leaves
-  getLeaves(): Observable<Leave[]> {
-    return this.http.get<Leave[]>(Url+`/leaves`);
+  getLeaves(filters:any): Observable<Leave[]> {
+    let params=new HttpParams();
+    if (filters.employeeName) {
+    params = params.set('employeeName', filters.employeeName);
+  }
+  if (filters.leaveType) {
+    params = params.set('leaveType', filters.leaveType);
+  }
+  if (filters.leaveStatus) {
+    params = params.set('leaveStatus', filters.leaveStatus);
+  }
+  if (filters.startDate) {
+    params = params.set('startDate', filters.startDate);
+  }
+  if (filters.endDate) {
+    params = params.set('endDate', filters.endDate);
+  }
+    return this.http.get<Leave[]>(Url+`/leaves/search`,{params:params});
   }
   // 🔹 DELETE: supprimer un leave
   deleteLeaves(id: number): Observable<void> {

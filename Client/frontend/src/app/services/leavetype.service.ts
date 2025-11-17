@@ -41,4 +41,8 @@ export class LeavetypeService {
   ChangeLeave(id: number, status: any): Observable<ILeaveType> {
     return this.http.put<ILeaveType>(Url+`/leave_type/changeStatus/${id}`, status,httpOptions);
   }
+
+  getLeaveById(id: number): Observable<ILeaveType> {
+    return this.http.get<ILeaveType>(Url+`/leave_type/${id}`);
+  }
 }
