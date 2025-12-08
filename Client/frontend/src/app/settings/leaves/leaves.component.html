@@ -1,40 +1,37 @@
 <div class="page-wrapper">
-    <div class="content">
-        <div class="row">
-            <div class="col-sm-8 col-6">
-                <h4 class="page-title">Demande de congé</h4>
-            </div>
-            <div class="col-sm-4 col-6 text-right m-b-30">
-                <a href="javascript:void(0);" data-toggle="modal" data-target="#createleavesModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un congé</a>
-            </div>
-        </div>
-        <form [formGroup]="filterForm">
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-8 col-6">
+        <h4 class="page-title">Demande de congé</h4>
+      </div>
+      <div class="col-sm-4 col-6 text-right m-b-30">
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#createleavesModal"
+          class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un congé</a>
+      </div>
+    </div>
+    <!-- <form [formGroup]="filterForm">
         <div class="row filter-row">
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus">
                     <label class="focus-label">Nom de l'employé</label>
-                    <input type="text" class="form-control floating" formControlName="employeeName">
+                    <input type="text" class="form-control floating" >
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus select-focus">
                     <label class="focus-label ">Type de congé</label>
-                    <select class="select floating form-control" formControlName="leaveType">
-                        <option> -- Select -- </option>
-                        <option>Casual Leave</option>
-                        <option>Medical Leave</option>
-                        <option>Loss of Pay</option>
+                    <select class=" form-control select   floating" formControlName="leaveType">
+                        <option [value]="">-- Select -- </option>
+                        <option *ngFor="let type of leaveTypes" [value]="type.id" >{{ type.leaveType }}</option>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
                 <div class="form-group form-focus select-focus">
                     <label class="focus-label">Statut de congé</label>
-                    <select class="select floating form-control" formControlName="leaveStatus">
-                        <option> -- Select -- </option>
-                        <option> Pending </option>
-                        <option> Approved </option>
-                        <option> Rejected </option>
+                    <select class="form-control select  floating" formControlName="leaveStatus">
+                        <option [value]="">-- Select -- </option>
+                        <option *ngFor="let status of leaveStatusList" [value]="status">{{ status }}</option>
                     </select>
                 </div>
             </div>
@@ -54,201 +51,110 @@
                     
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                <a href="#" class="btn btn-success btn-block"> Rechercher </a>
-            </div>
+             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+              <div class="d-flex gap-2">
+              <button type="button" class="btn btn-success btn-block w-60"  style="flex: 0 0 60%;" > Rechercher </button>
+                <button type="button" class="btn btn-success w-30" style="flex: 1 1 30%;"  (click)="resetFilters()"> Réinitialiser </button>
+              </div>
+                
+            </div> 
+           
         </div>
-        </form>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-striped custom-table mb-0 datatable">
-                        <thead>
-                            <tr>
-                                <th>Employee</th>
-                                <th>Leave Type</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>No of Days</th>
-                                <th>Reason</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="profile.html" class="avatar">R</a>
-                                    <h2><a href="#">Albina Simonis <span>Nurse</span></a></h2>
-                                </td>
-                                <td>Casual Leave</td>
-                                <td>8 Aug 2018</td>
-                                <td>8 Aug 2018</td>
-                                <td>2 days</td>
-                                <td>Family Function</td>
-                                <td class="text-center">
-                                    <div class="dropdown action-label">
-                                        <a class="custom-badge status-purple dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                            New
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">New</a>
-                                            <a class="dropdown-item" href="#">Pending</a>
-                                            <a class="dropdown-item" href="#">Approved</a>
-                                            <a class="dropdown-item" href="#">Declined</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#createleavesModal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="profile.html" class="avatar">J</a>
-                                    <h2><a>	Cristina Groves  <span>Doctor</span></a></h2>
-                                </td>
-                                <td>Medical Leave</td>
-                                <td>13 Jul 2018</td>
-                                <td>15 Jul 2018</td>
-                                <td>3 days</td>
-                                <td>Going to Vacation</td>
-                                <td class="text-center">
-                                    <div class="dropdown action-label">
-                                        <a class="custom-badge status-green dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                            Approved
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">New</a>
-                                            <a class="dropdown-item" href="#">Pending</a>
-                                            <a class="dropdown-item" href="#">Approved</a>
-                                            <a class="dropdown-item" href="#">Declined</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-leave.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="profile.html" class="avatar">J</a>
-                                    <h2><a>Mary Mericle <span>Accountant</span></a></h2>
-                                </td>
-                                <td>Casual Leave</td>
-                                <td>27 Jun 2018</td>
-                                <td>28 Jun 2018</td>
-                                <td>2 days</td>
-                                <td>Going to Native Place</td>
-                                <td class="text-center">
-                                    <div class="dropdown action-label">
-                                        <a class="custom-badge status-green dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                            Approved
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">New</a>
-                                            <a class="dropdown-item" href="#">Pending</a>
-                                            <a class="dropdown-item" href="#">Approved</a>
-                                            <a class="dropdown-item" href="#">Declined</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-leave.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="profile.html" class="avatar">H</a>
-                                    <h2><a>Haylie Feeney  <span>Laboratorist</span></a></h2>
-                                </td>
-                                <td>Casual Leave</td>
-                                <td>13 May 2018</td>
-                                <td>13 May 2018</td>
-                                <td>2 days</td>
-                                <td>Not feeling well</td>
-                                <td class="text-center">
-                                    <div class="dropdown action-label">
-                                        <a class="custom-badge status-red dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                            Declined
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">New</a>
-                                            <a class="dropdown-item" href="#">Pending</a>
-                                            <a class="dropdown-item" href="#">Approved</a>
-                                            <a class="dropdown-item" href="#">Declined</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-leave.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="profile.html" class="avatar">R</a>
-                                    <h2><a>Zoe Butler <span>Pharmacist</span></a></h2>
-                                </td>
-                                <td>Casual Leave</td>
-                                <td>31 Mar 2018</td>
-                                <td>31 Mar 2018</td>
-                                <td>2 days</td>
-                                <td>Birthday Function</td>
-                                <td class="text-center">
-                                    <div class="dropdown action-label">
-                                        <a class="custom-badge status-purple dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                            New
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">New</a>
-                                            <a class="dropdown-item" href="#">Pending</a>
-                                            <a class="dropdown-item" href="#">Approved</a>
-                                            <a class="dropdown-item" href="#">Declined</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-leave.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </form> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-striped custom-table mb-0 ">
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Type de congé</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Nombre de jours</th>
+                <th>Raison</th>
+                <th class="text-center">Statut</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let leave of leaves">
+                <td>
+                  <a href="profile.html" class="avatar">R</a>
+                  <h2><a href="#">Albina Simonis <span>Nurse</span></a></h2>
+                </td>
+                <td>{{leave.leaveType!.leaveType}}</td>
+                <td>{{ leave.startDate | date }}</td>
+                <td>{{ leave.endDate | date }}</td>
+                <td>{{leave.numberOfDays}}</td>
+                <td>{{leave.leaveReason}}</td>
+                <td class="text-center">
+
+                  <div class="dropdown action-label" [ngSwitch]="leave.status">
+
+                    <a *ngSwitchCase="LeaveStatus.NEW" class="custom-badge status-purple dropdown-toggle" href="#"
+                      data-toggle="dropdown" aria-expanded="false">
+                      {{leave.status}}
+                    </a>
+
+                    <a *ngSwitchCase="LeaveStatus.PENDING" class="custom-badge status-blue dropdown-toggle" href="#"
+                      data-toggle="dropdown" aria-expanded="false">
+                      {{leave.status}}
+                    </a>
+
+                    <a *ngSwitchCase="LeaveStatus.APPROVED" class="custom-badge status-green dropdown-toggle" href="#"
+                      data-toggle="dropdown" aria-expanded="false">
+                      {{leave.status}}
+                    </a>
+
+                    <a *ngSwitchCase="LeaveStatus.DECLINED" class="custom-badge status-red dropdown-toggle" href="#"
+                      data-toggle="dropdown" aria-expanded="false">
+                      {{leave.status}}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" >
+                      <a class="dropdown-item" *ngFor="let status of getAvailableStatus(leave.status!)"
+                      (click)="selectStatus(leave, status)" > {{ status }}</a>
+                    </div>
+                  </div>
+
+
+                </td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="fa fa-ellipsis-v"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
+                        data-target="#updateleavesModal" (click)=" openUpdateModal(leave)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="confirmDeleteLeaveType(leave)"><i
+                          class="fa fa-trash-o m-r-5"></i> Delete</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+            <tbody *ngIf="!leaves || leaves.length === 0">
+              <tr>
+                <td colspan="7" class="text-center">Aucune donnée</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Pagination -->
+  <app-pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+    [pageSizeOptions]="[10, 25, 50, 100]" [showPageSizeSelector]="true" [showFirstLastButtons]="true"
+    (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)">
+  </app-pagination>
 
 </div>
+
+
+
 
 <!-- create leaves -->
 <div class="modal" id="createleavesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -264,73 +170,78 @@
         <form [formGroup]="leaveForm">
           <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <div class="form-group">
-                  <label>Type de congé <span class="text-danger">*</span></label>
-                  <select   class="select" formControlName="leaveType" name="leaveType" class="form-control" (change)="getLeavetypeSelected($event)">
-                    <option value="">Sélectionnez un type de congé</option>
-                    <option *ngFor="let type of leaveTypes" [value]="type.id" >{{ type.leaveType }}</option>
-                  </select>
-                   <div *ngIf="f['leaveType'].touched && f['leaveType'].invalid" class="text-danger mt-1">
-                    <div *ngIf="f['leaveType'].errors?.['required']">Le type de congé est requis.</div>
+              <div class="form-group">
+                <label>Type de congé <span class="text-danger">*</span></label>
+                <select class="select" formControlName="leaveType" name="leaveType" class="form-control"
+                  (change)="getLeavetypeSelected($event)">
+                  <option value="">Sélectionnez un type de congé</option>
+                  <option *ngFor="let type of leaveTypes" [value]="type.id">{{ type.leaveType }}</option>
+                </select>
+                <div *ngIf="f['leaveType'].touched && f['leaveType'].invalid" class="text-danger mt-1">
+                  <div *ngIf="f['leaveType'].errors?.['required']">Le type de congé est requis.</div>
 
-                  </div> 
                 </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Date de début <span class="text-danger">*</span></label>
-                        <input class="form-control " type="date" formControlName="startDate"  [min]="minDate">
-                        
-                         <div *ngIf="(f['startDate'].touched || submitted) && f['startDate'].invalid" class="text-danger mt-1">
-                          <div *ngIf="f['startDate'].errors?.['required']">La date de début est requis.</div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date de début <span class="text-danger">*</span></label>
+                    <input class="form-control " type="date" formControlName="startDate" [min]="minDate">
 
-                        </div> 
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Date de fin <span class="text-danger">*</span></label>
-                      
-                        <input class="form-control " type="date" formControlName="endDate" [min]="leaveForm.get('startDate')?.value || minDate">
-                        
-                           <div *ngIf="(f['endDate'].touched || submitted) && f['endDate'].invalid" class="text-danger mt-1">
-                          <div *ngIf="f['endDate'].errors?.['required']">La date de fin est requis.</div>
-                          <div *ngIf="f['endDate']?.errors?.['pastDate']">
-                             La date de fin ne peut pas être dans le passé
-                          </div>
-                          <div *ngIf="leaveForm?.errors?.['dateRangeInvalid']" class="text-danger mt-1">
-                            La date de fin doit être postérieure à la date de début
-                          </div>
-                        </div> 
+                    <div *ngIf="(f['startDate'].touched || submitted) && f['startDate'].invalid"
+                      class="text-danger mt-1">
+                      <div *ngIf="f['startDate'].errors?.['required']">La date de début est requis.</div>
 
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Nombre de jours <span class="text-danger">*</span></label>
-                        <input class="form-control" [value]="leaveTypeSelect?.leaveDays || '' " readonly="" type="text"> 
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Congé restant <span class="text-danger">*</span></label>
-                      <input class="form-control" readonly="" value="12" type="text">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label>Motif du départ <span class="text-danger">*</span></label>
-                  <textarea rows="4" cols="5" class="form-control" formControlName="leaveReason"></textarea>
-                   <div *ngIf="f['leaveReason'].touched && f['leaveReason'].invalid" class="text-danger mt-1">
-                    <div *ngIf="f['leaveReason'].errors?.['required']">Le motif du congé est requis.</div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date de fin <span class="text-danger">*</span></label>
 
-                  </div> 
+                    <input class="form-control " type="date" formControlName="endDate"
+                      [min]="leaveForm.get('startDate')?.value || minDate">
+
+                    <div *ngIf="(f['endDate'].touched || submitted) && f['endDate'].invalid" class="text-danger mt-1">
+                      <div *ngIf="f['endDate'].errors?.['required']">La date de fin est requis.</div>
+                      <div *ngIf="f['endDate']?.errors?.['pastDate']">
+                        La date de fin ne peut pas être dans le passé
+                      </div>
+                      <div *ngIf="f['endDate'].hasError('tooManyDays') && (f['endDate'].touched)"
+                        class="text-danger mt-1">
+                        Vous avez dépassé le nombre de jours autorisés (max {{ leaveTypeSelect?.leaveDays }} jours)
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-                <div class="m-t-20 text-center">
-                    <button class="btn btn-primary submit-btn"[disabled]="leaveForm.invalid" (click)="saveLeaves()">Enregistrer</button>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Nombre de jours <span class="text-danger">*</span></label>
+                    <input class="form-control" [value]="leaveTypeSelect?.leaveDays || '' " readonly="" type="text">
+                  </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Congé restant <span class="text-danger">*</span></label>
+                    <input class="form-control" readonly="" value="12" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Motif du départ <span class="text-danger">*</span></label>
+                <textarea rows="4" cols="5" class="form-control" formControlName="leaveReason"></textarea>
+                <div *ngIf="f['leaveReason'].touched && f['leaveReason'].invalid" class="text-danger mt-1">
+                  <div *ngIf="f['leaveReason'].errors?.['required']">Le motif du congé est requis.</div>
+
+                </div>
+              </div>
+              <div class="m-t-20 text-center">
+                <button class="btn btn-primary submit-btn" [disabled]="leaveForm.invalid"
+                  (click)="saveLeaves()">Enregistrer</button>
+              </div>
             </div>
           </div>
         </form>
@@ -340,7 +251,7 @@
 </div>
 
 <!-- update leaves -->
-<div class="modal fade" id="updateleavesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal " id="updateleavesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -350,57 +261,84 @@
         </button>
       </div>
       <div class="modal-body">
-       <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <form>
-                            <div class="form-group">
-                                <label>Leave Type <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Leave Type</option>
-                                    <option>Casual Leave 12 Days</option>
-                                </select>
-                            </div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>From <span class="text-danger">*</span></label>
-										<div class="cal-icon">
-											<input class="form-control datetimepicker" value="01-01-2017" type="text">
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>To <span class="text-danger">*</span></label>
-										<div class="cal-icon">
-											<input class="form-control datetimepicker" value="01-01-2017" type="text">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Number of days <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" type="text" value="2">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Remaining Leaves <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" value="12" type="text">
-									</div>
-								</div>
-							</div>
-                            <div class="form-group">
-                                <label>Leave Reason <span class="text-danger">*</span></label>
-                                <textarea rows="4" cols="5" class="form-control">Going to hospital</textarea>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary submit-btn">Save</button>
-                            </div>
-                        </form>
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <form [formGroup]="updateLeavesForm">
+              <div class="form-group">
+                <label>Type de congé <span class="text-danger">*</span></label>
+                <select class="select" formControlName="leaveType" name="leaveType" class="form-control"
+                  (change)="getLeavetypeSelected($event)">
+                  <option value="">Sélectionnez un type de congé</option>
+                  <option *ngFor="let type of leaveTypes" [value]="type.id">{{ type.leaveType }}</option>
+                </select>
+                <div *ngIf="u['leaveType'].touched && u['leaveType'].invalid" class="text-danger mt-1">
+                  <div *ngIf="u['leaveType'].errors?.['required']">Le type de congé est requis.</div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date de début <span class="text-danger">*</span></label>
+
+                    <input class="form-control " type="date" formControlName="startDate" [min]="minDate">
+
+                    <div *ngIf="(u['startDate'].touched || submitted) && u['startDate'].invalid"
+                      class="text-danger mt-1">
+                      <div *ngIf="u['startDate'].errors?.['required']">La date de début est requis.</div>
+
                     </div>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date de fin <span class="text-danger">*</span></label>
+
+                    <input class="form-control " type="date" formControlName="endDate"
+                      [min]="updateLeavesForm.get('startDate')?.value || minDate">
+
+                    <div *ngIf="(u['endDate'].touched || submitted) && u['endDate'].invalid" class="text-danger mt-1">
+                      <div *ngIf="u['endDate'].errors?.['required']">La date de fin est requis.</div>
+                      <div *ngIf="u['endDate']?.errors?.['pastDate']">
+                        La date de fin ne peut pas être dans le passé
+                      </div>
+                      <div *ngIf="u['endDate'].hasError('tooManyDays') && (u['endDate'].touched)"
+                        class="text-danger mt-1">
+                        Vous avez dépassé le nombre de jours autorisés (max {{ leaveTypeSelect?.leaveDays }} jours)
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Nombre de jours <span class="text-danger">*</span></label>
+                    <input class="form-control" formControlName="numberOfDays" readonly="" type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Congé restant <span class="text-danger">*</span></label>
+                    <input class="form-control" readonly="" value="12" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Motif du départ <span class="text-danger">*</span></label>
+                <textarea rows="4" cols="5" class="form-control" formControlName="leaveReason"></textarea>
+                <div *ngIf="u['leaveReason'].touched && u['leaveReason'].invalid" class="text-danger mt-1">
+                  <div *ngIf="u['leaveReason'].errors?.['required']">Le motif du congé est requis.</div>
+
+                </div>
+              </div>
+              <div class="m-t-20 text-center">
+                <button class="btn btn-primary submit-btn"  [disabled]="!updateLeavesForm.valid" (click)="updateLeave()">Enregistrer</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

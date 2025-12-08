@@ -18,12 +18,15 @@ export class LeaveService {
   ) { }
 
   createLeave(leave: any): Observable<Leave> {
+    console.log('Leave object :', leave);
     return this.http.post<Leave>(Url+`/leaves/create`, leave,httpOptions);
   }
 
   // Récupérer la liste des leaves
   getLeaves(filters:any): Observable<Leave[]> {
     let params=new HttpParams();
+    params = params.set('page', filters.page);
+    params = params.set('size', filters.size);
     if (filters.employeeName) {
     params = params.set('employeeName', filters.employeeName);
   }
@@ -50,4 +53,7 @@ export class LeaveService {
     return this.http.put<Leave>(Url+`/leaves/${id}`, leave);
   }
 
+  changeLeaveStatus(id: number, status: string): Observable<Leave> {
+    return this.http.put<Leave>(Url+`/leaves/changeStatus/${id}`,  status,httpOptions);
+  }
 }

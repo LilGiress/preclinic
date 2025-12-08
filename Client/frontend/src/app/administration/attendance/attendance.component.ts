@@ -50,7 +50,7 @@ constructor(
   this.currentYear = new Date().getFullYear(); // Année actuelle
   this.selectedYear = this.currentYear; // Par défaut, l'année actuelle
   this.selectedMonth = new Date().getMonth() + 1; // Par défaut, mois actuel
-  this.updatePaginatedData();
+ // this.updatePaginatedData();
   this.updateDays();
 }
 

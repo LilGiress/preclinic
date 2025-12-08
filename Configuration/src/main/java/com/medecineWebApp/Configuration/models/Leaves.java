@@ -29,12 +29,14 @@ public class Leaves extends Auditable implements Serializable {
 
     private String leaveReason;
     private Long RemainingLeave;
+    private Long numberOfDays;
 
     private Long employeeId;
     
     @ManyToOne
     @JoinColumn(name = "leave_type_id")
     private LeaveType leaveType;
+    @Enumerated(EnumType.STRING)
     private LeaveStatus status;
 
 }

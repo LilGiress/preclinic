@@ -7,6 +7,7 @@ import {LeaveType} from "../../models/leaveType";
 import {LeavetypeService} from "../../services/leavetype.service";
 import {EntityStatus} from "../../models/Enum/EntityStatus";
 import {LeaveTypeRequest} from "../../models/playload/LeaveTypeRequest";
+import { PaginationComponent } from "../../utils/pagination/pagination.component";
 
 
 declare  let $:any;
@@ -15,8 +16,9 @@ declare  let $:any;
   imports: [
     NgIf,
     ReactiveFormsModule,
-    NgForOf
-  ],
+    NgForOf,
+    PaginationComponent
+],
     templateUrl: './leave-type.component.html',
     styleUrl: './leave-type.component.css'
 })
@@ -32,7 +34,13 @@ export class LeaveTypeComponent implements OnInit {
   index?:number;
   updateId?:number;
   changeStatus?:string;
+  filteredRequests: any[] = [];
+  paginatedRequests: any[] = [];
   
+  // Pagination
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
 
 
     ngOnInit(): void {
@@ -48,11 +56,13 @@ export class LeaveTypeComponent implements OnInit {
       this.leaveTypeForm = this.fb.group({
         LeaveType: ['', Validators.required],
         leaveDays: ['', Validators.required],
+        description:['',Validators.required]
       });
 
       this.updateleaveTypeForm = this.fb.group({
         LeaveType: ['', Validators.required],
         leaveDays: ['', Validators.required],
+        description:['',Validators.required]
       });
 
     }
@@ -76,6 +86,7 @@ export class LeaveTypeComponent implements OnInit {
     let payload : LeaveTypeRequest = {
       leaveType:this.leaveTypeForm.get('LeaveType')?.value ?? '',
       leaveDays: this.leaveTypeForm.get('leaveDays')?.value ?? 1,
+      description:this.leaveTypeForm.get('description')?.value ?? '',
       status:EntityStatus.ACTIVE
     };
 
@@ -109,6 +120,9 @@ export class LeaveTypeComponent implements OnInit {
     this.leaveTypeService.getLeaves().subscribe({
       next:(value:any) => {
         this.leaveTypes = value
+        this.filteredRequests = value;
+        this.totalItems = value.length;
+        this.updatePaginatedData();
           console.log("******************** All leaves Types *************",value)
         this.spinner.hide();
       },
@@ -174,6 +188,7 @@ export class LeaveTypeComponent implements OnInit {
     const payload = {
       leaveType: this.updateleaveTypeForm.get('LeaveType')?.value ?? '',
       leaveDays: this.updateleaveTypeForm.get('leaveDays')?.value ?? '',
+      description:this.updateleaveTypeForm.get('description')?.value ?? '',
       status: this.changeStatus,
     };
 
@@ -221,6 +236,33 @@ export class LeaveTypeComponent implements OnInit {
         this.modalService.openWarning(this.message, 'Échec');
       }
     });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.itemsPerPage = size;
+    this.currentPage = 1; // Reset to first page
+    this.updatePaginatedData();
+  }
+
+  updatePaginatedData(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedRequests = this.filteredRequests.slice(startIndex, endIndex);
+  }
+
+  // Appelée quand les filtres changent
+  onFiltersChange(filteredData: any[]): void {
+    this.filteredRequests = filteredData;
+    this.totalItems = filteredData.length;
+    this.currentPage = 1; // Reset to first page
+    this.updatePaginatedData();
+
+
   }
 
 }

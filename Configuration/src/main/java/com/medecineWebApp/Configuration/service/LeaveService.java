@@ -21,4 +21,5 @@ public interface LeaveService {
     LeavesDTO update(Long id, Leaves leave);
     void deleteById(Long id);
 
+    boolean changeStatus(Long id,String status);
 }

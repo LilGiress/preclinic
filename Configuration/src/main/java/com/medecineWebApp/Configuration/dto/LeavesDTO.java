@@ -23,7 +23,7 @@ public class LeavesDTO extends AuditableDTO {
     private LocalDate endDate;
 
     private String leaveReason;
-
+    private Long numberOfDays;
     private LeaveTypeDTO leaveType;
 
     private Long employeeId;

@@ -5,6 +5,7 @@ import com.medecineWebApp.Configuration.enums.LeaveStatus;
 import com.medecineWebApp.Configuration.models.Leaves;
 import com.medecineWebApp.Configuration.payload.request.LeaveRequest;
 import com.medecineWebApp.Configuration.service.LeaveService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
+@Slf4j
 @RequestMapping("/api/leaves")
 public class LeaveController {
 
@@ -26,8 +28,10 @@ public class LeaveController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<LeavesDTO> createLeaves(LeaveRequest leaveRequest) {
+    public ResponseEntity<LeavesDTO> createLeaves(@RequestBody LeaveRequest leaveRequest) {
+        log.warn("-------------------------"+leaveRequest.getLeaveReason());
         return ResponseEntity.ok(leaveService.save(leaveRequest));
+
 
     }
 
@@ -54,6 +58,11 @@ public class LeaveController {
     @PutMapping("/{id}")
     public ResponseEntity<LeavesDTO> updateLeaveById(@PathVariable Long id, @RequestBody Leaves leaves) {
         return ResponseEntity.ok(leaveService.update(id, leaves));
+    }
+
+    @PutMapping("/changeStatus/{id}")
+    public ResponseEntity<Boolean> changeStatus(@PathVariable Long id, @RequestBody String status){
+        return ResponseEntity.ok(leaveService.changeStatus(id,status));
     }
 
     @DeleteMapping("/{id}")

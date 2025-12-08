@@ -31,6 +31,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
         leaveType.setLeaveType(leaveTypeRequest.getLeaveType());
         leaveType.setLeaveDays(leaveTypeRequest.getLeaveDays());
         leaveType.setStatus(leaveTypeRequest.getStatus());
+        leaveType.setDescription(leaveType.getDescription());
         return leaveTypeMapper.LeaveTypeToLeaveTypeDTO(leaveTypeRepository.save(leaveType)) ;
     }
 
@@ -52,6 +53,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
             updatedLeaveType.setLeaveType(leaveType.getLeaveType());
             updatedLeaveType.setLeaveDays(leaveType.getLeaveDays());
             updatedLeaveType.setStatus(leaveType.getStatus());
+            updatedLeaveType.setDescription(leaveType.getDescription());
             return leaveTypeMapper.LeaveTypeToLeaveTypeDTO(leaveTypeRepository.save(updatedLeaveType));
         }
          throw new LeaveTypeNotFoundException("Leave Type Not Found");
@@ -65,7 +67,7 @@ public class LeaveTypeServiceImpl implements LeaveTypeService {
     @Override
     public boolean changeStatus(Long id, String status) {
         LeaveType leaveType= leaveTypeRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("type de congé non trouvée pour  : " + id));
+                orElseThrow(() -> new LeaveTypeNotFoundException("type de congé non trouvée pour  : " + id));
         if(status.equals( EntityStatus.ACTIVE.name())){
             leaveType.setStatus(EntityStatus.ACTIVE);
         }

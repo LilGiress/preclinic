@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { PaginationConfig } from '../../models/pagination/pagination-config';
+import { PaginationState } from '../../models/pagination/pagination-state';
 
 @Injectable({
   providedIn: 'root'
@@ -6,40 +8,85 @@ import { Injectable } from '@angular/core';
 export class PaginationService {
 
   constructor() { }
-    // Variables globales de pagination
-    pageSize: number = 10; // Nombre d'éléments par page
-    currentPage: number = 1; // Page actuelle
-  
-    // Calcule les éléments affichés selon la page courante
-    getPaginatedData<T>(data: T[]): T[] {
-      const startIndex = (this.currentPage - 1) * this.pageSize;
-      const endIndex = startIndex + this.pageSize;
-      return data.slice(startIndex, endIndex);
+    private defaultConfig: PaginationConfig = {
+    currentPage: 1,
+    itemsPerPage: 10,
+    totalItems: 0,
+    pageSizeOptions: [10, 25, 50, 100]
+  };
+
+  /**
+   * Calculer l'état de pagination
+   */
+  calculatePaginationState(config: PaginationConfig): PaginationState {
+    const totalPages = Math.ceil(config.totalItems / config.itemsPerPage);
+    const currentPage = Math.min(config.currentPage, totalPages) || 1;
+    
+    const startIndex = (currentPage - 1) * config.itemsPerPage;
+    const endIndex = Math.min(startIndex + config.itemsPerPage, config.totalItems);
+    
+    const startItem = config.totalItems > 0 ? startIndex + 1 : 0;
+    const endItem = endIndex;
+    
+    const pages = this.generatePageNumbers(currentPage, totalPages);
+
+
+ return {
+      currentPage,
+      itemsPerPage: config.itemsPerPage,
+      totalItems: config.totalItems,
+      totalPages,
+      startIndex,
+      endIndex,
+      startItem,
+      endItem,
+      pages
+    };
+}
+
+ /**
+   * Générer les numéros de pages à afficher
+   */
+  private generatePageNumbers(currentPage: number, totalPages: number, maxPages: number = 5): number[] {
+    if (totalPages <= maxPages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
-  
-    // Obtenir le nombre total de pages
-    getTotalPages(totalItems: number): number {
-      return Math.ceil(totalItems / this.pageSize);
+
+    const pages: number[] = [];
+    const halfMax = Math.floor(maxPages / 2);
+    
+    let startPage = Math.max(1, currentPage - halfMax);
+    let endPage = Math.min(totalPages, currentPage + halfMax);
+
+    if (currentPage <= halfMax) {
+      endPage = maxPages;
     }
-  
-    // Passer à la page suivante
-    nextPage(totalItems: number): void {
-      const totalPages = this.getTotalPages(totalItems);
-      if (this.currentPage < totalPages) {
-        this.currentPage++;
-      }
+
+    if (currentPage + halfMax >= totalPages) {
+      startPage = totalPages - maxPages + 1;
     }
-  
-    // Revenir à la page précédente
-    previousPage(): void {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
     }
-  
-    // Changer la taille de la page (optionnel)
-    setPageSize(size: number): void {
-      this.pageSize = size;
-      this.currentPage = 1; // Réinitialiser à la première page
-    }
+
+    return pages;
+  }
+
+  /**
+   * Paginer un tableau de données
+   */
+  paginateArray<T>(items: T[], page: number, itemsPerPage: number): T[] {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return items.slice(startIndex, endIndex);
+  }
+
+  /**
+   * Obtenir la configuration par défaut
+   */
+  getDefaultConfig(): PaginationConfig {
+    return { ...this.defaultConfig };
+  }
+
 }

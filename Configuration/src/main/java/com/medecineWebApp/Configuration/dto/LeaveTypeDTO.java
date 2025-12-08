@@ -15,4 +15,5 @@ public class LeaveTypeDTO extends AuditableDTO {
     private String leaveType;
     private Integer leaveDays;
     private EntityStatus status;
+    private String description;
 }

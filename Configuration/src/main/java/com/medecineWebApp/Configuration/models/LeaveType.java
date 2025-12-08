@@ -25,6 +25,7 @@ public class LeaveType extends Auditable implements Serializable {
     private Integer leaveDays;
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
+    private String description;
 
 
 }

@@ -13,13 +13,13 @@ export abstract class BasePagination<T>  {
   
   
     // Mettre à jour les données paginées
-    updatePaginatedData(): void {
-      this.paginatedData = this.paginationService.getPaginatedData(this.data);
-    }
+    // updatePaginatedData(): void {
+    //   this.paginatedData = this.paginationService.getPaginatedData(this.data);
+    // }
   
-    // Gérer le changement de page
-    onPageChange(newPage: number): void {
-      this.paginationService.currentPage = newPage;
-      this.updatePaginatedData();
-    }
+    // // Gérer le changement de page
+    // onPageChange(newPage: number): void {
+    //   this.paginationService.currentPage = newPage;
+    //   this.updatePaginatedData();
+    // }
   }

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { PaginationService } from '../../shared/service/pagination.service';
+import { PaginationState } from '../../models/pagination/pagination-state';
 
 @Component({
   selector: 'app-pagination',
@@ -8,39 +10,75 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent {
-  @Input() totalItems: number = 0; // Nombre total d'éléments
-  @Input() pageSize: number = 10;  // Nombre d'éléments par page
-  @Input() currentPage: number = 1; // Page actuelle
-  @Output() pageChange = new EventEmitter<number>(); // Événement pour changer la page
+export class PaginationComponent implements OnInit,OnChanges {
+ @Input() totalItems: number = 0;
+  @Input() itemsPerPage: number = 10;
+  @Input() currentPage: number = 1;
+  @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
+  @Input() showPageSizeSelector: boolean = true;
+  @Input() showFirstLastButtons: boolean = true;
+  @Input() maxPages: number = 5;
+  
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
+  
+  paginationState?: PaginationState;
 
-  // Obtenir le nombre total de pages
-  get totalPages(): number {
-    return Math.ceil(this.totalItems / this.pageSize);
+  constructor(private readonly paginationService: PaginationService) {}
+
+  ngOnInit(): void {
+    this.updatePaginationState();
   }
 
-  // Aller à la page suivante
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.pageChange.emit(this.currentPage);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['totalItems'] || changes['itemsPerPage'] || changes['currentPage']) {
+      this.updatePaginationState();
     }
   }
 
-  // Aller à la page précédente
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.pageChange.emit(this.currentPage);
-    }
+  private updatePaginationState(): void {
+    this.paginationState = this.paginationService.calculatePaginationState({
+      currentPage: this.currentPage,
+      itemsPerPage: this.itemsPerPage,
+      totalItems: this.totalItems,
+      pageSizeOptions: this.pageSizeOptions
+    });
   }
 
-  // Changer directement de page
   goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.pageChange.emit(this.currentPage);
+    if (page >= 1 && page <= this.paginationState?.totalPages! && page !== this.currentPage) {
+      this.pageChange.emit(page);
     }
   }
 
+  goToFirstPage(): void {
+    this.goToPage(1);
+  }
+
+  goToLastPage(): void {
+    this.goToPage(this.paginationState!.totalPages);
+  }
+
+  goToPreviousPage(): void {
+    this.goToPage(this.currentPage - 1);
+  }
+
+  goToNextPage(): void {
+    this.goToPage(this.currentPage + 1);
+  }
+
+  onPageSizeChange(newSize: number): void {
+    this.pageSizeChange.emit(newSize);
+    // Reset to first page when changing page size
+    this.pageChange.emit(1);
+  }
+
+  get hasPreviousPage(): boolean {
+    return this.currentPage > 1;
+  }
+
+  get hasNextPage(): boolean {
+    return this.currentPage < this.paginationState!.totalPages;
+  }
+ 
 }

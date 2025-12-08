@@ -13,4 +13,5 @@ public class LeaveTypeRequest {
     private String leaveType;
     private Integer leaveDays;
     private EntityStatus status;
+    private String description;
 }

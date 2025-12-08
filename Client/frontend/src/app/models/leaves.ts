@@ -8,7 +8,8 @@ export interface ILeave {
   leaveReason?:string,
   employeeId?:number,
   RemainingLeave?:number,
-  leaveType?: LeaveType[],
+   numberOfDays?:number,
+  leaveType?: LeaveType,
   status?:LeaveStatus
 }
 
@@ -19,7 +20,8 @@ export class Leave implements ILeave {
               public leaveReason?:string,
               public employeeId?:number,
              public RemainingLeave?:number,
-              public leaveType?: LeaveType[],
+             public numberOfDays?:number,
+              public leaveType?: LeaveType,
               public status?:LeaveStatus
               ) {
   }

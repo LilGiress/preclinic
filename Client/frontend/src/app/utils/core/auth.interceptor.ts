@@ -3,11 +3,14 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private readonly router: Router,
+     @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -60,4 +63,42 @@ export class AuthInterceptor implements HttpInterceptor {
     //   })
     // );
   }
+
+
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //   const token = this.authService.getAccessToken();
+
+  //   if (token) {
+  //     req = this.addToken(req, token);
+  //   }
+
+  //   return next.handle(req).pipe(
+  //     catchError(error => {
+  //       if (error instanceof HttpErrorResponse && error.status === 401) {
+  //         // Token expiré, essayer de le rafraîchir
+  //         return this.authService.refreshAccessToken().pipe(
+  //           switchMap(newToken => {
+  //             if (newToken) {
+  //               req = this.addToken(req, newToken);
+  //               return next.handle(req);
+  //             }
+  //             return throwError(() => error);
+  //           }),
+  //           catchError(() => throwError(() => error))
+  //         );
+  //       }
+  //       return throwError(() => error);
+  //     })
+  //   );
+  // }
+
+  private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+
 }

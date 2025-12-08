@@ -1,0 +1,12 @@
+[
+  { "leaveType": "Congé annuel", "leaveDays": 30, "description": "Congé payé annuel accordé au salarié pour repos et détente." },
+  { "leaveType": "Congé maladie", "leaveDays": 15, "description": "Pris en cas de maladie, sur présentation d’un certificat médical." },
+  { "leaveType": "Congé maternité", "leaveDays": 98, "description": "Accordé à la salariée enceinte (6 semaines avant et 10 semaines après l'accouchement)." },
+  { "leaveType": "Congé paternité", "leaveDays": 14, "description": "Accordé au père lors de la naissance ou l’adoption d’un enfant." },
+  { "leaveType": "Congé parental", "leaveDays": 120, "description": "Pour s’occuper d’un enfant après naissance ou adoption." },
+  { "leaveType": "Congé de mariage", "leaveDays": 5, "description": "Accordé au salarié lors de son mariage ou PACS." },
+  { "leaveType": "Congé décès d’un proche", "leaveDays": 5, "description": "En cas de décès d’un membre proche de la famille." },
+  { "leaveType": "Congé sans solde", "leaveDays": 0, "description": "Congé non rémunéré accordé exceptionnellement selon validation RH." },
+  { "leaveType": "Congé pour événement familial", "leaveDays": 2, "description": "Pour situations familiales ponctuelles." },
+  { "leaveType": "Congé pour formation", "leaveDays": 10, "description": "Accordé pour suivre une formation professionnelle ou universitaire." }
+]

@@ -4,4 +4,5 @@ export class LeaveTypeRequest {
     leaveType?:string;
     leaveDays?:number;
     status?:EntityStatus
+    description?:string;
 }
