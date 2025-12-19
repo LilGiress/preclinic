@@ -7,6 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { HttpClient } from '@angular/common/http';
 import { ModalService } from '../../shared/service/modal.service';
+import { IEvent } from '../../models/event';
 
 
 
@@ -65,19 +66,19 @@ constructor(
   }
 
   handleDateSelect(event: any): void {
-   /* const title = prompt('Veuillez entrer un titre pour l’événement :');
-    const calendarApi = selectInfo.view.calendar;
+    const title = prompt('Veuillez entrer un titre pour l’événement :');
+    const calendarApi = event.view.calendar;
   
     calendarApi.unselect(); // Désélectionner les dates
   
     if (title) {
       calendarApi.addEvent({
         title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
+        // start: selectInfo.startStr,
+        // end: selectInfo.endStr,
+        // allDay: selectInfo.allDay,
       });
-    }*/
+    }
 
 
 
@@ -205,6 +206,14 @@ constructor(
 
   }
    
+  
+mapToCalendarEvent(event: IEvent) {
+  return {
+    id: event.id,
+    title: event.title,
+    start: event.eventDate // FullCalendar accepte ISO string
+  };
+}
 
  
  

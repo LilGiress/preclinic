@@ -131,7 +131,7 @@ public class LeavesServiceImpl implements LeaveService {
 
         Leaves  leaves= leavesRepository.findById(id)
                 .orElseThrow(() -> new LeaveNotFoundException(" congé non trouvée pour  : " + id));
-        log.warn("*********************************"+leaves.getStatus());
+
         status = status.trim().replace("\"", "").toUpperCase();
         try {
             LeaveStatus newStatus= LeaveStatus.valueOf(status.toUpperCase());

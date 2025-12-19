@@ -10,7 +10,6 @@ import {dateRangeValidators} from "../../shared/validators/date-range.validators
 import { DatePipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from "@angular/common";
 import { LeaveStatus } from '../../models/Enum/LeaveStatus';
 import { PaginationComponent } from "../../utils/pagination/pagination.component";
-import { log } from 'console';
 import { AuthService } from '../../services/auth/auth.service';
 
 
@@ -43,6 +42,7 @@ export class LeavesComponent implements OnInit {
   leaveForm: FormGroup;
   today=new Date();
   leaveTypeSelect?:LeaveType={};
+  leaveTypeSelectUpdate?:LeaveType={};
    minDate!: string;
     selectedOption: any = '';
  filterForm: FormGroup ;
@@ -183,6 +183,21 @@ updateLeavesForm: FormGroup;
      this.leaveTypeService.getLeaveById(selectedId).subscribe({
       next:(value:any) => {
         this.leaveTypeSelect = value;      
+      },
+      error:(err) =>{
+       
+      },
+
+    });
+  }
+
+   getLeavetypeSelectedUpdate(event: Event) {
+    if(!event) return;
+    const selectedId=+(event.target as HTMLSelectElement).value;
+    this.selectedOption=selectedId;
+     this.leaveTypeService.getLeaveById(selectedId).subscribe({
+      next:(value:any) => {
+        this.leaveTypeSelectUpdate= value;      
       },
       error:(err) =>{
        
@@ -602,6 +617,13 @@ calculateDays(startDate: string | Date, endDate: string | Date) {
     this.leaveForm.get("endDate")?.setErrors({ tooManyDays: true });
   } else {
     this.leaveForm.get("endDate")?.setErrors(null);
+  }
+
+   // Validation par rapport au nombre de jours autorisés
+  if (this.leaveTypeSelect && this.daysRequested > (this.leaveTypeSelect?.leaveDays ?? 0)) {
+    this.updateLeavesForm.get("endDate")?.setErrors({ tooManyDays: true });
+  } else {
+    this.updateLeavesForm.get("endDate")?.setErrors(null);
   }
 }
 

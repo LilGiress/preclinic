@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<!-- <div class="page-wrapper">
     <div class="content">
         <div class="row">
             <div class="col-sm-4 col-3">
@@ -254,4 +254,486 @@
         </div>
     </div>
 
+</div> -->
+
+<!-- patients.component.html -->
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-4 col-3">
+        <h4 class="page-title">Patients</h4>
+      </div>
+      <div class="col-sm-8 col-9 text-right m-b-20">
+        <button type="button" class="btn btn-primary btn-rounded float-right" (click)="openCreateModal()">
+          <i class="fa fa-plus"></i> Add Patient
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search by name, email, or phone..." 
+            [(ngModel)]="searchQuery" (keyup)="searchPatients()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Patients Table -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-border table-striped custom-table datatable mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let patient of filteredPatients">
+                <td>
+                  <img width="28" height="28" [src]="patient.avatar || 'assets/img/users.jpg'" 
+                    class="rounded-circle m-r-5" alt=""> 
+                  {{ getFullName(patient) }}
+                </td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.address }}</td>
+                <td>{{ patient.phone }}</td>
+                <td>{{ patient.email }}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="openUpdateModal(patient)">
+                        <i class="fa fa-pencil m-r-5"></i> Edit
+                      </a>
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="openDeleteModal(patient)">
+                        <i class="fa fa-trash-o m-r-5"></i> Delete
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredPatients.length === 0">
+                <td colspan="6" class="text-center text-muted py-4">
+                  No patients found
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Patient Modal -->
+<div class="modal fade" id="addPatientModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Patient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="patientForm" (ngSubmit)="createPatient()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>First Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="firstName" 
+                  [ngClass]="{'is-invalid': submitted && f['firstName'].errors}">
+                <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['firstName'].errors['required']">First name is required</div>
+                  <div *ngIf="f['firstName'].errors['minlength']">Minimum 2 characters</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Last Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="lastName"
+                  [ngClass]="{'is-invalid': submitted && f['lastName'].errors}">
+                <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['lastName'].errors['required']">Last name is required</div>
+                  <div *ngIf="f['lastName'].errors['minlength']">Minimum 2 characters</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="email" formControlName="email"
+                  [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['email'].errors['required']">Email is required</div>
+                  <div *ngIf="f['email'].errors['email']">Invalid email format</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Phone <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="phone"
+                  [ngClass]="{'is-invalid': submitted && f['phone'].errors}">
+                <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['phone'].errors['required']">Phone is required</div>
+                  <div *ngIf="f['phone'].errors['pattern']">Invalid phone number (minimum 8 digits)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Date of Birth <span class="text-danger">*</span></label>
+                <input class="form-control" type="date" formControlName="dateOfBirth"
+                  [ngClass]="{'is-invalid': submitted && f['dateOfBirth'].errors}">
+                <div *ngIf="submitted && f['dateOfBirth'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['dateOfBirth'].errors['required']">Date of birth is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Gender <span class="text-danger">*</span></label>
+                <select class="form-control" formControlName="gender" 
+                  [ngClass]="{'is-invalid': submitted && f['gender'].errors}">
+                  <option value="">Select Gender</option>
+                  <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+                </select>
+                <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['gender'].errors['required']">Gender is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Blood Type</label>
+                <select class="form-control" formControlName="bloodType">
+                  <option value="">Select Blood Type</option>
+                  <option *ngFor="let type of bloodTypes" [value]="type">{{ type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Country <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="country"
+                  [ngClass]="{'is-invalid': submitted && f['country'].errors}">
+                <div *ngIf="submitted && f['country'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['country'].errors['required']">Country is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Address <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="address"
+                  [ngClass]="{'is-invalid': submitted && f['address'].errors}">
+                <div *ngIf="submitted && f['address'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['address'].errors['required']">Address is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>City <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="city"
+                  [ngClass]="{'is-invalid': submitted && f['city'].errors}">
+                <div *ngIf="submitted && f['city'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['city'].errors['required']">City is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>State/Province</label>
+                <input class="form-control" type="text" formControlName="state">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Postal Code</label>
+                <input class="form-control" type="text" formControlName="postalCode">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Emergency Contact</label>
+                <input class="form-control" type="text" formControlName="emergencyContact">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Emergency Phone</label>
+                <input class="form-control" type="text" formControlName="emergencyPhone"
+                  [ngClass]="{'is-invalid': submitted && f['emergencyPhone'].errors}">
+                <div *ngIf="submitted && f['emergencyPhone'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['emergencyPhone'].errors['pattern']">Invalid phone number</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Avatar</label>
+                <input type="file" class="form-control" (change)="onAvatarSelected($event)" accept="image/*">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Medical History</label>
+            <textarea class="form-control" rows="3" formControlName="medicalHistory"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="display-block">Status <span class="text-danger">*</span></label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="status" id="active" value="Active" formControlName="status">
+              <label class="form-check-label" for="active">Active</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="status" id="inactive" value="Inactive" formControlName="status">
+              <label class="form-check-label" for="inactive">Inactive</label>
+            </div>
+          </div>
+
+          <div class="m-t-20 text-center">
+            <button type="submit" class="btn btn-primary">Create Patient</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Patient Modal -->
+<div class="modal fade" id="updatePatientModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Patient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateForm" (ngSubmit)="updatePatient()">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>First Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="firstName"
+                  [ngClass]="{'is-invalid': updateSubmitted && uf['firstName'].errors}">
+                <div *ngIf="updateSubmitted && uf['firstName'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="uf['firstName'].errors['required']">First name is required</div>
+                  <div *ngIf="uf['firstName'].errors['minlength']">Minimum 2 characters</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Last Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="lastName"
+                  [ngClass]="{'is-invalid': updateSubmitted && uf['lastName'].errors}">
+                <div *ngIf="updateSubmitted && uf['lastName'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="uf['lastName'].errors['required']">Last name is required</div>
+                  <div *ngIf="uf['lastName'].errors['minlength']">Minimum 2 characters</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="email" formControlName="email"
+                  [ngClass]="{'is-invalid': updateSubmitted && uf['email'].errors}">
+                <div *ngIf="updateSubmitted && uf['email'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="uf['email'].errors['required']">Email is required</div>
+                  <div *ngIf="uf['email'].errors['email']">Invalid email format</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Phone <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="phone"
+                  [ngClass]="{'is-invalid': updateSubmitted && uf['phone'].errors}">
+                <div *ngIf="updateSubmitted && uf['phone'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="uf['phone'].errors['required']">Phone is required</div>
+                  <div *ngIf="uf['phone'].errors['pattern']">Invalid phone number</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Date of Birth <span class="text-danger">*</span></label>
+                <input class="form-control" type="date" formControlName="dateOfBirth"
+                  [ngClass]="{'is-invalid': updateSubmitted && uf['dateOfBirth'].errors}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Gender <span class="text-danger">*</span></label>
+                <select class="form-control" formControlName="gender">
+                  <option value="">Select Gender</option>
+                  <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Blood Type</label>
+                <select class="form-control" formControlName="bloodType">
+                  <option value="">Select Blood Type</option>
+                  <option *ngFor="let type of bloodTypes" [value]="type">{{ type }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Country <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="country">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Address <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="address">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>City <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" formControlName="city">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>State/Province</label>
+                <input class="form-control" type="text" formControlName="state">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Postal Code</label>
+                <input class="form-control" type="text" formControlName="postalCode">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Emergency Contact</label>
+                <input class="form-control" type="text" formControlName="emergencyContact">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Emergency Phone</label>
+                <input class="form-control" type="text" formControlName="emergencyPhone">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Avatar</label>
+                <input type="file" class="form-control" (change)="onAvatarSelected($event)" accept="image/*">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Medical History</label>
+            <textarea class="form-control" rows="3" formControlName="medicalHistory"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="display-block">Status <span class="text-danger">*</span></label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="update_status" id="update_active" value="Active" formControlName="status">
+              <label class="form-check-label" for="update_active">Active</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="update_status" id="update_inactive" value="Inactive" formControlName="status">
+              <label class="form-check-label" for="update_inactive">Inactive</label>
+            </div>
+          </div>
+
+          <div class="m-t-20 text-center">
+            <button type="submit" class="btn btn-primary">Update Patient</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deletePatientModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Patient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong>{{ getFullName(selectedPatient!) }}</strong>?</p>
+        <p class="text-muted">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deletePatient(selectedPatient?.id)" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>

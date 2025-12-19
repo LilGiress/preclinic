@@ -1,14 +1,14 @@
 
 
-  <div class="container">
+  <!-- <div class="container">
     <header class="top-bar">
       <div class="breadcrumb">
         <h1>Bibliothèque</h1>
         <span>• Super User</span>
         <div class="breadcrumb-path">Accueil &gt; Bibliothèque</div>
-      </div>
+      </div> -->
       <!-- À placer dans .top-bar ou juste au-dessus de <table> -->
-<div class="search-bar">
+<!-- <div class="search-bar">
   <input type="text" id="searchInput" placeholder="🔍 Rechercher un fichier..." />
 </div>
 
@@ -54,7 +54,7 @@
               <td><i class="fa fa-eye"></i> <i class="fa fa-ellipsis-v"></i></td>
             </tr>
             <!-- Tu peux ajouter d'autres lignes ici -->
-          </tbody>
+          <!-- </tbody>
         </table>
       </section>
 
@@ -69,35 +69,180 @@
         </ul>
       </aside>
     </main>
-  </div>
+  </div>  -->
 
 
 <!-- ploader plusieurs fichiers -->
 
-<h3>Uploader plusieurs fichiers</h3>
+<!-- <h3>Uploader plusieurs fichiers</h3>
 <input type="file" (change)="onFilesSelected($event)" multiple />
-<button (click)="uploadFiles()">Envoyer</button>
+<button (click)="uploadFiles()">Envoyer</button> -->
 
 <!-- Liste des fichiers avec barre de progression -->
-<div *ngFor="let f of uploads">
+<!-- <div *ngFor="let f of uploads">
   <p>{{ f.file.name }}</p>
   <div class="progress-container">
     <div class="progress-bar" [style.width.%]="f.progress"></div>
   </div>
   <p *ngIf="f.status">{{ f.status }}</p>
-</div>
+</div> -->
 
 
 
 
 <!-- Fenêtre de prévisualisation -->
-<div id="previewModal" class="modal">
+<!-- <div id="previewModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <div id="previewArea">Chargement...</div>
   </div>
 </div>
 
-<script src="main.js"></script>
+<script src="main.js"></script> -->
 
 
+<!-- bibliotheque.component.html -->
+<div class="container">
+  <header class="top-bar">
+    <div class="breadcrumb">
+      <h1>Bibliothèque</h1>
+      <span>• {{ userRole }}</span>
+      <div class="breadcrumb-path">Accueil > Bibliothèque</div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" 
+        [(ngModel)]="searchQuery" 
+        (keyup)="searchFiles()" 
+        placeholder="🔍 Rechercher un fichier..." />
+    </div>
+
+    <div class="actions">
+      <label class="upload">
+        <i class="fa fa-cloud-upload-alt"></i> Ajouter un fichier
+        <input type="file" multiple style="display: none;" (change)="onFilesSelected($event)" />
+      </label>
+      <button class="new-folder" (click)="createFolder()">
+        <i class="fa fa-folder-plus"></i> Nouveau dossier
+      </button>
+      <div class="dropdown">
+        <button class="sort" data-toggle="dropdown">
+          <i class="fa fa-filter"></i> Trier par
+        </button>
+        <div class="dropdown-menu">
+          <a href="javascript:void(0);" (click)="sortFiles('name')">
+            <i class="fa fa-sort-alpha-down"></i> Nom
+          </a>
+          <a href="javascript:void(0);" (click)="sortFiles('date')">
+            <i class="fa fa-calendar"></i> Date
+          </a>
+          <a href="javascript:void(0);" (click)="sortFiles('size')">
+            <i class="fa fa-arrows-alt-v"></i> Taille
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="file-list">
+      <table>
+        <thead>
+          <tr>
+            <th>TYPE</th>
+            <th>NOM</th>
+            <th>TAILLE</th>
+            <th>MODIFIÉ LE</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of filteredFiles" [class.folder]="file.type === 'folder'">
+            <td>
+              <i [class]="'fa ' + (file.icon || 'fa-file')"></i>
+            </td>
+            <td class="filename" (click)="file.type === 'folder' ? null : null">
+              {{ file.name }}
+            </td>
+            <td>{{ file.sizeFormatted }}</td>
+            <td>{{ file.modifiedDateFormatted }}</td>
+            <td class="actions">
+              <button class="btn-action" (click)="previewFile(file)" title="Aperçu">
+                <i class="fa fa-eye"></i>
+              </button>
+              <button class="btn-action" (click)="downloadFile(file)" title="Télécharger">
+                <i class="fa fa-download"></i>
+              </button>
+              <div class="dropdown">
+                <button class="btn-action" data-toggle="dropdown" title="Plus">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a href="javascript:void(0);" (click)="renameFile(file)">
+                    <i class="fa fa-edit"></i> Renommer
+                  </a>
+                  <a href="javascript:void(0);" (click)="deleteFile(file)" class="text-danger">
+                    <i class="fa fa-trash"></i> Supprimer
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="filteredFiles.length === 0">
+            <td colspan="5" class="text-center text-muted py-4">
+              Aucun fichier trouvé
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <aside class="quick-access">
+      <h3>Accès rapide</h3>
+      <ul>
+        <li *ngFor="let item of quickAccessItems">
+          <span class="icon" [class]="item.icon"></span>
+          <span class="label">{{ item.label }}</span>
+          <span class="count">{{ item.fileCount | number }} fichiers</span>
+          <span class="size" [class]="item.color">{{ item.totalSize }} {{ getSizeUnit(item) }}</span>
+        </li>
+      </ul>
+    </aside>
+  </main>
+</div>
+
+<!-- Upload Progress Section -->
+<div class="upload-section" *ngIf="uploads.length > 0">
+  <h3>Fichiers en cours d'upload</h3>
+  <div *ngFor="let upload of uploads" class="upload-item">
+    <div class="file-info">
+      <i class="fa fa-file"></i>
+      <p>{{ upload.file.name }}</p>
+      <span class="size">({{ formatFileSize(upload.file.size) }})</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar" [style.width.%]="upload.progress"></div>
+    </div>
+    <p class="status" [class.success]="upload.status === 'Uploadé'">
+      {{ upload.progress.toFixed(0) }}% - {{ upload.status }}
+    </p>
+  </div>
+  <button (click)="uploadFiles()" class="btn btn-primary mt-3" [disabled]="uploads.some(u => u.progress > 0)">
+    Envoyer les fichiers
+  </button>
+</div>
+
+<!-- Preview Modal -->
+<div id="previewModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closePreviewModal()">&times;</span>
+    <h2>{{ selectedFile?.name }}</h2>
+    <div id="previewArea">Chargement...</div>
+    <div class="modal-actions mt-3">
+      <button class="btn btn-secondary" (click)="closePreviewModal()">Fermer</button>
+      <button class="btn btn-primary" (click)="downloadFile(selectedFile!)" *ngIf="selectedFile">
+        <i class="fa fa-download"></i> Télécharger
+      </button>
+    </div>
+  </div>
+</div>

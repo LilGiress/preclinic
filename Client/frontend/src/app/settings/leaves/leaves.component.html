@@ -267,7 +267,7 @@
               <div class="form-group">
                 <label>Type de congé <span class="text-danger">*</span></label>
                 <select class="select" formControlName="leaveType" name="leaveType" class="form-control"
-                  (change)="getLeavetypeSelected($event)">
+                  (change)="getLeavetypeSelectedUpdate($event)">
                   <option value="">Sélectionnez un type de congé</option>
                   <option *ngFor="let type of leaveTypes" [value]="type.id">{{ type.leaveType }}</option>
                 </select>
@@ -316,7 +316,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Nombre de jours <span class="text-danger">*</span></label>
-                    <input class="form-control" formControlName="numberOfDays" readonly="" type="text">
+                    <input class="form-control" formControlName="numberOfDays" [value]="leaveTypeSelectUpdate?.leaveDays || '' " readonly="" type="text">
                   </div>
                 </div>
                 <div class="col-md-6">

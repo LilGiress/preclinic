@@ -1,11 +1,11 @@
 <!-- Page Content -->
-<div class="content">
+<!-- <div class="content">
     <div class="container-fluid">
 
-        <div class="row">
+        <div class="row"> -->
 
             <!-- Profile Sidebar -->
-            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+            <!-- <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                 <div class="profile-sidebar">
                     <div class="widget-profile pro-widget-content">
                         <div class="profile-info-widget">
@@ -66,15 +66,15 @@
                     </div>
 
                 </div>
-            </div>
+            </div> -->
             <!-- / Profile Sidebar -->
 
-            <div class="col-md-7 col-lg-8 col-xl-9">
+            <!-- <div class="col-md-7 col-lg-8 col-xl-9">
                 <div class="card">
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-0"> -->
 
                         <!-- Tab Menu -->
-                        <nav class="users-tabs mb-4">
+                        <!-- <nav class="users-tabs mb-4">
                             <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
@@ -89,14 +89,14 @@
                                     <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> -->
                         <!-- /Tab Menu -->
 
                         <!-- Tab Content -->
-                        <div class="tab-content pt-0">
+                        <!-- <div class="tab-content pt-0"> -->
 
                             <!-- Appointment Tab -->
-                            <div id="pat_appointments" class="tab-pane fade show active">
+                            <!-- <div id="pat_appointments" class="tab-pane fade show active">
                                 <div class="card card-table mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -368,11 +368,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- /Appointment Tab -->
 
                             <!-- Prescription Tab -->
-                            <div class="tab-pane fade" id="pat_prescriptions">
+                            <!-- <div class="tab-pane fade" id="pat_prescriptions">
                                 <div class="card card-table mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -611,11 +611,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- /Prescription Tab -->
 
                             <!-- Medical Records Tab -->
-                            <div id="pat_medical_records" class="tab-pane fade">
+                            <!-- <div id="pat_medical_records" class="tab-pane fade">
                                 <div class="card card-table mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -876,11 +876,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- /Medical Records Tab -->
 
                             <!-- Billing Tab -->
-                            <div id="pat_billing" class="tab-pane fade">
+                            <!-- <div id="pat_billing" class="tab-pane fade">
                                 <div class="card card-table mb-0">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -1150,18 +1150,351 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- /Billing Tab -->
 
-                        </div>
+                        <!-- </div> -->
                         <!-- Tab Content -->
 
-                    </div>
+                    <!-- </div>
                 </div>
             </div>
         </div>
 
     </div>
+
+</div> -->
+<!-- /Page Content -->
+
+<!-- patient-dashboard.component.html -->
+<!-- Page Content -->
+<div class="content">
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <!-- Profile Sidebar -->
+      <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+        <div class="profile-sidebar">
+          <div class="widget-profile pro-widget-content">
+            <div class="profile-info-widget">
+              <a href="#" class="booking-doc-img">
+                <img [src]="patientInfo.avatar" alt="Patient Image">
+              </a>
+              <div class="profile-det-info">
+                <h3>{{ getFullName() }}</h3>
+                <div class="patient-details">
+                  <h5><i class="fas fa-birthday-cake"></i> {{ formatDate(patientInfo.dateOfBirth) }}, {{ getAge() }} years</h5>
+                  <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{ patientInfo.city }}, {{ patientInfo.country }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-widget">
+            <nav class="dashboard-menu">
+              <ul>
+                <li class="active">
+                  <a href="#">
+                    <i class="fas fa-columns"></i>
+                    <span>Dashboard</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Favourites</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-comments"></i>
+                    <span>Message</span>
+                    <small class="unread-msg">23</small>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Profile Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-lock"></i>
+                    <span>Change Password</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+      <!-- / Profile Sidebar -->
+
+      <div class="col-md-7 col-lg-8 col-xl-9">
+        <div class="card">
+          <div class="card-body pt-0">
+
+            <!-- Tab Menu -->
+            <nav class="users-tabs mb-4">
+              <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'appointments'}" 
+                    href="#pat_appointments" (click)="switchTab('appointments')">Appointments</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'prescriptions'}" 
+                    href="#pat_prescriptions" (click)="switchTab('prescriptions')">Prescriptions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'medical_records'}" 
+                    href="#pat_medical_records" (click)="switchTab('medical_records')"><span class="med-records">Medical Records</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'billing'}" 
+                    href="#pat_billing" (click)="switchTab('billing')">Billing</a>
+                </li>
+              </ul>
+            </nav>
+            <!-- /Tab Menu -->
+
+            <!-- Tab Content -->
+            <div class="tab-content pt-0">
+
+              <!-- Appointment Tab -->
+              <div *ngIf="activeTab === 'appointments'" class="tab-pane fade show active">
+                <div class="card card-table mb-0">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>Doctor</th>
+                            <th>Appt Date</th>
+                            <th>Booking Date</th>
+                            <th>Amount</th>
+                            <th>Follow Up</th>
+                            <th>Status</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let apt of appointments">
+                            <td>
+                              <h2 class="table-avatar">
+                                <a href="javascript:void(0);" class="avatar avatar-sm mr-2">
+                                  <img class="avatar-img rounded-circle" [src]="apt.doctorImage" alt="Doctor Image">
+                                </a>
+                                <a href="javascript:void(0);">{{ apt.doctorName }} <span>{{ apt.specialization }}</span></a>
+                              </h2>
+                            </td>
+                            <td>{{ formatDate(apt.appointmentDate) }} <span class="d-block text-info">{{ apt.appointmentTime }}</span></td>
+                            <td>{{ formatDate(apt.bookingDate) }}</td>
+                            <td>{{ formatCurrency(apt.amount) }}</td>
+                            <td>{{ formatDate(apt.followUpDate) }}</td>
+                            <td><span class="badge badge-pill" [ngClass]="getStatusBadgeClass(apt.status)">{{ apt.status }}</span></td>
+                            <td class="text-right">
+                              <div class="table-action">
+                                <a href="javascript:void(0);" (click)="viewAppointmentDetails(apt)" 
+                                  class="btn btn-sm bg-primary-light" title="View">
+                                  <i class="far fa-eye"></i>
+                                </a>
+                                <a href="javascript:void(0);" *ngIf="apt.status !== 'Cancelled'" 
+                                  (click)="rescheduleAppointment(apt)" class="btn btn-sm bg-info-light" title="Reschedule">
+                                  <i class="fas fa-calendar"></i>
+                                </a>
+                                <a href="javascript:void(0);" *ngIf="apt.status !== 'Cancelled'" 
+                                  (click)="cancelAppointment(apt)" class="btn btn-sm bg-danger-light" title="Cancel">
+                                  <i class="fas fa-times"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="appointments.length === 0">
+                            <td colspan="7" class="text-center text-muted py-4">No appointments found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Appointment Tab -->
+
+              <!-- Prescription Tab -->
+              <div *ngIf="activeTab === 'prescriptions'" class="tab-pane fade show active">
+                <div class="card card-table mb-0">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Created by</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let rx of prescriptions">
+                            <td>{{ formatDate(rx.date) }}</td>
+                            <td>{{ rx.name }}</td>
+                            <td>
+                              <h2 class="table-avatar">
+                                <a href="javascript:void(0);" class="avatar avatar-sm mr-2">
+                                  <img class="avatar-img rounded-circle" [src]="rx.doctorImage" alt="Doctor Image">
+                                </a>
+                                <a href="javascript:void(0);">{{ rx.doctorName }} <span>{{ rx.specialization }}</span></a>
+                              </h2>
+                            </td>
+                            <td class="text-right">
+                              <div class="table-action">
+                                <a href="javascript:void(0);" (click)="viewPrescriptionDetails(rx)" 
+                                  class="btn btn-sm bg-primary-light" title="View">
+                                  <i class="far fa-eye"></i>
+                                </a>
+                                <a href="javascript:void(0);" (click)="downloadPrescription(rx)" 
+                                  class="btn btn-sm bg-info-light" title="Download">
+                                  <i class="fas fa-download"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="prescriptions.length === 0">
+                            <td colspan="4" class="text-center text-muted py-4">No prescriptions found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Prescription Tab -->
+
+              <!-- Medical Records Tab -->
+              <div *ngIf="activeTab === 'medical_records'" class="tab-pane fade show active">
+                <div class="card card-table mb-0">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Attachment</th>
+                            <th>Created</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let record of medicalRecords">
+                            <td><a href="javascript:void(0);">{{ record.id }}</a></td>
+                            <td>{{ formatDate(record.date) }}</td>
+                            <td>{{ record.description }}</td>
+                            <td><a href="javascript:void(0);">{{ record.attachment }}</a></td>
+                            <td>
+                              <h2 class="table-avatar">
+                                <a href="javascript:void(0);" class="avatar avatar-sm mr-2">
+                                  <img class="avatar-img rounded-circle" [src]="record.doctorImage" alt="Doctor Image">
+                                </a>
+                                <a href="javascript:void(0);">{{ record.createdBy }} <span>{{ record.specialization }}</span></a>
+                              </h2>
+                            </td>
+                            <td class="text-right">
+                              <div class="table-action">
+                                <a href="javascript:void(0);" (click)="viewMedicalRecord(record)" 
+                                  class="btn btn-sm bg-primary-light" title="View">
+                                  <i class="far fa-eye"></i>
+                                </a>
+                                <a href="javascript:void(0);" (click)="downloadMedicalRecord(record)" 
+                                  class="btn btn-sm bg-info-light" title="Download">
+                                  <i class="fas fa-download"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="medicalRecords.length === 0">
+                            <td colspan="6" class="text-center text-muted py-4">No medical records found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Medical Records Tab -->
+
+              <!-- Billing Tab -->
+              <div *ngIf="activeTab === 'billing'" class="tab-pane fade show active">
+                <div class="card card-table mb-0">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-center mb-0">
+                        <thead>
+                          <tr>
+                            <th>Invoice No</th>
+                            <th>Doctor</th>
+                            <th>Amount</th>
+                            <th>Paid On</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let invoice of invoices">
+                            <td>
+                              <a href="javascript:void(0);">{{ invoice.id }}</a>
+                            </td>
+                            <td>
+                              <h2 class="table-avatar">
+                                <a href="javascript:void(0);" class="avatar avatar-sm mr-2">
+                                  <img class="avatar-img rounded-circle" [src]="invoice.doctorImage" alt="Doctor Image">
+                                </a>
+                                <a href="javascript:void(0);">{{ invoice.doctorName }} <span>{{ invoice.specialization }}</span></a>
+                              </h2>
+                            </td>
+                            <td>{{ formatCurrency(invoice.amount) }}</td>
+                            <td>{{ formatDate(invoice.paidOn) }}</td>
+                            <td class="text-right">
+                              <div class="table-action">
+                                <a href="javascript:void(0);" (click)="viewInvoice(invoice)" 
+                                  class="btn btn-sm bg-primary-light" title="View">
+                                  <i class="far fa-eye"></i>
+                                </a>
+                                <a href="javascript:void(0);" (click)="downloadInvoice(invoice)" 
+                                  class="btn btn-sm bg-info-light" title="Download">
+                                  <i class="fas fa-download"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="invoices.length === 0">
+                            <td colspan="5" class="text-center text-muted py-4">No invoices found</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Billing Tab -->
+
+            </div>
+            <!-- Tab Content -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 </div>
 <!-- /Page Content -->

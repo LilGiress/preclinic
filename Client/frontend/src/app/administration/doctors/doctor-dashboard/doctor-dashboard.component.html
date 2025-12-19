@@ -1,12 +1,12 @@
 	<!-- Page Content -->
-    <div class="content">
+    <!-- <div class="content">
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar"> -->
 
                     <!-- Profile Sidebar -->
-                    <div class="profile-sidebar">
+                    <!-- <div class="profile-sidebar">
                         <div class="widget-profile pro-widget-content">
                             <div class="profile-info-widget">
                                 <a href="#" class="booking-doc-img">
@@ -94,10 +94,10 @@
                                 </ul>
                             </nav>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- /Profile Sidebar -->
 
-                </div>
+                <!-- </div>
 
                 <div class="col-md-7 col-lg-8 col-xl-9">
 
@@ -162,20 +162,20 @@
                             <div class="appointment-tab">
 
                                 <!-- Appointment Tab -->
-                                <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                <!-- <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#today-appointments" data-toggle="tab">Today</a>
                                     </li>
-                                </ul>
+                                </ul> -->
                                 <!-- /Appointment Tab -->
 
-                                <div class="tab-content">
+                                <!-- <div class="tab-content"> -->
 
                                     <!-- Upcoming Appointment Tab -->
-                                    <div class="tab-pane show active" id="upcoming-appointments">
+                                    <!-- <div class="tab-pane show active" id="upcoming-appointments">
                                         <div class="card card-table mb-0">
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -352,11 +352,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /Upcoming Appointment Tab -->
 
                                     <!-- Today Appointment Tab -->
-                                    <div class="tab-pane" id="today-appointments">
+                                    <!-- <div class="tab-pane" id="today-appointments">
                                         <div class="card card-table mb-0">
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -533,10 +533,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /Today Appointment Tab -->
 
-                                </div>
+                                <!-- </div>
                             </div>
                         </div>
                     </div>
@@ -544,7 +544,280 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
-    </div>
+    <!-- </div>  -->
     <!-- /Page Content -->
+
+
+    <!-- doctor-dashboard.component.html -->
+<!-- Page Content -->
+<div class="content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+        <!-- Profile Sidebar -->
+        <div class="profile-sidebar">
+          <div class="widget-profile pro-widget-content">
+            <div class="profile-info-widget">
+              <a href="#" class="booking-doc-img">
+                <img [src]="doctorImage" alt="Doctor Image">
+              </a>
+              <div class="profile-det-info">
+                <h3>{{ doctorName }}</h3>
+                <div class="patient-details">
+                  <h5 class="mb-0">{{ doctorSpecialization }}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-widget">
+            <nav class="dashboard-menu">
+              <ul>
+                <li class="active">
+                  <a href="#">
+                    <i class="fas fa-columns"></i>
+                    <span>Dashboard</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Appointments</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-users-injured"></i>
+                    <span>My Patients</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-hourglass-start"></i>
+                    <span>Schedule Timings</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Invoices</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-star"></i>
+                    <span>Reviews</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-comments"></i>
+                    <span>Message</span>
+                    <small class="unread-msg">23</small>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Profile Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Social Media</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-lock"></i>
+                    <span>Change Password</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /Profile Sidebar -->
+
+      </div>
+
+      <div class="col-md-7 col-lg-8 col-xl-9">
+
+        <!-- Dashboard Stats -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card dash-card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-4">
+                    <div class="dash-widget dct-border-rht">
+                      <div class="circle-bar circle-bar1">
+                        <div class="circle-graph1" [attr.data-percent]="75">
+                          <img src="assets/img/icon-01.png" class="img-fluid" alt="patient">
+                        </div>
+                      </div>
+                      <div class="dash-widget-info">
+                        <h6>Total Patient</h6>
+                        <h3>{{ stats.totalPatients }}</h3>
+                        <p class="text-muted">Till Today</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4">
+                    <div class="dash-widget dct-border-rht">
+                      <div class="circle-bar circle-bar2">
+                        <div class="circle-graph2" [attr.data-percent]="65">
+                          <img src="assets/img/icon-02.png" class="img-fluid" alt="Patient">
+                        </div>
+                      </div>
+                      <div class="dash-widget-info">
+                        <h6>Today Patient</h6>
+                        <h3>{{ stats.todayPatients }}</h3>
+                        <p class="text-muted">{{ formatDate(currentDate) }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 col-lg-4">
+                    <div class="dash-widget">
+                      <div class="circle-bar circle-bar3">
+                        <div class="circle-graph3" [attr.data-percent]="50">
+                          <img src="assets/img/icon-03.png" class="img-fluid" alt="Patient">
+                        </div>
+                      </div>
+                      <div class="dash-widget-info">
+                        <h6>Appointments</h6>
+                        <h3>{{ stats.appointments }}</h3>
+                        <p class="text-muted">06, Apr 2024</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Dashboard Stats -->
+
+        <!-- Appointments Section -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4 class="mb-0">Patient Appointment</h4>
+              <button class="btn btn-sm btn-primary" (click)="refreshData()">
+                <i class="fas fa-sync"></i> Refresh
+              </button>
+            </div>
+            <div class="appointment-tab">
+
+              <!-- Appointment Tab -->
+              <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'upcoming'}" 
+                    href="#upcoming-appointments" (click)="switchTab('upcoming')">Upcoming</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active': activeTab === 'today'}" 
+                    href="#today-appointments" (click)="switchTab('today')">Today</a>
+                </li>
+              </ul>
+              <!-- /Appointment Tab -->
+
+              <div class="tab-content">
+
+                <!-- Appointments Table -->
+                <div class="tab-pane show active">
+                  <div class="card card-table mb-0">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0">
+                          <thead>
+                            <tr>
+                              <th>Patient Name</th>
+                              <th>Appt Date</th>
+                              <th>Purpose</th>
+                              <th>Type</th>
+                              <th class="text-center">Paid Amount</th>
+                              <th>Status</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let appointment of getAppointmentList()">
+                              <td>
+                                <h2 class="table-avatar">
+                                  <a href="#" class="avatar avatar-sm mr-2">
+                                    <img class="avatar-img rounded-circle" [src]="appointment.patientImage" alt="User Image">
+                                  </a>
+                                  <a href="#">{{ appointment.patientName }} <span>{{ appointment.patientCode }}</span></a>
+                                </h2>
+                              </td>
+                              <td>
+                                {{ formatDate(appointment.appointmentDate) }}
+                                <span class="d-block text-info">{{ appointment.appointmentTime }}</span>
+                              </td>
+                              <td>{{ appointment.purpose }}</td>
+                              <td>{{ appointment.type }}</td>
+                              <td class="text-center">{{ formatCurrency(appointment.paidAmount) }}</td>
+                              <td>
+                                <span [ngClass]="'badge ' + getStatusBadgeClass(appointment.status)">
+                                  {{ appointment.status }}
+                                </span>
+                              </td>
+                              <td class="text-right">
+                                <div class="table-action">
+                                  <button (click)="viewAppointment(appointment)" class="btn btn-sm bg-info-light" title="View">
+                                    <i class="far fa-eye"></i> View
+                                  </button>
+
+                                  <button *ngIf="appointment.status !== 'Accepted'" 
+                                    (click)="acceptAppointment(appointment)" 
+                                    class="btn btn-sm bg-success-light" title="Accept">
+                                    <i class="fas fa-check"></i> Accept
+                                  </button>
+                                  
+                                  <button *ngIf="appointment.status !== 'Cancelled'" 
+                                    (click)="cancelAppointment(appointment)" 
+                                    class="btn btn-sm bg-danger-light" title="Cancel">
+                                    <i class="fas fa-times"></i> Cancel
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr *ngIf="getAppointmentList().length === 0">
+                              <td colspan="7" class="text-center text-muted py-4">
+                                No appointments available
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Appointments Table -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Appointments Section -->
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- /Page Content -->

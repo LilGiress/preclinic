@@ -1,4 +1,4 @@
- <div class="page-wrapper">
+ <!-- <div class="page-wrapper">
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
@@ -46,10 +46,10 @@
                 </div>
             </div>
             
-        </div>
+        </div> -->
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -133,6 +133,315 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary submit-btn">Create Schedule</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- doctor-schedule.component.html -->
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-4 col-3">
+        <h4 class="page-title">Schedule</h4>
+      </div>
+      <div class="col-sm-8 col-9 text-right m-b-20">
+        <button type="button" class="btn btn-primary btn-rounded float-right" (click)="openCreateModal()">
+          <i class="fa fa-plus"></i> Add Schedule
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-border table-striped custom-table mb-0">
+            <thead>
+              <tr>
+                <th>Doctor Name</th>
+                <th>Department</th>
+                <th>Available Days</th>
+                <th>Available Time</th>
+                <th>Status</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let schedule of schedules">
+                <td><img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> {{ schedule.doctorName }}</td>
+                <td>{{ schedule.departmentName }}</td>
+                <td>{{ getAvailableDaysDisplay(schedule.availableDays!) }}</td>
+                <td>{{ formatTime(schedule.startTime!) }} - {{ formatTime(schedule.endTime!) }}</td>
+                <td>
+                  <span [ngClass]="schedule.status === 'Active' ? 'custom-badge status-green' : 'custom-badge status-red'">
+                    {{ schedule.status }}
+                  </span>
+                </td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="openUpdateModal(schedule)">
+                        <i class="fa fa-pencil m-r-5"></i> Edit
+                      </a>
+                      <a class="dropdown-item" href="javascript:void(0);" (click)="openDeleteModal(schedule)">
+                        <i class="fa fa-trash-o m-r-5"></i> Delete
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Schedule Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Schedule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <form [formGroup]="scheduleForm" (ngSubmit)="createSchedule()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Doctor Name <span class="text-danger">*</span></label>
+                    <select class="form-control" formControlName="doctorId" [ngClass]="{'is-invalid': submitted && f['doctorId'].errors}">
+                      <option value="">Select Doctor</option>
+                      <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }}</option>
+                    </select>
+                    <div *ngIf="submitted && f['doctorId'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="f['doctorId'].errors['required']">Doctor is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Department <span class="text-danger">*</span></label>
+                    <select class="form-control" formControlName="departmentId" [ngClass]="{'is-invalid': submitted && f['departmentId'].errors}">
+                      <option value="">Select Department</option>
+                      <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+                    </select>
+                    <div *ngIf="submitted && f['departmentId'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="f['departmentId'].errors['required']">Department is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Available Days <span class="text-danger">*</span></label>
+                <div class="days-selection">
+                  <div *ngFor="let day of days" class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" [id]="'day_' + day" 
+                      [checked]="isDaySelected(day, 'create')" 
+                      (change)="toggleDay(day, 'create')">
+                    <label class="form-check-label" [for]="'day_' + day">
+                      {{ day }}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f['availableDays'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="f['availableDays'].errors['daysRequired']">Please select at least one day</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Start Time <span class="text-danger">*</span></label>
+                    <input type="time" class="form-control" formControlName="startTime" [ngClass]="{'is-invalid': submitted && f['startTime'].errors}">
+                    <div *ngIf="submitted && f['startTime'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="f['startTime'].errors['required']">Start time is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>End Time <span class="text-danger">*</span></label>
+                    <input type="time" class="form-control" formControlName="endTime" [ngClass]="{'is-invalid': submitted && (f['endTime'].errors || scheduleForm.hasError('invalidTimeRange'))}">
+                    <div *ngIf="submitted && (f['endTime'].errors || scheduleForm.hasError('invalidTimeRange'))" class="invalid-feedback d-block">
+                      <div *ngIf="f['endTime'].errors!['required']">End time is required</div>
+                      <div *ngIf="scheduleForm.hasError('invalidTimeRange')">End time must be after start time</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Message</label>
+                <textarea cols="30" rows="4" class="form-control" formControlName="message"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="display-block">Schedule Status <span class="text-danger">*</span></label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="status" id="product_active" value="Active" formControlName="status">
+                  <label class="form-check-label" for="product_active">
+                    Active
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="status" id="product_inactive" value="Inactive" formControlName="status">
+                  <label class="form-check-label" for="product_inactive">
+                    Inactive
+                  </label>
+                </div>
+              </div>
+
+              <div class="m-t-20 text-center">
+                <button type="submit" class="btn btn-primary submit-btn">Create Schedule</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Schedule Modal -->
+<div class="modal fade" id="updateScheduleModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Schedule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <form [formGroup]="updateForm" (ngSubmit)="updateSchedule()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Doctor Name <span class="text-danger">*</span></label>
+                    <select class="form-control" formControlName="doctorId" [ngClass]="{'is-invalid': updateSubmitted && uf['doctorId'].errors}">
+                      <option value="">Select Doctor</option>
+                      <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }}</option>
+                    </select>
+                    <div *ngIf="updateSubmitted && uf['doctorId'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="uf['doctorId'].errors['required']">Doctor is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Department <span class="text-danger">*</span></label>
+                    <select class="form-control" formControlName="departmentId" [ngClass]="{'is-invalid': updateSubmitted && uf['departmentId'].errors}">
+                      <option value="">Select Department</option>
+                      <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+                    </select>
+                    <div *ngIf="updateSubmitted && uf['departmentId'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="uf['departmentId'].errors['required']">Department is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Available Days <span class="text-danger">*</span></label>
+                <div class="days-selection">
+                  <div *ngFor="let day of days" class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" [id]="'update_day_' + day" 
+                      [checked]="isDaySelected(day, 'update')" 
+                      (change)="toggleDay(day, 'update')">
+                    <label class="form-check-label" [for]="'update_day_' + day">
+                      {{ day }}
+                    </label>
+                  </div>
+                </div>
+                <div *ngIf="updateSubmitted && uf['availableDays'].errors" class="invalid-feedback d-block">
+                  <div *ngIf="uf['availableDays'].errors['daysRequired']">Please select at least one day</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Start Time <span class="text-danger">*</span></label>
+                    <input type="time" class="form-control" formControlName="startTime" [ngClass]="{'is-invalid': updateSubmitted && uf['startTime'].errors}">
+                    <div *ngIf="updateSubmitted && uf['startTime'].errors" class="invalid-feedback d-block">
+                      <div *ngIf="uf['startTime'].errors['required']">Start time is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>End Time <span class="text-danger">*</span></label>
+                    <input type="time" class="form-control" formControlName="endTime" [ngClass]="{'is-invalid': updateSubmitted && (uf['endTime'].errors || updateForm.hasError('invalidTimeRange'))}">
+                    <div *ngIf="updateSubmitted && (uf['endTime'].errors || updateForm.hasError('invalidTimeRange'))" class="invalid-feedback d-block">
+                      <div *ngIf="uf['endTime'].errors!['required']">End time is required</div>
+                      <div *ngIf="updateForm.hasError('invalidTimeRange')">End time must be after start time</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Message</label>
+                <textarea cols="30" rows="4" class="form-control" formControlName="message"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="display-block">Schedule Status <span class="text-danger">*</span></label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="update_status" id="update_status_active" value="Active" formControlName="status">
+                  <label class="form-check-label" for="update_status_active">
+                    Active
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="update_status" id="update_status_inactive" value="Inactive" formControlName="status">
+                  <label class="form-check-label" for="update_status_inactive">
+                    Inactive
+                  </label>
+                </div>
+              </div>
+
+              <div class="m-t-20 text-center">
+                <button type="submit" class="btn btn-primary submit-btn">Update Schedule</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteScheduleModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Schedule</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete the schedule for <strong>{{ selectedSchedule?.doctorName }}</strong>?</p>
+        <p class="text-muted">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSchedule(selectedSchedule?.id)" data-dismiss="modal">Delete</button>
       </div>
     </div>
   </div>
