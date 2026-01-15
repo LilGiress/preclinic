@@ -6,7 +6,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { HttpClient } from '@angular/common/http';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { IEvent } from '../../models/event';
 
 

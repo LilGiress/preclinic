@@ -2,7 +2,7 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../../../models/appointement/appointment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../../shared/service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 
 
 interface DoctorStats {

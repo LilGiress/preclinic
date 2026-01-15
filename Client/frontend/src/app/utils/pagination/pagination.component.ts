@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { PaginationService } from '../../shared/service/pagination.service';
+import { PaginationService } from '../../services/pagination.service';
 import { PaginationState } from '../../models/pagination/pagination-state';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 import { SuccessModalComponent } from "../success-modal/success-modal.component";
 import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 import { WarningModalComponent } from "../warning-modal/warning-modal.component";

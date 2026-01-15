@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { HttpClient } from '@angular/common/http';
 import { BasePagination } from '../../utils/Base-pagination';
-import { PaginationService } from '../../shared/service/pagination.service';
+import { PaginationService } from '../../services/pagination.service';
 import { DateService } from '../../utils/date.service';
 
 @Component({

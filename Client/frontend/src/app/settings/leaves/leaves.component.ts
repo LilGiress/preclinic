@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {LeaveService} from "../../services/leave.service";
-import {ModalService} from "../../shared/service/modal.service";
+import {ModalService} from "../../services/modal.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Leave} from "../../models/leaves";
@@ -44,7 +44,7 @@ export class LeavesComponent implements OnInit {
   leaveTypeSelect?:LeaveType={};
   leaveTypeSelectUpdate?:LeaveType={};
    minDate!: string;
-    selectedOption: any = '';
+  selectedOption: any = '';
  filterForm: FormGroup ;
   leaveList: Leave[] = [];
   leaveStatusList: string[] = []; // Liste des statuts de congé
@@ -271,8 +271,8 @@ updateLeavesForm: FormGroup;
         error: (err: any) => {
           this.submitted = false;
           this.spinner.hide();
-          this.message = err.error.error;
-          this.modalService.openWarning(this.message, 'Échec');
+          //this.message = err.error.error;
+         // this.modalService.openWarning(this.message, 'Échec');
         },
       }
     )

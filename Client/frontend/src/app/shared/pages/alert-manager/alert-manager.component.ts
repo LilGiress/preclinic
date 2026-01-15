@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertManagerService} from "../../service/alert-manager.service";
+import {AlertManagerService} from "../../../services/alert-manager.service";
 import { CommonModule } from '@angular/common';
 
 @Component({

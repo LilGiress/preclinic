@@ -227,7 +227,7 @@
       {{ upload.progress.toFixed(0) }}% - {{ upload.status }}
     </p>
   </div>
-  <button (click)="uploadFiles()" class="btn btn-primary mt-3" [disabled]="uploads.some(u => u.progress > 0)">
+  <button (click)="uploadFiles()" class="btn btn-primary mt-3" [disabled]="hasUploadInProgress()">
     Envoyer les fichiers
   </button>
 </div>

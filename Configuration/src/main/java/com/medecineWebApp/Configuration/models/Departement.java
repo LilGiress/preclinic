@@ -25,7 +25,6 @@ public class Departement extends Auditable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
-    @JsonProperty("nom")
     private String name;
     private String description;
     @Enumerated(EnumType.STRING)

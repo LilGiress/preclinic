@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { PaginationConfig } from '../../models/pagination/pagination-config';
-import { PaginationState } from '../../models/pagination/pagination-state';
+import { PaginationConfig } from '../models/pagination/pagination-config';
+import { PaginationState } from '../models/pagination/pagination-state';
 
 @Injectable({
   providedIn: 'root'

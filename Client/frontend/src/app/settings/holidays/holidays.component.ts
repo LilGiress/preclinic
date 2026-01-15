@@ -3,7 +3,7 @@ import { Holiday } from '../../models/holidays';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HolidayService } from '../../services/holiday.service';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any; // For jQuery
 @Component({

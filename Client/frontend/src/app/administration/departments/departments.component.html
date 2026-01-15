@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-7 col-7 text-right m-b-30">
                 <a href="javascript:void(0);" class="btn btn-primary btn-rounded" data-toggle="modal"
-                    data-target="#exampleModal"><i class="fa fa-plus"></i> Add Department</a>
+                    data-target="#exampleModal"><i class="fa fa-plus"></i> Ajouter un département</a>
             </div>
         </div>
         <div class="row">
@@ -15,8 +15,9 @@
                     <table class="table table-striped custom-table mb-0 datatable">
                         <thead>
                             <tr>
-                                <th>Department Name</th>
-                                <th>Department Description</th>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Service</th>
                                 <th>Status</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -61,7 +62,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un département</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,34 +70,44 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form>
+                        <form [formGroup]="departmentForm">
                             <div class="form-group">
-                                <label>Department Name</label>
+                                <label>Nom du département</label>
                                 <input class="form-control" type="text">
+                                <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger mt-1">
+                                    <div *ngIf="f['name'].errors?.['required']">Le nom du département est requis.</div>
+
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea cols="30" rows="4" class="form-control"></textarea>
+                                <div *ngIf="f['description'].touched && f['description'].invalid"
+                                    class="text-danger mt-1">
+                                    <div *ngIf="f['description'].errors?.['required']">La description est requis.
+                                    </div>
+
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="display-block">Department Status</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="product_active"
-                                        value="option1" checked>
-                                    <label class="form-check-label" for="product_active">
-                                        Active
-                                    </label>
+
+                                <label class="display-block">Services </label>
+                                <select class=" form-control" formControlName="service">
+                                    <option [value]="">-- Select -- </option>
+                                    <option *ngFor="let serv of services" [value]="serv.id">{{ serv.name }}</option>
+                                </select>
+                                <div *ngIf="f['service'].touched && f['service'].invalid" class="text-danger mt-1">
+                                    <div *ngIf="f['service'].errors?.['required']">Le service est requis.
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="product_inactive"
-                                        value="option2">
-                                    <label class="form-check-label" for="product_inactive">
-                                        Inactive
-                                    </label>
-                                </div>
+
                             </div>
+
                             <div class="m-t-20 text-center">
-                                <button class="btn btn-primary submit-btn">Create Department</button>
+                                <button class="btn btn-primary submit-btn"
+                                    [disabled]="departmentForm.invalid"
+                                    (click)="save()"
+                                    >Enregistrer</button>
                             </div>
                         </form>
                     </div>

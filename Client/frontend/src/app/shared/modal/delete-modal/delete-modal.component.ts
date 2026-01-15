@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ModalService} from "../../service/modal.service";
+import {ModalService} from "../../../services/modal.service";
 import {Observable} from "rxjs";
 
 @Component({

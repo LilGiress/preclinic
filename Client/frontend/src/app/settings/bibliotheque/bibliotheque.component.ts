@@ -2,7 +2,7 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UploadFile } from '../../models/file';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 declare var $: any;
@@ -567,7 +567,7 @@ constructor(private http: HttpClient,
     return iconMap[type] || 'fa-file';
   }
 
-  private formatFileSize(bytes: number): string {
+  public formatFileSize(bytes: number): string {
     if (bytes === 0) return '0 B';
     const k = 1024;
     const sizes = ['B', 'Ko', 'Mo', 'Go', 'To'];
@@ -593,6 +593,14 @@ constructor(private http: HttpClient,
   getSizeValue(item: QuickAccessItem): number {
     return item.totalSize >= 1 ? item.totalSize : item.totalSize * 1000;
   }
+
+  public hasUploadInProgress(): boolean {
+  if (!this.uploads || this.uploads.length === 0) {
+    return false;
+  }
+  return this.uploads.some(u => u.progress > 0);
+}
+
 }
 
 

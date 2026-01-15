@@ -6,7 +6,7 @@ import { TokenService } from "../../../services/token/token.service";
 import { Router, RouterModule } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 import { User } from '../../../models/user';
 import { AuthenticationRequest } from '../../../models/playload/authentication-request';
 

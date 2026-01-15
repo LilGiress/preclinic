@@ -4,7 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 import { ResetPasswordRequest } from '../../../models/playload/resetPasswordRequest';
 
 

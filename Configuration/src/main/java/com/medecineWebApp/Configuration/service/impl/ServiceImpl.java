@@ -10,6 +10,7 @@ import com.medecineWebApp.Configuration.models.Services;
 import com.medecineWebApp.Configuration.repository.departement.DepartmentRepository;
 import com.medecineWebApp.Configuration.repository.service.ServiceRepository;
 import com.medecineWebApp.Configuration.service.ServiceService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ServiceImpl implements ServiceService {
     private final ServiceRepository serviceRepository;
     private final ServiceMapper serviceMapper;
@@ -43,6 +45,8 @@ public class ServiceImpl implements ServiceService {
         if (serviceOptional.isPresent()) {
             Services serviceToUpdate = serviceOptional.get();
             serviceToUpdate.setName(service.getName());
+            serviceToUpdate.setDepartement(service.getDepartement());
+            serviceToUpdate.setDescription(service.getDescription());
 
             return serviceMapper.serviceToServiceDTO(serviceRepository.save(serviceToUpdate));
         }

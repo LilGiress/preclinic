@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { Appointment } from '../../models/appointement/appointment';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 declare var $: any;

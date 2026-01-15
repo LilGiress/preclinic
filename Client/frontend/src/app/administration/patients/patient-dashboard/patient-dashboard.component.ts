@@ -1,7 +1,7 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../../shared/service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 declare var $: any;
 interface PatientInfo {
   id?: number;

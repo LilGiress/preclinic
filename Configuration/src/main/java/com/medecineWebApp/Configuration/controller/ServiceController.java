@@ -26,13 +26,13 @@ public class ServiceController {
     @GetMapping("/all")
     public ResponseEntity<Page<ServicesDTO>> getAllServices(
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size",defaultValue = "10") int size
+            @RequestParam(name = "size",defaultValue = "1000000") int size
     ) {
         return ResponseEntity.ok(serviceService.getAllServices(page, size));
     }
 
-    @GetMapping("/service")
-    public ResponseEntity<ServicesDTO> getServiceById(@RequestParam(name = "id") Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ServicesDTO> getServiceById(@PathVariable Long id) {
         return ResponseEntity.ok(serviceService.getService(id));
 
     }
@@ -43,17 +43,17 @@ public class ServiceController {
 
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ServicesDTO> updateService(
-            @RequestParam Long id,
+            @PathVariable Long id,
             @RequestBody Services services
     ){
         return ResponseEntity.ok(serviceService.updateService(id, services));
 
     }
 
-    @DeleteMapping("/delete")
-    public void deleteServiceById(@RequestParam(name = "id") Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteServiceById(@PathVariable Long id) {
         serviceService.deleteService(id);
     }
 

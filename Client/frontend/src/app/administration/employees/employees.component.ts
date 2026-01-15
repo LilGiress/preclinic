@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { IUser } from '../../models/user';
 import { EmployeService } from '../../services/Employe/employe.service';

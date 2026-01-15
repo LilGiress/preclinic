@@ -4,7 +4,7 @@ import {AuthService} from "../../../services/auth/auth.service";
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 import { IDepartement } from '../../../models/departments';
 import { RolesService } from '../../../services/roles.service';
 import { DepartementService } from '../../../services/department/departement.service';

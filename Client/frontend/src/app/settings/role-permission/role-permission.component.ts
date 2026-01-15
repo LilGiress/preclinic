@@ -3,7 +3,7 @@ import { RolesService } from '../../services/roles.service';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { Role } from '../../models/role';
 import { AuthorityDataService } from '../../services/AuthorityData/authority-data.service';
 import { Action,Permission, SubModulePermission } from '../../models/group-attributio-permission';

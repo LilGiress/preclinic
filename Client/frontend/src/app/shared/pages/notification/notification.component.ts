@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NotificationService,Notification} from "../../service/notification.service";
+import {NotificationService,Notification} from "../../../services/notification.service";
 import {DatePipe} from "@angular/common";
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalService } from '../../shared/service/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DoctorSchedule } from '../../models/doctors/doctorSchedule';
 import { CommonModule } from '@angular/common';

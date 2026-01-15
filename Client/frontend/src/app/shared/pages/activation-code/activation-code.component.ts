@@ -4,7 +4,7 @@ import {AuthService} from "../../../services/auth/auth.service";
 import {Router, RouterModule} from "@angular/router";
 import {CodeInputModule} from "angular-code-input";
 import { CommonModule } from '@angular/common';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
     selector: 'app-activation-code',

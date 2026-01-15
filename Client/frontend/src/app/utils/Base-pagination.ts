@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
-import { PaginationService } from "../shared/service/pagination.service";
+import { PaginationService } from "../services/pagination.service";
 
 
 @Injectable({

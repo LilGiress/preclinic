@@ -1,12 +1,14 @@
 package com.medecineWebApp.Configuration.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
 
 @Entity
 @Setter
@@ -14,11 +16,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "services")
-public class Services {
+@EntityListeners({AuditingEntityListener.class,AuditLogListener.class})
+public class Services extends Auditable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty("nom")
+    @Column(nullable = false)
+   // @JsonProperty("nom")
     private String name;
     private String description;
     private Long medicalRecordId;

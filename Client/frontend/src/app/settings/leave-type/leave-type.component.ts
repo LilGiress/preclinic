@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ModalService} from "../../shared/service/modal.service";
+import {ModalService} from "../../services/modal.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";

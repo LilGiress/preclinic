@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import { Validators, FormBuilder, AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ModalService } from '../../service/modal.service';
+import { ModalService } from '../../../services/modal.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordRequest } from '../../../models/playload/forgotPasswordRequest';
